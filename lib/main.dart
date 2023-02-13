@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'features/Home/presintation/page/HomePage.dart';
-import 'features/introdection/presintation/page/introdectionPage.dart';
+import 'features/introdection/presintation/page/introduction_screen.dart';
+import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
     [
-
-      DeviceOrientation.landscapeLeft,
+     DeviceOrientation.landscapeLeft,
       //DeviceOrientation.landscapeRight,
     ]
   );
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: introduction_screen(),
     );
   }
 }
