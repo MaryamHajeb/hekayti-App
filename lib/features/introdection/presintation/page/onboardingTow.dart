@@ -60,33 +60,46 @@ ScreenUtil screenUtil=ScreenUtil();
                                       borderRadius: BorderRadius.circular(10)
 
                                   ),
-                                  margin: EdgeInsets.only(top: 20, left: 50, right: 50),
+                                  margin: EdgeInsets.only(bottom: 30,top: 0, left: 50, right: 50),
                                   child: Center(child: Text('=7*8+5-6*3',style: AppTheme.textTheme.bodyLarge,textDirection: TextDirection.rtl,))),
-                              Container(
-                                  height: screenUtil.screenHeight *.1,
-                                  width: screenUtil.screenWidth *.2,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
-                                      color: AppTheme.primarySwatch.shade200,
-                                      borderRadius: BorderRadius.circular(10)
+                              Row(children: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('تم',style: TextStyle(fontWeight: FontWeight.bold)),
 
-                                  ),
-                                  margin: EdgeInsets.only(top: 20, left: 50, right: 50),
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    style: AppTheme.textTheme.headline6,
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    decoration: InputDecoration(
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                      ),
+                                  style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
+                                ),
+                                Container(
+                                    height: screenUtil.screenHeight *.1,
+                                    width: screenUtil.screenWidth *.2,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
+                                        color: AppTheme.primarySwatch.shade200,
+                                        borderRadius: BorderRadius.circular(10)
+
                                     ),
-                                    cursorColor: AppTheme.primaryColor,
-                                  )),
+                                    margin: EdgeInsets.only(top: 5, left: 0, right: 30),
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      style: AppTheme.textTheme.headline6,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
+                                      decoration: InputDecoration(
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                      ),
+                                      cursorColor: AppTheme.primaryColor,
+                                    )),
+
+
+                              ],)
+
+
+
                             ],),
                             Image.asset('images/girl1.png'),
 

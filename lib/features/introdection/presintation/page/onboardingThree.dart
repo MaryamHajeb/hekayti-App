@@ -33,6 +33,7 @@ ScreenUtil screenUtil=ScreenUtil();
                 ),
                 child: Container(
                   margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.only(bottom: 50),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -40,26 +41,55 @@ ScreenUtil screenUtil=ScreenUtil();
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(height: 15,),
+
                       CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
                        Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                          Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                      Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.bodySmall ),
 
-                            // SvgPicture.asset(
-                            //   allowDrawingOutsideViewBox: true,
-                            //   'images/characters/boy1-3.svg',
-                            //
-                            // ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('images/boy1.png'),
+                          Column(children: [
+
+                            Container(
+
+                                height: screenUtil.screenHeight *.1,
+                                width: screenUtil.screenWidth *.3,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
+                                    color: AppTheme.primarySwatch.shade200,
+                                    borderRadius: BorderRadius.circular(10)
+
+                                ),
+                                margin: EdgeInsets.only(top: 20, left: 50, right: 50),
+                                child: TextField(
+                                  keyboardType: TextInputType.text,
+                                  style: AppTheme.textTheme.headline6,
+                                  textAlign: TextAlign.center,
+                                  textDirection: TextDirection.rtl,
+                                  decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.transparent),
+                                    ),
+                                  ),
+                                  cursorColor: AppTheme.primaryColor,
+                                )
+
+                            ),
 
                           ],),
+                          Image.asset('images/girl1.png'),
 
-                      Text('مرحبا بك.',style:AppTheme.textTheme.bodySmall ),
-                      Text('في تطبيق حكايتي',style:AppTheme.textTheme.headline5 ),
+
+                        ],),
+
 
                     ],
                   ),

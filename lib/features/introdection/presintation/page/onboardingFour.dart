@@ -18,12 +18,12 @@ ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
-            Directionality(
+      Directionality(
         textDirection: TextDirection.rtl,
         child: Center(
             child: Container(
-                height:  screenUtil.screenHeight * .9,
-                width:screenUtil.screenWidth *.8,
+              height:  screenUtil.screenHeight * .9,
+              width:screenUtil.screenWidth *.8,
               margin: EdgeInsets.only(
                 top: 0,
               ),
@@ -33,6 +33,7 @@ ScreenUtil screenUtil=ScreenUtil();
                 ),
                 child: Container(
                   margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.only(bottom: 50),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -40,26 +41,26 @@ ScreenUtil screenUtil=ScreenUtil();
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(height: 15,),
+
                       CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                       Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                          Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                      Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
+                      Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.bodySmall ),
 
-                            // SvgPicture.asset(
-                            //   allowDrawingOutsideViewBox: true,
-                            //   'images/characters/boy1-3.svg',
-                            //
-                            // ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset('images/girl4.png'),
+                          Image.asset('images/girl2.png'),
+                          Image.asset('images/girl3.png'),
+                          Image.asset('images/boy4.png'),
+                          Image.asset('images/boy2.png'),
+                          Image.asset('images/boy3.png'),
 
-                          ],),
+                        ],),
 
-                      Text('مرحبا بك.',style:AppTheme.textTheme.bodySmall ),
-                      Text('في تطبيق حكايتي',style:AppTheme.textTheme.headline5 ),
 
                     ],
                   ),
@@ -68,6 +69,6 @@ ScreenUtil screenUtil=ScreenUtil();
               ),
             )),
 
-    );
+      );
   }
 }

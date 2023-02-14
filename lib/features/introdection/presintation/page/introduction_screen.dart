@@ -95,7 +95,7 @@ class _introduction_screenState extends State<introduction_screen> {
                            });
                          },
                          child: SvgPicture.asset(
-                           color: AppTheme.primaryColor,
+                           color: AppTheme.primarySwatch.shade500,
                            'images/bottons/leftarrow.svg',
                          ),
                        ),
@@ -155,7 +155,7 @@ class _introduction_screenState extends State<introduction_screen> {
                           }).toList(),
                         ),
                         SvgPicture.asset(
-                          color: AppTheme.primaryColor,
+                          color: AppTheme.primarySwatch.shade500,
                           'images/bottons/rightarrow.svg',
                         ),
                       ],
@@ -166,7 +166,7 @@ class _introduction_screenState extends State<introduction_screen> {
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        SvgPicture.asset(
-                         color: AppTheme.primaryColor,
+                         color: AppTheme.primarySwatch.shade500,
                          'images/bottons/leftarrow.svg',
                        ),
                        Row(
@@ -191,7 +191,7 @@ class _introduction_screenState extends State<introduction_screen> {
                          }).toList(),
                        ),
                        SvgPicture.asset(
-                         color: AppTheme.primaryColor,
+                         color: AppTheme.primarySwatch.shade500,
                          'images/bottons/rightarrow.svg',
                        ),
                      ],
