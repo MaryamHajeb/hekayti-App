@@ -46,21 +46,14 @@ ScreenUtil screenUtil=ScreenUtil();
                       Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
 
-                            // SvgPicture.asset(
-                            //   allowDrawingOutsideViewBox: true,
-                            //   'images/characters/boy1-3.svg',
-                            //
-                            // ),
+                            Image.asset('images/boy1.png'),
+                            Image.asset('images/girl1.png'),
+
 
                           ],),
-                      SvgPicture.asset(
-                        width: 100,
-                        height: 100,
-                        'images/characters/boy1-1.svg',
-                      ),
                       Text('مرحبا بك.',style:AppTheme.textTheme.bodySmall ),
                       Text('في تطبيق حكايتي',style:AppTheme.textTheme.headline5 ),
 

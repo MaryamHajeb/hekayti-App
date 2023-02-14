@@ -83,7 +83,7 @@ class _introduction_screenState extends State<introduction_screen> {
                         )),
                   ),
                  currentIndex ==5?Padding(
-                   padding: const EdgeInsets.only(top: 310.0,right: 200),
+                   padding: const EdgeInsets.only(top: 340.0,right: 200),
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
@@ -126,7 +126,7 @@ class _introduction_screenState extends State<introduction_screen> {
                  ):
                  currentIndex ==0?
                   Padding(
-                    padding: const EdgeInsets.only(top: 310.0,left: 200),
+                    padding: const EdgeInsets.only(top: 340.0,left: 200),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,7 +161,7 @@ class _introduction_screenState extends State<introduction_screen> {
                       ],
                     ),
                   ):Padding(
-                   padding: const EdgeInsets.only(top: 310.0),
+                   padding: const EdgeInsets.only(top: 340.0),
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [

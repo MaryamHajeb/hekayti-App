@@ -46,7 +46,7 @@ class AppTheme {
     headline3: TextStyle(fontSize: 18.0, fontFamily: fontFamily,color: Colors.black ),
     headline4: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0, fontFamily: fontFamily, color: primaryColor),
     headline5: TextStyle(fontSize: 15.0, fontFamily: fontFamily, color: Colors.black),
-    headline6: TextStyle(fontSize: 24.0, fontFamily: fontFamily, color: primaryColor),
+    headline6: TextStyle(fontSize: 24.0, fontFamily: fontFamily, color: Colors.black),
     bodyText1: TextStyle(fontSize: 20.0, fontFamily: fontFamily, color: primaryColor,fontWeight: FontWeight.bold),
     bodyText2: TextStyle(fontSize: 15.0, fontFamily: fontFamily, color: primaryColor.withOpacity(.6)),  );
 }
