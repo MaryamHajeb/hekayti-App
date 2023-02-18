@@ -15,6 +15,7 @@ class onboardingThree extends StatefulWidget {
 
 class _onboardingThreeState extends State<onboardingThree> {
 ScreenUtil screenUtil=ScreenUtil();
+TextEditingController  nameChiled=TextEditingController();
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -55,7 +56,13 @@ ScreenUtil screenUtil=ScreenUtil();
                         children: [
                           Image.asset('images/boy1.png'),
                           Column(children: [
-                            CastemInput()
+                            CastemInput(valdution: (value){
+                              if(value.toString().isEmpty){
+                                return'يرجئ منك ادخال اسم الطفل ';
+
+                              }
+                              return null;
+                            },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,)
 
 
                           ],),

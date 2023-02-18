@@ -4,7 +4,15 @@ import '../app_theme.dart';
 import '../util/ScreenUtil.dart';
 
 class CastemInput extends StatefulWidget {
-  const CastemInput({Key? key}) : super(key: key);
+  final valdution;
+  final icon;
+  final text;
+  final type;
+  final size;
+  final controler;
+
+
+   CastemInput({Key? key,required this.valdution, required this.icon,required  this.text,  this.type,required this.controler, this.size}) : super(key: key);
 
   @override
   State<CastemInput> createState() => _CastemInputState();
@@ -25,21 +33,35 @@ class _CastemInputState extends State<CastemInput> {
             borderRadius: BorderRadius.circular(10)
 
         ),
-        margin: EdgeInsets.only(top: 20, left: 50, right: 50),
-        child: TextField(
-          keyboardType: TextInputType.text,
-          style: AppTheme.textTheme.headline6,
-          textAlign: TextAlign.center,
-          textDirection: TextDirection.rtl,
-          decoration: InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
+        child: Center(
+          child: TextFormField(
+
+            validator:widget.valdution,
+            keyboardType: widget.type,
+            style: AppTheme.textTheme.bodyText1,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+            decoration: InputDecoration(
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
+              hintText: widget.text.toString(),
+                hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+              errorMaxLines: 1,
+
+              focusedErrorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              )
             ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
+            cursorColor: AppTheme.primaryColor,
           ),
-          cursorColor: AppTheme.primaryColor,
         )
 
     );

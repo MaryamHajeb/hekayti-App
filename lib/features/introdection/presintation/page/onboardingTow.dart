@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 
 class onboardingTow extends StatefulWidget {
@@ -14,6 +15,7 @@ class onboardingTow extends StatefulWidget {
 
 class _onboardingTowState extends State<onboardingTow> {
 ScreenUtil screenUtil=ScreenUtil();
+TextEditingController result =TextEditingController();
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -49,7 +51,7 @@ margin:  EdgeInsets.only(
 
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Image.asset('images/boy1.png'),
                             Column(children: [
@@ -62,9 +64,14 @@ margin:  EdgeInsets.only(
                                       borderRadius: BorderRadius.circular(10)
 
                                   ),
-                                  margin: EdgeInsets.only(bottom: 30,top: 0, left: 50, right: 50),
-                                  child: Center(child: Text('=7*8+5-6*3',style: AppTheme.textTheme.bodyLarge,textDirection: TextDirection.rtl,))),
-                              Row(children: [
+                                  margin: EdgeInsets.only(bottom:30,top: 0, left: 0, right: 50),
+                                  child: Center(child: Text('=7*8+5-6*3',style: AppTheme.textTheme.displayLarge,textDirection: TextDirection.rtl,))),
+                                Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+
+                                children: [
+
                                 ElevatedButton(
 
                                   onPressed: () {},
@@ -72,36 +79,13 @@ margin:  EdgeInsets.only(
 
                                   style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                                 ),
-                                Container(
-                                    height: screenUtil.screenHeight *.1,
-                                    width: screenUtil.screenWidth *.2,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
-                                        color: AppTheme.primarySwatch.shade200,
-                                        borderRadius: BorderRadius.circular(10)
+                                CastemInput(valdution: (value){
 
-                                    ),
-                                    margin: EdgeInsets.only(top: 5, left: 0, right: 30),
-                                    child: TextFormField(
-                                         validator: (value){
-                                           if(value == null){
-                                             return 'gggg';
-                                           }
-                                         },
-                                      keyboardType: TextInputType.number,
-                                      style: AppTheme.textTheme.headline6,
-                                      textAlign: TextAlign.center,
-                                      textDirection: TextDirection.rtl,
-                                      decoration: InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.transparent),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.transparent),
-                                        ),
-                                      ),
-                                      cursorColor: AppTheme.primaryColor,
-                                    )),
+                                  if(value.toString().isEmpty){
+                                    return 'يرجئ منك كتابه الحل';
+                                  }
+                                  return null;
+                                },controler:result ,icon: Icon(Icons.calculate),text: 'اكتب الحل ',type: TextInputType.number,)
 
 
                               ],)
