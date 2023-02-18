@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'features/Home/presintation/page/HomePage.dart';
+import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/introduction_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: introduction_screen(),
+      home: IntroScreen(),
     );
   }
 }

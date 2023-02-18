@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 
 class onboardingThree extends StatefulWidget {
@@ -24,8 +25,8 @@ ScreenUtil screenUtil=ScreenUtil();
             child: Container(
                 height:  screenUtil.screenHeight * .9,
                 width:screenUtil.screenWidth *.8,
-              margin: EdgeInsets.only(
-                top: 0,
+              margin:  EdgeInsets.only(
+                top: 25,
               ),
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -45,8 +46,8 @@ ScreenUtil screenUtil=ScreenUtil();
                     children: [
 
                       CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                       Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                      Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.bodySmall ),
+                       Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+                      Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,35 +55,8 @@ ScreenUtil screenUtil=ScreenUtil();
                         children: [
                           Image.asset('images/boy1.png'),
                           Column(children: [
+                            CastemInput()
 
-                            Container(
-
-                                height: screenUtil.screenHeight *.1,
-                                width: screenUtil.screenWidth *.3,
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
-                                    color: AppTheme.primarySwatch.shade200,
-                                    borderRadius: BorderRadius.circular(10)
-
-                                ),
-                                margin: EdgeInsets.only(top: 20, left: 50, right: 50),
-                                child: TextField(
-                                  keyboardType: TextInputType.text,
-                                  style: AppTheme.textTheme.headline6,
-                                  textAlign: TextAlign.center,
-                                  textDirection: TextDirection.rtl,
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.transparent),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.transparent),
-                                    ),
-                                  ),
-                                  cursorColor: AppTheme.primaryColor,
-                                )
-
-                            ),
 
                           ],),
                           Image.asset('images/girl1.png'),

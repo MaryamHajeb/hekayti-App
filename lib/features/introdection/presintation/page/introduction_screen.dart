@@ -66,13 +66,24 @@ class _introduction_screenState extends State<introduction_screen> {
                              width: screenUtil.screenWidth *1,
                              height: screenUtil.screenHeight *1,
                           child: CarouselSlider(
-
-                            items: imageList
-                                  .map((e) => imageList[currentIndex])
-                                .toList(),
+                           disableGesture: true,
+                            items: imageList,
                             options: CarouselOptions(
-                              viewportFraction: 3,
-
+                              viewportFraction: 1,
+                              reverse: false,
+                              initialPage: 0,
+                              enlargeCenterPage: true,
+                              disableCenter: false,
+                              padEnds: true,
+                              enlargeFactor: 100,
+                              enableInfiniteScroll: true,
+                              pageSnapping: true,
+                              animateToClosest: true,
+                              pauseAutoPlayOnTouch: false,
+                              enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                              scrollPhysics: BouncingScrollPhysics(),
+                              pauseAutoPlayInFiniteScroll: false,
+                              pauseAutoPlayOnManualNavigate: true,
                               onPageChanged: (index, reason) {
                                 setState(() {
                                   currentIndex = index;

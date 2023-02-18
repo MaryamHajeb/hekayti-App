@@ -24,7 +24,7 @@ class _onboardingFiveState extends State<onboardingFive> {
         height: screenUtil.screenHeight * .9,
         width: screenUtil.screenWidth * .8,
         margin: EdgeInsets.only(
-          top: 0,
+          top: 25,
         ),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -49,9 +49,9 @@ class _onboardingFiveState extends State<onboardingFive> {
                   backgroundColor: Colors.white,
                   child: Image.asset('images/logo.png'),
                 ),
-                Text('حكايتي', style: AppTheme.textTheme.bodySmall),
+                Text('حكايتي', style: AppTheme.textTheme.headline3),
                 Text('حدد مستوى  القصص التي تريدها لطفلك',
-                    style: AppTheme.textTheme.bodySmall),
+                    style: AppTheme.textTheme.headline3),
                 SizedBox(
                   height: 20,
                 ),
@@ -66,7 +66,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                           borderRadius: BorderRadius.all(Radius.circular(11))),
                       height: screenUtil.screenHeight * .2,
                       width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('1',style: AppTheme.textTheme.headline5,)),
+                      child: Center(child: Text('1',style: AppTheme.textTheme.bodyText2,)),
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -75,7 +75,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                           borderRadius: BorderRadius.all(Radius.circular(11))),
                       height: screenUtil.screenHeight * .2,
                       width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('2',style: AppTheme.textTheme.headline5,)),
+                      child: Center(child: Text('2',style: AppTheme.textTheme.bodyText2,)),
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -84,7 +84,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                           borderRadius: BorderRadius.all(Radius.circular(11))),
                       height: screenUtil.screenHeight * .2,
                       width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('3',style: AppTheme.textTheme.headline5,)),
+                      child: Center(child: Text('3',style: AppTheme.textTheme.bodyText2,)),
                     ),
 
 

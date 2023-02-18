@@ -18,52 +18,57 @@ ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
-            Directionality(
+            Center(
+              child: Directionality(
         textDirection: TextDirection.rtl,
         child: Center(
-            child: Container(
-                height:  screenUtil.screenHeight * .9,
-                width:screenUtil.screenWidth *.8,
-              margin: EdgeInsets.only(
-                top: 0,
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+              child: Container(
+                  height:  screenUtil.screenHeight * .9,
+                  width:screenUtil.screenWidth *.8,
+                margin: EdgeInsets.only(
+                  top: 25,
                 ),
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          width: 4, color: AppTheme.primarySwatch.shade500),
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                      Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-
-                            Image.asset('images/boy1.png'),
-                            Image.asset('images/girl1.png'),
-
-
-                          ],),
-                      Text('مرحبا بك.',style:AppTheme.textTheme.bodySmall ),
-                      Text('في تطبيق حكايتي',style:AppTheme.textTheme.headline5 ),
-
-                    ],
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
+                  child: Container(
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                            width: 4, color: AppTheme.primarySwatch.shade500),
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+                          Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
 
+                                Image.asset('images/boy1.png'),
+                                Image.asset('images/girl1.png'),
+
+
+                              ],),
+                          Text('مرحبا بك.',style:AppTheme.textTheme.headline3 ),
+                          Text('في تطبيق حكايتي',style:AppTheme.textTheme.headline3 ),
+
+                        ],
+                      ),
+                    ),
+
+                  ),
                 ),
-              ),
-            )),
+              )),
 
-    );
+    ),
+            );
   }
 }

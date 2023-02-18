@@ -24,7 +24,9 @@ ScreenUtil screenUtil=ScreenUtil();
             child: Container(
                 height:  screenUtil.screenHeight * .9,
                 width:screenUtil.screenWidth *.8,
-
+margin:  EdgeInsets.only(
+  top: 25,
+),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -42,8 +44,8 @@ ScreenUtil screenUtil=ScreenUtil();
                     children: [
 
                       CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                       Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                      Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',style:AppTheme.textTheme.bodySmall ),
+                       Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+                      Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',style:AppTheme.textTheme.headline3 ),
 
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,6 +66,7 @@ ScreenUtil screenUtil=ScreenUtil();
                                   child: Center(child: Text('=7*8+5-6*3',style: AppTheme.textTheme.bodyLarge,textDirection: TextDirection.rtl,))),
                               Row(children: [
                                 ElevatedButton(
+
                                   onPressed: () {},
                                   child: Text('تم',style: TextStyle(fontWeight: FontWeight.bold)),
 
@@ -79,7 +82,12 @@ ScreenUtil screenUtil=ScreenUtil();
 
                                     ),
                                     margin: EdgeInsets.only(top: 5, left: 0, right: 30),
-                                    child: TextField(
+                                    child: TextFormField(
+                                         validator: (value){
+                                           if(value == null){
+                                             return 'gggg';
+                                           }
+                                         },
                                       keyboardType: TextInputType.number,
                                       style: AppTheme.textTheme.headline6,
                                       textAlign: TextAlign.center,

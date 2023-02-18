@@ -24,7 +24,7 @@ class _onboardingSixState extends State<onboardingSix> {
         height: screenUtil.screenHeight * .9,
         width: screenUtil.screenWidth * .8,
         margin: EdgeInsets.only(
-          top: 0,
+          top: 25,
         ),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -49,9 +49,9 @@ class _onboardingSixState extends State<onboardingSix> {
                   backgroundColor: Colors.white,
                   child: Image.asset('images/logo.png'),
                 ),
-                Text('حكايتي', style: AppTheme.textTheme.bodySmall),
+                Text('حكايتي', style: AppTheme.textTheme.headline3),
                 Text('هل تريد حفظ بياناتك معنا . ',
-                    style: AppTheme.textTheme.bodySmall),
+                    style: AppTheme.textTheme.headline3),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,13 +62,13 @@ class _onboardingSixState extends State<onboardingSix> {
                       children: [
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text('إنشاء حساب'),
+                        child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
 
                         style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
                       ),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text('تسجيل دخول'),
+                        child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
                         style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                       ),
                     ],),

@@ -25,7 +25,7 @@ ScreenUtil screenUtil=ScreenUtil();
               height:  screenUtil.screenHeight * .9,
               width:screenUtil.screenWidth *.8,
               margin: EdgeInsets.only(
-                top: 0,
+                top: 25,
               ),
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -45,8 +45,8 @@ ScreenUtil screenUtil=ScreenUtil();
                     children: [
 
                       CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                      Text('حكايتي',style:AppTheme.textTheme.bodySmall ),
-                      Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.bodySmall ),
+                      Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+                      Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
 
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
