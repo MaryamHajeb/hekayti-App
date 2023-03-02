@@ -23,47 +23,27 @@ class _CastemInputState extends State<CastemInput> {
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return Container(
+    return TextFormField(
 
-        height: screenUtil.screenHeight *.1,
-        width: screenUtil.screenWidth *.3,
-        decoration: BoxDecoration(
-            border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
-            color: AppTheme.primarySwatch.shade200,
-            borderRadius: BorderRadius.circular(10)
 
-        ),
-        child: Center(
-          child: TextFormField(
+      validator:widget.valdution,
+      keyboardType: widget.type,
+      style: AppTheme.textTheme.headline2,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.rtl,
+      decoration: InputDecoration(
 
-            validator:widget.valdution,
-            keyboardType: widget.type,
-            style: AppTheme.textTheme.bodyText1,
-            textAlign: TextAlign.center,
-            textDirection: TextDirection.rtl,
-            decoration: InputDecoration(
-              errorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
-              hintText: widget.text.toString(),
-                hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              errorMaxLines: 1,
-
-              focusedErrorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              )
-            ),
-            cursorColor: AppTheme.primaryColor,
-          ),
-        )
-
+          constraints: BoxConstraints(maxWidth: 200,maxHeight: 40,minWidth: 20,minHeight: 40),
+        filled: true,
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1,color: AppTheme.primaryColor,),borderRadius: BorderRadius.all(Radius.circular(5))),
+        fillColor: AppTheme.primarySwatch.shade100,
+        border: OutlineInputBorder(borderSide: BorderSide(width: 1),borderRadius: BorderRadius.all(Radius.circular(5))),
+        prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
+        hintText: widget.text.toString(),
+        hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
+          errorBorder: OutlineInputBorder(borderSide: BorderSide(width: 1))
+      ),
+      cursorColor: AppTheme.primaryColor,
     );
   }
 }

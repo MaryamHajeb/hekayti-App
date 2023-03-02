@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/test.dart';
 
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
-import 'features/introdection/presintation/page/introduction_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
@@ -37,9 +38,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: AppTheme.primarySwatch,
       ),
-      home: SignupPage(),
+      home: IntroScreen(),
     );
   }
 }
