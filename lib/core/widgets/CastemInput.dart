@@ -24,6 +24,8 @@ class _CastemInputState extends State<CastemInput> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Container(
+
+        height: screenUtil.screenHeight *.1,
         width: screenUtil.screenWidth *.3,
         decoration: BoxDecoration(
             border: Border.all(width: 2,color: AppTheme.primarySwatch.shade400),
@@ -40,6 +42,9 @@ class _CastemInputState extends State<CastemInput> {
             textAlign: TextAlign.center,
             textDirection: TextDirection.rtl,
             decoration: InputDecoration(
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
               prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
               hintText: widget.text.toString(),
                 hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
@@ -49,7 +54,7 @@ class _CastemInputState extends State<CastemInput> {
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),
-
+              errorMaxLines: 1,
 
               focusedErrorBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
