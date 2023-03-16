@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 
 class onboardingFive extends StatefulWidget {
@@ -13,6 +14,12 @@ class onboardingFive extends StatefulWidget {
 }
 
 class _onboardingFiveState extends State<onboardingFive> {
+  List Levels = [
+    {'num': 1, 'color': AppTheme.primarySwatch.shade800},
+    {'num': 2, 'color': AppTheme.primarySwatch.shade600},
+    {'num': 3, 'color': AppTheme.primarySwatch.shade400},
+  ];
+  int itemSelected = 0;
   ScreenUtil screenUtil = ScreenUtil();
   @override
   Widget build(BuildContext context) {
@@ -55,41 +62,34 @@ class _onboardingFiveState extends State<onboardingFive> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: AppTheme.primarySwatch.shade900,
+                Container(
+                  height: screenUtil.screenHeight * .3,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: Levels.length,
 
-                          borderRadius: BorderRadius.all(Radius.circular(11))),
-                      height: screenUtil.screenHeight * .2,
-                      width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('1',style: AppTheme.textTheme.bodyText2,)),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: AppTheme.primarySwatch.shade700,
-
-                          borderRadius: BorderRadius.all(Radius.circular(11))),
-                      height: screenUtil.screenHeight * .2,
-                      width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('2',style: AppTheme.textTheme.bodyText2,)),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: AppTheme.primarySwatch.shade600,
-
-                          borderRadius: BorderRadius.all(Radius.circular(11))),
-                      height: screenUtil.screenHeight * .2,
-                      width: screenUtil.screenWidth * .1,
-                      child: Center(child: Text('3',style: AppTheme.textTheme.bodyText2,)),
-                    ),
-
-
-                  ],
-                ),
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: [
+                          SizedBox(width: 50,),
+                          CastemLevel(
+                            name: Levels[index]['num'],
+                            onTap: () {
+                              setState(() {
+                                itemSelected = index;
+                              });
+                            },
+                            isSelected: itemSelected == index ? true : false,
+                            color: Levels[index]['color'],
+                          ),
+                          SizedBox(width: 70,)
+                        ],
+                      );
+                    },
+                  ),
+                )
               ],
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/widgets/CastemPersons.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 
 class onboardingFour extends StatefulWidget {
@@ -15,6 +16,15 @@ class onboardingFour extends StatefulWidget {
 class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
+  List image=[
+    'images/boy4.png',
+    'images/boy3.png',
+    'images/boy2.png',
+    'images/girl4.png',
+    'images/girl3.png',
+    'images/girl2.png',
+  ];
+  int itemSelected =0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
@@ -48,18 +58,20 @@ ScreenUtil screenUtil=ScreenUtil();
                       Text('حكايتي',style:AppTheme.textTheme.headline3 ),
                       Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
 
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset('images/girl4.png'),
-                          Image.asset('images/girl2.png'),
-                          Image.asset('images/girl3.png'),
-                          Image.asset('images/boy4.png'),
-                          Image.asset('images/boy2.png'),
-                          Image.asset('images/boy3.png'),
+                     Container(
+                       height: screenUtil.screenHeight * .4,
+                       width: double.infinity,
+                       child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: image.length,itemBuilder: (context, index) {
 
-                        ],),
+                         return CastemPersons(image: image[index], onTap: (){
+                           setState(() {
+                             itemSelected=index;
+                           });
+
+                         }, isSelected: itemSelected==index?  true : false ,);
+
+                       },),
+                     )
 
 
                     ],

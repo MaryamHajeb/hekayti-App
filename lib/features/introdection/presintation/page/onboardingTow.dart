@@ -79,13 +79,15 @@ margin:  EdgeInsets.only(
 
                                   style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                                 ),
-                                CastemInput(valdution: (value){
+                               SizedBox(width: 30,),
 
-                                  if(value.toString().isEmpty){
-                                    return 'يرجئ منك كتابه الحل';
-                                  }
-                                  return null;
-                                },controler:result ,icon: Icon(Icons.calculate),text: 'اكتب الحل ',type: TextInputType.number,)
+                                  CastemInput(valdution: (value){
+
+                                    if(value.toString().isEmpty){
+                                      return 'يرجئ منك كتابه الحل';
+                                    }
+                                    return null;
+                                  },controler:result ,icon: Icon(Icons.calculate),text: 'اكتب الحل ',type: TextInputType.number,)
 
 
                               ],)

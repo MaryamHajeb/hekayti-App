@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:hikayati_app/features/Regestrion/presintation/page/LoginPage.dart';
+import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../core/widgets/CustomPageRoute.dart';
 
 class onboardingSix extends StatefulWidget {
   const onboardingSix({Key? key}) : super(key: key);
@@ -61,13 +64,26 @@ class _onboardingSixState extends State<onboardingSix> {
                     Column(
                       children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                          Navigator.pushReplacement(
+                              context,
+                              CustomPageRoute(  child:   SignupPage()));
+
+                        },
                         child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
 
                         style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+
+                          Navigator.pushReplacement(
+                              context,
+                              CustomPageRoute(  child:   LoginPage()));
+
+                        },
                         child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
                         style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                       ),

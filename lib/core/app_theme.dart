@@ -38,7 +38,7 @@ class AppTheme {
   static Color scaffoldBackgroundColor2 = Color(0xffF6F9FF);
 
 
-  static String fontFamily = 'Alhurra';
+  static String fontFamily = 'El Messiri';
 
   static TextTheme textTheme = TextTheme(
     headline1: TextStyle(fontSize: 18.0, fontFamily: fontFamily, color: Colors.brown,),
