@@ -8,7 +8,6 @@ import 'features/Settings/presintation/page/SettingPage.dart';
 import 'features/Settings/presintation/page/lockPage.dart';
 import 'features/Story/presintation/page/StoryPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
-import 'features/introdection/presintation/page/introduction_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
