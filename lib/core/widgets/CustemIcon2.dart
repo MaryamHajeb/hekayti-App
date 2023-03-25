@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 
 import '../app_theme.dart';
 
-class CustemIcon extends StatefulWidget {
-   CustemIcon({Key? key,required this.icon,required this.ontap}) : super(key: key);
+class CustemIcon2 extends StatefulWidget {
+   CustemIcon2({Key? key,required this.icon,required this.ontap}) : super(key: key);
 final icon;
 final ontap;
 
   @override
-  State<CustemIcon> createState() => _CustemIconState();
+  State<CustemIcon2> createState() => _CustemIcon2State();
 }
 
-class _CustemIconState extends State<CustemIcon> {
+class _CustemIcon2State extends State<CustemIcon2> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       width: 50,
       decoration: BoxDecoration(
-          color: AppTheme.primaryColor,
-          border: Border.all(color: Colors.white,width: 2),
+          color: Colors.white,
+          border: Border.all(color: AppTheme.primaryColor,width: 2),
           borderRadius: BorderRadius.all(Radius.circular(15))
       ),
       child: Center(
@@ -32,7 +32,7 @@ class _CustemIconState extends State<CustemIcon> {
             },
             icon: Icon(
               widget.icon.icon,
-              color: Colors.white,
+              color: AppTheme.primaryColor,
               size: 30,
             )),
       ),

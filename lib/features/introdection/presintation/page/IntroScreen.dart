@@ -95,7 +95,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                  onTap: (){
     if (_formKey.currentState!.validate()) {
         // If the form is valid, display a snackbar. In the real world,
-      pageController.nextPage(duration: Duration(seconds: 5,), curve:Curves.linear);
+      pageController.nextPage(duration: Duration(seconds: 1,), curve:Curves.linear);
 
         // you'd often call a server or save the information in a database.
     }

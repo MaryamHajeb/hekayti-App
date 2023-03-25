@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CastemInput.dart';
+import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/widgets/CustomPageRoute.dart';
+import 'LoginPage.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -63,7 +66,7 @@ TextEditingController CofemPassword = TextEditingController();
                           children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
 
@@ -73,7 +76,7 @@ TextEditingController CofemPassword = TextEditingController();
 
                                 }
                                 return null;
-                              },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: '',type: TextInputType.text,),
+                              },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: 'البريد الإلكتروني',type: TextInputType.text,),
 
 
 
@@ -81,17 +84,17 @@ TextEditingController CofemPassword = TextEditingController();
                           SizedBox(height: 20,),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text('كلمة المرور',style: AppTheme.textTheme.headline3,),
-
+                              SizedBox(width: 0,),
                               CastemInput(valdution: (value){
                                 if(value.toString().isEmpty){
                                   return'يرجئ منك ادخال اسم الطفل ';
 
                                 }
                                 return null;
-                              },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: '',type: TextInputType.text,),
+                              },controler:email ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'كلمة المرور',type: TextInputType.text,),
 
 
 
@@ -99,7 +102,7 @@ TextEditingController CofemPassword = TextEditingController();
                             SizedBox(height: 20,),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text('تأكيد كلمة المرور',style: AppTheme.textTheme.headline3,),
 
@@ -109,7 +112,7 @@ TextEditingController CofemPassword = TextEditingController();
 
                                 }
                                 return null;
-                              },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: '',type: TextInputType.text,),
+                              },controler:email ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'تأكيد كلمة المرور',type: TextInputType.text,),
 
 
 
@@ -128,6 +131,8 @@ TextEditingController CofemPassword = TextEditingController();
                            crossAxisAlignment: CrossAxisAlignment.center,
                            children: [
                            Text('أو  تسجيل    الدخول   ب',style: AppTheme.textTheme.headline5,),
+                            SizedBox(height: 20,),
+
                              Row(
                                crossAxisAlignment: CrossAxisAlignment.center,
                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,22 +149,32 @@ TextEditingController CofemPassword = TextEditingController();
                                  'images/bottons/save.svg',
 
                                ),
+
                              ],),
+                             SizedBox(height: 20,),
+
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                children: [
-                                 Text('ليس لدئ حساب ? '),
-                                 Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor)),
+                                 Text('ليس لدئ حساب ? ',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
+                                 InkWell(
+
+                                     onTap: (){
+                                       Navigator.push(
+                                           context,
+                                           CustomPageRoute(  child:   LoginPage()));
+
+                                     },
+                                     child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
 
                                ],
                              ),
                          ],),
-                       )
+                       ),
 
 
-
-                    ],)
-
+                    ],),
+                    CustemButten(ontap: (){},text: 'إنشاء',)
 
                   ]),
 

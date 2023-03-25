@@ -66,7 +66,7 @@ class _onboardingSixState extends State<onboardingSix> {
                       ElevatedButton(
                         onPressed: () {
 
-                          Navigator.pushReplacement(
+                          Navigator.push(
                               context,
                               CustomPageRoute(  child:   SignupPage()));
 
@@ -79,9 +79,9 @@ class _onboardingSixState extends State<onboardingSix> {
                         onPressed: () {
 
 
-                          Navigator.pushReplacement(
-                              context,
-                              CustomPageRoute(  child:   LoginPage()));
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(  child:   LoginPage()));
 
                         },
                         child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),

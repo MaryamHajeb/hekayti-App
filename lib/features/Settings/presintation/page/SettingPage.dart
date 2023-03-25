@@ -46,35 +46,39 @@ class _SettingPageState extends State<SettingPage> {
     border: Border.all(
     width: 4, color: AppTheme.primarySwatch.shade500),
     borderRadius: BorderRadius.all(Radius.circular(10))),
-    child: Column(children: [
+    child: SingleChildScrollView(
+      child: Column(children: [
+          Container(
+            color: AppTheme.primarySwatch.shade200,
+            child: TabBar(
+              labelStyle: TextStyle(fontSize: 20,fontFamily: AppTheme.fontFamily),
+              automaticIndicatorColorAdjustment: false,
+              overlayColor: MaterialStateProperty.all(Colors.orange),
+                labelColor: Colors.brown,
+                dividerColor: Colors.brown,
+                indicatorColor: Colors.brown,
+                unselectedLabelColor: Colors.brown,
+
+                tabs: [
+
+                  Tab(text:  'الأعدادات',),
+                  Tab(text:  'تقارير التقدم',),
+
+            ]),
+          ),
+        SizedBox(height: 30,),
         Container(
-          color: AppTheme.primarySwatch.shade200,
-          child: TabBar(
-            automaticIndicatorColorAdjustment: false,
-            overlayColor: MaterialStateProperty.all(Colors.orange),
-              labelColor: Colors.brown,
-              dividerColor: Colors.brown,
-              indicatorColor: Colors.brown,
-              unselectedLabelColor: Colors.brown,
+          width: double.infinity,
+          height: screenUtil.screenHeight *.8,
+          child: TabBarView(children: [
+            Expanded(child: SettingTapbarpage()),
+            Expanded(child: ReportTapbarPage())
 
-              tabs: [
-
-                Tab(text:  'الأعدادات',),
-                Tab(text:  'تقارير التقدم',),
 
           ]),
-        ),
-      Container(
-        width: double.infinity,
-        height: screenUtil.screenHeight *.8,
-        child: TabBarView(children: [
-          SettingTapbarpage(),
-          ReportTapbarPage()
-
-
-        ]),
-      )
-    ]),
+        )
+      ]),
+    ),
 
     ),
     ),

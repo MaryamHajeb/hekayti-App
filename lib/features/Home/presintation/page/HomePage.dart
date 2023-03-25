@@ -4,6 +4,9 @@ import 'package:hikayati_app/core/widgets/CastemInput.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../Regestrion/presintation/page/LoginPage.dart';
+import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
 
 class HomePage extends StatefulWidget {
@@ -83,7 +86,14 @@ class _HomePageState extends State<HomePage> {
                         crossAxisCount: 3),
                     itemBuilder: (context, index) {
 
-                      return StoryCard();
+                      return InkWell(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            CustomPageRoute(  child:   StoryPage()));
+
+                      },
+                      child: StoryCard());
                     },
                   ),
                 )
