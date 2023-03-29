@@ -51,12 +51,14 @@ TextEditingController  nameChiled=TextEditingController();
                       Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Image.asset('images/boy1.png'),
                           Column(children: [
-                            CastemInput(valdution: (value){
+                            CastemInput(
+                              size: 200,
+                              valdution: (value){
                               if(value.toString().isEmpty){
                                 return'يرجئ منك ادخال اسم الطفل ';
 

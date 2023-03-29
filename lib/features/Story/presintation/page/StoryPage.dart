@@ -19,6 +19,8 @@ class _StoryPageState extends State<StoryPage> {
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack=false;
   bool islisnt=false;
+  int currentIndexPage =0;
+  PageController pageControler=PageController();
   TextEditingController result = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,9 @@ class _StoryPageState extends State<StoryPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CustemIcon2(icon: Icon(Icons.home,),ontap: (){}),
+                    CustemIcon2(icon: Icon(Icons.home,),ontap: (){
+                      Navigator.pop(context);
+                    }),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -62,7 +66,14 @@ class _StoryPageState extends State<StoryPage> {
 
 
                         SizedBox(height: 30,),
-                        CustemIcon2(icon: Icon(Icons.mic,),ontap: (){}),
+                        isSpack ==false?  CustemIcon2(icon: Icon(Icons.mic,),ontap: (){
+                          setState(() {
+                            isSpack=true ;
+
+
+                          });
+
+                        }):                        CustemIcon(icon: Icon(Icons.mic,),ontap: (){}),
 
                       ],
                     )
@@ -76,51 +87,83 @@ class _StoryPageState extends State<StoryPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: Column(
+                  child: PageView.builder(
+                    itemCount: 3,
+                    reverse: true,
+                    controller: pageControler,
+                    itemBuilder: (context, index) {
+                    return  InkWell(
+                      onTap: (){
 
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                            width: screenUtil.screenWidth * 1,
-                            height: screenUtil.screenHeight * .8,
-                            padding:
+                        setState(() {
+                          currentIndexPage = index;
+
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(15))),
+                        child: Column(
+
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                                width: screenUtil.screenWidth * 1,
+                                height: screenUtil.screenHeight * .8,
+                                padding:
                                 EdgeInsets.only(right: 10, left: 10, top: 10),
-                            child: Image.asset(
-                              'images/storypages.png',
-                              fit: BoxFit.cover,
-                            )),
-                        Container(
+                                child: Image.asset(
+                                  'images/storypages.png',
+                                  fit: BoxFit.cover,
+                                )),
+                            Container(
 
-                          width: screenUtil.screenHeight * 1,
-                          height: screenUtil.screenHeight *.1,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                              width: screenUtil.screenHeight * 1,
+                              height: screenUtil.screenHeight *.1,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
 
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                               SvgPicture.asset(
-                                color: AppTheme.primarySwatch.shade500,
-                                'images/bottons/rightarrow.svg',
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      setState(() {
+                                       index =index+1;
+                                       pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.bounceInOut);
+                                      });
+                                    },
+                                    child: SvgPicture.asset(
+                                      color: AppTheme.primarySwatch.shade500,
+                                      'images/bottons/rightarrow.svg',
+                                    ),
+                                  ),
+
+                                  Text('مشت ليلى عبر الغابة الكبيرة لزيارة جدتها المريضة'),
+                                  InkWell(
+                                    onTap: (){
+                                      setState(() {
+                                        index =index+1;
+                                        pageControler.previousPage(duration: Duration(seconds: 1), curve: Curves.bounceInOut);
+                                      });
+                                    },
+                                    child: SvgPicture.asset(
+                                      color: AppTheme.primarySwatch.shade500,
+                                      'images/bottons/leftarrow.svg',
+                                    ),
+                                  ),
+
+
+                                ],
                               ),
-                               Text('مشت ليلى عبر الغابة الكبيرة لزيارة جدتها المريضة'),
-                           SvgPicture.asset(
-                            color: AppTheme.primarySwatch.shade500,
-                            'images/bottons/leftarrow.svg',
-                          ),
-
-
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },),
                 ),
               ),
             ],

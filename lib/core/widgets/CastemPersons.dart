@@ -24,8 +24,8 @@ screenUtil.init(context);
             },
             child: Container(
               padding: EdgeInsets.only(right: 20),
-                height: screenUtil.screenHeight * .2,
-                width: screenUtil.screenWidth *.25,
+                height: screenUtil.screenHeight * .5,
+                width: screenUtil.screenWidth *.15,
                 child: Image.asset(image,fit: BoxFit.contain,)),
           )
         : GestureDetector(
@@ -36,11 +36,10 @@ screenUtil.init(context);
                 child: Container(
                     padding: EdgeInsets.only(right: 30),
 
-                    height: screenUtil.screenHeight * .2,
-                    width: screenUtil.screenWidth *.17,
+                    height: screenUtil.screenHeight * .05,
+                    width: screenUtil.screenWidth *.12,
                     child: Image.asset(
-                      width: 150,
-                      height: 150,
+              fit: BoxFit.contain,
 
               image,
             ))));

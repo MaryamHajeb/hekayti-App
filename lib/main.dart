@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/LoginPage.dart';
+import 'package:hikayati_app/injection_container.dart' as object;
 
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
@@ -18,6 +19,8 @@ void main() async{
       //DeviceOrientation.landscapeRight,
     ]
   );
+  WidgetsFlutterBinding.ensureInitialized();
+  await object.init();
   runApp( MyApp());
 }
 
@@ -42,7 +45,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SettingPage(),
+      home: IntroScreen(),
     );
   }
 }

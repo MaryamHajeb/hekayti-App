@@ -28,19 +28,19 @@ class CastemLevel extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                  color: color,
-                  border: Border.all(width: 3, color: AppTheme.primaryColor),
+                  color: Colors.white,
+                  border: Border.all(width: 3,color: AppTheme.primaryColor),
                   borderRadius: BorderRadius.all(Radius.circular(11))),
-              height: screenUtil.screenHeight * .3,
-              width: screenUtil.screenWidth * .2,
+              height: screenUtil.screenHeight * .2,
+              width: screenUtil.screenWidth * .1,
               child: Center(
                   child: Text(
-                name.toString(),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
-              )),
+                    name.toString(),
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  )),
             ),
           )
         : GestureDetector(

@@ -81,7 +81,9 @@ margin:  EdgeInsets.only(
                                 ),
                                SizedBox(width: 30,),
 
-                                  CastemInput(valdution: (value){
+                                  CastemInput(
+                                    size: 200,
+                                    valdution: (value){
 
                                     if(value.toString().isEmpty){
                                       return 'يرجئ منك كتابه الحل';

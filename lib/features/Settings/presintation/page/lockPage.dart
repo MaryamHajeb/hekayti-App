@@ -88,7 +88,9 @@ margin:  EdgeInsets.only(
 
                                       style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                                     ),
-                                    CastemInput(valdution: (value){
+                                    CastemInput(
+                                      size: 200,
+                                      valdution: (value){
 
                                       if(value.toString().isEmpty){
                                         return 'يرجئ منك كتابه الحل';

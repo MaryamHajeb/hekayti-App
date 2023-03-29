@@ -18,10 +18,18 @@ class _ReportCardState extends State<ReportCard> {
     screenUtil.init(context);
 
     return Card(
+
       margin: EdgeInsets.only(right: 40,left: 40,top: 30),
-      shape: ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-      elevation: 5,
+      shape: ContinuousRectangleBorder(
+
+
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      elevation: 10,
       child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: AppTheme.primaryColor,width: 2)
+        ),
 width: screenUtil.screenWidth *.6,
  height: screenUtil.screenHeight *.2,
           child: Row(

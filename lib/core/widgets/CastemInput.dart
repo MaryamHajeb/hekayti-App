@@ -8,11 +8,11 @@ class CastemInput extends StatefulWidget {
   final icon;
   final text;
   final type;
-  final size;
+  double size;
   final controler;
 
 
-   CastemInput({Key? key,required this.valdution, required this.icon,required  this.text,  this.type,required this.controler, this.size}) : super(key: key);
+   CastemInput({Key? key,required this.valdution, required this.icon,required  this.text,  this.type,required this.controler,required this.size}) : super(key: key);
 
   @override
   State<CastemInput> createState() => _CastemInputState();
@@ -25,8 +25,8 @@ class _CastemInputState extends State<CastemInput> {
     screenUtil.init(context);
     return Center(
       child: SizedBox(
-        width: 200,
-
+        width:widget.size,
+        height: 80,
         child: TextFormField(
 
 
@@ -35,13 +35,14 @@ class _CastemInputState extends State<CastemInput> {
           style: AppTheme.textTheme.headline2,
           textAlign: TextAlign.center,
           textDirection: TextDirection.rtl,
+          controller: widget.controler,
           decoration: InputDecoration(
               contentPadding:
               EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             fillColor: AppTheme.primarySwatch.shade300,
             filled: true,
             errorBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
 
               borderSide: BorderSide(color: Colors.transparent),
             ),
@@ -49,11 +50,11 @@ class _CastemInputState extends State<CastemInput> {
             hintText: widget.text.toString(),
               hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
             enabledBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.transparent),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
 
               borderSide: BorderSide(color: Colors.transparent),
             ),

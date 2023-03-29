@@ -17,12 +17,12 @@ class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
   List image=[
-    'images/boy4.png',
-    'images/boy3.png',
-    'images/boy2.png',
-    'images/girl4.png',
-    'images/girl3.png',
-    'images/girl2.png',
+    'images/boytest2.png',
+    'images/boytest2.png',
+    'images/boytest2.png',
+    'images/boytest1.png',
+    'images/boytest1.png',
+    'images/boytest1.png',
   ];
   int itemSelected =0;
   Widget build(BuildContext context) {

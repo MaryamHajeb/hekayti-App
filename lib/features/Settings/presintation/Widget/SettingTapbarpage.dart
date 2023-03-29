@@ -5,6 +5,7 @@ import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CastemPersons.dart';
+import '../../../../core/widgets/CustemButten.dart';
 
 class SettingTapbarpage extends StatefulWidget {
   const SettingTapbarpage({Key? key}) : super(key: key);
@@ -47,7 +48,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
             Text('  اسم الطفل :',style:AppTheme.textTheme.headline3 ),
-            CastemInput(valdution: (value){
+            CastemInput(
+              size: 200,
+              valdution: (value){
               if(value.toString().isEmpty){
                 return'يرجئ منك ادخال اسم الطفل ';
 
@@ -58,7 +61,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
           ],),
           Divider(color: AppTheme.primaryColor,),
-
+          SizedBox(height: 20,),
           Text('الشخصيات :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Container(
             height: screenUtil.screenHeight * .5,
@@ -75,39 +78,44 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             },),
           ),
           Divider(color: AppTheme.primaryColor,),
+          SizedBox(height: 20,),
 
           Text('مستوى القصص :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Container(
             height: screenUtil.screenHeight * .4,
             width: double.infinity,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: Levels.length,
+            child: Center(
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: Levels.length,
 
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 50,),
-                    CastemLevel(
-                      name: Levels[index]['num'],
-                      onTap: () {
-                        setState(() {
-                          itemSelected2 = index;
-                        });
-                      },
-                      isSelected: itemSelected2 == index ? true : false,
-                      color: Levels[index]['color'],
-                    ),
-                    SizedBox(width: 70,)
-                  ],
-                );
-              },
+                itemBuilder: (context, index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 50,),
+                      CastemLevel(
+                        name: Levels[index]['num'],
+                        onTap: () {
+                          setState(() {
+                            itemSelected2 = index;
+                          });
+                        },
+                        isSelected: itemSelected2 == index ? true : false,
+                        color: Levels[index]['color'],
+                      ),
+                      SizedBox(width: 70,)
+                    ],
+                  );
+                },
+              ),
             ),
           ),
           Divider(color: AppTheme.primaryColor,),
+          SizedBox(height: 20,),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -116,6 +124,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
             ],
           ),
+          SizedBox(height: 20,),
+        CustemButten( text: 'حفظ',ontap: (){},),
+          SizedBox(height: 20,),
 
 
         ],

@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../widgets/primaryText.dart';
+
 // CachedNetworkImage cachedNetworkImage({required String image,width=null,height=null,onFailed}) {
 //   return CachedNetworkImage(
 //       fit: BoxFit.cover,
@@ -117,6 +119,21 @@ void showImagesDialog(BuildContext context, String image,String text) {
           ),
         );
       });
+}
+showSnackBar({required BuildContext context,required title,Color bkColor=Colors.red,Function ?callBackFunction}){
+  final snackBar = SnackBar(
+    content: PrimaryText(text: title,fontSize: 15,textColor: Colors.white),
+    backgroundColor: bkColor,
+
+  );
+  ScaffoldMessenger.of(context)
+      .showSnackBar(snackBar);
+
+  Future.delayed(Duration(seconds: 2),()
+  {
+    callBackFunction!();
+  });
+
 }
 
 void commonDialog(BuildContext context, String image,String text) {
