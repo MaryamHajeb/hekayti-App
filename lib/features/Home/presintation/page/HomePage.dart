@@ -49,10 +49,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 CustomPageRoute(  child:   SettingPage()));
                           },
-                          child: CircleAvatar(
-                              child:
-                                  Image.asset('images/girl3.png', fit: BoxFit.cover),
-                              backgroundColor: Colors.white),
+                          child:CustemIcon(icon: ,),
                         ),
                         Container(
                             decoration: BoxDecoration(

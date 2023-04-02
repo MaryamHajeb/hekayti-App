@@ -112,12 +112,16 @@ TextEditingController CofemPassword = TextEditingController();
                                           Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
 
                                           CastemInput(
-                                            size: 200,
+                                            size: 250,
                                             valdution: (value){
-                                              if(value.toString().isEmpty){
-                                                return'يرجئ منك ادخال اسم الطفل ';
-
+                                              if (value!.isEmpty) {
+                                                return 'يجب ادخال عنوان البريد الالكتروني';
+                                              } else if (!RegExp(
+                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                  .hasMatch(value)) {
+                                                return "عذراً الإيميل الذي ادخلته غير صحيح";
                                               }
+
                                               return null;
                                             },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: 'البريد الإلكتروني',type: TextInputType.text,),
 
@@ -132,11 +136,13 @@ TextEditingController CofemPassword = TextEditingController();
                                           Text('كلمة المرور',style: AppTheme.textTheme.headline3,),
                                           SizedBox(width: 0,),
                                           CastemInput(
-                                            size: 200,
+                                            size: 250,
                                             valdution: (value){
-                                              if(value.toString().isEmpty){
-                                                return'يرجئ منك ادخال اسم الطفل ';
-
+                                              if (value.toString().isEmpty) {
+                                                return 'الرجاء تعبئة الحقل';
+                                              }
+                                              if (value!.length < 6) {
+                                                return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
                                               }
                                               return null;
                                             },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'كلمة المرور',type: TextInputType.text,),
@@ -152,7 +158,7 @@ TextEditingController CofemPassword = TextEditingController();
                                           Text('تأكيد كلمة المرور',style: AppTheme.textTheme.headline3,),
 
                                           CastemInput(
-                                            size: 200,
+                                            size: 250,
                                             valdution: (value){
                                               if(value.toString().isEmpty){
                                                 return'يرجئ منك ادخال اسم الطفل ';

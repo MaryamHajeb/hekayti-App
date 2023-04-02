@@ -25,7 +25,7 @@ class LocalDataProvider {
             sharedPreferences.getString(key)??'',
           );
 
-                  ///productsModel
+                  ///SliedModel
           return retrievedDataType.fromJsonList(data);
         } else if (returnType == String) {
           final dynamic data = json.decode(
