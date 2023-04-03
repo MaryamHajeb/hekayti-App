@@ -30,11 +30,7 @@ class _CustemIconState extends State<CustemIcon> {
 
               });
             },
-            icon: Icon(
-              widget.icon.icon,
-              color: Colors.white,
-              size: 30,
-            )),
+            icon:widget.icon),
       ),
     );
   }

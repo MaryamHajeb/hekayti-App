@@ -45,15 +45,15 @@ class _HomePageState extends State<HomePage> {
                         InkWell(
                           onTap: (){
 
+
+                          },
+                          child: CustemIcon(icon: Image.asset('images/girl3.png', fit: BoxFit.cover), ontap: (){
+
                             Navigator.push(
                                 context,
                                 CustomPageRoute(  child:   SettingPage()));
-                          },
-                          child: CircleAvatar(
 
-                              child:
-                                  Image.asset('images/girl3.png', fit: BoxFit.cover),
-                              backgroundColor: Colors.white),
+                          },),
                         ),
                         Container(
                             decoration: BoxDecoration(
@@ -84,10 +84,7 @@ class _HomePageState extends State<HomePage> {
                                 icon: Icon(Icons.search),
                                 text: 'بحث',
                                 controler: search,size: 340,)),
-                        CircleAvatar(
-                            child: Icon(Icons.volume_up_rounded,
-                                color: AppTheme.primaryColor),
-                        backgroundColor: Colors.white),
+                       CustemIcon(icon: Icon(Icons.volume_up_rounded,color: Colors.white), ontap: (){}),
                       ],
                     ),
                     SizedBox(height: 30),
