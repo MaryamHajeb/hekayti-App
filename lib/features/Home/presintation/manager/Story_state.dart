@@ -16,11 +16,11 @@ class StoryLoading extends StoryState {
 
 class StoryILoaded extends StoryState {
 
-  List<StoryModel> categoryModel;
-  StoryILoaded({required this.categoryModel});
+  List<StoryModel> storyModel;
+  StoryILoaded({required this.storyModel});
 
   @override
-  List<Object> get props => [categoryModel];
+  List<Object> get props => [storyModel];
 }
 
 class StoryError extends StoryState {

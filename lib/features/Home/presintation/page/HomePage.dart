@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/core/widgets/CastemInput.dart';
+import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
@@ -19,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  Widget StoryWidget=Center();
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
   Widget build(BuildContext context) {
@@ -88,24 +92,53 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     SizedBox(height: 30),
-                    Container(
-                      height: screenUtil.screenHeight * .8,
-                      width: double.infinity,
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                        itemBuilder: (context, index) {
 
-                          return InkWell(
-                          onTap: (){
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(  child:   StoryPage()));
-
-                          },
-                          child: StoryCard());
+                    BlocProvider(
+                      create:(context)=>sl<StoryBloc>() ,
+                      child:BlocConsumer<StoryBloc,StoryState>(
+                        listener: (_context,state){
+                          if(state is StoryError){
+                            print(state.errorMessage);
+                          }
                         },
-                      ),
+                        builder: (_context,state){
+                          if(state is StoryInitial){
+                            BlocProvider.of<StoryBloc>(_context).add(GetAllStory(token: ''));
+                          }
+
+                          if(state is StoryLoading){
+                            StoryWidget=CircularProgressIndicator();
+                          }
+
+                          if(state is StoryILoaded){
+                            //TODO::Show Story here
+
+                            StoryWidget=       Container(
+                              height: screenUtil.screenHeight * .8,
+                              width: double.infinity,
+                              child: GridView.builder(
+                                itemCount: state.storyModel.length,
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+
+                                    crossAxisCount: 3),
+                                itemBuilder: (context, index) {
+
+                                  return InkWell(
+                                      onTap: (){
+                                        Navigator.push(
+                                            context,
+                                            CustomPageRoute(  child:   StoryPage()));
+
+                                      },
+                                      child: StoryCard(name: state.storyModel[index].name, starts: 2,));
+                                },
+                              ),
+                            );
+                          }
+
+                          return StoryWidget;
+                        },
+                      ) ,
                     )
                   ]),
             ),

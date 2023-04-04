@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hikayati_app/features/Regestrion/presintation/page/LoginPage.dart';
+import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
-import 'features/Settings/presintation/page/SettingPage.dart';
-import 'features/Settings/presintation/page/lockPage.dart';
-import 'features/Story/presintation/page/StoryPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await object.init();
   await SystemChrome.setPreferredOrientations(
     [
      DeviceOrientation.landscapeLeft,
       //DeviceOrientation.landscapeRight,
     ]
   );
-  WidgetsFlutterBinding.ensureInitialized();
-  await object.init();
   runApp( MyApp());
 }
 
@@ -43,9 +39,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: AppTheme.primarySwatch,
       ),
-      home: HomePage(),
+      home: IntroScreen(),
     );
   }
 }

@@ -4,7 +4,10 @@ import 'package:hikayati_app/core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 
 class StoryCard extends StatefulWidget {
-  const StoryCard({Key? key}) : super(key: key);
+  final name;
+  final photo;
+  final starts;
+   StoryCard({Key? key,required this.name, this.photo,required this.starts}) : super(key: key);
 
   @override
   State<StoryCard> createState() => _StoryCardState();
@@ -32,22 +35,49 @@ class _StoryCardState extends State<StoryCard> {
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-         Row(
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: [
 
-             Image.asset('images/start.png'),
-             Padding(
-               padding: const EdgeInsets.only(bottom: 20.0),
-               child: Image.asset('images/start.png'),
-             ),
-             Image.asset('images/start.png'),
+           widget.starts == 1 ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
-           ],
-         ),
+
+
+                Image.asset('images/start.png'),
+
+
+              ],
+            ):widget.starts ==2?
+           Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+
+
+        Image.asset('images/start.png'),
+
+        Image.asset('images/start.png'),
+
+
+      ],
+    ):
+           Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+
+
+
+               Image.asset('images/start.png'),
+               Padding(
+                 padding: const EdgeInsets.only(bottom: 20.0),
+                 child: Image.asset('images/start.png'),
+               ),
+               Image.asset('images/start.png'),
+
+             ],
+           ),
+            SizedBox(height: 10,),
          Image.asset('images/story1.png'),
          SizedBox(height: 10,),
-         Text('ذات الرداء الأحمر',style: AppTheme.textTheme.headline5,)
+         Text(widget.name,style: AppTheme.textTheme.headline5,)
         
       ]),
       );

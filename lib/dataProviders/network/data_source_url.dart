@@ -1,6 +1,6 @@
 class DataSourceURL {
 
-     static String baseUrl = 'http://192.168.137.1:8000/api/';
+     static String baseUrl = 'http://192.168.43.202:8000/api/';
      static String baseImageUrl = 'http://192.168.137.1/';
 
 

@@ -7,6 +7,7 @@ import 'package:hikayati_app/features/Home/data/repository/StoryRepository.dart'
 import 'package:equatable/equatable.dart';
 
 import '../../../Story/date/model/StoryMode.dart';
+import '../../../Story/date/model/StoryMode.dart';
 
 part 'Story_event.dart';
 part 'Story_state.dart';
@@ -30,7 +31,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
         },
             (data) async* {
           log('yield is loaded');
-          yield StoryILoaded(categoryModel: data,);
+          yield StoryILoaded(storyModel: data,);
         },
       );
     }
