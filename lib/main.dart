@@ -33,9 +33,12 @@ void main() async{
 void test() async{
   var db = new DatabaseHelper();
    db.intDB();
-  int userSaved = await db.inserStory(
-      new MeadiaModel( text: 'jffjkjd',page_no: 'cskjkcsj' ,photo: 'hsjkhdsk',sound: 'jsdlksjkdskl',story_id: '1',id: 1) );
-    print(userSaved);
+   var res= db.getAllstory();
+  for(int i =0 ; i < res.length;i++){
+    User user = User.map(myUsers[i]);
+    print('ID: ${user.id} - username: ${user.username} - city: ${user.age}');
+
+  }
 
 
   // var myUsers = await db.getAllUserModels();

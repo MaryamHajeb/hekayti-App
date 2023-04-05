@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,7 +13,7 @@ import '../../features/Regestrion/date/model/userMode.dart';
 class DatabaseHelper{
   static Database? _db;
 
-
+String UserModelTable='meadia';
   
   Future<Database?> get db async{
     if(_db != null){
@@ -23,12 +25,22 @@ class DatabaseHelper{
 
 
   intDB() async{
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path , 'hakity.db');
-    var myOwnDB = await openDatabase(path,version: 1,
-        onCreate: _onCreate);
-    print('create db sceeses');
-    return myOwnDB;
+    var dbDir = await getDatabasesPath();
+    var dbPath = join(dbDir, "app.db");
+
+// Delete any existing database:
+    await deleteDatabase(dbPath);
+
+// Create the writable database file from the bundled demo database file:
+    ByteData data = await rootBundle.load("DB/hakity.db");
+    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    await File(dbPath).writeAsBytes(bytes);
+    print('create databases secsses');
+    var db = await openDatabase(dbPath);
+
+    print('open databases secsses');
+
+    print(db.database);
   }
   
   void _onCreate(Database db , int newVersion) async{
@@ -66,6 +78,14 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
     var dbClient = await  db;
     int result = await dbClient!.insert("meadia", meadiaModel.toJson());
     return result;
+}
+
+
+Future<List> getAllstory() async{
+  var dbClient = await  db;
+  var sql = "SELECT * FROM $UserModelTable";
+  List result = await dbClient!.rawQuery(sql);
+  return result.toList();
 }
 
 

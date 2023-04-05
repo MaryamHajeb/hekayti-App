@@ -67,17 +67,17 @@ class _IntroScreenState extends State<IntroScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              InkWell(
-                                onTap: (){
-                                //
-                                  pageController.previousPage(duration: Duration(seconds: 3), curve: Curves.bounceInOut);
-
-                                },
-                                child: SvgPicture.asset(
-                                  color: AppTheme.primarySwatch.shade500,
-                                  'images/bottons/leftarrow.svg',
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: (){
+                              //   //
+                              //     pageController.previousPage(duration: Duration(seconds: 3), curve: Curves.bounceInOut);
+                              //
+                              //   },
+                              //   child: SvgPicture.asset(
+                              //     color: AppTheme.primarySwatch.shade500,
+                              //     'images/bottons/leftarrow.svg',
+                              //   ),
+                              // ),
 
                               DotsIndicator(
                                 dotsCount: imageList.length,
@@ -91,22 +91,22 @@ class _IntroScreenState extends State<IntroScreen> {
                                       borderRadius: BorderRadius.circular(5.0)),
                                 ),
                               ),
-                               InkWell(
-                                 onTap: (){
-    if (_formKey.currentState!.validate()) {
-        // If the form is valid, display a snackbar. In the real world,
-      pageController.nextPage(duration: Duration(seconds: 5,), curve:Curves.linear);
-
-        // you'd often call a server or save the information in a database.
-    }
-
-                                 },
-                                 child: SvgPicture.asset(
-                                  color: AppTheme.primarySwatch.shade500,
-                                  'images/bottons/rightarrow.svg',
-
-                              ),
-                               ),
+    //                            InkWell(
+    //                              onTap: (){
+    // if (_formKey.currentState!.validate()) {
+    //     // If the form is valid, display a snackbar. In the real world,
+    //   pageController.nextPage(duration: Duration(seconds: 5,), curve:Curves.linear);
+    //
+    //     // you'd often call a server or save the information in a database.
+    // }
+    //
+    //                              },
+    //                              child: SvgPicture.asset(
+    //                               color: AppTheme.primarySwatch.shade500,
+    //                               'images/bottons/rightarrow.svg',
+    //
+    //                           ),
+    //                            ),
 
                             ],
                           ),
