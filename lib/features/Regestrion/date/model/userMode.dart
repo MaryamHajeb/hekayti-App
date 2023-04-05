@@ -2,14 +2,14 @@ class UserModel {
   dynamic id, userName, email, token;
 
   UserModel(
-      {required this.id,
+      {
       required this.userName,
       required this.email,
       required this.token});
 
   factory UserModel.fromJson(Map<String, dynamic> category) {
     return UserModel(
-      id: category['id'],
+
       userName: category['userName'],
       email: category['email'],
       token: category['token'],
@@ -22,7 +22,7 @@ class UserModel {
 
   factory UserModel.init() {
     return UserModel(
-      id: '',
+
       userName: '',
       email: '',
       token: '',

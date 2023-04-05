@@ -7,6 +7,7 @@ import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
+
 import '../../../../dataProviders/error/failures.dart';
 import '../../../../dataProviders/network/data_source_url.dart';
 import '../model/StoryMode.dart';
@@ -17,7 +18,9 @@ class SliedRepository extends Repository{
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
 
+
   SliedRepository({
+
     required this.remoteDataProvider,
     required this.localDataProvider,
     required this.networkInfo,
@@ -51,7 +54,14 @@ class SliedRepository extends Repository{
               retrievedDataType: StoryModel.init(),
               returnType: List
           );
-        });
+        }
+
+
+
+    );
+
+
+
   }
 
 

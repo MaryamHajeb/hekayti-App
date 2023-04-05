@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 
+import 'core/util/database_helper.dart';
 import 'features/Home/presintation/page/HomePage.dart';
+import 'features/Regestrion/date/model/userMode.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
+
+
+
+
   WidgetsFlutterBinding.ensureInitialized();
   await object.init();
   await SystemChrome.setPreferredOrientations(
@@ -17,8 +24,27 @@ void main() async{
       //DeviceOrientation.landscapeRight,
     ]
   );
+
+  test();
+
   runApp( MyApp());
 }
+
+void test() async{
+  var db = new DatabaseHelper();
+   db.intDB();
+  int userSaved = await db.inserStory(
+      new MeadiaModel( text: 'jffjkjd',page_no: 'cskjkcsj' ,photo: 'hsjkhdsk',sound: 'jsdlksjkdskl',story_id: '1',id: 1) );
+    print(userSaved);
+
+
+  // var myUsers = await db.getAllUserModels();
+  // for(int i =0 ; i < myUsers.length;i++){
+  //   UserModel user = UserModel.fromJson(myUsers[i]);
+  //   print('ID: ${user.id} - username: ${user.userName} - city: ${user.email}');
+
+  }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,5 +70,6 @@ class MyApp extends StatelessWidget {
       home: IntroScreen(),
     );
   }
+
 }
 

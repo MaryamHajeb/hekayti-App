@@ -15,6 +15,7 @@ class Repository {
     GetDataFunction? remoteFunction,
     GetCacheDataFunction? getCacheDataFunction,
     required Future<bool> checkConnection,
+
   }) async {
     log('send request running');
 

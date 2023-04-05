@@ -3,7 +3,7 @@ class StoryModel {
 
   StoryModel({
 
-    required this.id,
+     this.id,
     required this.cover_photo,
     required this.author,
     required this.level,
