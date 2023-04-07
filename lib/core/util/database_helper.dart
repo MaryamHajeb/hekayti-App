@@ -13,7 +13,7 @@ import '../../features/Regestrion/date/model/userMode.dart';
 class DatabaseHelper{
   static Database? _db;
 
-String UserModelTable='meadia';
+String TableName='meadia';
   
   Future<Database?> get db async{
     if(_db != null){
@@ -37,42 +37,18 @@ String UserModelTable='meadia';
     await File(dbPath).writeAsBytes(bytes);
     print('create databases secsses');
     var db = await openDatabase(dbPath);
-
     print('open databases secsses');
-
     print(db.database);
   }
-  
-  void _onCreate(Database db , int newVersion) async{
-    var sql = '''BEGIN TRANSACTION;
-    CREATE TABLE IF NOT EXISTS "story" (
-        "id"	INTEGER,
-        "name"	TEXT,
-        "cover_photo"	TEXT,
-        "auther"	TEXT
-        "level"	INTEGER,
-        "required_start"	INTEGER,
-        PRIMARY KEY("id")
-    );
-    CREATE TABLE IF NOT EXISTS "meadia" (
-    "id"	INTEGER,
-    "page_no"	INTEGER,
-    "story_id"	INTEGER,
-    "photo"	TEXT,
-    "sound"	TEXT,
-    "text"	TEXT,
-    FOREIGN KEY("story_id") REFERENCES "story"("id"),
-    PRIMARY KEY("id" AUTOINCREMENT),
-    );
-    COMMIT;''';
-    try{
-      await db.execute(sql);
-    }catch(e){
-      e.toString();
-    }
 
-    print('create teble scees');
-  }
+  //
+  // void _onCreate(Database db , int newVersion) async{
+  //   var sql = "CREATE TABLE user (id INTEGER PRIMARY KEY,"
+  //       " name TEXT, password TEXT,  city TEXT, age INTEGER )";
+  //    await db.execute(sql);
+  // }
+
+
 
 Future<int> inserStory( MeadiaModel meadiaModel) async{
     var dbClient = await  db;
@@ -81,9 +57,10 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 }
 
 
+
 Future<List> getAllstory() async{
-  var dbClient = await  db;
-  var sql = "SELECT * FROM $UserModelTable";
+  Database? dbClient = await  db;
+  var sql = "SELECT * FROM meadia";
   List result = await dbClient!.rawQuery(sql);
   return result.toList();
 }

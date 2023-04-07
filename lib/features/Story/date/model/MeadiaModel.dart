@@ -2,7 +2,6 @@ class MeadiaModel {
   dynamic id, page_no,story_id,photo,sound,text;
 
   MeadiaModel({
-
      this.id,
     required this.story_id,
     required this.photo,
@@ -20,7 +19,6 @@ class MeadiaModel {
         photo: meadia['photo'],
         sound: meadia['sound'],
         text: meadia['text'],
-
         page_no: meadia['page_no']);
   }
 

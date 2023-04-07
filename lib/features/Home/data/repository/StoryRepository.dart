@@ -7,12 +7,10 @@ import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/util/dp.dart';
+
 import '../../../../dataProviders/error/exceptions.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../Story/date/model/StoryMode.dart';
-
-Sqldb sqldb = Sqldb();
 
 class StoryRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet

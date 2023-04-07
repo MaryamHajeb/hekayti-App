@@ -30,24 +30,32 @@ void main() async{
   runApp( MyApp());
 }
 
-void test() async{
-  var db = new DatabaseHelper();
-   db.intDB();
-   var res= db.getAllstory();
-  for(int i =0 ; i < res.length;i++){
-    User user = User.map(myUsers[i]);
-    print('ID: ${user.id} - username: ${user.username} - city: ${user.age}');
+void test() async {
+  DatabaseHelper? db = new DatabaseHelper();
+ db.intDB();
+  // var res = await db.getAllstory();
+  // for (int i = 0; i < res.length; i++) {
+  //   MeadiaModel user = MeadiaModel.fromJson(res[i]);
+  //   print('ID: ${user.id} - username: ${user.text} - city: ${user.page_no}');
+
+    // List myUsers = await db.getAllstory();
+    // for(int i =0 ; i < myUsers.length;i++){
+    //   MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
+    //   print('ID: ${user.id} - username: ${user.page_no} - city: ${user.text}');
+    //
+    // }
+
+
+    int res = await db.inserStory(MeadiaModel(story_id: 1,
+        id: 14,
+        photo: 'photo',
+        sound: 'sound',
+        text: 'text',
+        page_no: '3'));
+    print(res);
+
 
   }
-
-
-  // var myUsers = await db.getAllUserModels();
-  // for(int i =0 ; i < myUsers.length;i++){
-  //   UserModel user = UserModel.fromJson(myUsers[i]);
-  //   print('ID: ${user.id} - username: ${user.userName} - city: ${user.email}');
-
-  }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

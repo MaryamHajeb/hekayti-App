@@ -29,7 +29,7 @@ class AppTheme {
     500: const Color(0xFFFFFFFF).withOpacity(.5),
     600: const Color(0xFFFFFFFF).withOpacity(.6),
     700: const Color(0xFFFFFFFF).withOpacity(.7),
-    800: const Color(0xFFFFFFFF).withOpacity(.8)!,
+    800: const Color(0xFFFFFFFF).withOpacity(.8),
     900: const Color(0xFFFFFFFF).withOpacity(.9)
   });
 
