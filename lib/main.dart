@@ -31,28 +31,29 @@ void main() async{
 }
 
 void test() async {
-  DatabaseHelper? db = new DatabaseHelper();
- db.intDB();
+  DatabaseHelper db = new DatabaseHelper();
+// db.intDB();
   // var res = await db.getAllstory();
   // for (int i = 0; i < res.length; i++) {
   //   MeadiaModel user = MeadiaModel.fromJson(res[i]);
   //   print('ID: ${user.id} - username: ${user.text} - city: ${user.page_no}');
 
-    // List myUsers = await db.getAllstory();
-    // for(int i =0 ; i < myUsers.length;i++){
-    //   MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
-    //   print('ID: ${user.id} - username: ${user.page_no} - city: ${user.text}');
+    List myUsers = await db.getAllstory();
+    for(int i =0 ; i < myUsers.length;i++){
+      MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
+      print('ID: ${user.id} - page_no: ${user.page_no} - text: ${user.text}');
+
+    }
+
     //
-    // }
-
-
-    int res = await db.inserStory(MeadiaModel(story_id: 1,
-        id: 14,
-        photo: 'photo',
-        sound: 'sound',
-        text: 'text',
-        page_no: '3'));
-    print(res);
+    // int? res = await db.inserStory(MeadiaModel(
+    //     story_id: '1',
+    //     id: '14',
+    //     photo: 'photo',
+    //     sound: 'sound',
+    //     text: 'text',
+    //     page_no: '3'));
+    // print(res);
 
 
   }

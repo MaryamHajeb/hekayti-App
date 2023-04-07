@@ -83,11 +83,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - images/
-      - images/bottons/
-      - images/characters/
-      - images/test/
-      - DB/hakity.db
+      - assest/images/
+      - assest/DB/hakity.db
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,7 +101,7 @@ flutter:
   fonts:
      - family: Alhurra
        fonts:
-         - asset: fonts/Alhurra.ttf
+         - asset: assest/fonts/Alhurra.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

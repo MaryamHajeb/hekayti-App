@@ -32,13 +32,13 @@ String TableName='meadia';
     await deleteDatabase(dbPath);
 
 // Create the writable database file from the bundled demo database file:
-    ByteData data = await rootBundle.load("DB/hakity.db");
+    ByteData data = await rootBundle.load("assest/DB/hakity.db");
     List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File(dbPath).writeAsBytes(bytes);
     print('create databases secsses');
     var db = await openDatabase(dbPath);
     print('open databases secsses');
-    print(db.database);
+    print(db.isOpen);
   }
 
   //
@@ -60,7 +60,7 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 
 Future<List> getAllstory() async{
   Database? dbClient = await  db;
-  var sql = "SELECT * FROM meadia";
+  var sql = "SELECT * FROM MEADIA";
   List result = await dbClient!.rawQuery(sql);
   return result.toList();
 }
