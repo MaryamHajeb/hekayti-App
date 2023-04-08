@@ -11,11 +11,11 @@ import '../../features/Regestrion/date/model/userMode.dart';
 
 
 class DatabaseHelper{
-  static Database? _db;
+   var _db;
 
 String TableName='meadia';
   
-  Future<Database?> get db async{
+  Future<Database> get db async{
     if(_db != null){
       return _db;
     }
@@ -61,7 +61,7 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 Future<List> getAllstory() async{
   Database? dbClient = await  db;
   var sql = "SELECT * FROM MEADIA";
-  List result = await dbClient!.rawQuery(sql);
+  List result = await dbClient.rawQuery(sql);
   return result.toList();
 }
 
