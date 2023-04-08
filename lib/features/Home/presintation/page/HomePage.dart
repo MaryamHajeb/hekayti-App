@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
             width: screenUtil.screenWidth * 1,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('images/backgraond.png'),
+                    image: AssetImage('assest/images/backgraond.png'),
                     fit: BoxFit.fill)),
             child: SingleChildScrollView(
               child: Column(
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
 
 
                           },
-                          child: CustemIcon(icon: Image.asset('images/girl3.png', fit: BoxFit.cover), ontap: (){
+                          child: CustemIcon(icon: Image.asset('assest/images/girl3.png', fit: BoxFit.cover), ontap: (){
 
                             Navigator.push(
                                 context,
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Image.asset('images/start.png'),
+                                Image.asset('assest/images/start.png'),
                                 Text('2/24')
                               ],
                             )),

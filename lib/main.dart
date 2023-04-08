@@ -8,42 +8,30 @@ import 'core/util/database_helper.dart';
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/date/model/userMode.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
+import 'features/Story/date/model/StoryMode.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 
 void main() async{
 
+  void test() async {
+    DatabaseHelper db = new DatabaseHelper();
+
+int dd=await  db.inserStory(MeadiaModel(story_id: '1', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3)) ;
+  print(dd.toString());
 
 
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await object.init();
-  await SystemChrome.setPreferredOrientations(
-    [
-     DeviceOrientation.landscapeLeft,
-      //DeviceOrientation.landscapeRight,
-    ]
-  );
-
-  test();
-
-  runApp( MyApp());
-}
-
-void test() async {
-  DatabaseHelper db = new DatabaseHelper();
-// db.intDB();
-  // var res = await db.getAllstory();
-  // for (int i = 0; i < res.length; i++) {
-  //   MeadiaModel user = MeadiaModel.fromJson(res[i]);
-  //   print('ID: ${user.id} - username: ${user.text} - city: ${user.page_no}');
-
-    List myUsers = await db.getAllstory();
-    for(int i =0 ; i < myUsers.length;i++){
-      MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
-      print('ID: ${user.id} - page_no: ${user.page_no} - text: ${user.text}');
-
+    var res = await db.getAllstory();
+    for (int i = 0; i < res.length; i++) {
+      StoryModel user = StoryModel.fromJson(res[i]);
+      print('ID: ${user.id} - username: ${user.name} - city: ${user.level}');
     }
+    // List myUsers = await db.getAllstory();
+    // for(int i =0 ; i < myUsers!.length;i++){
+    //   MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
+    //   print('ID: ${user.id} - page_no: ${user.page_no} - text: ${user.text}');
+    //
+    // }
 
     //
     // int? res = await db.inserStory(MeadiaModel(
@@ -57,6 +45,22 @@ void test() async {
 
 
   }
+
+
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await object.init();
+  await SystemChrome.setPreferredOrientations(
+    [
+     DeviceOrientation.landscapeLeft,
+      //DeviceOrientation.landscapeRight,
+    ]
+  );
+ // test();
+//
+  runApp( MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -79,7 +83,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: IntroScreen(),
+      home: HomePage(),
     );
   }
 

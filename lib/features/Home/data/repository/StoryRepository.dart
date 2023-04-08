@@ -8,6 +8,7 @@ import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
 
+import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/exceptions.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../Story/date/model/StoryMode.dart';
@@ -16,6 +17,7 @@ class StoryRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
+  DatabaseHelper db = new DatabaseHelper();
 
   StoryRepository({
     required this.remoteDataProvider,
@@ -44,12 +46,16 @@ class StoryRepository extends Repository{
           return remoteData;
         },
 
-        getCacheDataFunction: () {
-          return localDataProvider.getCachedData(
-              key: 'CACHED_Story',
-              retrievedDataType: StoryModel.init(),
-              returnType: List
-          );
+        getCacheDataFunction: ()async {
+          var reslet = await db.getAllstory();
+          List<StoryModel> list=[] ;
+          //
+          for(int i=0;i<reslet.length;i++)
+          list.add(StoryModel.fromJson(reslet[i]));
+
+          print(list.length);
+
+          return list;
         });
   }
 

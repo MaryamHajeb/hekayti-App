@@ -11,11 +11,11 @@ import '../../features/Regestrion/date/model/userMode.dart';
 
 
 class DatabaseHelper{
-   var _db;
-
+   Database? _db ;
+   var path;
 String TableName='meadia';
   
-  Future<Database> get db async{
+  Future<Database?> get db async{
     if(_db != null){
       return _db;
     }
@@ -29,7 +29,6 @@ String TableName='meadia';
     var dbPath = join(dbDir, "app.db");
 
 // Delete any existing database:
-    await deleteDatabase(dbPath);
 
 // Create the writable database file from the bundled demo database file:
     ByteData data = await rootBundle.load("assest/DB/hakity.db");
@@ -37,8 +36,10 @@ String TableName='meadia';
     await File(dbPath).writeAsBytes(bytes);
     print('create databases secsses');
     var db = await openDatabase(dbPath);
+    path=dbPath;
     print('open databases secsses');
     print(db.isOpen);
+    return db;
   }
 
   //
@@ -49,7 +50,6 @@ String TableName='meadia';
   // }
 
 
-
 Future<int> inserStory( MeadiaModel meadiaModel) async{
     var dbClient = await  db;
     int result = await dbClient!.insert("meadia", meadiaModel.toJson());
@@ -58,12 +58,15 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 
 
 
-Future<List> getAllstory() async{
-  Database? dbClient = await  db;
-  var sql = "SELECT * FROM MEADIA";
-  List result = await dbClient.rawQuery(sql);
+ Future<List> getAllstory() async{
+
+    Database? dbClient = await  db;
+  var sql = "SELECT * FROM story";
+  List result = await dbClient!.rawQuery(sql);
   return result.toList();
-}
+
+
+  }
 
 
 

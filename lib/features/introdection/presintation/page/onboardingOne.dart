@@ -45,15 +45,15 @@ ScreenUtil screenUtil=ScreenUtil();
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+                          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('assest/images/logo.png'),),
                           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
                           Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
 
-                                Image.asset('images/boy1.png'),
-                                Image.asset('images/girl1.png'),
+                                Image.asset('assest/images/boy1.png'),
+                                Image.asset('assest/images/girl1.png'),
 
 
                               ],),

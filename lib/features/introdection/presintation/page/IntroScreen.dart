@@ -44,7 +44,7 @@ class _IntroScreenState extends State<IntroScreen> {
           child: SingleChildScrollView(
             child: Container(
               decoration:  const BoxDecoration(
-                image: DecorationImage(image: AssetImage('images/backgraond.png',),fit: BoxFit.fill),
+                image: DecorationImage(image: AssetImage('assest/images/backgraond.png',),fit: BoxFit.fill),
               ),
 
 
