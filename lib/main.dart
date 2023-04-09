@@ -16,16 +16,23 @@ void main() async{
 
   void test() async {
     DatabaseHelper db = new DatabaseHelper();
+ // List dd= await db.getAllSliedForStory('meadia', 'story_id = 1');
+ // print(dd.toString());
+ //
+ //    for (int i = 0; i < dd.length; i++) {
+ //      MeadiaModel user = MeadiaModel.fromJson(dd[i]);
+ //      print('ID: ${user.id} - username: ${user.text} - city: ${user.photo}');
+ //    }
 
-int dd=await  db.inserStory(MeadiaModel(story_id: '1', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3)) ;
-  print(dd.toString());
-
-
-    var res = await db.getAllstory();
-    for (int i = 0; i < res.length; i++) {
-      StoryModel user = StoryModel.fromJson(res[i]);
-      print('ID: ${user.id} - username: ${user.name} - city: ${user.level}');
-    }
+// int dd=await  db.inserStory(MeadiaModel(story_id: '1', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3)) ;
+//   print(dd.toString());
+//
+//
+//     var res = await db.getAllstory();
+//     for (int i = 0; i < res.length; i++) {
+//       StoryModel user = StoryModel.fromJson(res[i]);
+//       print('ID: ${user.id} - username: ${user.name} - city: ${user.level}');
+//     }
     // List myUsers = await db.getAllstory();
     // for(int i =0 ; i < myUsers!.length;i++){
     //   MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
@@ -56,7 +63,7 @@ int dd=await  db.inserStory(MeadiaModel(story_id: '1', photo: 'aallala', sound: 
       //DeviceOrientation.landscapeRight,
     ]
   );
- // test();
+  test();
 //
   runApp( MyApp());
 }

@@ -5,11 +5,11 @@ abstract class SliedEvent extends Equatable {
   const SliedEvent();
 }
 
-class GetAllCategoriesSlied extends SliedEvent {
-  String token,category_id;
+class GetAllSlied extends SliedEvent {
+  String story_id,tableName;
 
 
-  GetAllCategoriesSlied({required this.token,required this.category_id});
+  GetAllSlied({required this.story_id,required this.tableName});
 
   @override
   List<Object> get props => [];

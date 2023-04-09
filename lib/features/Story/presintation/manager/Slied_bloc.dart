@@ -20,9 +20,9 @@ class SliedBloc extends Bloc<SliedEvent, SliedState> {
   @override
   Stream<SliedState> mapEventToState(SliedEvent event)async* {
 
-    if(event is GetAllCategoriesSlied){
+    if(event is GetAllSlied){
       yield SliedLoading();
-      final failureOrData = await repository.getAllCategoriesSlied(category_id: event.category_id,token: event.token);
+      final failureOrData = await repository.getAllSlied(story_id: event.story_id,tableName: event.tableName);
       yield* failureOrData.fold(
             (failure) async* {
           log('yield is error');
@@ -30,7 +30,7 @@ class SliedBloc extends Bloc<SliedEvent, SliedState> {
         },
             (data) async* {
           log('yield is loaded');
-          yield SliedLoaded(SliedModel:  data,);
+          yield SliedILoaded(SliedModel: data);
         },
       );
     }

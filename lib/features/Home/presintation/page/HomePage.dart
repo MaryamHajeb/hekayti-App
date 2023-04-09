@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            CustomPageRoute(  child:   StoryPage(id: state.storyModel[index]?.id,)));
+                                            CustomPageRoute(  child:   SliedPage(id: state.storyModel[index]?.id,)));
 
                                       },
                                       child: StoryCard(name: state.storyModel[index]?.name, starts: 2,));

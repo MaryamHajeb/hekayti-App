@@ -1,6 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../date/model/MeadiaModel.dart';
 import '../../date/model/StoryMode.dart';
 
 abstract class SliedState extends Equatable {
@@ -17,10 +18,10 @@ class SliedLoading extends SliedState {
   List<Object> get props => [];
 }
 
-class SliedLoaded extends SliedState {
+class SliedILoaded extends SliedState {
 
-  List<StoryModel> SliedModel;
-  SliedLoaded({required this.SliedModel});
+  List<MeadiaModel> SliedModel;
+  SliedILoaded({required this.SliedModel});
 
   @override
   List<Object> get props => [SliedModel];

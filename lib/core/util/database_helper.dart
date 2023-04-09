@@ -69,6 +69,13 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
   }
 
 
+   Future<List> getAllSliedForStory(String  table,where_arg) async{
+     Database? dbClient = await  db;
+
+     List<dynamic> result = await dbClient!.query(table,where: 'story_id = $where_arg');
+     return await result.toList();
+
+   }
 
 // Future<int> saveUserModel( UserModel UserModel) async{
 //     var dbClient = await  db;

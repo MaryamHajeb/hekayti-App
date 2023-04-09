@@ -27,7 +27,7 @@ class _StoryCardState extends State<StoryCard> {
 
       decoration:
       BoxDecoration(
-        image: DecorationImage(image: AssetImage('images/storyBG.png'))
+        image: DecorationImage(image: AssetImage('assest/images/storyBG.png'))
 
       ),
       child: Column(
@@ -42,7 +42,7 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-                Image.asset('images/start.png'),
+                Image.asset('assest/images/start.png'),
 
 
               ],
@@ -52,9 +52,9 @@ class _StoryCardState extends State<StoryCard> {
       children: [
 
 
-        Image.asset('images/start.png'),
+        Image.asset('assest/images/start.png'),
 
-        Image.asset('images/start.png'),
+        Image.asset('assest/images/start.png'),
 
 
       ],
@@ -65,17 +65,17 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-               Image.asset('images/start.png'),
+               Image.asset('assest/images/start.png'),
                Padding(
                  padding: const EdgeInsets.only(bottom: 20.0),
-                 child: Image.asset('images/start.png'),
+                 child: Image.asset('assest/images/start.png'),
                ),
-               Image.asset('images/start.png'),
+               Image.asset('assest/images/start.png'),
 
              ],
            ),
             SizedBox(height: 10,),
-         Image.asset('images/story1.png'),
+         Image.asset('assest/images/story1.png'),
          SizedBox(height: 10,),
          Text(widget.name,style: AppTheme.textTheme.headline5,)
         
