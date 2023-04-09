@@ -127,10 +127,10 @@ class _HomePageState extends State<HomePage> {
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            CustomPageRoute(  child:   StoryPage()));
+                                            CustomPageRoute(  child:   StoryPage(id: state.storyModel[index]?.id,)));
 
                                       },
-                                      child: StoryCard(name: state.storyModel[index].name, starts: 2,));
+                                      child: StoryCard(name: state.storyModel[index]?.name, starts: 2,));
                                 },
                               ),
                             );

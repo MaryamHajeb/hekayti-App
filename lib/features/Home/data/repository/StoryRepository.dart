@@ -47,15 +47,15 @@ class StoryRepository extends Repository{
         },
 
         getCacheDataFunction: ()async {
-          var reslet = await db.getAllstory();
+          List<dynamic> reslet = await db.getAllstory();
           List<StoryModel> list=[] ;
-          //
-          for(int i=0;i<reslet.length;i++)
-          list.add(StoryModel.fromJson(reslet[i]));
+          reslet.forEach((element) {
+            StoryModel user = StoryModel.fromJson(element);
+         list.add(user);
+          });
 
-          print(list.length);
 
-          return list;
+          return  list;
         });
   }
 

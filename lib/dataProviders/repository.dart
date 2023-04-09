@@ -44,7 +44,7 @@ class Repository {
       }
 
       try {
-        final localData = getCacheDataFunction();
+        final localData =await getCacheDataFunction();
         return Right(localData);
       } on CacheException {
         return Left(CacheFailure());

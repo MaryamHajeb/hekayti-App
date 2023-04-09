@@ -9,7 +9,8 @@ import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 
 class StoryPage extends StatefulWidget {
-  const StoryPage({Key? key}) : super(key: key);
+  final id;
+   StoryPage({Key? key,required this.id}) : super(key: key);
 
   @override
   State<StoryPage> createState() => _StoryPageState();

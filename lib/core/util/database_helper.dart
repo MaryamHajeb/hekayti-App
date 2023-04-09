@@ -62,8 +62,8 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 
     Database? dbClient = await  db;
   var sql = "SELECT * FROM story";
-  List result = await dbClient!.rawQuery(sql);
-  return result.toList();
+  List<dynamic> result = await dbClient!.rawQuery(sql);
+  return await result.toList();
 
 
   }

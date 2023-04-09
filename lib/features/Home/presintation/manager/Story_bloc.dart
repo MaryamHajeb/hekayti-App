@@ -31,7 +31,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
         },
             (data) async* {
           log('yield is loaded');
-          yield StoryILoaded(storyModel: data,);
+          yield  StoryILoaded(storyModel: data);
         },
       );
     }
