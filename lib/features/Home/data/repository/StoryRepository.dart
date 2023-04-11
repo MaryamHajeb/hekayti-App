@@ -47,7 +47,7 @@ class StoryRepository extends Repository{
         },
 
         getCacheDataFunction: ()async {
-          List<dynamic> reslet = await db.getAllstory();
+          List<dynamic> reslet = await db.getAllstory('story');
           List<StoryModel> list=[] ;
           reslet.forEach((element) {
             StoryModel user = StoryModel.fromJson(element);

@@ -121,7 +121,6 @@ class _SliedPageState extends State<SliedPage> {
                                 itemBuilder: (context, index) {
                                   return  InkWell(
                                     onTap: (){
-
                                       setState(() {
                                         currentIndexPage = index;
 

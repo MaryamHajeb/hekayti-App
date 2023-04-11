@@ -50,6 +50,7 @@ String TableName='meadia';
   // }
 
 
+
 Future<int> inserStory( MeadiaModel meadiaModel) async{
     var dbClient = await  db;
     int result = await dbClient!.insert("meadia", meadiaModel.toJson());
@@ -58,14 +59,12 @@ Future<int> inserStory( MeadiaModel meadiaModel) async{
 
 
 
- Future<List> getAllstory() async{
+ Future<List> getAllstory(tableName) async{
 
     Database? dbClient = await  db;
-  var sql = "SELECT * FROM story";
+  var sql = "SELECT * FROM $tableName";
   List<dynamic> result = await dbClient!.rawQuery(sql);
   return await result.toList();
-
-
   }
 
 

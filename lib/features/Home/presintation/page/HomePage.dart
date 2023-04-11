@@ -4,6 +4,7 @@ import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/core/widgets/CastemInput.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
+import 'package:hikayati_app/features/Story/date/model/StoryMode.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CustemIcon.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget StoryWidget=Center();
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
+  List<StoryModel> listStory=[];
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -112,12 +114,18 @@ class _HomePageState extends State<HomePage> {
 
                           if(state is StoryILoaded){
                             //TODO::Show Story here
+                             state.storyModel.forEach((element) {
+                               listStory.add(element!);
 
+                             });
+
+
+                             print(listStory.last.name);
                             StoryWidget=       Container(
                               height: screenUtil.screenHeight * .8,
                               width: double.infinity,
                               child: GridView.builder(
-                                itemCount: state.storyModel.length,
+                                itemCount: listStory.length,
                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
 
                                     crossAxisCount: 3),
@@ -130,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                                             CustomPageRoute(  child:   SliedPage(id: state.storyModel[index]?.id,)));
 
                                       },
-                                      child: StoryCard(name: state.storyModel[index]?.name, starts: 2,));
+                                      child: StoryCard(name: listStory[index].name, starts: 2,));
                                 },
                               ),
                             );
