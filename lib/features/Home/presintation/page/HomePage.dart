@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                              });
 
 
-                             print(listStory.last.name);
+                             print(listStory.last.cover_photo);
                             StoryWidget=       Container(
                               height: screenUtil.screenHeight * .8,
                               width: double.infinity,
@@ -135,10 +135,10 @@ class _HomePageState extends State<HomePage> {
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            CustomPageRoute(  child:   SliedPage(id: state.storyModel[index]?.id,)));
+                                            CustomPageRoute(  child:   StoryPage(id: state.storyModel[index]?.id,)));
 
                                       },
-                                      child: StoryCard(name: listStory[index].name, starts: 2,));
+                                      child: StoryCard(name: listStory[index].name, starts: 2,photo: listStory[index].cover_photo,));
                                 },
                               ),
                             );

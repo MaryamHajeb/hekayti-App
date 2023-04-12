@@ -36,23 +36,18 @@ class SliedRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          final remoteData = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllSlied,
-              retrievedDataType: StoryModel.init(),
-              returnType:List,
-              body: {
-                'story_id':story_id,
-                
-              }
-          );
+          List<dynamic> reslet = await db.getAllSliedForStory(tableName, story_id);
+          List<MeadiaModel> list=[] ;
+          reslet.forEach((element) {
+            MeadiaModel story = MeadiaModel.fromJson(element);
+            list.add(story);
+          });
 
-          localDataProvider.cacheData(key: 'CACHED_Slied', data: remoteData);
 
-          return remoteData;
+          return  list;
         },
 
         getCacheDataFunction: () async{
-
           List<dynamic> reslet = await db.getAllSliedForStory(tableName, story_id);
           List<MeadiaModel> list=[] ;
           reslet.forEach((element) {

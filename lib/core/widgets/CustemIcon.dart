@@ -24,6 +24,7 @@ class _CustemIconState extends State<CustemIcon> {
       ),
       child: Center(
         child: IconButton(
+          color: Colors.white,
             onPressed: () {
               setState(() {
                 widget.ontap();

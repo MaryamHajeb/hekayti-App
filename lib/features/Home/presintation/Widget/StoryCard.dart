@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/common.dart';
 
 class StoryCard extends StatefulWidget {
   final name;
-  final photo;
+  String photo;
   final starts;
-   StoryCard({Key? key,required this.name, this.photo,required this.starts}) : super(key: key);
+   StoryCard({Key? key,required this.name,required this.photo,required this.starts}) : super(key: key);
 
   @override
   State<StoryCard> createState() => _StoryCardState();
@@ -58,7 +59,17 @@ class _StoryCardState extends State<StoryCard> {
 
 
       ],
-    ):
+    ): widget.starts ==0 ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+
+
+                Image.asset('assest/images/start.png'),
+
+
+              ],
+            ):
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
@@ -75,7 +86,13 @@ class _StoryCardState extends State<StoryCard> {
              ],
            ),
             SizedBox(height: 10,),
-         Image.asset('assest/images/story1.png'),
+            Image.memory(
+              converToBase64(
+                 widget.photo.toString()
+              ),
+              fit: BoxFit.cover,
+
+              ),
          SizedBox(height: 10,),
          Text(widget.name,style: AppTheme.textTheme.headline5,)
         

@@ -32,18 +32,19 @@ class StoryRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          final remoteData = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllStory,
-              retrievedDataType: StoryModel.init(),
-              returnType:List,
-              body: {
-                'api_token':token
-              }
-          );
+          List<dynamic> reslet = await db.getAllstory('story');
+          List<StoryModel> list=[] ;
+          reslet.forEach((element) {
+            StoryModel user = StoryModel.fromJson(element);
+            list.add(user);
+          });
 
-          localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
 
-          return remoteData;
+          return  list;;
+
+          // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
+          //
+          // return remoteData;
         },
 
         getCacheDataFunction: ()async {

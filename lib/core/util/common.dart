@@ -1,3 +1,7 @@
+
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -86,6 +90,12 @@ import '../widgets/primaryText.dart';
 //     return Right(false);
 //   }
 // }
+
+
+converToBase64(String text){
+  Uint8List image = base64Decode(text);
+  return image;
+}
 
 void showImagesDialog(BuildContext context, String image,String text) {
   showDialog(
