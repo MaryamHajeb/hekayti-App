@@ -51,9 +51,9 @@ String TableName='meadia';
 
 
 
-Future<int> inserStory( MeadiaModel meadiaModel) async{
+Future<int> inser({required dynamic data,required tableName}) async{
     var dbClient = await  db;
-    int result = await dbClient!.insert("meadia", meadiaModel.toJson());
+    int result = await dbClient!.insert("$tableName", data.toJson());
     return result;
 }
 

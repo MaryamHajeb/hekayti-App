@@ -93,6 +93,7 @@ import '../widgets/primaryText.dart';
 
 
 converToBase64(String text){
+
   Uint8List image = base64Decode(text);
   return image;
 }

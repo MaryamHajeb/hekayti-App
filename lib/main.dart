@@ -25,8 +25,11 @@ void main() async{
  //      print('ID: ${user.id} - username: ${user.text} - city: ${user.photo}');
  //    }
 
-// int dd=await  db.inserStory(MeadiaModel(story_id: '1', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3)) ;
-//   print(dd.toString());
+var dd=await db.inser(data: MeadiaModel(story_id: '', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3), tableName: 'meadia') ;
+  print('---------------------------------------------------------');
+  print(dd.toString());
+    print('---------------------------------------------------------');
+
 //
 //
 //     var res = await db.getAllstory();

@@ -16,7 +16,7 @@ class StoryModel {
 
 
         id: story['id'],
-        cover_photo: story['cover_photo'],
+        cover_photo: story['coverphoto'],
         author: story['author'],
         level: story['level'],
         required_stars: story['required_stars'],
@@ -55,6 +55,6 @@ class StoryModel {
     'required_stars': required_stars,
     'level': level,
     'author': author,
-    'cover_photo': cover_photo,
+    'coverphoto': cover_photo,
     'name': name};
 }

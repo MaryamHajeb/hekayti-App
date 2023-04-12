@@ -279,10 +279,10 @@ Widget SliedWidget=Center();
                                                             pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.bounceInOut);
                                                           });
                                                         },
-                                                        child: Image.asset(
-                                                          color: AppTheme.primarySwatch.shade500,
-                                                          'assest/images/right_arrow.png',
-                                                        ),
+                                                          child: Image.asset(
+                                                            color: AppTheme.primarySwatch.shade500,
+                                                            'assest/images/right_arrow.png',
+                                                          ),
                                                       ),
 
                                                       Column(

@@ -133,12 +133,14 @@ class _HomePageState extends State<HomePage> {
 
                                   return InkWell(
                                       onTap: (){
+
+
                                         Navigator.push(
                                             context,
                                             CustomPageRoute(  child:   StoryPage(id: state.storyModel[index]?.id,)));
 
                                       },
-                                      child: StoryCard(name: listStory[index].name, starts: 2,photo: listStory[index].cover_photo,));
+                                      child: StoryCard(name: listStory[index].name, starts: 3,photo: listStory[index].cover_photo.toString(),));
                                 },
                               ),
                             );
