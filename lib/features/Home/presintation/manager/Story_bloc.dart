@@ -6,8 +6,8 @@ import 'package:hikayati_app/dataProviders/error/failures.dart';
 import 'package:hikayati_app/features/Home/data/repository/StoryRepository.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../Story/date/model/StoryMode.dart';
-import '../../../Story/date/model/StoryMode.dart';
+import '../../data/model/StoryMode.dart';
+import '../../data/model/StoryMode.dart';
 
 part 'Story_event.dart';
 part 'Story_state.dart';

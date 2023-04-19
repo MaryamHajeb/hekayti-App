@@ -1,34 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
+import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 
 import 'core/util/database_helper.dart';
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/date/model/userMode.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
-import 'features/Story/date/model/StoryMode.dart';
+import 'features/Home/data/model/StoryMode.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
+DatabaseHelper db = new DatabaseHelper();
 
 void main() async{
+
 
   void test() async {
     DatabaseHelper db = new DatabaseHelper();
 
- // List dd= await db.getAllSliedForStory('meadia', 'story_id = 1');
+ //    try {
+ //      var dd = await db.inser(data: StoryModel(cover_photo: 'cover_photo', auther: 'author', level: 1, required_star: '3', name: 'almomyz'), tableName: 'story');
+ //      print('---------------------------------------------------------');
+ //
+ //      print('---------------------------------------------------------');
+ //    }catch(e){
+ //      print(e.toString());
+ //    }
+ //
+ //
+ //    List dd= await db.getAllstory('accuracy');
+ // print('--------------------------------------------');
  // print(dd.toString());
+ // print('--------------------------------------------');
  //
  //    for (int i = 0; i < dd.length; i++) {
- //      MeadiaModel user = MeadiaModel.fromJson(dd[i]);
- //      print('ID: ${user.id} - username: ${user.text} - city: ${user.photo}');
+ //      accuracyModel user = accuracyModel.fromJson(dd[i]);
+ //      print('ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
  //    }
-
-var dd=await db.inser(data: MeadiaModel(story_id: '', photo: 'aallala', sound: 'xaxa', text: 'text', page_no: 3), tableName: 'meadia') ;
-  print('---------------------------------------------------------');
-  print(dd.toString());
-    print('---------------------------------------------------------');
 
 //
 //
@@ -39,7 +50,7 @@ var dd=await db.inser(data: MeadiaModel(story_id: '', photo: 'aallala', sound: '
 //     }
     // List myUsers = await db.getAllstory();
     // for(int i =0 ; i < myUsers!.length;i++){
-    //   MeadiaModel user = MeadiaModel.fromJson(myUsers[i]);
+    //   MeadiaModel user =   MeadiaModel.fromJson(myUsers[i]);
     //   print('ID: ${user.id} - page_no: ${user.page_no} - text: ${user.text}');
     //
     // }
@@ -94,7 +105,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: HomePage(),
+      home: SettingPage(),
     );
   }
 

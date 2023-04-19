@@ -36,12 +36,12 @@ width: screenUtil.screenWidth *.6,
 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(child: Image.asset('images/story1.png')),
+          Center(child: Image.asset('assest/images/story1.png')),
           Text('ذات الرداء الأحمر',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Row(children: [
-            Image.asset('images/start.png'),
-            Image.asset('images/start.png'),
-            Image.asset('images/start.png'),
+            Image.asset('assest/images/start.png'),
+            Image.asset('assest/images/start.png'),
+            Image.asset('assest/images/start.png'),
 
           ],),
           Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),

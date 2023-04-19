@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../date/model/MeadiaModel.dart';
-import '../../date/model/StoryMode.dart';
+import '../../../Home/data/model/StoryMode.dart';
 
 abstract class SliedState extends Equatable {
   const SliedState();

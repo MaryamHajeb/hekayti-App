@@ -11,7 +11,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/exceptions.dart';
 import '../../../../dataProviders/error/failures.dart';
-import '../../../Story/date/model/StoryMode.dart';
+import '../model/StoryMode.dart';
 
 class StoryRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet

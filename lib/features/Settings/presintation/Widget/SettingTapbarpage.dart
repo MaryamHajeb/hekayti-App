@@ -26,12 +26,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   int itemSelected =0;
   int itemSelected2 =0;
   List image=[
-    'images/boy4.png',
-    'images/boy3.png',
-    'images/boy2.png',
-    'images/girl4.png',
-    'images/girl3.png',
-    'images/girl2.png',
+    'assest/images/boy4.png',
+    'assest/images/boy3.png',
+    'assest/images/boy2.png',
+    'assest/images/girl4.png',
+    'assest/images/girl3.png',
+    'assest/images/girl2.png',
   ];
 
   ScreenUtil screenUtil=ScreenUtil();

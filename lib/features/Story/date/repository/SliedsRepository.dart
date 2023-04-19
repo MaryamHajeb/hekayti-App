@@ -12,7 +12,7 @@ import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../../dataProviders/network/data_source_url.dart';
-import '../model/StoryMode.dart';
+import '../../../Home/data/model/StoryMode.dart';
 
 
 class SliedRepository extends Repository{

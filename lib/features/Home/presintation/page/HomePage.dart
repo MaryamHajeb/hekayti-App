@@ -4,13 +4,15 @@ import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/core/widgets/CastemInput.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
-import 'package:hikayati_app/features/Story/date/model/StoryMode.dart';
+import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/database_helper.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
+import '../../../Story/date/model/MeadiaModel.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
 
@@ -90,7 +92,11 @@ class _HomePageState extends State<HomePage> {
                                 icon: Icon(Icons.search),
                                 text: 'بحث',
                                 controler: search,size: 340,)),
-                       CustemIcon(icon: Icon(Icons.volume_up_rounded,color: Colors.white), ontap: (){}),
+                       CustemIcon(icon: Icon(Icons.volume_up_rounded,color: Colors.white), ontap: ()async{
+                         DatabaseHelper db = new DatabaseHelper();
+
+
+                       }),
                       ],
                     ),
                     SizedBox(height: 30),

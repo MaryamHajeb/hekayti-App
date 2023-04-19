@@ -51,9 +51,10 @@ String TableName='meadia';
 
 
 
-Future<int> inser({required dynamic data,required tableName}) async{
+Future<int> inser({required dynamic data,required String tableName}) async{
     var dbClient = await  db;
     int result = await dbClient!.insert("$tableName", data.toJson());
+    print(result);
     return result;
 }
 
