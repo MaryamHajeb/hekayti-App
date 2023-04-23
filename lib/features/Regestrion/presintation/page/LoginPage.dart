@@ -7,6 +7,7 @@ import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.da
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
+
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
@@ -115,7 +116,7 @@ TextEditingController CofemPassword = TextEditingController();
                                             children: [
                                               Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
                                               SizedBox(width: 20,),
-                                              CastemInput(
+                                              CustemInput(
                                                 size: 250,
                                                 valdution: (value){
                                                   if (value!.isEmpty) {
@@ -140,7 +141,7 @@ TextEditingController CofemPassword = TextEditingController();
                                             children: [
                                               Text('                           كلمة المرور',style: AppTheme.textTheme.headline3,),
                                               SizedBox(width: 20,),
-                                              CastemInput(
+                                              CustemInput(
                                                 size: 250,
                                                 valdution: (value){
                                                   if (value.toString().isEmpty) {

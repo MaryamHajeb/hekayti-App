@@ -119,13 +119,20 @@ void showImagesDialog(BuildContext context, String image,String text) {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                Text(text,style: AppTheme.textTheme.headline3,),
+                    SizedBox(width: 5,),
+                Expanded(
+                    flex: 1,
+                    child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,)),
 
-                Image.asset(image),
-              ]),
+                Expanded(
+                    flex: 1,
+                    child: Image.asset(image)),
+                    SizedBox(width: 5,),
+
+                  ]),
             ),
           ),
         );

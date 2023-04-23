@@ -7,6 +7,7 @@ import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.da
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../gen/assets.gen.dart';
 
 class onboardingSix extends StatefulWidget {
   const onboardingSix({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _onboardingSixState extends State<onboardingSix> {
                 CircleAvatar(
                   maxRadius: 40,
                   backgroundColor: Colors.white,
-                  child: Image.asset('images/logo.png'),
+                  child: Image.asset(Assets.assest.images.logo.path),
                 ),
                 Text('حكايتي', style: AppTheme.textTheme.headline3),
                 Text('هل تريد حفظ بياناتك معنا . ',
@@ -59,7 +60,10 @@ class _onboardingSixState extends State<onboardingSix> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Image.asset('images/boy1.png'),
+                    Container(
+                        height: screenUtil.screenHeight *.4,
+                        width: screenUtil.screenWidth * .2,
+                        child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
 
                     Column(
                       children: [
@@ -88,7 +92,10 @@ class _onboardingSixState extends State<onboardingSix> {
                         style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                       ),
                     ],),
-                    Image.asset('images/girl1.png'),
+                    Container(
+                        height: screenUtil.screenHeight *.4,
+                        width: screenUtil.screenWidth * .2,
+                        child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
 
                   ],
                 ),

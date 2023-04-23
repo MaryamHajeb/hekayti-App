@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:audioplayers/audioplayers.dart';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
@@ -14,9 +16,10 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
-import '../../../../core/widgets/CastemInput.dart';
+
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';
@@ -26,6 +29,7 @@ import '../manager/Slied_state.dart';
 
 class StoryPage extends StatefulWidget {
   final id;
+
   StoryPage({Key? key, required this.id}) : super(key: key);
 
   @override
@@ -57,17 +61,22 @@ class _StoryPageState extends State<StoryPage> {
   Future stopRecorder() async {
     final filePath = await recorder.stopRecorder();
     final file = File(filePath!);
-    print('Recorded file path: $filePath');
+    print('Recorded file path: $file');
+    pathaudio = file.path.toString();
+    print('cjcbjjdj  $pathaudio');
   }
 
   Widget SliedWidget = Center();
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = false;
   bool islisnt = false;
+  AudioCache player = AudioCache();
+
   int currentIndexPage = 0;
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
+  String pathaudio = '';
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -134,7 +143,8 @@ class _StoryPageState extends State<StoryPage> {
                                             setState(() {
                                               isSpack = true;
 
-                                              getaccurac();
+                                              var pl = player
+                                                  .load('assest/music.mp3');
                                             });
                                           })
                                       : CustemIcon(
@@ -272,11 +282,16 @@ class _StoryPageState extends State<StoryPage> {
                                                         index = index + 1;
                                                         rendom = Random()
                                                             .nextInt(100);
-                                                        pageControler.nextPage(
-                                                            duration: Duration(
-                                                                seconds: 1),
-                                                            curve: Curves
-                                                                .bounceInOut);
+                                                        if(rendom <=50){
+                                                          pageControler.nextPage(duration: Duration(
+                                                              seconds: 1), curve: Curves.bounceInOut);
+
+                                                        }else{
+                                                          showImagesDialog(context,Assets.assest.images.carecters.abdu.sad.path,'حاول مره اخرئ'
+
+
+                                                              '');
+                                                        }
                                                         db.inser(
                                                             data: accuracyModel(
                                                                 media_id: state
@@ -370,7 +385,7 @@ class _StoryPageState extends State<StoryPage> {
   Future<String> saveAcurrcy(
       dynamic media_id, user_id, accuracy_percentage) async {
     try {
-       await db.inser(
+      await db.inser(
           data: accuracyModel(
               media_id: media_id,
               user_id: user_id,

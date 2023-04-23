@@ -5,6 +5,7 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../gen/assets.gen.dart';
 
 class onboardingFive extends StatefulWidget {
   const onboardingFive({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                 CircleAvatar(
                   maxRadius: 40,
                   backgroundColor: Colors.white,
-                  child: Image.asset('images/logo.png'),
+                  child: Image.asset(Assets.assest.images.logo.path),
                 ),
                 Text('حكايتي', style: AppTheme.textTheme.headline3),
                 Text('حدد مستوى  القصص التي تريدها لطفلك',
@@ -74,7 +75,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                       return Row(
                         children: [
                           SizedBox(width: 50,),
-                          CastemLevel(
+                          CustemLevel(
                             name: Levels[index]['num'],
                             onTap: () {
                               setState(() {

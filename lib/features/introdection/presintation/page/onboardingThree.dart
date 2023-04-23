@@ -5,6 +5,7 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../gen/assets.gen.dart';
 
 class onboardingThree extends StatefulWidget {
   const onboardingThree({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ TextEditingController  nameChiled=TextEditingController();
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
 
-                      CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+                      CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
                        Text('حكايتي',style:AppTheme.textTheme.headline3 ),
                       Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
@@ -54,9 +55,12 @@ TextEditingController  nameChiled=TextEditingController();
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Image.asset('images/boy1.png'),
+                          Container(
+                              height: screenUtil.screenHeight *.4,
+                              width: screenUtil.screenWidth * .2,
+                              child: Image.asset(Assets.assest.images.carecters.hana.happy.path)),
                           Column(children: [
-                            CastemInput(
+                            CustemInput(
                               size: 200,
                               valdution: (value){
                               if(value.toString().isEmpty){
@@ -68,7 +72,10 @@ TextEditingController  nameChiled=TextEditingController();
 
 
                           ],),
-                          Image.asset('images/girl1.png'),
+                          Container(
+                              height: screenUtil.screenHeight *.4,
+                              width: screenUtil.screenWidth * .2,
+                              child: Image.asset(Assets.assest.images.carecters.hasham.happy.path)),
 
 
                         ],),

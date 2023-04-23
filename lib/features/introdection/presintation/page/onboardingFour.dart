@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
-import '../../../../core/widgets/CastemPersons.dart';
+import '../../../../core/util/Carecters.dart';
+import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../main.dart';
 
 class onboardingFour extends StatefulWidget {
   const onboardingFour({Key? key}) : super(key: key);
@@ -16,14 +19,7 @@ class onboardingFour extends StatefulWidget {
 class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
-  List image=[
-    'images/boytest2.png',
-    'images/boytest2.png',
-    'images/boytest2.png',
-    'images/boytest1.png',
-    'images/boytest1.png',
-    'images/boytest1.png',
-  ];
+  Carecters carecterslist =Carecters();
   int itemSelected =0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -61,12 +57,19 @@ ScreenUtil screenUtil=ScreenUtil();
                      Container(
                        height: screenUtil.screenHeight * .4,
                        width: double.infinity,
-                       child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: image.length,itemBuilder: (context, index) {
+                       child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecterslist.listcarecters.length,itemBuilder: (context, index) {
 
-                         return CastemPersons(image: image[index], onTap: (){
+                         return CustemCarecters(image: carecterslist.listcarecters[index].toString(), onTap: ()async{
                            setState(() {
                              itemSelected=index;
+                             
                            });
+                           final prefs = await SharedPreferences.getInstance();
+                               prefs.setString('Carecters', carecterslist.listcarecters[index].toString());
+
+                           carecters= await  prefs.getString('Carecters') ?? '';
+
+                           print(prefs.getString('Carecters'));
 
                          }, isSelected: itemSelected==index?  true : false ,);
 

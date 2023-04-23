@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
-import 'package:hikayati_app/core/widgets/CastemInput.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
+import 'package:hikayati_app/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/database_helper.dart';
+import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../injection_container.dart';
@@ -29,6 +31,9 @@ class _HomePageState extends State<HomePage> {
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
   List<StoryModel> listStory=[];
+  final prefs =  SharedPreferences.getInstance();
+
+
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -55,7 +60,7 @@ class _HomePageState extends State<HomePage> {
 
 
                           },
-                          child: CustemIcon(icon: Image.asset('assest/images/girl3.png', fit: BoxFit.cover), ontap: (){
+                          child: CustemIcon(icon: Image.asset(carecters, fit: BoxFit.cover), ontap: (){
 
                             Navigator.push(
                                 context,
@@ -87,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                                     BorderRadius.all(Radius.circular(10))),
                             width: screenUtil.screenWidth * .4,
                             height: screenUtil.screenHeight * .1,
-                            child: CastemInput(
+                            child: CustemInput(
                                 valdution: (value) {},
                                 icon: Icon(Icons.search),
                                 text: 'بحث',

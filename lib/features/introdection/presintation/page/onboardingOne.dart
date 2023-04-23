@@ -4,6 +4,7 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../gen/assets.gen.dart';
 
 class onboardingOne extends StatefulWidget {
   const onboardingOne({Key? key}) : super(key: key);
@@ -45,15 +46,22 @@ ScreenUtil screenUtil=ScreenUtil();
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('assest/images/logo.png'),),
+                          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
                           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
                           Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
 
-                                Image.asset('assest/images/boy1.png'),
-                                Image.asset('assest/images/girl1.png'),
+                                Container(
+                              height: screenUtil.screenHeight *.4,
+                              width: screenUtil.screenWidth * .3,
+                              child: Image.asset(Assets.assest.images.carecters.abdu.happy.path)),
+                                Container(
+                              height: screenUtil.screenHeight *.4,
+                              width: screenUtil.screenWidth * .3,
+                              child: Image.asset(Assets.assest.images.carecters.mariam.happy.path)),
+
 
 
                               ],),

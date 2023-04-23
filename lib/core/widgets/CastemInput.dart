@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_theme.dart';
 import '../util/ScreenUtil.dart';
 
-class CastemInput extends StatefulWidget {
+class CustemInput extends StatefulWidget {
   final valdution;
   final icon;
   final text;
@@ -12,13 +12,13 @@ class CastemInput extends StatefulWidget {
   final controler;
 
 
-   CastemInput({Key? key,required this.valdution, required this.icon,required  this.text,  this.type,required this.controler,required this.size}) : super(key: key);
+   CustemInput({Key? key,required this.valdution,  this.icon,required  this.text,  this.type,required this.controler,required this.size}) : super(key: key);
 
   @override
-  State<CastemInput> createState() => _CastemInputState();
+  State<CustemInput> createState() => _CustemInputState();
 }
 
-class _CastemInputState extends State<CastemInput> {
+class _CustemInputState extends State<CustemInput> {
   @override
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {

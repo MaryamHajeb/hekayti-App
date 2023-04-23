@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
@@ -111,7 +112,7 @@ TextEditingController CofemPassword = TextEditingController();
                                         children: [
                                           Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
 
-                                          CastemInput(
+                                          CustemInput(
                                             size: 250,
                                             valdution: (value){
                                               if (value!.isEmpty) {
@@ -135,7 +136,7 @@ TextEditingController CofemPassword = TextEditingController();
                                         children: [
                                           Text('كلمة المرور',style: AppTheme.textTheme.headline3,),
                                           SizedBox(width: 0,),
-                                          CastemInput(
+                                          CustemInput(
                                             size: 250,
                                             valdution: (value){
                                               if (value.toString().isEmpty) {
@@ -157,7 +158,7 @@ TextEditingController CofemPassword = TextEditingController();
                                         children: [
                                           Text('تأكيد كلمة المرور',style: AppTheme.textTheme.headline3,),
 
-                                          CastemInput(
+                                          CustemInput(
                                             size: 250,
                                             valdution: (value){
                                               if(value.toString().isEmpty){
@@ -231,21 +232,23 @@ TextEditingController CofemPassword = TextEditingController();
 
                               ],),
                             CustemButten(ontap: (){
-                              if (_signupFormKey.currentState!.validate()) {
-                                BlocProvider.of<RegistrationBloc>(_context).add(
-                                  Signup(
-                                      email: email.text,
-                                      password: password.text
-
-                                  ),
-                                );
-                                setState(() {
-                                  requestPending = true;
-                                });
-                              } else {
-                                print('error');
-                              }
-
+                              // if (_signupFormKey.currentState!.validate()) {
+                              //   BlocProvider.of<RegistrationBloc>(_context).add(
+                              //     Signup(
+                              //         email: email.text,
+                              //         password: password.text
+                              //
+                              //     ),
+                              //   );
+                              //   setState(() {
+                              //     requestPending = true;
+                              //   });
+                              // } else {
+                              //   print('error');
+                              // }
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(  child:   HomePage()));
                             },text: 'إنشاء',)
 
                           ]),

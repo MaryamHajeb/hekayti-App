@@ -5,6 +5,7 @@ import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dar
 import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/util/database_helper.dart';
 import 'features/Home/presintation/page/HomePage.dart';
@@ -14,9 +15,11 @@ import 'features/Home/data/model/StoryMode.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 DatabaseHelper db = new DatabaseHelper();
-
+String carecters='';
 void main() async{
-
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+ carecters= await  prefs.getString('Carecters') ?? '';
 
   void test() async {
     DatabaseHelper db = new DatabaseHelper();
@@ -70,7 +73,7 @@ void main() async{
 
 
 
-  WidgetsFlutterBinding.ensureInitialized();
+
   await object.init();
   await SystemChrome.setPreferredOrientations(
     [
@@ -105,7 +108,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: SettingPage(),
+      home: IntroScreen(),
     );
   }
 

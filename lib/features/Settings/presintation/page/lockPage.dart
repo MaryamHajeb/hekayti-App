@@ -88,7 +88,7 @@ margin:  EdgeInsets.only(
 
                                       style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                                     ),
-                                    CastemInput(
+                                    CustemInput(
                                       size: 200,
                                       valdution: (value){
 

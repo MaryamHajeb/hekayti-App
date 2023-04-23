@@ -39,41 +39,11 @@ class $AssestImagesGen {
   AssetGenImage get backgraond =>
       const AssetGenImage('assest/images/backgraond.png');
 
-  /// File path: assest/images/boy1.png
-  AssetGenImage get boy1 => const AssetGenImage('assest/images/boy1.png');
-
-  /// File path: assest/images/boy2.png
-  AssetGenImage get boy2 => const AssetGenImage('assest/images/boy2.png');
-
-  /// File path: assest/images/boy3.png
-  AssetGenImage get boy3 => const AssetGenImage('assest/images/boy3.png');
-
-  /// File path: assest/images/boy4.png
-  AssetGenImage get boy4 => const AssetGenImage('assest/images/boy4.png');
-
-  /// File path: assest/images/boytest1.png
-  AssetGenImage get boytest1 =>
-      const AssetGenImage('assest/images/boytest1.png');
-
-  /// File path: assest/images/boytest2.png
-  AssetGenImage get boytest2 =>
-      const AssetGenImage('assest/images/boytest2.png');
+  $AssestImagesCarectersGen get carecters => const $AssestImagesCarectersGen();
 
   /// File path: assest/images/emptyStar.png
   AssetGenImage get emptyStar =>
       const AssetGenImage('assest/images/emptyStar.png');
-
-  /// File path: assest/images/girl1.png
-  AssetGenImage get girl1 => const AssetGenImage('assest/images/girl1.png');
-
-  /// File path: assest/images/girl2.png
-  AssetGenImage get girl2 => const AssetGenImage('assest/images/girl2.png');
-
-  /// File path: assest/images/girl3.png
-  AssetGenImage get girl3 => const AssetGenImage('assest/images/girl3.png');
-
-  /// File path: assest/images/girl4.png
-  AssetGenImage get girl4 => const AssetGenImage('assest/images/girl4.png');
 
   /// File path: assest/images/left_arrow.png
   AssetGenImage get leftArrow =>
@@ -110,17 +80,7 @@ class $AssestImagesGen {
         group1,
         group2,
         backgraond,
-        boy1,
-        boy2,
-        boy3,
-        boy4,
-        boytest1,
-        boytest2,
         emptyStar,
-        girl1,
-        girl2,
-        girl3,
-        girl4,
         leftArrow,
         logo,
         rightArrow,
@@ -131,6 +91,161 @@ class $AssestImagesGen {
         storyBG,
         storypages
       ];
+}
+
+class $AssestImagesCarectersGen {
+  const $AssestImagesCarectersGen();
+
+  $AssestImagesCarectersAbduGen get abdu =>
+      const $AssestImagesCarectersAbduGen();
+  $AssestImagesCarectersHanaGen get hana =>
+      const $AssestImagesCarectersHanaGen();
+  $AssestImagesCarectersHashamGen get hasham =>
+      const $AssestImagesCarectersHashamGen();
+  $AssestImagesCarectersMariamGen get mariam =>
+      const $AssestImagesCarectersMariamGen();
+  $AssestImagesCarectersMohamedGen get mohamed =>
+      const $AssestImagesCarectersMohamedGen();
+  $AssestImagesCarectersWafaGen get wafa =>
+      const $AssestImagesCarectersWafaGen();
+}
+
+class $AssestImagesCarectersAbduGen {
+  const $AssestImagesCarectersAbduGen();
+
+  /// File path: assest/images/carecters/abdu/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/abdu/confused.png');
+
+  /// File path: assest/images/carecters/abdu/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/abdu/happy.png');
+
+  /// File path: assest/images/carecters/abdu/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/abdu/sad.png');
+
+  /// File path: assest/images/carecters/abdu/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/abdu/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
+}
+
+class $AssestImagesCarectersHanaGen {
+  const $AssestImagesCarectersHanaGen();
+
+  /// File path: assest/images/carecters/hana/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/hana/confused.png');
+
+  /// File path: assest/images/carecters/hana/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/hana/happy.png');
+
+  /// File path: assest/images/carecters/hana/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/hana/sad.png');
+
+  /// File path: assest/images/carecters/hana/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/hana/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
+}
+
+class $AssestImagesCarectersHashamGen {
+  const $AssestImagesCarectersHashamGen();
+
+  /// File path: assest/images/carecters/hasham/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/hasham/confused.png');
+
+  /// File path: assest/images/carecters/hasham/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/hasham/happy.png');
+
+  /// File path: assest/images/carecters/hasham/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/hasham/sad.png');
+
+  /// File path: assest/images/carecters/hasham/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/hasham/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
+}
+
+class $AssestImagesCarectersMariamGen {
+  const $AssestImagesCarectersMariamGen();
+
+  /// File path: assest/images/carecters/mariam/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/mariam/confused.png');
+
+  /// File path: assest/images/carecters/mariam/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/mariam/happy.png');
+
+  /// File path: assest/images/carecters/mariam/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/mariam/sad.png');
+
+  /// File path: assest/images/carecters/mariam/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/mariam/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
+}
+
+class $AssestImagesCarectersMohamedGen {
+  const $AssestImagesCarectersMohamedGen();
+
+  /// File path: assest/images/carecters/mohamed/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/mohamed/confused.png');
+
+  /// File path: assest/images/carecters/mohamed/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/mohamed/happy.png');
+
+  /// File path: assest/images/carecters/mohamed/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/mohamed/sad.png');
+
+  /// File path: assest/images/carecters/mohamed/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/mohamed/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
+}
+
+class $AssestImagesCarectersWafaGen {
+  const $AssestImagesCarectersWafaGen();
+
+  /// File path: assest/images/carecters/wafa/confused.png
+  AssetGenImage get confused =>
+      const AssetGenImage('assest/images/carecters/wafa/confused.png');
+
+  /// File path: assest/images/carecters/wafa/happy.png
+  AssetGenImage get happy =>
+      const AssetGenImage('assest/images/carecters/wafa/happy.png');
+
+  /// File path: assest/images/carecters/wafa/sad.png
+  AssetGenImage get sad =>
+      const AssetGenImage('assest/images/carecters/wafa/sad.png');
+
+  /// File path: assest/images/carecters/wafa/sing.png
+  AssetGenImage get sing =>
+      const AssetGenImage('assest/images/carecters/wafa/sing.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [confused, happy, sad, sing];
 }
 
 class Assets {

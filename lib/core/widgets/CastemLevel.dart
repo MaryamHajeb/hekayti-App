@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../app_theme.dart';
 import '../util/ScreenUtil.dart';
 
-class CastemLevel extends StatelessWidget {
+class CustemLevel extends StatelessWidget {
   int name;
   Function onTap;
   bool isSelected;
   Color color;
 
-  CastemLevel({
+  CustemLevel({
     required this.name,
     required this.color,
     required this.onTap,
