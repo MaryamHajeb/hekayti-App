@@ -10,9 +10,9 @@ class CustemInput extends StatefulWidget {
   final type;
   double size;
   final controler;
+  final onching;
 
-
-   CustemInput({Key? key,required this.valdution,  this.icon,required  this.text,  this.type,required this.controler,required this.size}) : super(key: key);
+   CustemInput({Key? key,required this.valdution,  this.icon,required  this.text,  this.type,required this.controler,required this.size, this.onching}) : super(key: key);
 
   @override
   State<CustemInput> createState() => _CustemInputState();
@@ -28,8 +28,7 @@ class _CustemInputState extends State<CustemInput> {
         width:widget.size,
         height: 80,
         child: TextFormField(
-
-
+          onChanged: widget.onching,
           validator:widget.valdution,
           keyboardType: widget.type,
           style: AppTheme.textTheme.headline2,

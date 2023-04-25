@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
@@ -10,6 +9,7 @@ import '../../../../core/widgets/CustemButten.dart';
 
 class SettingTapbarpage extends StatefulWidget {
   const SettingTapbarpage({Key? key}) : super(key: key);
+
   @override
   State<SettingTapbarpage> createState() => _SettingTapbarpageState();
 }
@@ -21,12 +21,18 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     {'num': 2, 'color': AppTheme.primarySwatch.shade600},
     {'num': 3, 'color': AppTheme.primarySwatch.shade400},
   ];
-  Carecters carecters =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
   int itemSelected =0;
   int itemSelected2 =0;
-
+  List image=[
+    'assest/images/boy4.png',
+    'assest/images/boy3.png',
+    'assest/images/boy2.png',
+    'assest/images/girl4.png',
+    'assest/images/girl3.png',
+    'assest/images/girl2.png',
+  ];
 
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
@@ -35,14 +41,14 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
             Text('  اسم الطفل :',style:AppTheme.textTheme.headline3 ),
-            CustemInput(
+              CustemInput(
               size: 200,
               valdution: (value){
               if(value.toString().isEmpty){
@@ -60,18 +66,16 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           Container(
             height: screenUtil.screenHeight * .5,
             width: double.infinity,
-            child: Center(
-              child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecters.listcarecters.length,itemBuilder: (context, index) {
+            child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: image.length,itemBuilder: (context, index) {
 
-                return CustemCarecters(image: carecters.listcarecters[index].toString(), onTap: (){
-                  setState(() {
-                    itemSelected=index;
-                  });
+              return CustemCarecters(image: image[index], onTap: (){
+                setState(() {
+                  itemSelected=index;
+                });
 
-                }, isSelected: itemSelected==index?  true : false ,);
+              }, isSelected: itemSelected==index?  true : false ,);
 
-              },),
-            ),
+            },),
           ),
           Divider(color: AppTheme.primaryColor,),
           SizedBox(height: 20,),

@@ -31,6 +31,9 @@ class _HomePageState extends State<HomePage> {
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
   List<StoryModel> listStory=[];
+  List<StoryModel> listStoryWithSearch=[];
+  List starts = [1, 2, 0, 3, 2, 3];
+
   final prefs =  SharedPreferences.getInstance();
 
 
@@ -93,6 +96,21 @@ class _HomePageState extends State<HomePage> {
                             width: screenUtil.screenWidth * .4,
                             height: screenUtil.screenHeight * .1,
                             child: CustemInput(
+                              onching: (value){
+                                setState(() {
+
+                                  listStory.forEach((element) {
+
+                                    if(element.name.contains(value)==true){
+                                      listStoryWithSearch.add(element);
+                                    }
+
+                                  });
+
+                                  listStory.clear();
+
+                                });
+                              },
                                 valdution: (value) {},
                                 icon: Icon(Icons.search),
                                 text: 'بحث',
