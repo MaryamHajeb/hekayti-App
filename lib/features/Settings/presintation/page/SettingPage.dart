@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/ChartPage.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CustemIcon.dart';
@@ -21,7 +23,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   ScreenUtil screenUtil=ScreenUtil();
-
+  bool visible=true;
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -100,7 +102,22 @@ class _SettingPageState extends State<SettingPage> {
                                       height: screenUtil.screenHeight *.8,
                                       child: TabBarView(children: [
                                         Expanded(child: SettingTapbarpage()),
-                                        Expanded(child: ReportTapbarPage())
+                                        Column(
+                                          children: [
+                                            Visibility(
+                                              visible: visible,
+                                                replacement:Expanded(child: ChartPage()) ,
+                                                child: InkWell(
+                                                    onTap: (){
+                                                      setState(() {
+                                                        visible=false;
+
+                                                      });
+                                                    },
+                                                    child: Expanded(child: ReportTapbarPage()))),
+
+                                          ],
+                                        )
 
 
                                       ]),
