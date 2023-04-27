@@ -27,15 +27,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  Widget StoryWidget=Center();
+  Widget StoryWidget = Center();
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
-  List<StoryModel> listStory=[];
-  List<StoryModel> listStoryWithSearch=[];
+  List<StoryModel> listStory = [];
+  List<StoryModel> listStoryWithSearch = [];
   List starts = [1, 2, 0, 3, 2, 3];
 
-  final prefs =  SharedPreferences.getInstance();
-
+  final prefs = SharedPreferences.getInstance();
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -43,147 +42,167 @@ class _HomePageState extends State<HomePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
-        child: Scaffold(
-          body: Container(
-            height: screenUtil.screenHeight * 1,
-            width: screenUtil.screenWidth * 1,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assest/images/backgraond.png'),
-                    fit: BoxFit.fill)),
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: (){
-
-
-                          },
-                          child: CustemIcon(icon: Image.asset(carecters, fit: BoxFit.cover), ontap: (){
-
+          child: Scaffold(
+        body: Container(
+          height: screenUtil.screenHeight * 1,
+          width: screenUtil.screenWidth * 1,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assest/images/backgraond.png'),
+                  fit: BoxFit.fill)),
+          child: SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: CustemIcon(
+                          icon: Image.asset(carecters, fit: BoxFit.cover),
+                          ontap: () {
                             Navigator.push(
-                                context,
-                                CustomPageRoute(  child:   SettingPage()));
-
-                          },),
+                                context, CustomPageRoute(child: SettingPage()));
+                          },
                         ),
-                        Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                    color: AppTheme.primarySwatch.shade400,
-                                    width: 1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            width: screenUtil.screenWidth * .2,
-                            height: screenUtil.screenHeight * .1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset('assest/images/start.png'),
-                                Text('2/24')
-                              ],
-                            )),
-                        Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            width: screenUtil.screenWidth * .4,
-                            height: screenUtil.screenHeight * .1,
-                            child: CustemInput(
-                              onching: (value){
-                                setState(() {
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: AppTheme.primarySwatch.shade400,
+                                  width: 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          width: screenUtil.screenWidth * .2,
+                          height: screenUtil.screenHeight * .1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset('assest/images/start.png'),
+                              Text('2/24')
+                            ],
+                          )),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          width: screenUtil.screenWidth * .4,
+                          height: screenUtil.screenHeight * .1,
+                          child: CustemInput(
+                            onching: (value) => onScearch(value),
+                            valdution: (value) {},
+                            icon: Icon(Icons.search),
+                            text: 'بحث',
+                            controler: search,
+                            size: 340,
+                          )),
+                      CustemIcon(
+                          icon: Icon(Icons.volume_up_rounded,
+                              color: Colors.white),
+                          ontap: () async {
+                            DatabaseHelper db = new DatabaseHelper();
+                          }),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  BlocProvider(
+                    create: (context) => sl<StoryBloc>(),
+                    child: BlocConsumer<StoryBloc, StoryState>(
+                      listener: (_context, state) {
+                        if (state is StoryError) {
+                          print(state.errorMessage);
+                        }
+                      },
+                      builder: (_context, state) {
+                        if (state is StoryInitial) {
+                          BlocProvider.of<StoryBloc>(_context)
+                              .add(GetAllStory(token: ''));
+                        }
 
-                                  listStory.forEach((element) {
+                        if (state is StoryLoading) {
+                          StoryWidget = CircularProgressIndicator();
+                        }
 
-                                    if(element.name.contains(value)==true){
-                                      listStoryWithSearch.add(element);
-                                    }
+                        if (state is StoryILoaded) {
+                          //TODO::Show Story here
+                          state.storyModel.forEach((element) {
+                            listStory.add(element!);
+                          });
+                          //
+                          // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
 
-                                  });
+                          print(listStory.length);
+                          print('-------block--------------------------------------');
+                          print(listStoryWithSearch.length);
+                          StoryWidget = Container(
+                            height: screenUtil.screenHeight * .8,
+                            width: double.infinity,
+                            child: listStoryWithSearch.length > 0
+                                ? GridView.builder(
+                                    itemCount: listStoryWithSearch.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3),
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                CustomPageRoute(
+                                                    child: StoryPage(
+                                                  id: listStoryWithSearch[index].id,
+                                                )));
+                                          },
+                                          child: StoryCard(
+                                            name:
+                                                listStoryWithSearch[index].name,
+                                            starts: 3,
+                                            photo: listStoryWithSearch[index]
+                                                .cover_photo
+                                                .toString(),
+                                          ));
+                                    },
+                                  )
+                                : Center(child: Text('القائمه فارغه')),
+                          );
+                        }
 
-                                  listStory.clear();
-
-                                });
-                              },
-                                valdution: (value) {},
-                                icon: Icon(Icons.search),
-                                text: 'بحث',
-                                controler: search,size: 340,)),
-                       CustemIcon(icon: Icon(Icons.volume_up_rounded,color: Colors.white), ontap: ()async{
-                         DatabaseHelper db = new DatabaseHelper();
-
-
-                       }),
-                      ],
+                        return StoryWidget;
+                      },
                     ),
-                    SizedBox(height: 30),
-
-                    BlocProvider(
-                      create:(context)=>sl<StoryBloc>() ,
-                      child:BlocConsumer<StoryBloc,StoryState>(
-                        listener: (_context,state){
-                          if(state is StoryError){
-                            print(state.errorMessage);
-                          }
-                        },
-                        builder: (_context,state){
-                          if(state is StoryInitial){
-                            BlocProvider.of<StoryBloc>(_context).add(GetAllStory(token: ''));
-                          }
-
-                          if(state is StoryLoading){
-                            StoryWidget=CircularProgressIndicator();
-                          }
-
-                          if(state is StoryILoaded){
-                            //TODO::Show Story here
-                             state.storyModel.forEach((element) {
-                               listStory.add(element!);
-
-                             });
-
-
-                             print(listStory.last.cover_photo);
-                            StoryWidget=       Container(
-                              height: screenUtil.screenHeight * .8,
-                              width: double.infinity,
-                              child: GridView.builder(
-                                itemCount: listStory.length,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-
-                                    crossAxisCount: 3),
-                                itemBuilder: (context, index) {
-
-                                  return InkWell(
-                                      onTap: (){
-
-
-                                        Navigator.push(
-                                            context,
-                                            CustomPageRoute(  child:   StoryPage(id: state.storyModel[index]?.id,)));
-
-                                      },
-                                      child: StoryCard(name: listStory[index].name, starts: 3,photo: listStory[index].cover_photo.toString(),));
-                                },
-                              ),
-                            );
-                          }
-
-                          return StoryWidget;
-                        },
-                      ) ,
-                    )
-                  ]),
-            ),
+                  )
+                ]),
           ),
         ),
-      ),
+      )),
     );
+  }
+
+  onScearch(String searchWord) {
+    print(listStoryWithSearch.length);
+    print('------------befor serch---------******************************------------------------');
+
+    setState(() {
+      listStoryWithSearch = listStoryWithSearch
+          .where((element) => element.name.contains(searchWord))
+          .toList();
+    });
+
+    print(listStoryWithSearch.length);
+    print('---------------------after serch----00000000000000000000000000--------------------');
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(listStoryWithSearch.length);
+    listStoryWithSearch = listStory;
+
+    print(listStoryWithSearch.length);
   }
 }
