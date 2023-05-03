@@ -14,6 +14,12 @@ class $AssestGen {
 
   $AssestDBGen get db => const $AssestDBGen();
   $AssestImagesGen get images => const $AssestImagesGen();
+
+  /// File path: assest/music.mp3
+  String get music => 'assest/music.mp3';
+
+  /// List of all assets
+  List<String> get values => [music];
 }
 
 class $AssestDBGen {

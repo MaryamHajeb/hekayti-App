@@ -98,6 +98,9 @@ converToBase64(String text){
   return image;
 }
 
+
+
+
 void showImagesDialog(BuildContext context, String image,String text) {
   showDialog(
     barrierColor: AppTheme.primarySwatch.shade400,

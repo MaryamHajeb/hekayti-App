@@ -76,6 +76,7 @@ class _StoryPageState extends State<StoryPage> {
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
+  List starts = [1, 2, 0, 3, 2, 3];
   String pathaudio = '';
   @override
   Widget build(BuildContext context) {
@@ -282,14 +283,25 @@ class _StoryPageState extends State<StoryPage> {
                                                         index = index + 1;
                                                         rendom = Random()
                                                             .nextInt(100);
-                                                        if(rendom <=50){
-                                                          pageControler.nextPage(duration: Duration(
-                                                              seconds: 1), curve: Curves.bounceInOut);
-
-                                                        }else{
-                                                          showImagesDialog(context,Assets.assest.images.carecters.abdu.sad.path,'حاول مره اخرئ'
-
-
+                                                        if (rendom <= 50) {
+                                                          pageControler.nextPage(
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          1),
+                                                              curve: Curves
+                                                                  .bounceInOut);
+                                                        } else {
+                                                          showImagesDialog(
+                                                              context,
+                                                              Assets
+                                                                  .assest
+                                                                  .images
+                                                                  .carecters
+                                                                  .abdu
+                                                                  .sad
+                                                                  .path,
+                                                              'حاول مره اخرئ'
                                                               '');
                                                         }
                                                         db.inser(
