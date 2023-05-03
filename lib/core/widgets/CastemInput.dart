@@ -28,8 +28,6 @@ class _CustemInputState extends State<CustemInput> {
         width:widget.size,
         height: 80,
         child: TextFormField(
-
-
           validator:widget.valdution,
           keyboardType: widget.type,
           style: AppTheme.textTheme.headline2,
@@ -46,7 +44,7 @@ class _CustemInputState extends State<CustemInput> {
 
               borderSide: BorderSide(color: Colors.transparent),
             ),
-            prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
+
             hintText: widget.text.toString(),
               hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
             enabledBorder: UnderlineInputBorder(

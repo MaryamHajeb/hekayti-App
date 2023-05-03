@@ -20,70 +20,45 @@ class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
   Carecters carecterslist =Carecters();
-  int itemSelected =0;
+  int itemSelected =10;
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
-      Directionality(
-        textDirection: TextDirection.rtl,
-        child: Center(
-            child: Container(
-              height:  screenUtil.screenHeight * .9,
-              width:screenUtil.screenWidth *.8,
-              margin: EdgeInsets.only(
-                top: 25,
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.only(bottom: 50),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          width: 4, color: AppTheme.primarySwatch.shade500),
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
 
-                      CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
-                      Text('حكايتي',style:AppTheme.textTheme.headline3 ),
-                      Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
+          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+          Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+          Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
 
-                     Container(
-                       height: screenUtil.screenHeight * .4,
-                       width: double.infinity,
-                       child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecterslist.listcarecters.length,itemBuilder: (context, index) {
+          Container(
+            height: screenUtil.screenHeight * .4,
+            width: double.infinity,
+            child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecterslist.listcarecters.length,itemBuilder: (context, index) {
 
-                         return CustemCarecters(image: carecterslist.listcarecters[index].toString(), onTap: ()async{
-                           setState(() {
-                             itemSelected=index;
-                             
-                           });
-                           final prefs = await SharedPreferences.getInstance();
-                               prefs.setString('Carecters', carecterslist.listcarecters[index].toString());
+              return CustemCarecters(image: carecterslist.listcarecters[index].toString(), onTap: ()async{
+                setState(() {
+                  itemSelected=index;
 
-                           carecters= await  prefs.getString('Carecters') ?? '';
+                });
+                final prefs = await SharedPreferences.getInstance();
+                String dd=carecterslist.listcarecters[index].toString();
+                String bb=dd.substring(1,1)[index];
+                prefs.setString('Carecters', bb);
 
-                           print(prefs.getString('Carecters'));
+                carecters= await  prefs.getString('Carecters') ?? '';
 
-                         }, isSelected: itemSelected==index?  true : false ,);
+                print(prefs.getString('Carecters'));
 
-                       },),
-                     )
+              }, isSelected: itemSelected==index?  true : false ,);
+
+            },),
+          )
 
 
-                    ],
-                  ),
-
-                ),
-              ),
-            )),
-
+        ],
       );
   }
 }

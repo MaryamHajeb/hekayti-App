@@ -21,73 +21,46 @@ TextEditingController  nameChiled=TextEditingController();
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
-            Directionality(
-        textDirection: TextDirection.rtl,
-        child: Center(
-            child: Container(
-                height:  screenUtil.screenHeight * .9,
-                width:screenUtil.screenWidth *.8,
-              margin:  EdgeInsets.only(
-                top: 25,
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.only(bottom: 50),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          width: 4, color: AppTheme.primarySwatch.shade500),
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
 
-                      CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
-                       Text('حكايتي',style:AppTheme.textTheme.headline3 ),
-                      Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
+          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
+          Text('حكايتي',style:AppTheme.textTheme.headline3 ),
+          Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                              height: screenUtil.screenHeight *.4,
-                              width: screenUtil.screenWidth * .2,
-                              child: Image.asset(Assets.assest.images.carecters.hana.happy.path)),
-                          Column(children: [
-                            CustemInput(
-                              size: 200,
-                              valdution: (value){
-                              if(value.toString().isEmpty){
-                                return'يرجئ منك ادخال اسم الطفل ';
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                  height: screenUtil.screenHeight *.4,
+                  width: screenUtil.screenWidth * .2,
+                  child: Image.asset(Assets.assest.images.carecters.hana.happy.path)),
+              Column(children: [
+                CustemInput(
+                  size: 200,
+                  valdution: (value){
+                    if(value.toString().isEmpty){
+                      return'يرجئ منك ادخال اسم الطفل ';
 
-                              }
-                              return null;
-                            },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,)
+                    }
+                    return null;
+                  },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,)
 
 
-                          ],),
-                          Container(
-                              height: screenUtil.screenHeight *.4,
-                              width: screenUtil.screenWidth * .2,
-                              child: Image.asset(Assets.assest.images.carecters.hasham.happy.path)),
+              ],),
+              Container(
+                  height: screenUtil.screenHeight *.4,
+                  width: screenUtil.screenWidth * .2,
+                  child: Image.asset(Assets.assest.images.carecters.hasham.happy.path)),
 
 
-                        ],),
+            ],),
 
 
-                    ],
-                  ),
-
-                ),
-              ),
-            )),
-
-    );
+        ],
+      );
   }
 }

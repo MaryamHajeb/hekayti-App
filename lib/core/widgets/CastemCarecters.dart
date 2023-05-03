@@ -22,26 +22,22 @@ screenUtil.init(context);
             onTap: () {
               onTap();
             },
-            child: Container(
-              padding: EdgeInsets.only(right: 20),
-                height: screenUtil.screenHeight * .5,
-                width: screenUtil.screenWidth *.20,
-                child: Image.asset(image,fit: BoxFit.contain,)),
+            child: Image.asset(
+              width: 200,
+              height: 200,
+
+              image,fit: BoxFit.contain,),
           )
         : GestureDetector(
             onTap: () {
               onTap();
             },
-            child: Container(
-                child: Container(
-                    padding: EdgeInsets.only(right: 30),
-
-                    height: screenUtil.screenHeight * .05,
-                    width: screenUtil.screenWidth *.12,
-                    child: Image.asset(
-              fit: BoxFit.contain,
-
+            child: Image.asset(
+              height: 100,
+              color: AppTheme.primarySwatch.shade500,
+              width: 150,
+              fit: BoxFit.fitHeight,
               image,
-            ))));
+            ));
   }
 }

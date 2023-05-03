@@ -28,123 +28,82 @@ class _onboardingTowState extends State<onboardingTow> {
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Center(
-          child: Container(
-        height: screenUtil.screenHeight * .9,
-        width: screenUtil.screenWidth * .8,
-        margin: EdgeInsets.only(
-          top: 25,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CircleAvatar(
+          maxRadius: 40,
+          backgroundColor: Colors.white,
+          child: Image.asset(Assets.assest.images.logo.path),
         ),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Container(
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                    width: 4, color: AppTheme.primarySwatch.shade500),
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+        Text('حكايتي', style: AppTheme.textTheme.headline3),
+        Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',
+            style: AppTheme.textTheme.headline3),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+                height: screenUtil.screenHeight * .4,
+                width: screenUtil.screenWidth * .2,
+                child: Image.asset(
+                    Assets.assest.images.carecters.hana.happy.path)),
+            Column(
               children: [
-                CircleAvatar(
-                  maxRadius: 40,
-                  backgroundColor: Colors.white,
-                  child: Image.asset(Assets.assest.images.logo.path),
-                ),
-                Text('حكايتي', style: AppTheme.textTheme.headline3),
-                Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',
-                    style: AppTheme.textTheme.headline3),
+                Container(
+                    height: screenUtil.screenHeight * .1,
+                    width: screenUtil.screenWidth * .3,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 2,
+                            color: AppTheme.primarySwatch.shade400),
+                        color: AppTheme.primarySwatch.shade50,
+                        borderRadius: BorderRadius.circular(10)),
+                    margin: EdgeInsets.only(
+                        bottom: 30, top: 0, left: 0, right: 50),
+                    child: Center(
+                        child: Text(
+                          '$num1 + $num2 + $num3   ',
+                          style: AppTheme.textTheme.displayLarge,
+                          textDirection: TextDirection.rtl,
+                        ))),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        height: screenUtil.screenHeight * .4,
-                        width: screenUtil.screenWidth * .2,
-                        child: Image.asset(
-                            Assets.assest.images.carecters.hana.happy.path)),
-                    Column(
-                      children: [
-                        Container(
-                            height: screenUtil.screenHeight * .1,
-                            width: screenUtil.screenWidth * .3,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 2,
-                                    color: AppTheme.primarySwatch.shade400),
-                                color: AppTheme.primarySwatch.shade50,
-                                borderRadius: BorderRadius.circular(10)),
-                            margin: EdgeInsets.only(
-                                bottom: 30, top: 0, left: 0, right: 50),
-                            child: Center(
-                                child: Text(
-                              '$num1 + $num2 + $num3   ',
-                              style: AppTheme.textTheme.displayLarge,
-                              textDirection: TextDirection.rtl,
-                            ))),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-
-                                if (_loginFormKey.currentState!.validate()) {
-
-                                } else {
-
-                                }
-                              },
-                              child: Text('تم',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          AppTheme.primarySwatch.shade600)),
-                            ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            CustemInput(
-                              size: 200,
-                              valdution: (value) {
-                                if (value.toString().isEmpty) {
-                                  return 'يرجئ منك كتابه الحل';
-                                }
-                                if(int.parse(value.toString())!= num1+num2+num3){
-                                  return 'يرجئ منك كتابه الحل بشكل صحيح';
-                                }
-
-                                return null;
-                              },
-                              controler: result,
-                              icon: Icon(Icons.calculate),
-                              text: 'اكتب الحل ',
-                              type: TextInputType.number,
-                            )
-                          ],
-                        )
-                      ],
+                    SizedBox(
+                      width: 30,
                     ),
-                    Container(
-                        height: screenUtil.screenHeight * .4,
-                        width: screenUtil.screenWidth * .2,
-                        child: Image.asset(
-                            Assets.assest.images.carecters.mohamed.happy.path)),
+                    CustemInput(
+                      size: 200,
+                      valdution: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'يرجئ منك كتابه الحل';
+                        }
+                        if(int.parse(value.toString())!= num1+num2+num3){
+                          return 'يرجئ منك كتابه الحل بشكل صحيح';
+                        }
+
+                        return null;
+                      },
+                      controler: result,
+                      icon: Icon(Icons.calculate),
+                      text: 'اكتب الحل ',
+                      type: TextInputType.number,
+                    )
                   ],
-                ),
+                )
               ],
             ),
-          ),
+            Container(
+                height: screenUtil.screenHeight * .4,
+                width: screenUtil.screenWidth * .2,
+                child: Image.asset(
+                    Assets.assest.images.carecters.mohamed.happy.path)),
+          ],
         ),
-      )),
+      ],
     );
   }
 }

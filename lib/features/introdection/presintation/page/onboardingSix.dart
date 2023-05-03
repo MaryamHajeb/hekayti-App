@@ -21,89 +21,63 @@ class _onboardingSixState extends State<onboardingSix> {
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Center(
-          child: Container(
-        height: screenUtil.screenHeight * .9,
-        width: screenUtil.screenWidth * .8,
-        margin: EdgeInsets.only(
-          top: 25,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+
+        CircleAvatar(
+          maxRadius: 40,
+          backgroundColor: Colors.white,
+          child: Image.asset(Assets.assest.images.logo.path),
         ),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Container(
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                    width: 4, color: AppTheme.primarySwatch.shade500),
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+        Text('حكايتي', style: AppTheme.textTheme.headline3),
+        Text('هل تريد حفظ بياناتك معنا . ',
+            style: AppTheme.textTheme.headline3),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+                height: screenUtil.screenHeight *.4,
+                width: screenUtil.screenWidth * .2,
+                child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
+
+            Column(
               children: [
-                SizedBox(
-                  height: 15,
+                ElevatedButton(
+                  onPressed: () {
+
+                    Navigator.push(
+                        context,
+                        CustomPageRoute(  child:   SignupPage()));
+
+                  },
+                  child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
+
+                  style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
                 ),
-                CircleAvatar(
-                  maxRadius: 40,
-                  backgroundColor: Colors.white,
-                  child: Image.asset(Assets.assest.images.logo.path),
+                ElevatedButton(
+                  onPressed: () {
+
+
+                    Navigator.push(
+                        context,
+                        CustomPageRoute(  child:   LoginPage()));
+
+                  },
+                  child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
+                  style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
                 ),
-                Text('حكايتي', style: AppTheme.textTheme.headline3),
-                Text('هل تريد حفظ بياناتك معنا . ',
-                    style: AppTheme.textTheme.headline3),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                        height: screenUtil.screenHeight *.4,
-                        width: screenUtil.screenWidth * .2,
-                        child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
+              ],),
+            Container(
+                height: screenUtil.screenHeight *.4,
+                width: screenUtil.screenWidth * .2,
+                child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
 
-                    Column(
-                      children: [
-                      ElevatedButton(
-                        onPressed: () {
-
-                          Navigator.push(
-                              context,
-                              CustomPageRoute(  child:   SignupPage()));
-
-                        },
-                        child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
-
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-
-
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(  child:   LoginPage()));
-
-                        },
-                        child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
-                      ),
-                    ],),
-                    Container(
-                        height: screenUtil.screenHeight *.4,
-                        width: screenUtil.screenWidth * .2,
-                        child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
-
-                  ],
-                ),
-              ],
-            ),
-          ),
+          ],
         ),
-      )),
+      ],
     );
   }
 }
