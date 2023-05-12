@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemButten.dart';
+import '../../../../main.dart';
 
 class SettingTapbarpage extends StatefulWidget {
   const SettingTapbarpage({Key? key}) : super(key: key);
@@ -21,18 +24,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     {'num': 2, 'color': AppTheme.primarySwatch.shade600},
     {'num': 3, 'color': AppTheme.primarySwatch.shade400},
   ];
+  Carecters carecterslist =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
-  int itemSelected =0;
-  int itemSelected2 =0;
-  List image=[
-    'assest/images/boy4.png',
-    'assest/images/boy3.png',
-    'assest/images/boy2.png',
-    'assest/images/girl4.png',
-    'assest/images/girl3.png',
-    'assest/images/girl2.png',
-  ];
+   int itemSelected=0 ;
+  int itemSelectedlevel =0;
+
 
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
@@ -53,7 +50,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
               valdution: (value){
               if(value.toString().isEmpty){
                 return'يرجئ منك ادخال اسم الطفل ';
-
               }
               return null;
             },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,),
@@ -64,14 +60,20 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(height: 20,),
           Text('الشخصيات :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Container(
-            height: screenUtil.screenHeight * .5,
+            height: screenUtil.screenHeight * .4,
             width: double.infinity,
-            child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: image.length,itemBuilder: (context, index) {
+            child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecterslist.listcarecters.length,itemBuilder: (context, index) {
 
-              return CustemCarecters(image: image[index], onTap: (){
+              return CustemCarecters(image: carecterslist.listcarecters[index]['image'].toString(), onTap: ()async{
                 setState(() {
                   itemSelected=index;
+
                 });
+                final prefs = await SharedPreferences.getInstance();
+                String dd=carecterslist.listcarecters[index]['id'].toString();
+                prefs.setString('Carecters', dd);
+                carecters= await  prefs.getString('Carecters') ?? '';
+                print(prefs.getString('Carecters'));
 
               }, isSelected: itemSelected==index?  true : false ,);
 
@@ -100,10 +102,10 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         name: Levels[index]['num'],
                         onTap: () {
                           setState(() {
-                            itemSelected2 = index;
+                            itemSelectedlevel = index;
                           });
                         },
-                        isSelected: itemSelected2 == index ? true : false,
+                        isSelected: itemSelectedlevel == index ? true : false,
                         color: Levels[index]['color'],
                       ),
                       SizedBox(width: 70,)
@@ -132,5 +134,29 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
         ],
       ),
     );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+initCarecters();
+
+  }
+  initCarecters()async{
+    final prefs = await SharedPreferences.getInstance();
+    carecters= await  prefs.getString('Carecters') ?? '';
+     level= await  prefs.getString('level') ?? '';
+     nameChiled.text= await  prefs.getString('nameChlied') ?? '';
+    print(nameChiled.text);
+    setState( () {
+
+
+      itemSelected=int.parse(carecters) ?? 10;
+      itemSelectedlevel=int.parse(level) ?? 10;
+
+    });
+    print(itemSelected);
+    print('*************************');
+
   }
 }

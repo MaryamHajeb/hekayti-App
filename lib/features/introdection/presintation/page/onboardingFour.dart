@@ -38,18 +38,15 @@ ScreenUtil screenUtil=ScreenUtil();
             width: double.infinity,
             child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: carecterslist.listcarecters.length,itemBuilder: (context, index) {
 
-              return CustemCarecters(image: carecterslist.listcarecters[index].toString(), onTap: ()async{
+              return CustemCarecters(image: carecterslist.listcarecters[index]['image'].toString(), onTap: ()async{
                 setState(() {
                   itemSelected=index;
 
                 });
                 final prefs = await SharedPreferences.getInstance();
-                String dd=carecterslist.listcarecters[index].toString();
-                String bb=dd.substring(1,1)[index];
-                prefs.setString('Carecters', bb);
-
+                String dd=carecterslist.listcarecters[index]['id'].toString();
+                prefs.setString('Carecters', dd);
                 carecters= await  prefs.getString('Carecters') ?? '';
-
                 print(prefs.getString('Carecters'));
 
               }, isSelected: itemSelected==index?  true : false ,);

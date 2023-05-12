@@ -17,6 +17,7 @@ import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 DatabaseHelper db = new DatabaseHelper();
 String carecters='';
+String level='';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
@@ -109,7 +110,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: SettingPage(),
+      home: IntroScreen(),
     );
   }
 

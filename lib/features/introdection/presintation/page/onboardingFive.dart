@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
@@ -15,11 +17,7 @@ class onboardingFive extends StatefulWidget {
 }
 
 class _onboardingFiveState extends State<onboardingFive> {
-  List Levels = [
-    {'num': 1, 'color': AppTheme.primarySwatch.shade800},
-    {'num': 2, 'color': AppTheme.primarySwatch.shade600},
-    {'num': 3, 'color': AppTheme.primarySwatch.shade400},
-  ];
+  Carecters carecters=Carecters();
   int itemSelected = 10;
   ScreenUtil screenUtil = ScreenUtil();
   @override
@@ -49,21 +47,29 @@ class _onboardingFiveState extends State<onboardingFive> {
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: Levels.length,
+            itemCount:carecters.Levels.length,
 
             itemBuilder: (context, index) {
               return Row(
                 children: [
                   SizedBox(width: 50,),
                   CustemLevel(
-                    name: Levels[index]['num'],
-                    onTap: () {
+                    name:carecters.Levels[index]['num'],
+                    onTap: () async{
                       setState(() {
                         itemSelected = index;
                       });
+                      final prefs = await SharedPreferences.getInstance();
+                      String dd=carecters.Levels[index]['id'].toString();
+                      print(dd);
+                      prefs.setString('level', dd);
+                      String bb=  prefs.getString('level') ?? '';
+                      print(bb);
+
+
                     },
                     isSelected: itemSelected == index ? true : false,
-                    color: Levels[index]['color'],
+                    color: carecters.Levels[index]['color'],
                   ),
                   SizedBox(width: 70,)
                 ],

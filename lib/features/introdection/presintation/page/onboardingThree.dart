@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
@@ -38,9 +39,16 @@ TextEditingController  nameChiled=TextEditingController();
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .2,
                   child: Image.asset(Assets.assest.images.carecters.hana.happy.path)),
+
               Column(children: [
                 CustemInput(
                   size: 200,
+                  onching: (value)async{
+                    final prefs = await SharedPreferences.getInstance();;
+                    prefs.setString('nameChlied', nameChiled.text.toString());
+
+
+                  },
                   valdution: (value){
                     if(value.toString().isEmpty){
                       return'يرجئ منك ادخال اسم الطفل ';
