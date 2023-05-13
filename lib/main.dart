@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: IntroScreen(),
+      home: SettingPage(),
     );
   }
 

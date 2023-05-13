@@ -19,17 +19,13 @@ class SettingTapbarpage extends StatefulWidget {
 
 class _SettingTapbarpageState extends State<SettingTapbarpage> {
   @override
-  List Levels = [
-    {'num': 1, 'color': AppTheme.primarySwatch.shade800},
-    {'num': 2, 'color': AppTheme.primarySwatch.shade600},
-    {'num': 3, 'color': AppTheme.primarySwatch.shade400},
-  ];
+
   Carecters carecterslist =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
    int itemSelected=0 ;
   int itemSelectedlevel =0;
-
+ String data='dskahdkhs';
 
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
@@ -47,6 +43,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             Text('  اسم الطفل :',style:AppTheme.textTheme.headline3 ),
               CustemInput(
               size: 200,
+              onching: (value){
+                value='kkhkhk';
+              },
               valdution: (value){
               if(value.toString().isEmpty){
                 return'يرجئ منك ادخال اسم الطفل ';
@@ -90,7 +89,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: Levels.length,
+                itemCount: carecterslist.Levels.length,
 
                 itemBuilder: (context, index) {
                   return Row(
@@ -99,14 +98,14 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                     children: [
                       SizedBox(width: 50,),
                       CustemLevel(
-                        name: Levels[index]['num'],
+                        name:carecterslist.Levels[index]['num'],
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
                           });
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
-                        color: Levels[index]['color'],
+                        color: carecterslist.Levels[index]['color'],
                       ),
                       SizedBox(width: 70,)
                     ],
@@ -127,7 +126,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             ],
           ),
           SizedBox(height: 20,),
-        CustemButten( text: 'حفظ',ontap: (){},),
+        CustemButten( text: 'حفظ',ontap: (){
+
+        },),
           SizedBox(height: 20,),
 
 
