@@ -22,7 +22,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
  carecters= await  prefs.getString('Carecters') ?? '';
-
   void test() async {
     DatabaseHelper db = new DatabaseHelper();
 

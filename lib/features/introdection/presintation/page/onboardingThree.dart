@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:hikayati_app/dataProviders/local_data_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
@@ -43,9 +45,7 @@ TextEditingController  nameChiled=TextEditingController();
               Column(children: [
                 CustemInput(
                   size: 200,
-                  onching: (value)async{
-                    final prefs = await SharedPreferences.getInstance();;
-                    prefs.setString('nameChlied', nameChiled.text.toString());
+                  onching: (value){
 
 
                   },
@@ -53,9 +53,11 @@ TextEditingController  nameChiled=TextEditingController();
                     if(value.toString().isEmpty){
                       return'يرجئ منك ادخال اسم الطفل ';
 
+                    }else{
+                      saveNameChlied();
                     }
                     return null;
-                  },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,)
+                  },controler:nameChiled ,text: 'اكتب اسم طفلك',type: TextInputType.text,)
 
 
               ],),
@@ -70,5 +72,10 @@ TextEditingController  nameChiled=TextEditingController();
 
         ],
       );
+  }
+
+  saveNameChlied()async{
+    CachedDate('nameChlied',nameChiled.text);
+
   }
 }

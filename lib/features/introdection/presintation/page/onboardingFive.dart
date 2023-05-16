@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
@@ -59,12 +60,9 @@ class _onboardingFiveState extends State<onboardingFive> {
                       setState(() {
                         itemSelected = index;
                       });
-                      final prefs = await SharedPreferences.getInstance();
-                      String dd=carecters.Levels[index]['id'].toString();
-                      print(dd);
-                      prefs.setString('level', dd);
-                      String bb=  prefs.getString('level') ?? '';
-                      print(bb);
+
+                      int dd=int.parse(carecters.Levels[index]['id'].toString());
+                      CachedDate('level',dd);
 
 
                     },

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemLevel.dart';
@@ -19,13 +20,18 @@ class SettingTapbarpage extends StatefulWidget {
 
 class _SettingTapbarpageState extends State<SettingTapbarpage> {
   @override
-
+  List Levels = [
+    {'num': 1, 'color': AppTheme.primarySwatch.shade800},
+    {'num': 2, 'color': AppTheme.primarySwatch.shade600},
+    {'num': 3, 'color': AppTheme.primarySwatch.shade400},
+  ];
   Carecters carecterslist =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
    int itemSelected=0 ;
   int itemSelectedlevel =0;
- String data='dskahdkhs';
+  bool chackboxStata=false;
+
 
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
@@ -43,9 +49,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             Text('  اسم الطفل :',style:AppTheme.textTheme.headline3 ),
               CustemInput(
               size: 200,
-              onching: (value){
-                value='kkhkhk';
-              },
               valdution: (value){
               if(value.toString().isEmpty){
                 return'يرجئ منك ادخال اسم الطفل ';
@@ -68,11 +71,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                   itemSelected=index;
 
                 });
-                final prefs = await SharedPreferences.getInstance();
-                String dd=carecterslist.listcarecters[index]['id'].toString();
-                prefs.setString('Carecters', dd);
-                carecters= await  prefs.getString('Carecters') ?? '';
-                print(prefs.getString('Carecters'));
+
 
               }, isSelected: itemSelected==index?  true : false ,);
 
@@ -89,7 +88,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: carecterslist.Levels.length,
+                itemCount: Levels.length,
 
                 itemBuilder: (context, index) {
                   return Row(
@@ -98,14 +97,14 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                     children: [
                       SizedBox(width: 50,),
                       CustemLevel(
-                        name:carecterslist.Levels[index]['num'],
+                        name: Levels[index]['num'],
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
                           });
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
-                        color: carecterslist.Levels[index]['color'],
+                        color: Levels[index]['color'],
                       ),
                       SizedBox(width: 70,)
                     ],
@@ -121,12 +120,17 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text('خاصية الاستماع للقصص',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-              Checkbox(value: true, onChanged: (value){}),
+              Checkbox(value: chackboxStata, onChanged: (value){
+                setState(() {
+                  chackboxStata =value!;
+                });
+              }),
 
             ],
           ),
           SizedBox(height: 20,),
-        CustemButten( text: 'حفظ',ontap: (){
+        CustemButten( text: 'حفظ',ontap: ()async{
+          saveNewSttings();
 
         },),
           SizedBox(height: 20,),
@@ -144,20 +148,27 @@ initCarecters();
 
   }
   initCarecters()async{
-    final prefs = await SharedPreferences.getInstance();
-    carecters= await  prefs.getString('Carecters') ?? '';
-     level= await  prefs.getString('level') ?? '';
-     nameChiled.text= await  prefs.getString('nameChlied') ?? '';
-    print(nameChiled.text);
+  int   carectersnum= await  getCachedDate('Carecters',String) ?? '';
+  int      levels= await  getCachedDate('level',int)  ?? '';
+  String   t= await getCachedDate('nameChlied',String)  ?? '';
+  String   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
+
     setState( () {
-
-
-      itemSelected=int.parse(carecters) ?? 10;
-      itemSelectedlevel=int.parse(level) ?? 10;
-
+      nameChiled.text=t;
+      itemSelected=carectersnum ?? 10;
+      itemSelectedlevel= levels ?? 10;
+      chackboxStata =lisent.toLowerCase() =='false';
     });
-    print(itemSelected);
-    print('*************************');
 
+
+  }
+
+  saveNewSttings(){
+    int carecters=int.parse(carecterslist.listcarecters[itemSelected]['id'].toString());
+    int level=int.parse(carecterslist.Levels[itemSelectedlevel]['id'].toString());
+    CachedDate('Carecters',carecters);
+    CachedDate('nameChlied',nameChiled.text);
+    CachedDate('level',level);
+    CachedDate('Listen_to_story',chackboxStata.toString());
   }
 }

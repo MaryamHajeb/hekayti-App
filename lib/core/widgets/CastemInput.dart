@@ -46,7 +46,7 @@ class _CustemInputState extends State<CustemInput> {
 
               borderSide: BorderSide(color: Colors.transparent),
             ),
-            prefixIcon: Icon(widget.icon.icon,color: AppTheme.primaryColor,size: 25),
+            prefixIcon: widget.icon,
             hintText: widget.text.toString(),
               hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
             enabledBorder: UnderlineInputBorder(

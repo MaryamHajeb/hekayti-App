@@ -9,6 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../dataProviders/local_data_provider.dart';
+import '../../injection_container.dart';
 import '../widgets/primaryText.dart';
 
 // CachedNetworkImage cachedNetworkImage({required String image,width=null,height=null,onFailed}) {
@@ -74,23 +76,31 @@ import '../widgets/primaryText.dart';
 //
 //
 //
-// Either<int, bool> checkCart() {
-//   try {
-//     final data = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
-//         .getCachedData(
-//             key: 'CACHED_CART',
-//             retrievedDataType: CartModel.init(),
-//             returnType: List) as List;
-//
-//     if (data != null) {
-//       return Left(data.length);
-//     }
-//     return Right(false);
-//   } catch (e) {
-//     return Right(false);
-//   }
-// }
+dynamic  getCachedDate(String key,dynamic type) {
 
+    final data = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
+        .getCachedData(
+            key:key,
+            retrievedDataType: type,
+            returnType: type
+    ) ;
+
+  print(']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]');
+  print(data);
+  print(data.runtimeType);
+      return data;
+
+}
+
+CachedDate(String key,dynamic  dataCached) {
+
+  final data = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
+      .cacheData(
+      key:key,
+      data: dataCached) ;
+
+
+}
 
 converToBase64(String text){
 
