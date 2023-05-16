@@ -11,6 +11,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../manager/registration_bloc.dart';
 
@@ -91,14 +92,17 @@ TextEditingController CofemPassword = TextEditingController();
 
 
 
-                            Image.asset('images/boy1.png'),
+                            Container(
+                                height: screenUtil.screenHeight *.4,
+                                width: screenUtil.screenWidth * .2,
+                                child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
 
 
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+                                  CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
                                   Text('تسجيل الدخول',style:AppTheme.textTheme.headline3 ),
                                   SizedBox(height: 30,),
 
@@ -129,7 +133,7 @@ TextEditingController CofemPassword = TextEditingController();
 
                                                   return null;
 
-                                                },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: 'البريد الإلكتروني',type: TextInputType.text,),
+                                                },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 20),text: 'البريد الإلكتروني',type: TextInputType.text,),
 
 
 
@@ -151,7 +155,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                     return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
                                                   }
                                                   return null;
-                                                },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'كلمة المرور',type: TextInputType.text,),
+                                                },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'كلمة المرور',type: TextInputType.text,),
 
 
 
@@ -190,7 +194,7 @@ TextEditingController CofemPassword = TextEditingController();
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
+                                      Text('ليس لدئ حساب ? ',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
                                       SizedBox(width: 40,),
                                       InkWell(
 
@@ -200,14 +204,17 @@ TextEditingController CofemPassword = TextEditingController();
                                                 CustomPageRoute(  child:   SignupPage()));
 
                                           },
-                                          child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
+                                          child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
 
                                     ],
                                   ),
 
                                 ]),
 
-                            Image.asset('images/girl1.png'),
+                            Container(
+                                height: screenUtil.screenHeight *.4,
+                                width: screenUtil.screenWidth * .2,
+                                child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
 
                           ],
                         ),

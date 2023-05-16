@@ -20,11 +20,7 @@ class SettingTapbarpage extends StatefulWidget {
 
 class _SettingTapbarpageState extends State<SettingTapbarpage> {
   @override
-  List Levels = [
-    {'num': 1, 'color': AppTheme.primarySwatch.shade800},
-    {'num': 2, 'color': AppTheme.primarySwatch.shade600},
-    {'num': 3, 'color': AppTheme.primarySwatch.shade400},
-  ];
+
   Carecters carecterslist =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
@@ -54,7 +50,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                 return'يرجئ منك ادخال اسم الطفل ';
               }
               return null;
-            },controler:nameChiled ,icon: Icon(Icons.boy,color: AppTheme.primaryColor,size: 40),text: 'اكتب اسم طفلك',type: TextInputType.text,),
+            },controler:nameChiled ,text: 'اكتب اسم طفلك',type: TextInputType.text,),
 
 
           ],),
@@ -88,7 +84,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: Levels.length,
+                itemCount: carecterslist.Levels.length,
 
                 itemBuilder: (context, index) {
                   return Row(
@@ -97,14 +93,14 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                     children: [
                       SizedBox(width: 50,),
                       CustemLevel(
-                        name: Levels[index]['num'],
+                        name:carecterslist.Levels[index]['num'],
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
                           });
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
-                        color: Levels[index]['color'],
+                        color: carecterslist.Levels[index]['color'],
                       ),
                       SizedBox(width: 70,)
                     ],
@@ -151,13 +147,13 @@ initCarecters();
   int   carectersnum= await  getCachedDate('Carecters',String) ?? '';
   int      levels= await  getCachedDate('level',int)  ?? '';
   String   t= await getCachedDate('nameChlied',String)  ?? '';
-  String   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
+  bool   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
 
     setState( () {
       nameChiled.text=t;
       itemSelected=carectersnum ?? 10;
       itemSelectedlevel= levels ?? 10;
-      chackboxStata =lisent.toLowerCase() =='false';
+      chackboxStata =lisent;
     });
 
 
@@ -169,6 +165,6 @@ initCarecters();
     CachedDate('Carecters',carecters);
     CachedDate('nameChlied',nameChiled.text);
     CachedDate('level',level);
-    CachedDate('Listen_to_story',chackboxStata.toString());
+    CachedDate('Listen_to_story',chackboxStata);
   }
 }

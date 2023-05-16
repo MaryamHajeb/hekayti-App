@@ -124,25 +124,24 @@ void showImagesDialog(BuildContext context, String image,String text) {
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
-            height: 150,
-            width: 250,
+            height: 200,
+            width: 350,
             decoration: BoxDecoration(
                 border: Border.all(color: AppTheme.primaryColor,width: 2),
                 borderRadius: BorderRadius.circular(20)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+
                   children: [
-                    SizedBox(width: 5,),
+                    SizedBox(width: 0,),
                 Expanded(
                     flex: 1,
                     child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,)),
 
                 Expanded(
-                    flex: 1,
-                    child: Image.asset(image)),
+                    flex: 2,
+                    child: Image.asset(image,height: 150,width: 150,)),
                     SizedBox(width: 5,),
 
                   ]),

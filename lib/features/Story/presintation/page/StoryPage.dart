@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hikayati_app/core/util/Carecters.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -21,6 +22,7 @@ import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
+import '../../../../main.dart';
 import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';
 import '../manager/Slied_bloc.dart';
@@ -71,13 +73,15 @@ class _StoryPageState extends State<StoryPage> {
   bool isSpack = false;
   bool islisnt = false;
   AudioCache player = AudioCache();
-
+  int  Carecters_id=0;
   int currentIndexPage = 0;
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
   List starts = [1, 2, 0, 3, 2, 3];
   String pathaudio = '';
+  Carecters carectersobj =Carecters();
+
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -280,9 +284,14 @@ class _StoryPageState extends State<StoryPage> {
                                                   InkWell(
                                                     onTap: () {
                                                       setState(() {
+
                                                         index = index + 1;
                                                         rendom = Random()
                                                             .nextInt(100);
+                                                        print('333333333333333333333333333333333333333333');
+
+                                                        print(rendom);
+                                                        print('333333333333333333333333333333333333333333');
                                                         if (rendom <= 50) {
                                                           pageControler.nextPage(
                                                               duration:
@@ -294,13 +303,7 @@ class _StoryPageState extends State<StoryPage> {
                                                         } else {
                                                           showImagesDialog(
                                                               context,
-                                                              Assets
-                                                                  .assest
-                                                                  .images
-                                                                  .carecters
-                                                                  .abdu
-                                                                  .sad
-                                                                  .path,
+                                                              '${carectersobj.sadListCarecters[Carecters_id]['image']}',
                                                               'حاول مره اخرئ'
                                                               '');
                                                         }
@@ -394,6 +397,15 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Carecters_id=  getCachedDate('Carecters',String);
+
+  }
+
   Future<String> saveAcurrcy(
       dynamic media_id, user_id, accuracy_percentage) async {
     try {
@@ -424,4 +436,5 @@ class _StoryPageState extends State<StoryPage> {
           'ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
     }
   }
+
 }

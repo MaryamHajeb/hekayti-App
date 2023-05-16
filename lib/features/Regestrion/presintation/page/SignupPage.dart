@@ -9,6 +9,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../manager/registration_bloc.dart';
 import 'LoginPage.dart';
@@ -92,7 +93,7 @@ TextEditingController CofemPassword = TextEditingController();
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: SingleChildScrollView(
                           child: Column(children: [
-                            CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+                            CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
                             Text('إنشاء حساب',style:AppTheme.textTheme.headline3 ),
                             SizedBox(height: 20,),
 
@@ -124,7 +125,7 @@ TextEditingController CofemPassword = TextEditingController();
                                               }
 
                                               return null;
-                                            },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 40),text: 'البريد الإلكتروني',type: TextInputType.text,),
+                                            },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 20),text: 'البريد الإلكتروني',type: TextInputType.text,),
 
 
 
@@ -146,7 +147,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                 return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
                                               }
                                               return null;
-                                            },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'كلمة المرور',type: TextInputType.text,),
+                                            },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'كلمة المرور',type: TextInputType.text,),
 
 
 
@@ -166,7 +167,7 @@ TextEditingController CofemPassword = TextEditingController();
 
                                               }
                                               return null;
-                                            },controler:CofemPassword ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 40),text: 'تأكيد كلمة المرور',type: TextInputType.text,),
+                                            },controler:CofemPassword ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'تأكيد كلمة المرور',type: TextInputType.text,),
 
 
 
@@ -212,7 +213,7 @@ TextEditingController CofemPassword = TextEditingController();
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text('ليس لدئ حساب ? ',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
+                                            Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
                                             InkWell(
 
                                                 onTap: (){
@@ -221,7 +222,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                       CustomPageRoute(  child:   LoginPage()));
 
                                                 },
-                                                child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
+                                                child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
 
                                           ],
                                         ),
