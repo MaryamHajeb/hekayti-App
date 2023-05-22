@@ -4,14 +4,18 @@ import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
 import 'package:hikayati_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Story/date/model/MeadiaModel.dart';
@@ -33,9 +37,9 @@ class _HomePageState extends State<HomePage> {
   List<StoryModel> listStory = [];
   List<StoryModel> listStoryWithSearch = [];
   List starts = [1, 2, 0, 3, 2, 3];
-
+  Carecters carectersobj =Carecters();
   final prefs = SharedPreferences.getInstance();
-
+  int  Carecters_id=0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -60,10 +64,10 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () {},
                         child: CustemIcon(
-                          icon: Image.asset(carecters, fit: BoxFit.cover),
+                          icon: Image.asset('${carectersobj.sadListCarecters[Carecters_id]['image']}', fit: BoxFit.cover),
                           ontap: () {
                             Navigator.push(
-                                context, CustomPageRoute(child: SettingPage()));
+                                context, CustomPageRoute(child: lockPage()));
                           },
                         ),
                       ),
@@ -202,7 +206,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     print(listStoryWithSearch.length);
     listStoryWithSearch = listStory;
-
+    Carecters_id=  getCachedDate('Carecters',String);
     print(listStoryWithSearch.length);
   }
 }

@@ -7,7 +7,9 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import 'onboardingFive.dart';
 import 'onboardingFour.dart';
@@ -34,6 +36,7 @@ class _IntroScreenState extends State<IntroScreen> {
   ];
   ScreenUtil _screenUtil = ScreenUtil();
   int currentIndexPage = 0;
+  int carectersnum=10;
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
   @override
@@ -122,22 +125,47 @@ class _IntroScreenState extends State<IntroScreen> {
                                                   ),
                                                 ),
                                                 InkWell(
-                                                  onTap: () {
-                                                    if (_formKey.currentState!.validate()) {
+                                                  onTap: () async{
+                                                    initdata();
+
+                                                    if (_formKey.currentState!.validate()){
                                                       // If the form is valid, display a snackbar. In the real world,
 
-                                                      print(index);
-                                                      index==5 ?
+                                                      if(index ==3){
+                                                       if(carectersnum <  5){
 
-                                                      Navigator.push(
-                                                          context,
-                                                          CustomPageRoute(  child:   HomePage()))
-                                                    :
-                                                      pageController.nextPage(
-                                                          duration: Duration(
-                                                            seconds: 1,
-                                                          ),
-                                                          curve: Curves.linear);
+                                                         pageController.nextPage(
+                                                             duration: Duration(
+                                                               seconds: 1,
+                                                             ),
+                                                             curve: Curves.linear);
+
+                                                       }
+                                                       else{
+
+                                                         print('يرجئ اختيار شخصيه');
+                                                         showImagesDialog(context,Assets.assest.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
+                                                       }
+                                                       
+                                                       }
+
+                                                      else{
+
+
+                                                        print(index);
+                                                        index==5 ?
+
+                                                        Navigator.push(
+                                                            context,
+                                                            CustomPageRoute(  child:   HomePage()))
+                                                            :
+                                                        pageController.nextPage(
+                                                            duration: Duration(
+                                                              seconds: 1,
+                                                            ),
+                                                            curve: Curves.linear);
+
+                                                      }
 
                                                       // you'd often call a server or save the information in a database.
                                                     }
@@ -169,5 +197,20 @@ class _IntroScreenState extends State<IntroScreen> {
         ),
       ),
     );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initdata();
+  }
+  initdata()async{
+
+    int   Carecters=await   getCachedDate('Carecters',String) ?? 10;
+    carectersnum=Carecters;
+
+
+
+
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:get/get.dart';
 import 'package:hikayati_app/dataProviders/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,14 +21,14 @@ class LocalDataProvider {
       if (sharedPreferences.getString(key) != null) {
         if (returnType == List) {
           final List<dynamic> data = json.decode(
-            sharedPreferences.getString(key)??'',
+            sharedPreferences.getString(key)?? '',
           );
 
                   ///SliedModel
           return retrievedDataType.fromJsonList(data);
         } else if (returnType == String) {
           final dynamic data = json.decode(
-            sharedPreferences.getString(key)??'',
+            sharedPreferences.getString(key)?? '',
           );
 
           return data;
@@ -44,9 +45,12 @@ class LocalDataProvider {
         }
       }
       else {
+
         throw CacheException();
+
       }
     } catch (_) {
+
       throw CacheException();
     }
   }
