@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
@@ -52,35 +53,22 @@ class _StoryPageState extends State<StoryPage> {
     if (status != PermissionStatus.granted) {
       throw 'Permission not granted';
     }
-    await recorder.openRecorder();
-    recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
   }
-
-  Future startRecord() async {
-    await recorder.startRecorder(toFile: "audio");
-  }
-
-  Future stopRecorder() async {
-    final filePath = await recorder.stopRecorder();
-    final file = File(filePath!);
-    print('Recorded file path: $file');
-    pathaudio = file.path.toString();
-    print('cjcbjjdj  $pathaudio');
-  }
-
+bool  visiblety=false;
   Widget SliedWidget = Center();
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = false;
   bool islisnt = false;
   AudioCache player = AudioCache();
-  int  Carecters_id=0;
+  int Carecters_id = 0;
   int currentIndexPage = 0;
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
   List starts = [1, 2, 0, 3, 2, 3];
   String pathaudio = '';
-  Carecters carectersobj =Carecters();
+  double valueslider=0;
+  Carecters carectersobj = Carecters();
 
   @override
   Widget build(BuildContext context) {
@@ -122,76 +110,71 @@ class _StoryPageState extends State<StoryPage> {
                     child: Center(
                         child: Row(
                       children: [
-                        Container(
-                          width: screenUtil.screenWidth * .1,
-                          height: screenUtil.screenHeight * 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustemIcon2(
-                                  icon: Icon(
-                                    Icons.home,
-                                  ),
-                                  ontap: () {
-                                    Navigator.pop(context);
-                                  }),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  isSpack == false
-                                      ? CustemIcon2(
-                                          icon: Icon(
-                                            Icons.headset_mic_outlined,
-                                          ),
-                                          ontap: () {
-                                            setState(() {
-                                              isSpack = true;
+                        SafeArea(
+                          child: Container(
+                            width: screenUtil.screenWidth * .1,
+                            height: screenUtil.screenHeight * 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CustemIcon2(
+                                    icon: Icon(
+                                      Icons.home,
+                                    ),
+                                    ontap: () {
+                                      Navigator.pop(context);
+                                    }),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    isSpack == false
+                                        ? CustemIcon2(
+                                            icon: Icon(
+                                              Icons.headset_mic_outlined,
+                                            ),
+                                            ontap: () {
+                                              setState(() {
+                                                isSpack = true;
 
-                                              var pl = player
-                                                  .load('assest/music.mp3');
-                                            });
-                                          })
-                                      : CustemIcon(
-                                          icon: Icon(
-                                            Icons.headset_mic_outlined,
-                                          ),
-                                          ontap: () async {}),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  recorder.isRecording
-                                      ? CustemIcon(
-                                          icon: Icon(
-                                            Icons.mic,
-                                          ),
-                                          ontap: () async {
-                                            initRecorder();
-                                            if (recorder.isRecording) {
-                                              await stopRecorder();
-                                              setState(() {});
-                                            } else {
-                                              await startRecord();
-                                              setState(() {});
-                                            }
-                                          })
-                                      : CustemIcon2(
-                                          icon: Icon(
-                                            Icons.mic,
-                                          ),
-                                          ontap: () async {
-                                            initRecorder();
-                                            if (recorder.isRecording) {
-                                              await stopRecorder();
-                                              setState(() {});
-                                            } else {
-                                              await startRecord();
-                                              setState(() {});
-                                            }
-                                          }),
-                                ],
-                              )
-                            ],
+                                                var pl = player
+                                                    .load('assest/music.mp3');
+                                              });
+                                            })
+                                        : CustemIcon(
+                                            icon: Icon(
+                                              Icons.headset_mic_outlined,
+                                            ),
+                                            ontap: () async {}),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    visiblety
+                                        ? CustemIcon(
+                                            icon: Icon(
+                                              Icons.mic,
+                                            ),
+                                            ontap: () async {
+                                              setState(() {
+                                                visiblety=!visiblety;
+                                              });
+
+                                            })
+                                        : CustemIcon2(
+                                            icon: Icon(
+                                              Icons.mic,
+                                            ),
+                                            ontap: () async {
+                                              initRecorder();
+                                                  setState(() {
+                                                    visiblety=!visiblety;
+
+                                                  });
+                                            }),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -219,12 +202,12 @@ class _StoryPageState extends State<StoryPage> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(15))),
                                     child: Stack(
-                                      fit: StackFit.loose,
+                                      alignment: AlignmentDirectional.topCenter,
                                       children: [
                                         Container(
                                             width: screenUtil.screenWidth * 1,
                                             height:
-                                                screenUtil.screenHeight * .8,
+                                                screenUtil.screenHeight * .85,
                                             padding: EdgeInsets.only(
                                                 right: 10, left: 10, top: 10),
                                             child: Image.memory(
@@ -237,33 +220,64 @@ class _StoryPageState extends State<StoryPage> {
                                               width:
                                                   screenUtil.screenWidth * .9,
                                             )),
-                                        StreamBuilder<RecordingDisposition>(
-                                          builder: (context, snapshot) {
-                                            final duration = snapshot.hasData
-                                                ? snapshot.data!.duration
-                                                : Duration.zero;
+                                        Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15))),
+                                          margin: EdgeInsets.all(15),
+                                          child: Visibility(
+                                            visible: visiblety,
+                                            child: Container(
+                                              margin: EdgeInsets.all(5),
+                                              width: screenUtil.screenWidth * .5,
+                                              height:
+                                                  screenUtil.screenHeight * .1,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  border: Border.all(
+                                                      color:
+                                                          AppTheme.primaryColor,
+                                                      width: 1),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(15))),
+                                              child: Row(children: [
+                                                Expanded(
+                                                    flex: 4,
+                                                    child: Slider(
+                                                      value: valueslider,
+                                                      max: 100,
+                                                      min: 0,
+                                                      onChanged:
+                                                          (double value) {
+                                                        setState(() {
+                                                          valueslider=value;
 
-                                            String twoDigits(int n) =>
-                                                n.toString().padLeft(2, '0');
-                                            final twoDigitMinutes = twoDigits(
-                                                duration.inMinutes
-                                                    .remainder(60));
-                                            final twoDigitSeconds = twoDigits(
-                                                duration.inSeconds
-                                                    .remainder(60));
+                                                        });
 
-                                            return Center(
-                                              child: Text(
-                                                '$twoDigitMinutes:$twoDigitSeconds',
-                                                style: const TextStyle(
-                                                  color: Colors.amber,
-                                                  fontSize: 50,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          stream: recorder.onProgress,
+
+                                                          },
+                                                    )),
+                                                Expanded(
+                                                    flex: 1,
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.play_arrow,
+                                                          color: AppTheme
+                                                              .primaryColor,
+                                                          size: 30,
+                                                        ),
+                                                        Icon(
+                                                          Icons.stop,
+                                                          color: AppTheme
+                                                              .primaryColor,
+                                                          size: 30,
+                                                        ),
+                                                      ],
+                                                    ))
+                                              ]),
+                                            ),
+                                          ),
                                         ),
                                         Positioned(
                                           height: screenUtil.screenHeight * 1.8,
@@ -284,14 +298,15 @@ class _StoryPageState extends State<StoryPage> {
                                                   InkWell(
                                                     onTap: () {
                                                       setState(() {
-
                                                         index = index + 1;
                                                         rendom = Random()
                                                             .nextInt(100);
-                                                        print('333333333333333333333333333333333333333333');
+                                                        print(
+                                                            '333333333333333333333333333333333333333333');
 
                                                         print(rendom);
-                                                        print('333333333333333333333333333333333333333333');
+                                                        print(
+                                                            '333333333333333333333333333333333333333333');
                                                         if (rendom <= 50) {
                                                           pageControler.nextPage(
                                                               duration:
@@ -305,7 +320,7 @@ class _StoryPageState extends State<StoryPage> {
                                                               context,
                                                               '${carectersobj.sadListCarecters[Carecters_id]['image']}',
                                                               'حاول مره اخرئ'
-                                                              '');
+                                                                  '');
                                                         }
                                                         db.inser(
                                                             data: accuracyModel(
@@ -336,10 +351,17 @@ class _StoryPageState extends State<StoryPage> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(state
-                                                          .SliedModel[index]
-                                                          .text
-                                                          .toString()),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        state.SliedModel[index]
+                                                            .text
+                                                            .toString(),
+                                                        style: AppTheme
+                                                            .textTheme
+                                                            .headline3,
+                                                      ),
                                                       SizedBox(
                                                         height: 5,
                                                       ),
@@ -397,13 +419,11 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id=  getCachedDate('Carecters',String);
-
+    Carecters_id = getCachedDate('Carecters', String);
   }
 
   Future<String> saveAcurrcy(
@@ -436,5 +456,4 @@ class _StoryPageState extends State<StoryPage> {
           'ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
     }
   }
-
 }

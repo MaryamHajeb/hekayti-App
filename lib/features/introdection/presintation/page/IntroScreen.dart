@@ -39,7 +39,10 @@ class _IntroScreenState extends State<IntroScreen> {
   int carectersnum=10;
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
+
+
   @override
+
   Widget build(BuildContext context) {
     _screenUtil.init(context);
     return Scaffold(

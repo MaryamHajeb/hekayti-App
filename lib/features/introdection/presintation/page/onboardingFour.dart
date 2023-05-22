@@ -21,7 +21,7 @@ class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
   Carecters carecterslist =Carecters();
-  int itemSelected =10;
+ static int itemSelected =10;
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return
@@ -29,7 +29,7 @@ ScreenUtil screenUtil=ScreenUtil();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('images/logo.png'),),
+          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('assest/images/logo.png'),),
           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
           Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
           Container(
