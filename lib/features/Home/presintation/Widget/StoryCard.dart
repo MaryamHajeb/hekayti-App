@@ -3,6 +3,7 @@ import 'package:hikayati_app/core/app_theme.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
+import '../../../../gen/assets.gen.dart';
 
 class StoryCard extends StatefulWidget {
   final name;
@@ -28,7 +29,7 @@ class _StoryCardState extends State<StoryCard> {
 
       decoration:
       BoxDecoration(
-        image: DecorationImage(image: AssetImage('assest/images/storyBG.png'))
+        image: DecorationImage(image: AssetImage(Assets.images.storyBG.path))
 
       ),
       child: Column(
@@ -43,12 +44,12 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-          Image.asset('assest/images/start.png'),
+          Image.asset(Assets.images.start.path),
                Padding(
                  padding: const EdgeInsets.only(bottom: 20.0),
-                 child: Image.asset('assest/images/emptyStar.png'),
+                 child: Image.asset(Assets.images.emptyStar.path),
                ),
-               Image.asset('assest/images/emptyStar.png'),
+               Image.asset(Assets.images.emptyStar.path),
 
              ],
            ):widget.starts ==2?
@@ -58,12 +59,12 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-               Image.asset('assest/images/start.png'),
+               Image.asset(Assets.images.start.path),
                Padding(
                  padding: const EdgeInsets.only(bottom: 20.0),
-                 child: Image.asset('assest/images/start.png'),
+                 child: Image.asset(Assets.images.start.path),
                ),
-               Image.asset('assest/images/emptyStar.png'),
+               Image.asset(Assets.images.emptyStar.path),
 
              ],
            ): widget.starts ==0 ? Row(
@@ -72,12 +73,12 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-               Image.asset('assest/images/emptyStar.png'),
+               Image.asset(Assets.images.emptyStar.path),
                Padding(
                  padding: const EdgeInsets.only(bottom: 20.0),
-                 child: Image.asset('assest/images/emptyStar.png'),
+                 child: Image.asset(Assets.images.emptyStar.path),
                ),
-               Image.asset('assest/images/emptyStar.png'),
+               Image.asset(Assets.images.emptyStar.path),
 
              ],
            ):
@@ -87,12 +88,12 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-               Image.asset('assest/images/start.png'),
+               Image.asset(Assets.images.start.path),
                Padding(
                  padding: const EdgeInsets.only(bottom: 20.0),
-                 child: Image.asset('assest/images/start.png'),
+                 child: Image.asset(Assets.images.start.path),
                ),
-               Image.asset('assest/images/start.png'),
+               Image.asset(Assets.images.start.path),
 
              ],
            ),

@@ -35,7 +35,7 @@ class _onboardingTowState extends State<onboardingTow> {
         CircleAvatar(
           maxRadius: 40,
           backgroundColor: Colors.white,
-          child: Image.asset(Assets.assest.images.logo.path),
+          child: Image.asset(Assets.images.logo.path),
         ),
         Text('حكايتي', style: AppTheme.textTheme.headline3),
         Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',
@@ -48,7 +48,7 @@ class _onboardingTowState extends State<onboardingTow> {
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
                 child: Image.asset(
-                    Assets.assest.images.carecters.hana.happy.path)),
+                    Assets.images.carecters.hana.happy.path)),
             Column(
               children: [
                 Container(
@@ -100,7 +100,7 @@ class _onboardingTowState extends State<onboardingTow> {
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
                 child: Image.asset(
-                    Assets.assest.images.carecters.mohamed.happy.path)),
+                    Assets.images.carecters.mohamed.happy.path)),
           ],
         ),
       ],

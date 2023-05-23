@@ -54,12 +54,13 @@ class _StoryPageState extends State<StoryPage> {
       throw 'Permission not granted';
     }
   }
-bool  visiblety=false;
+
+  bool visiblety = false;
   Widget SliedWidget = Center();
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = false;
   bool islisnt = false;
-  AudioCache player = AudioCache();
+  final player = AudioPlayer();
   int Carecters_id = 0;
   int currentIndexPage = 0;
   PageController pageControler = PageController();
@@ -67,7 +68,7 @@ bool  visiblety=false;
   int rendom = 0;
   List starts = [1, 2, 0, 3, 2, 3];
   String pathaudio = '';
-  double valueslider=0;
+  double valueslider = 0;
   Carecters carectersobj = Carecters();
 
   @override
@@ -101,7 +102,7 @@ bool  visiblety=false;
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
-                            'assest/images/backgraond.png',
+                            'assets/images/backgraond.png',
                           ),
                           fit: BoxFit.fill),
                     ),
@@ -136,9 +137,11 @@ bool  visiblety=false;
                                             ontap: () {
                                               setState(() {
                                                 isSpack = true;
-
-                                                var pl = player
-                                                    .load('assest/music.mp3');
+                                                setState(() {
+                                                  visiblety = !visiblety;
+                                                });
+                                                player.play(
+                                                    AssetSource('music.mp3'));
                                               });
                                             })
                                         : CustemIcon(
@@ -155,10 +158,7 @@ bool  visiblety=false;
                                               Icons.mic,
                                             ),
                                             ontap: () async {
-                                              setState(() {
-                                                visiblety=!visiblety;
-                                              });
-
+                                              setState(() {});
                                             })
                                         : CustemIcon2(
                                             icon: Icon(
@@ -166,10 +166,7 @@ bool  visiblety=false;
                                             ),
                                             ontap: () async {
                                               initRecorder();
-                                                  setState(() {
-                                                    visiblety=!visiblety;
-
-                                                  });
+                                              setState(() {});
                                             }),
                                   ],
                                 )
@@ -229,7 +226,8 @@ bool  visiblety=false;
                                             visible: visiblety,
                                             child: Container(
                                               margin: EdgeInsets.all(5),
-                                              width: screenUtil.screenWidth * .5,
+                                              width:
+                                                  screenUtil.screenWidth * .5,
                                               height:
                                                   screenUtil.screenHeight * .1,
                                               decoration: BoxDecoration(
@@ -238,11 +236,12 @@ bool  visiblety=false;
                                                       color:
                                                           AppTheme.primaryColor,
                                                       width: 1),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(15))),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(15))),
                                               child: Row(children: [
                                                 Expanded(
-                                                    flex: 4,
+                                                    flex: 6,
                                                     child: Slider(
                                                       value: valueslider,
                                                       max: 100,
@@ -250,28 +249,27 @@ bool  visiblety=false;
                                                       onChanged:
                                                           (double value) {
                                                         setState(() {
-                                                          valueslider=value;
-
+                                                          valueslider = value;
                                                         });
-
-
-                                                          },
+                                                      },
                                                     )),
                                                 Expanded(
-                                                    flex: 1,
+                                                    flex: 2,
                                                     child: Row(
                                                       children: [
-                                                        Icon(
-                                                          Icons.play_arrow,
-                                                          color: AppTheme
-                                                              .primaryColor,
-                                                          size: 30,
+                                                        IconButton(
+                                                          onPressed: () {},
+                                                          icon: Icon(
+                                                            Icons.play_arrow,
+                                                            color: AppTheme
+                                                                .primaryColor,
+                                                          ),
                                                         ),
-                                                        Icon(
-                                                          Icons.stop,
-                                                          color: AppTheme
-                                                              .primaryColor,
-                                                          size: 30,
+                                                        IconButton(
+                                                          onPressed: () {},
+                                                          icon: Icon(Icons.stop,
+                                                              color: AppTheme
+                                                                  .primaryColor),
                                                         ),
                                                       ],
                                                     ))
@@ -297,50 +295,48 @@ bool  visiblety=false;
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      setState(() {
-                                                        index = index + 1;
-                                                        rendom = Random()
-                                                            .nextInt(100);
-                                                        print(
-                                                            '333333333333333333333333333333333333333333');
+                                                      index = index + 1;
+                                                      rendom =
+                                                          Random().nextInt(100);
+                                                      print(
+                                                          '333333333333333333333333333333333333333333');
 
-                                                        print(rendom);
-                                                        print(
-                                                            '333333333333333333333333333333333333333333');
-                                                        if (rendom <= 50) {
-                                                          pageControler.nextPage(
-                                                              duration:
-                                                                  Duration(
-                                                                      seconds:
-                                                                          1),
-                                                              curve: Curves
-                                                                  .bounceInOut);
-                                                        } else {
-                                                          showImagesDialog(
-                                                              context,
-                                                              '${carectersobj.sadListCarecters[Carecters_id]['image']}',
-                                                              'حاول مره اخرئ'
-                                                                  '');
-                                                        }
-                                                        db.inser(
-                                                            data: accuracyModel(
-                                                                media_id: state
-                                                                    .SliedModel[
-                                                                        currentIndexPage]
-                                                                    .id,
-                                                                user_id:
-                                                                    'almomyz@gami',
-                                                                accuracy_percentage:
-                                                                    rendom),
-                                                            tableName:
-                                                                'accuracy');
-                                                      });
+                                                      print(rendom);
+                                                      print(
+                                                          '333333333333333333333333333333333333333333');
+                                                      if (rendom >= 50) {
+                                                        pageControler.nextPage(
+                                                            duration: Duration(
+                                                                seconds: 1),
+                                                            curve: Curves
+                                                                .bounceInOut);
+                                                      } else {
+                                                        showImagesDialogWithCancleButten(
+                                                            context,
+                                                            '${carectersobj.sadListCarecters[Carecters_id]['image']}',
+                                                            '! ياللأسف         أعد المحاولة مرة أخرى'
+                                                                '');
+                                                      }
+                                                      db.inser(
+                                                          data: accuracyModel(
+                                                              media_id: state
+                                                                  .SliedModel[
+                                                                      currentIndexPage]
+                                                                  .id,
+                                                              user_id:
+                                                                  'almomyz@gami',
+                                                              accuracy_percentage:
+                                                                  rendom),
+                                                          tableName:
+                                                              'accuracy');
+                                                      ;
                                                     },
                                                     child: Image.asset(
                                                       color: AppTheme
                                                           .primarySwatch
                                                           .shade500,
-                                                      'assest/images/right_arrow.png',
+                                                      Assets.images.rightArrow
+                                                          .path,
                                                     ),
                                                   ),
                                                   Column(
@@ -391,7 +387,8 @@ bool  visiblety=false;
                                                       color: AppTheme
                                                           .primarySwatch
                                                           .shade500,
-                                                      'assest/images/left_arrow.png',
+                                                      Assets.images.leftArrow
+                                                          .path,
                                                     ),
                                                   ),
                                                 ],

@@ -29,7 +29,7 @@ TextEditingController  nameChiled=TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
 
-          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
+          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
           Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
@@ -40,7 +40,7 @@ TextEditingController  nameChiled=TextEditingController();
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .2,
-                  child: Image.asset(Assets.assest.images.carecters.hana.happy.path)),
+                  child: Image.asset(Assets.images.carecters.hana.happy.path)),
 
               Column(children: [
                 CustemInput(
@@ -64,7 +64,7 @@ TextEditingController  nameChiled=TextEditingController();
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .2,
-                  child: Image.asset(Assets.assest.images.carecters.hasham.happy.path)),
+                  child: Image.asset(Assets.images.carecters.hasham.happy.path)),
 
 
             ],),

@@ -23,7 +23,7 @@ ScreenUtil screenUtil=ScreenUtil();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CircleAvatar(maxRadius: 30,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
+          CircleAvatar(maxRadius: 30,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,11 +33,11 @@ ScreenUtil screenUtil=ScreenUtil();
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .3,
-                  child: Image.asset(Assets.assest.images.carecters.abdu.happy.path)),
+                  child: Image.asset(Assets.images.carecters.abdu.happy.path)),
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .3,
-                  child: Image.asset(Assets.assest.images.carecters.mariam.happy.path)),
+                  child: Image.asset(Assets.images.carecters.mariam.happy.path)),
 
 
 

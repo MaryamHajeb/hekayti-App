@@ -34,7 +34,7 @@ class _onboardingFiveState extends State<onboardingFive> {
         CircleAvatar(
           maxRadius: 40,
           backgroundColor: Colors.white,
-          child: Image.asset(Assets.assest.images.logo.path),
+          child: Image.asset(Assets.images.logo.path),
         ),
         Text('حكايتي', style: AppTheme.textTheme.headline3),
         Text('حدد مستوى  القصص التي تريدها لطفلك',

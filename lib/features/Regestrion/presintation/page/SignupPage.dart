@@ -93,7 +93,7 @@ TextEditingController CofemPassword = TextEditingController();
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: SingleChildScrollView(
                           child: Column(children: [
-                            CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
+                            CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
                             Text('إنشاء حساب',style:AppTheme.textTheme.headline3 ),
                             SizedBox(height: 20,),
 

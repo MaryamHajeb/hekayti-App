@@ -53,7 +53,7 @@ class _IntroScreenState extends State<IntroScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
-                    'assest/images/backgraond.png',
+                    'assets/images/backgraond.png',
                   ),
                   fit: BoxFit.fill),
             ),
@@ -111,7 +111,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                   },
                                                   child: Image.asset(
                                                     color: AppTheme.primarySwatch.shade500,
-                                                    'assest/images/left_arrow.png',
+                                                    Assets.images.leftArrow.path,
                                                   ),
                                                 ),
 
@@ -147,9 +147,26 @@ class _IntroScreenState extends State<IntroScreen> {
                                                        else{
 
                                                          print('يرجئ اختيار شخصيه');
-                                                         showImagesDialog(context,Assets.assest.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
+                                                         showImagesDialog(context,Assets.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
                                                        }
                                                        
+                                                       }
+                                                      if(index ==4){
+                                                       if(carectersnum <  5){
+
+                                                         pageController.nextPage(
+                                                             duration: Duration(
+                                                               seconds: 1,
+                                                             ),
+                                                             curve: Curves.linear);
+
+                                                       }
+                                                       else{
+
+                                                         print('يرجئ اختيار شخصيه');
+                                                         showImagesDialog(context,Assets.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
+                                                       }
+
                                                        }
 
                                                       else{
@@ -175,7 +192,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                   },
                                                   child: Image.asset(
                                                     color: AppTheme.primarySwatch.shade500,
-                                                    'assest/images/right_arrow.png',
+                                                    Assets.images.rightArrow.path,
                                                   ),
                                                 ),
 
@@ -209,8 +226,8 @@ class _IntroScreenState extends State<IntroScreen> {
   }
   initdata()async{
 
-    int   Carecters=await   getCachedDate('Carecters',String) ?? 10;
-    carectersnum=Carecters;
+    int?   Carecters=await   getCachedDate('Carecters',String) ?? 10;
+    carectersnum=Carecters!;
 
 
 

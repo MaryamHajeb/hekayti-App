@@ -95,14 +95,14 @@ TextEditingController CofemPassword = TextEditingController();
                             Container(
                                 height: screenUtil.screenHeight *.4,
                                 width: screenUtil.screenWidth * .2,
-                                child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
+                                child: Image.asset(Assets.images.carecters.mariam.sing.path)),
 
 
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.assest.images.logo.path),),
+                                  CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
                                   Text('تسجيل الدخول',style:AppTheme.textTheme.headline3 ),
                                   SizedBox(height: 30,),
 
@@ -214,7 +214,7 @@ TextEditingController CofemPassword = TextEditingController();
                             Container(
                                 height: screenUtil.screenHeight *.4,
                                 width: screenUtil.screenWidth * .2,
-                                child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
+                                child: Image.asset(Assets.images.carecters.abdu.sing.path)),
 
                           ],
                         ),

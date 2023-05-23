@@ -29,7 +29,7 @@ class _onboardingSixState extends State<onboardingSix> {
         CircleAvatar(
           maxRadius: 40,
           backgroundColor: Colors.white,
-          child: Image.asset(Assets.assest.images.logo.path),
+          child: Image.asset(Assets.images.logo.path),
         ),
         Text('حكايتي', style: AppTheme.textTheme.headline3),
         Text('هل تريد حفظ بياناتك معنا . ',
@@ -41,7 +41,7 @@ class _onboardingSixState extends State<onboardingSix> {
             Container(
                 height: screenUtil.screenHeight *.4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.assest.images.carecters.mariam.sing.path)),
+                child: Image.asset(Assets.images.carecters.mariam.sing.path)),
 
             Column(
               children: [
@@ -73,7 +73,7 @@ class _onboardingSixState extends State<onboardingSix> {
             Container(
                 height: screenUtil.screenHeight *.4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.assest.images.carecters.abdu.sing.path)),
+                child: Image.asset(Assets.images.carecters.abdu.sing.path)),
 
           ],
         ),

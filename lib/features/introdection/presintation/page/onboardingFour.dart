@@ -8,6 +8,7 @@ import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CustemIcon.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
 
 class onboardingFour extends StatefulWidget {
@@ -29,7 +30,7 @@ ScreenUtil screenUtil=ScreenUtil();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset('assest/images/logo.png'),),
+          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
           Text('حكايتي',style:AppTheme.textTheme.headline3 ),
           Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
           Container(

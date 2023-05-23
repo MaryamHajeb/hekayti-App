@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
 import '../../features/Regestrion/date/model/userMode.dart';
+import '../../gen/assets.gen.dart';
 
 
 class DatabaseHelper{
@@ -31,7 +32,7 @@ String TableName='meadia';
 // Delete any existing database:
 
 // Create the writable database file from the bundled demo database file:
-    ByteData data = await rootBundle.load("assest/DB/hakity.db");
+    ByteData data = await rootBundle.load(Assets.db.hakity);
     List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File(dbPath).writeAsBytes(bytes);
     print('create databases secsses');

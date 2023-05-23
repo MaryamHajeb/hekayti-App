@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           width: screenUtil.screenWidth * 1,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assest/images/backgraond.png'),
+                  image: AssetImage('assets/images/backgraond.png'),
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Image.asset('assest/images/start.png'),
+                              Image.asset('assets/images/start.png'),
                               Text('2/24')
                             ],
                           )),
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                                           ));
                                     },
                                   )
-                                : Center(child: Text('القائمه فارغه')),
+                                : Center(child: Text('القائمه فارغه',style: AppTheme.textTheme.headline2,)),
                           );
                         }
 

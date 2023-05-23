@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../dataProviders/local_data_provider.dart';
 import '../../injection_container.dart';
+import '../widgets/CustemButten.dart';
 import '../widgets/primaryText.dart';
 
 // CachedNetworkImage cachedNetworkImage({required String image,width=null,height=null,onFailed}) {
@@ -129,35 +130,93 @@ void showImagesDialog(BuildContext context, String image,String text) {
 
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
+            
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
-            height: 200,
-            width: 350,
+            height: 180,
+            width: 300,
+            margin: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                border: Border.all(color: AppTheme.primaryColor,width: 2),
+                border: Border.all(color: AppTheme.primaryColor,width: 4),
                 borderRadius: BorderRadius.circular(20)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Row(
+            child: Column(
+              children: [
+                SizedBox(height: 5,),
+                Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                  Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+                  SizedBox(width: 10,),
+                  Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
 
-                  children: [
-                    SizedBox(width: 0,),
-                Expanded(
-                    flex: 1,
-                    child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,)),
 
-                Expanded(
-                    flex: 2,
-                    child: Image.asset(image,height: 150,width: 150,)),
-                    SizedBox(width: 5,),
-
-                  ]),
+                    ]),
+                SizedBox(height: 15,),
+                CustemButten(ontap: (){
+                  Navigator.pop(context);
+                }, text: 'نعم',)
+              ],
             ),
           ),
         );
       });
 }
+void showImagesDialogWithCancleButten(BuildContext context, String image,String text) {
+  showDialog(
+    barrierColor: AppTheme.primarySwatch.shade400,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0,
+
+          insetAnimationDuration: Duration(seconds: 30),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            height: 180,
+            width: 300,
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppTheme.primaryColor,width: 4),
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                SizedBox(height: 5,),
+                Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                  Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+                  SizedBox(width: 10,),
+                  Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+
+
+                    ]),
+                SizedBox(height: 15,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustemButten(ontap: (){
+                      Navigator.pop(context);
+                    }, text: 'نعم',),
+                    CustemButten(ontap: (){
+                      Navigator.pop(context);
+                    }, text: 'لا',),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+
+
 showSnackBar({required BuildContext context,required title,Color bkColor=Colors.red,Function ?callBackFunction}){
   final snackBar = SnackBar(
     content: PrimaryText(text: title,fontSize: 15,textColor: Colors.white),
