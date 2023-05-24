@@ -32,12 +32,16 @@ screenUtil.init(context);
             onTap: () {
               onTap();
             },
-            child: Image.asset(
-              height: 100,
-              color: AppTheme.primarySwatch.shade500,
-              width: 150,
-              fit: BoxFit.fitHeight,
-              image,
+            child: Opacity(
+              opacity: .2,
+
+              child: Image.asset(
+                height: 100,
+
+                width: 150,
+                fit: BoxFit.fitHeight,
+                image,
+              ),
             ));
   }
 }

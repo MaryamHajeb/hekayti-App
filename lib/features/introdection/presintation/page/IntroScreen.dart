@@ -92,9 +92,9 @@ class _IntroScreenState extends State<IntroScreen> {
                                           borderRadius: BorderRadius.all(Radius.circular(15))),
                                       child: Column(children: [
                                         Expanded(
-                                          flex: 9,
+                                          flex: 10,
                                             child: onboardingList[index]),
-                                        SizedBox(height: 0,),
+
                                         Directionality(
                                           textDirection: TextDirection.ltr,
                                           child: Expanded(

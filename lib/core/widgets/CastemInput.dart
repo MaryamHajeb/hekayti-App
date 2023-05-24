@@ -39,7 +39,7 @@ class _CustemInputState extends State<CustemInput> {
           decoration: InputDecoration(
               contentPadding:
               EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            fillColor: AppTheme.primarySwatch.shade300,
+            fillColor: AppTheme.primarySwatch.shade200,
             filled: true,
             errorBorder: UnderlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -48,7 +48,7 @@ class _CustemInputState extends State<CustemInput> {
             ),
             prefixIcon: widget.icon,
             hintText: widget.text.toString(),
-              hintStyle: TextStyle(color:Colors.grey,fontSize: 13),
+              hintStyle: TextStyle(color:Colors.brown.shade300,fontSize: 13),
             enabledBorder: UnderlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.transparent),

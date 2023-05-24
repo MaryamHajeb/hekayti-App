@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           width: screenUtil.screenWidth * 1,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/backgraond.png'),
+                  image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(

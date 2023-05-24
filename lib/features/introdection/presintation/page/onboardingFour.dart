@@ -30,9 +30,7 @@ ScreenUtil screenUtil=ScreenUtil();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
-          Text('حكايتي',style:AppTheme.textTheme.headline3 ),
-          Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
+          Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline1 ),
           Container(
             height: screenUtil.screenHeight * .4,
             width: double.infinity,

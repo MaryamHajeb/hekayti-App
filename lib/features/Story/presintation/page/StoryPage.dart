@@ -222,60 +222,60 @@ class _StoryPageState extends State<StoryPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(15))),
                                           margin: EdgeInsets.all(15),
-                                          child: Visibility(
-                                            visible: visiblety,
-                                            child: Container(
-                                              margin: EdgeInsets.all(5),
-                                              width:
-                                                  screenUtil.screenWidth * .5,
-                                              height:
-                                                  screenUtil.screenHeight * .1,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  border: Border.all(
-                                                      color:
-                                                          AppTheme.primaryColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(15))),
-                                              child: Row(children: [
-                                                Expanded(
-                                                    flex: 6,
-                                                    child: Slider(
-                                                      value: valueslider,
-                                                      max: 100,
-                                                      min: 0,
-                                                      onChanged:
-                                                          (double value) {
-                                                        setState(() {
-                                                          valueslider = value;
-                                                        });
-                                                      },
-                                                    )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Row(
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(
-                                                            Icons.play_arrow,
-                                                            color: AppTheme
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(Icons.stop,
+                                            child: Visibility(
+                                              visible: visiblety,
+                                              child: Container(
+                                                margin: EdgeInsets.all(5),
+                                                width:
+                                                    screenUtil.screenWidth * .5,
+                                                height:
+                                                    screenUtil.screenHeight * .1,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                        color:
+                                                            AppTheme.primaryColor,
+                                                        width: 1),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(15))),
+                                                child: Row(children: [
+                                                  Expanded(
+                                                      flex: 6,
+                                                      child: Slider(
+                                                        value: valueslider,
+                                                        max: 100,
+                                                        min: 0,
+                                                        onChanged:
+                                                            (double value) {
+                                                          setState(() {
+                                                            valueslider = value;
+                                                          });
+                                                        },
+                                                      )),
+                                                  Expanded(
+                                                      flex: 2,
+                                                      child: Row(
+                                                        children: [
+                                                          IconButton(
+                                                            onPressed: () {},
+                                                            icon: Icon(
+                                                              Icons.play_arrow,
                                                               color: AppTheme
-                                                                  .primaryColor),
-                                                        ),
-                                                      ],
-                                                    ))
-                                              ]),
+                                                                  .primaryColor,
+                                                            ),
+                                                          ),
+                                                          IconButton(
+                                                            onPressed: () {},
+                                                            icon: Icon(Icons.stop,
+                                                                color: AppTheme
+                                                                    .primaryColor),
+                                                          ),
+                                                        ],
+                                                      ))
+                                                ]),
+                                              ),
                                             ),
-                                          ),
                                         ),
                                         Positioned(
                                           height: screenUtil.screenHeight * 1.8,

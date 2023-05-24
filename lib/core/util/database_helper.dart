@@ -68,7 +68,9 @@ Future<int> inser({required dynamic data,required String tableName}) async{
   List<dynamic> result = await dbClient!.rawQuery(sql);
   return await result.toList();
   }
- Future<List> getAllstoryfromdb(tableName) async{
+
+
+  Future<List> getAllstoryfromdb(tableName) async{
 
     Database? dbClient = await  db;
   var sql = '''SELECT * FROM story 

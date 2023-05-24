@@ -32,7 +32,7 @@ class StoryRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          List<dynamic> reslet = await db.getAllstoryfromdb('story');
+          List<dynamic> reslet = await db.getAllstory('story');
           List<StoryModel> list=[] ;
           reslet.forEach((element) {
             StoryModel user = StoryModel.fromJson(element);
@@ -48,7 +48,7 @@ class StoryRepository extends Repository{
         },
 
         getCacheDataFunction: ()async {
-          List<dynamic> reslet = await db.getAllstoryfromdb('story');
+          List<dynamic> reslet = await db.getAllstory('story');
           List<StoryModel> list=[] ;
           reslet.forEach((element) {
             StoryModel user = StoryModel.fromJson(element);
