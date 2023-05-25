@@ -123,7 +123,7 @@ class _StoryPageState extends State<StoryPage> {
                                       Icons.home,
                                     ),
                                     ontap: () {
-                                      Navigator.pop(context);
+                                      showImagesDialogWithCancleButten(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','هل حقا تريد المغادره');
                                     }),
                                 Column(
                                   mainAxisAlignment:
@@ -207,7 +207,8 @@ class _StoryPageState extends State<StoryPage> {
                                                 screenUtil.screenHeight * .85,
                                             padding: EdgeInsets.only(
                                                 right: 10, left: 10, top: 10),
-                                            child: Image.memory(
+                                            child:
+                                            Image.memory(
                                               converToBase64(state
                                                   .SliedModel[index].photo
                                                   .toString()),
@@ -216,7 +217,9 @@ class _StoryPageState extends State<StoryPage> {
                                                   screenUtil.screenHeight * .9,
                                               width:
                                                   screenUtil.screenWidth * .9,
-                                            )),
+                                            )
+
+                                        ),
                                         Card(
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(

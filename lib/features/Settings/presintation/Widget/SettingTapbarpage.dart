@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
@@ -9,6 +10,7 @@ import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../main.dart';
 
 class SettingTapbarpage extends StatefulWidget {
@@ -57,6 +59,8 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           Divider(color: AppTheme.primaryColor,),
           SizedBox(height: 20,),
           Text('الشخصيات :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+          SizedBox(height: 20,),
+
           Container(
             height: screenUtil.screenHeight * .4,
             width: double.infinity,
@@ -113,7 +117,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(height: 20,),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('خاصية الاستماع للقصص',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
               Checkbox(value: chackboxStata, onChanged: (value){
@@ -125,10 +129,23 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             ],
           ),
           SizedBox(height: 20,),
-        CustemButten( text: 'حفظ',ontap: ()async{
-          saveNewSttings();
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustemButten( text: 'رجوع',ontap: ()async{
 
-        },),
+              Navigator.push(
+                  context,
+                  CustomPageRoute(  child:   HomePage()));
+
+            },),
+            SizedBox(width: 20,),
+            CustemButten( text: 'حفظ',ontap: ()async{
+              saveNewSttings();
+
+            },),
+          ],
+        ),
           SizedBox(height: 20,),
 
 
@@ -147,13 +164,13 @@ initCarecters();
   int   carectersnum= await  getCachedDate('Carecters',String) ?? '';
   int      levels= await  getCachedDate('level',int)  ?? '';
   String   t= await getCachedDate('nameChlied',String)  ?? '';
-  bool   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
+ // bool?   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
 
     setState( () {
       nameChiled.text=t;
       itemSelected=carectersnum ?? 10;
       itemSelectedlevel= levels ?? 10;
-      chackboxStata =lisent;
+  //    chackboxStata =lisent!;
     });
 
 

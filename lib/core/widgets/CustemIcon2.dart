@@ -15,7 +15,7 @@ class _CustemIcon2State extends State<CustemIcon2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 45,
       width: 50,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -30,11 +30,7 @@ class _CustemIcon2State extends State<CustemIcon2> {
 
               });
             },
-            icon: Icon(
-              widget.icon.icon,
-              color: AppTheme.primaryColor,
-              size: 30,
-            )),
+            icon: widget.icon),
       ),
     );
   }

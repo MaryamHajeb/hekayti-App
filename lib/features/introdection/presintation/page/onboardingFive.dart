@@ -19,60 +19,55 @@ class onboardingFive extends StatefulWidget {
 
 class _onboardingFiveState extends State<onboardingFive> {
   Carecters carecters=Carecters();
-  int itemSelected = 10;
+  int itemSelected = 0;
   ScreenUtil screenUtil = ScreenUtil();
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SizedBox(
-          height: 15,
-        ),
-        CircleAvatar(
-          maxRadius: 40,
-          backgroundColor: Colors.white,
-          child: Image.asset(Assets.images.logo.path),
-        ),
-        Text('حكايتي', style: AppTheme.textTheme.headline3),
-        Text('حدد مستوى  القصص التي تريدها لطفلك',
+
+        Text('حدد مستوى  القصص التي تريدها لطفلك :',
             style: AppTheme.textTheme.headline3),
-        SizedBox(
-          height: 20,
-        ),
+
         Container(
-          height: screenUtil.screenHeight * .3,
+          margin: EdgeInsets.only(right: 20),
+          height: screenUtil.screenHeight * .5,
           width: double.infinity,
-          child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount:carecters.Levels.length,
+          child: Center(
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount:carecters.Levels.length,
 
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  SizedBox(width: 50,),
-                  CustemLevel(
-                    name:carecters.Levels[index]['num'],
-                    onTap: () async{
-                      setState(() {
-                        itemSelected = index;
-                      });
+              itemBuilder: (context, index) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                      int dd=int.parse(carecters.Levels[index]['id'].toString());
-                      CachedDate('level',dd);
+                    CustemLevel(
+                      name:carecters.Levels[index]['num'],
+                      onTap: () async{
+                        setState(() {
+                          itemSelected = index;
+                        });
+
+                        int dd=int.parse(carecters.Levels[index]['id'].toString());
+                        CachedDate('level',dd);
 
 
-                    },
-                    isSelected: itemSelected == index ? true : false,
-                    color: carecters.Levels[index]['color'],
-                  ),
-                  SizedBox(width: 70,)
-                ],
-              );
-            },
+                      },
+                      isSelected: itemSelected == index ? true : false,
+                      color: carecters.Levels[index]['color'],
+                    ),
+                    SizedBox(width: 70,)
+                  ],
+                );
+              },
+            ),
           ),
         )
       ],

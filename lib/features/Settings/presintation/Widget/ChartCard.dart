@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../gen/assets.gen.dart';
 
 class ChartCard extends StatefulWidget {
   const ChartCard({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ width: screenUtil.screenWidth *.6,
 mainAxisAlignment: MainAxisAlignment.spaceAround,
 crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(child: Image.asset('assest/images/story1.png')),
+            Center(child: Image.asset(Assets.images.story1.path)),
             Text('مشت ليلى عبر الغابة ',style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
 
             Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),

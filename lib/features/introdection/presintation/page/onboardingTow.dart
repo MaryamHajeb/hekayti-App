@@ -30,16 +30,12 @@ class _onboardingTowState extends State<onboardingTow> {
     screenUtil.init(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        CircleAvatar(
-          maxRadius: 40,
-          backgroundColor: Colors.white,
-          child: Image.asset(Assets.images.logo.path),
-        ),
-        Text('حكايتي', style: AppTheme.textTheme.headline3),
+        SizedBox(height: 10,),
         Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',
-            style: AppTheme.textTheme.headline3),
+            style: AppTheme.textTheme.headline2),
+                   SizedBox(height: 10,),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -93,143 +93,95 @@ TextEditingController CofemPassword = TextEditingController();
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: SingleChildScrollView(
                           child: Column(children: [
-                            CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
                             Text('إنشاء حساب',style:AppTheme.textTheme.headline3 ),
                             SizedBox(height: 20,),
 
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            Column(
+
                               children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
 
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text('البريد الإلكتروني',style: AppTheme.textTheme.headline3,),
+                                    CustemInput(
+                                      size: 250,
+                                      valdution: (value){
+                                        if (value!.isEmpty) {
+                                          return 'يجب ادخال عنوان البريد الالكتروني';
+                                        } else if (!RegExp(
+                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(value)) {
+                                          return "عذراً الإيميل الذي ادخلته غير صحيح";
+                                        }
 
-                                          CustemInput(
-                                            size: 250,
-                                            valdution: (value){
-                                              if (value!.isEmpty) {
-                                                return 'يجب ادخال عنوان البريد الالكتروني';
-                                              } else if (!RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                  .hasMatch(value)) {
-                                                return "عذراً الإيميل الذي ادخلته غير صحيح";
-                                              }
-
-                                              return null;
-                                            },controler:email ,icon: Icon(Icons.email,color: AppTheme.primaryColor,size: 20),text: 'البريد الإلكتروني',type: TextInputType.text,),
+                                        return null;
+                                      },controler:email ,text: 'البريد الإلكتروني',type: TextInputType.text,),
 
 
 
-                                        ],),
-                                      SizedBox(height: 0,),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text('كلمة المرور',style: AppTheme.textTheme.headline3,),
-                                          SizedBox(width: 0,),
-                                          CustemInput(
-                                            size: 250,
-                                            valdution: (value){
-                                              if (value.toString().isEmpty) {
-                                                return 'الرجاء تعبئة الحقل';
-                                              }
-                                              if (value!.length < 6) {
-                                                return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
-                                              }
-                                              return null;
-                                            },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'كلمة المرور',type: TextInputType.text,),
+                                  ],),
+                                SizedBox(height: 0,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('كلمة المرور',style: AppTheme.textTheme.headline3,),
+                                    SizedBox(width: 0,),
+                                    CustemInput(
+                                      size: 250,
+                                      valdution: (value){
+                                        if (value.toString().isEmpty) {
+                                          return 'الرجاء تعبئة الحقل';
+                                        }
+                                        if (value!.length < 6) {
+                                          return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
+                                        }
+                                        return null;
+                                      },controler:password ,text: 'كلمة المرور',type: TextInputType.text,),
 
 
 
-                                        ],),
-                                      SizedBox(height: 0,),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text('تأكيد كلمة المرور',style: AppTheme.textTheme.headline3,),
+                                  ],),
+                                SizedBox(height: 0,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('تأكيد كلمة المرور',style: AppTheme.textTheme.headline3,),
 
-                                          CustemInput(
-                                            size: 250,
-                                            valdution: (value){
-                                              if(value.toString().isEmpty){
-                                                return'يرجئ منك ادخال اسم الطفل ';
+                                    CustemInput(
+                                      size: 250,
+                                      valdution: (value){
+                                        if(value.toString().isEmpty){
+                                          return'يرجئ منك ادخال اسم الطفل ';
 
-                                              }
-                                              return null;
-                                            },controler:CofemPassword ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'تأكيد كلمة المرور',type: TextInputType.text,),
+                                        }
+                                        return null;
+                                      },controler:CofemPassword ,text: 'تأكيد كلمة المرور',type: TextInputType.text,),
 
 
 
-                                        ],),
-                                      SizedBox(height: 0,),
+                                  ],),
+                                SizedBox(height: 10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
+                                    InkWell(
 
-                                    ],),
+                                        onTap: (){
+                                          Navigator.push(
+                                              context,
+                                              CustomPageRoute(  child:   LoginPage()));
+
+                                        },
+                                        child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
+
+                                  ],
                                 ),
-
-
-                                Expanded(
-
-                                  child: Form(
-                                    key:  _signupFormKey,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text('أو  تسجيل    الدخول   ب',style: AppTheme.textTheme.headline5,),
-                                        SizedBox(height: 20,),
-
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            SvgPicture.asset(
-                                              'images/bottons/save.svg',
-
-                                            ),
-                                            SvgPicture.asset(
-                                              'images/bottons/save.svg',
-
-                                            ),
-                                            SvgPicture.asset(
-                                              'images/bottons/save.svg',
-
-                                            ),
-
-                                          ],),
-                                        SizedBox(height: 20,),
-
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
-                                            InkWell(
-
-                                                onTap: (){
-                                                  Navigator.push(
-                                                      context,
-                                                      CustomPageRoute(  child:   LoginPage()));
-
-                                                },
-                                                child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
-
-                                          ],
-                                        ),
-                                      ],),
-                                  ),
-                                ),
-
+                                SizedBox(height: 20,),
 
                               ],),
                             CustemButten(ontap: (){

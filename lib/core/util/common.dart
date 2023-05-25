@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../dataProviders/local_data_provider.dart';
 import '../../injection_container.dart';
 import '../widgets/CustemButten.dart';
+import '../widgets/CustomPageRoute.dart';
 import '../widgets/primaryText.dart';
 
 // CachedNetworkImage cachedNetworkImage({required String image,width=null,height=null,onFailed}) {
@@ -165,11 +167,11 @@ void showImagesDialog(BuildContext context, String image,String text) {
 }
 void showImagesDialogWithCancleButten(BuildContext context, String image,String text) {
   showDialog(
-    barrierColor: AppTheme.primarySwatch.shade400,
+
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          elevation: 0,
+          elevation: 50,
 
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
@@ -201,7 +203,11 @@ void showImagesDialogWithCancleButten(BuildContext context, String image,String 
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustemButten(ontap: (){
-                      Navigator.pop(context);
+
+                      Navigator.push(
+                          context,
+                          CustomPageRoute(  child:   HomePage()));
+
                     }, text: 'نعم',),
                     CustemButten(ontap: (){
                       Navigator.pop(context);

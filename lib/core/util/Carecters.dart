@@ -50,6 +50,16 @@ class Carecters{
 
   ];
 
+  List  FaceCarecters =[
+    {'id':'0','image':  Assets.images.carecters.abdu.face.path,},
+    {'id':'1','image':  Assets.images.carecters.mohamed.face.path,},
+    {'id':'2','image':  Assets.images.carecters.hasham.face.path,},
+    {'id':'3','image':  Assets.images.carecters.mariam.face.path,},
+    {'id':'4','image':  Assets.images.carecters.hana.face.path,},
+    {'id':'5','image':  Assets.images.carecters.wafa.face.path,},
+
+  ];
+
 
   List Levels = [
     {'id':0,'num': 1, 'color': AppTheme.primarySwatch.shade800},

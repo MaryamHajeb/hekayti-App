@@ -21,6 +21,9 @@ String carecters='';
 String level='';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersiveSticky,
+  );
   final prefs = await SharedPreferences.getInstance();
  carecters= await  prefs.getString('Carecters') ?? '';
   void test() async {
@@ -80,9 +83,10 @@ void main() async{
   await SystemChrome.setPreferredOrientations(
     [
      DeviceOrientation.landscapeLeft,
-      //DeviceOrientation.landscapeRight,
+    //  DeviceOrientation.landscapeRight,
     ]
   );
+
   test();
 //
   runApp( MyApp());
@@ -110,7 +114,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: IntroScreen(),
+      home: HomePage(),
     );
   }
 

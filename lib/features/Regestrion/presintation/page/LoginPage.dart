@@ -102,7 +102,6 @@ TextEditingController CofemPassword = TextEditingController();
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
                                   Text('تسجيل الدخول',style:AppTheme.textTheme.headline3 ),
                                   SizedBox(height: 30,),
 

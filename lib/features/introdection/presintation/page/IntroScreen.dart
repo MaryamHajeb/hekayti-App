@@ -112,6 +112,9 @@ class _IntroScreenState extends State<IntroScreen> {
                                                   child: Image.asset(
                                                     color: AppTheme.primarySwatch.shade500,
                                                     Assets.images.leftArrow.path,
+                                                    width: 30,
+                                                    height: 30,
+                                                    fit: BoxFit.fill,
                                                   ),
                                                 ),
 
@@ -134,42 +137,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                     if (_formKey.currentState!.validate()){
                                                       // If the form is valid, display a snackbar. In the real world,
 
-                                                      if(index ==3){
-                                                       if(carectersnum <  5){
 
-                                                         pageController.nextPage(
-                                                             duration: Duration(
-                                                               seconds: 1,
-                                                             ),
-                                                             curve: Curves.linear);
-
-                                                       }
-                                                       else{
-
-                                                         print('يرجئ اختيار شخصيه');
-                                                         showImagesDialog(context,Assets.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
-                                                       }
-                                                       
-                                                       }
-                                                      if(index ==4){
-                                                       if(carectersnum <  5){
-
-                                                         pageController.nextPage(
-                                                             duration: Duration(
-                                                               seconds: 1,
-                                                             ),
-                                                             curve: Curves.linear);
-
-                                                       }
-                                                       else{
-
-                                                         print('يرجئ اختيار شخصيه');
-                                                         showImagesDialog(context,Assets.images.carecters.abdu.sad.path,'يرجئ اختيار شخصيه');
-                                                       }
-
-                                                       }
-
-                                                      else{
 
 
                                                         print(index);
@@ -188,11 +156,14 @@ class _IntroScreenState extends State<IntroScreen> {
                                                       }
 
                                                       // you'd often call a server or save the information in a database.
-                                                    }
+
                                                   },
                                                   child: Image.asset(
                                                     color: AppTheme.primarySwatch.shade500,
                                                     Assets.images.rightArrow.path,
+                                                    width: 30,
+                                                    height: 30,
+                                                    fit: BoxFit.fill,
                                                   ),
                                                 ),
 

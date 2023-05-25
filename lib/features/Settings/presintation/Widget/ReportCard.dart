@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../gen/assets.gen.dart';
 
 class ReportCard extends StatefulWidget {
   const ReportCard({Key? key}) : super(key: key);
@@ -36,12 +37,13 @@ width: screenUtil.screenWidth *.6,
 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(child: Image.asset('assest/images/story1.png')),
+          Center(child: Image.asset(Assets.images.story1.path)),
           Text('ذات الرداء الأحمر',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Row(children: [
-            Image.asset('assest/images/start.png'),
-            Image.asset('assest/images/start.png'),
-            Image.asset('assest/images/start.png'),
+            Image.asset(Assets.images.start.path),
+            Image.asset(Assets.images.start.path),
+            Image.asset(Assets.images.start.path),
+
 
           ],),
           Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),

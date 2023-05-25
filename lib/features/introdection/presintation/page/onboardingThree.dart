@@ -29,8 +29,6 @@ TextEditingController  nameChiled=TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
 
-          CircleAvatar(maxRadius: 40,backgroundColor: Colors.white,child: Image.asset(Assets.images.logo.path),),
-          Text('حكايتي',style:AppTheme.textTheme.headline3 ),
           Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
           Row(
@@ -78,4 +76,21 @@ TextEditingController  nameChiled=TextEditingController();
     CachedDate('nameChlied',nameChiled.text);
 
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+ initname();
+  }
+
+initname()async{
+  String   t= await getCachedDate('nameChlied',String)  ?? '';
+  setState(() {
+    nameChiled.text=t;
+
+  });
+
+}
+
 }
