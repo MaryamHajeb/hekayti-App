@@ -28,6 +28,7 @@ class _onboardingFiveState extends State<onboardingFive> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        SizedBox(height: 10,),
 
         Text('حدد مستوى  القصص التي تريدها لطفلك :',
             style: AppTheme.textTheme.headline3),

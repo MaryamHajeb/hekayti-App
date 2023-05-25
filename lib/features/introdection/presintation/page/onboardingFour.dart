@@ -30,7 +30,9 @@ ScreenUtil screenUtil=ScreenUtil();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline1 ),
+          
+
+          Text('اختر  شخصيك المفضلة',style:AppTheme.textTheme.headline3 ),
           Container(
             height: screenUtil.screenHeight * .4,
             width: double.infinity,

@@ -38,7 +38,7 @@ int num3 = Random().nextInt(100);
         textDirection: TextDirection.rtl,
         child: Container(
           decoration:  const BoxDecoration(
-            image: DecorationImage(image: AssetImage('images/backgraond.png',),fit: BoxFit.fill),
+            image: DecorationImage(image: AssetImage('assets/images/backgraond.png',),fit: BoxFit.fill),
           ),
 
           height: screenUtil.screenHeight * 1,

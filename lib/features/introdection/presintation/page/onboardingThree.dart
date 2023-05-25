@@ -28,6 +28,7 @@ TextEditingController  nameChiled=TextEditingController();
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          SizedBox(height: 10,),
 
           Text('قم  بإدخال اسم طفلك',style:AppTheme.textTheme.headline3 ),
 
@@ -63,6 +64,7 @@ TextEditingController  nameChiled=TextEditingController();
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .2,
                   child: Image.asset(Assets.images.carecters.hasham.happy.path)),
+
 
 
             ],),
