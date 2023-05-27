@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
@@ -37,6 +38,8 @@ class _IntroScreenState extends State<IntroScreen> {
   ScreenUtil _screenUtil = ScreenUtil();
   int currentIndexPage = 0;
   int carectersnum=10;
+
+
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
 
@@ -141,12 +144,19 @@ class _IntroScreenState extends State<IntroScreen> {
 
 
                                                         print(index);
+
+                                                        SharedPreferences prefs;
                                                         index==5 ?
+                                                        {
+                                                          prefs = await SharedPreferences.getInstance(),
+                                                         prefs.setBool('onbording', true),
 
                                                         Navigator.push(
-                                                            context,
-                                                            CustomPageRoute(  child:   HomePage()))
-                                                            :
+                                                              context,
+                                                              CustomPageRoute(
+                                                                  child: HomePage()))
+                                                        }
+                                                           :
                                                         pageController.nextPage(
                                                             duration: Duration(
                                                               seconds: 1,

@@ -19,12 +19,15 @@ import 'features/introdection/presintation/page/onboardingOne.dart';
 DatabaseHelper db = new DatabaseHelper();
 String carecters='';
 String level='';
+bool islogin=false;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
   );
+
   final prefs = await SharedPreferences.getInstance();
+  islogin=await prefs.getBool('onbording')??false;
  carecters= await  prefs.getString('Carecters') ?? '';
   void test() async {
     DatabaseHelper db = new DatabaseHelper();
@@ -114,7 +117,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: IntroScreen(),
+      home: islogin ? HomePage():IntroScreen(),
     );
   }
 

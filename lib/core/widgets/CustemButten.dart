@@ -24,7 +24,7 @@ class CustemButten extends StatelessWidget {
             color: Colors.white,
             border: Border.all(width: 3,color: AppTheme.primarySwatch.shade200),
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Center(child: Text(text,style: AppTheme.textTheme.headline2,))));
+        child: Center(child: Text(text,style: AppTheme.textTheme.headline3,))));
 
   }
 }

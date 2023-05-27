@@ -120,7 +120,7 @@ class _StoryPageState extends State<StoryPage> {
                               children: [
                                 CustemIcon2(
                                     icon: Icon(
-                                      Icons.home,
+                                      Icons.home,color: AppTheme.primaryColor
                                     ),
                                     ontap: () {
                                       showImagesDialogWithCancleButten(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','هل حقا تريد المغادره');
@@ -132,23 +132,29 @@ class _StoryPageState extends State<StoryPage> {
                                     isSpack == false
                                         ? CustemIcon2(
                                             icon: Icon(
-                                              Icons.headset_mic_outlined,
+                                              Icons.headset_mic_outlined,color: AppTheme.primaryColor
                                             ),
                                             ontap: () {
                                               setState(() {
                                                 isSpack = true;
-                                                setState(() {
-                                                  visiblety = !visiblety;
-                                                });
-                                                player.play(
-                                                    AssetSource('music.mp3'));
+
+
+
+                                             //   player.play(
+                                               //     AssetSource('music.mp3'));
                                               });
                                             })
                                         : CustemIcon(
                                             icon: Icon(
                                               Icons.headset_mic_outlined,
                                             ),
-                                            ontap: () async {}),
+                                            ontap: () async {
+                                              isSpack=!isSpack;
+                                              setState(() {
+
+                                              });
+
+                                            }),
                                     SizedBox(
                                       height: 30,
                                     ),
@@ -158,14 +164,17 @@ class _StoryPageState extends State<StoryPage> {
                                               Icons.mic,
                                             ),
                                             ontap: () async {
-                                              setState(() {});
+                                              setState(() {
+                                                visiblety = !visiblety;
+                                              });
                                             })
                                         : CustemIcon2(
                                             icon: Icon(
-                                              Icons.mic,
+                                              Icons.mic,color: AppTheme.primaryColor,
                                             ),
                                             ontap: () async {
                                               initRecorder();
+                                              visiblety = !visiblety;
                                               setState(() {});
                                             }),
                                   ],
@@ -338,6 +347,10 @@ class _StoryPageState extends State<StoryPage> {
                                                       color: AppTheme
                                                           .primarySwatch
                                                           .shade500,
+
+                                                      width: 30,
+                                                      height: 30,
+                                                      fit: BoxFit.fill,
                                                       Assets.images.rightArrow
                                                           .path,
                                                     ),
@@ -392,6 +405,9 @@ class _StoryPageState extends State<StoryPage> {
                                                           .shade500,
                                                       Assets.images.leftArrow
                                                           .path,
+                                                      width: 30,
+                                                      height: 30,
+                                                      fit: BoxFit.fill,
                                                     ),
                                                   ),
                                                 ],

@@ -12,6 +12,8 @@ import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../main.dart';
+import '../../../Regestrion/presintation/page/LoginPage.dart';
+import '../../../Regestrion/presintation/page/SignupPage.dart';
 
 class SettingTapbarpage extends StatefulWidget {
   const SettingTapbarpage({Key? key}) : super(key: key);
@@ -128,10 +130,53 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
             ],
           ),
+          Divider(color: AppTheme.primaryColor,),
           SizedBox(height: 20,),
-        Row(
+          Text('هل تريد حفظ بياناتك معنا     (اختياري)',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+          SizedBox(height: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+
+                  Navigator.push(
+                      context,
+                      CustomPageRoute(  child:   SignupPage()));
+
+                },
+                child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
+
+                style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+
+
+                  Navigator.push(
+                      context,
+                      CustomPageRoute(  child:   LoginPage()));
+
+                },
+                child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
+                style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
+              ),
+            ],),
+
+          SizedBox(height: 50,),
+
+          Divider(color: AppTheme.primaryColor,),
+
+
+          Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            CustemButten( text: 'حفظ',ontap: ()async{
+              saveNewSttings();
+
+            },),
+            SizedBox(width: 20,),
             CustemButten( text: 'رجوع',ontap: ()async{
 
               Navigator.push(
@@ -139,14 +184,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                   CustomPageRoute(  child:   HomePage()));
 
             },),
-            SizedBox(width: 20,),
-            CustemButten( text: 'حفظ',ontap: ()async{
-              saveNewSttings();
-
-            },),
           ],
         ),
-          SizedBox(height: 20,),
+          SizedBox(height: 50,),
 
 
         ],
@@ -161,15 +201,15 @@ initCarecters();
 
   }
   initCarecters()async{
-  int   carectersnum= await  getCachedDate('Carecters',String) ?? '';
-  int      levels= await  getCachedDate('level',int)  ?? '';
-  String   t= await getCachedDate('nameChlied',String)  ?? '';
+  int?   carectersnum= await  getCachedDate('Carecters',String) ?? '';
+  String?      levels= await  getCachedDate('level',String)  ?? '';
+  String?   t= await getCachedDate('nameChlied',String)  ?? '';
  // bool?   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
 
     setState( () {
-      nameChiled.text=t;
+      nameChiled.text=t ?? '';
       itemSelected=carectersnum ?? 10;
-      itemSelectedlevel= levels ?? 10;
+      itemSelectedlevel= int.parse(levels!  ) ?? 10;
   //    chackboxStata =lisent!;
     });
 

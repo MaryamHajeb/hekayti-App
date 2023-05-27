@@ -78,21 +78,34 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                              color: AppTheme.primarySwatch.shade400,
-                              width: 1),
+                              color: AppTheme.primarySwatch.shade600,
+                              width: 2),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10))),
                       width: screenUtil.screenWidth * .2,
                       height: screenUtil.screenHeight * .1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
                         children: [
-                          Image.asset('assets/images/start.png',width: 40,height: 40,),
-                          Text('2/24')
+                          SizedBox(height: 30,),
+                          LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: 9,),
+                          Row(
+                            children: [
+                              SizedBox(width: 30,),
+
+                          Image.asset('assets/images/start.png',width: 30,height: 30,),
+                          SizedBox(width: 20,),
+                          Text('2/24',style: AppTheme.textTheme.headline3,),
+
+                            ],
+                          )
                         ],
                       )),
                   Container(
                       decoration: BoxDecoration(
+                          border: Border.all(
+                              color: AppTheme.primarySwatch.shade600,
+                              width: 2),
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       width: screenUtil.screenWidth * .4,
@@ -110,12 +123,17 @@ class _HomePageState extends State<HomePage> {
                       icon: Icon(Icons.volume_up_rounded,
                           color: Colors.white),
                       ontap: () async {
-                        DatabaseHelper db = new DatabaseHelper();
-                      }):CustemIcon2(
+                        setState(() {
+                          islistToStory=!islistToStory;
+
+                       });
+                      }):CustemIcon(
                       icon: Icon(Icons.volume_off,
-                          color: AppTheme.primaryColor),
+                          color: Colors.white),
                       ontap: () async {
-                        DatabaseHelper db = new DatabaseHelper();
+                        setState(() {
+                          islistToStory=!islistToStory;
+                        });
                       }),
                 ],
               ),

@@ -40,9 +40,9 @@ crossAxisAlignment: CrossAxisAlignment.center,
           Center(child: Image.asset(Assets.images.story1.path)),
           Text('ذات الرداء الأحمر',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           Row(children: [
-            Image.asset(Assets.images.start.path),
-            Image.asset(Assets.images.start.path),
-            Image.asset(Assets.images.start.path),
+            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
 
 
           ],),

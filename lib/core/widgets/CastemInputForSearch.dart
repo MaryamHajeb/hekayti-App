@@ -24,46 +24,49 @@ class _CastemInputForSearchState extends State<CastemInputForSearch> {
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return Center(
-      child: SizedBox(
-        width:widget.size,
-        height: 80,
-        child: TextFormField(
+    return Container(
+      decoration: BoxDecoration(color: AppTheme.primaryColor,borderRadius: BorderRadius.all(Radius.circular(5))),
+      child: Center(
+        child: SizedBox(
+          width:widget.size,
+          height: 80,
+          child: TextFormField(
 
-          validator:widget.valdution,
-          keyboardType: widget.type,
-          style: AppTheme.textTheme.headline2,
-          textAlign: TextAlign.center,
-          textDirection: TextDirection.rtl,
-          controller: widget.controler,
-          decoration: InputDecoration(
+            validator:widget.valdution,
+            keyboardType: widget.type,
+            style: AppTheme.textTheme.headline2,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+            controller: widget.controler,
+            decoration: InputDecoration(
 
-            fillColor: Colors.white,
-            filled: true,
-            errorBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              fillColor: Colors.white,
+              filled: true,
+              errorBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
 
-              borderSide: BorderSide(color: Colors.transparent),
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+              prefixIcon: widget.icon,
+              hintText: widget.text.toString(),
+                hintStyle: TextStyle(color:Colors.brown.shade300,fontSize: 13),
+              enabledBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
+
+
+              focusedErrorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+              )
             ),
-            prefixIcon: widget.icon,
-            hintText: widget.text.toString(),
-              hintStyle: TextStyle(color:Colors.brown.shade300,fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-
-              borderSide: BorderSide(color: Colors.transparent),
-            ),
-
-
-            focusedErrorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-            )
+            cursorColor: AppTheme.primaryColor,
           ),
-          cursorColor: AppTheme.primaryColor,
         ),
       ),
     );

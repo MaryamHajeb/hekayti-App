@@ -5,6 +5,8 @@ import 'package:hikayati_app/features/Regestrion/presintation/page/LoginPage.dar
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
@@ -18,6 +20,9 @@ class onboardingSix extends StatefulWidget {
 
 class _onboardingSixState extends State<onboardingSix> {
   ScreenUtil screenUtil = ScreenUtil();
+  int  Carecters_id=0;
+  Carecters carectersobj =Carecters();
+
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -36,12 +41,8 @@ class _onboardingSixState extends State<onboardingSix> {
             style: AppTheme.textTheme.headline3),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-                height: screenUtil.screenHeight *.4,
-                width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.images.carecters.mariam.sing.path)),
 
             Column(
               children: [
@@ -73,11 +74,19 @@ class _onboardingSixState extends State<onboardingSix> {
             Container(
                 height: screenUtil.screenHeight *.4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.images.carecters.abdu.sing.path)),
+                child: Image.asset('${carectersobj.happyListCarecters[Carecters_id]['image']}')),
 
           ],
         ),
       ],
     );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Carecters_id=  getCachedDate('Carecters',String);
+
   }
 }

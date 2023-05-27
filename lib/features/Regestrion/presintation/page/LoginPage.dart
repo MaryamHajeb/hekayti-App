@@ -100,7 +100,7 @@ TextEditingController CofemPassword = TextEditingController();
 
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text('تسجيل الدخول',style:AppTheme.textTheme.headline3 ),
                                   SizedBox(height: 30,),

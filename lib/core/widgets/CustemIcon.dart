@@ -17,6 +17,7 @@ class _CustemIconState extends State<CustemIcon> {
     return Container(
       height: 50,
       width: 50,
+
       decoration: BoxDecoration(
           color: AppTheme.primaryColor,
           border: Border.all(color: Colors.white,width: 2),
