@@ -37,15 +37,16 @@ class _onboardingSixState extends State<onboardingSix> {
           child: Image.asset(Assets.images.logo.path),
         ),
         Text('حكايتي', style: AppTheme.textTheme.headline3),
-        Text('هل تريد حفظ بياناتك معنا . ',
-            style: AppTheme.textTheme.headline3),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
 
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Text('هل تريد حفظ بياناتك معنا   (اختياري) ', style: AppTheme.textTheme.headline3),
+
                 ElevatedButton(
                   onPressed: () {
 

@@ -23,6 +23,8 @@ import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Story/date/model/MeadiaModel.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
+import '../Widget/StoryCardLock.dart';
+import '../Widget/StoryCardNotDownloded.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,6 +42,8 @@ class _HomePageState extends State<HomePage> {
   List<StoryModel> listStoryWithSearch = [];
   List starts = [1, 2, 0, 3, 2, 3];
   Carecters carectersobj =Carecters();
+  int collected_stars=0;
+  int stars=0;
   bool islistToStory=true;
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
@@ -79,8 +83,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(
-                              color: AppTheme.primarySwatch.shade600,
+                          border: Border.all(color: AppTheme.primarySwatch.shade600,
                               width: 2),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10))),
@@ -162,6 +165,9 @@ class _HomePageState extends State<HomePage> {
                       // //TODO::Show Story here
 
                       insertStory(state);
+                      stars=  getCachedDate('stars',String);
+                      collected_stars= getCachedDate('collected_stars',String);
+
 
                       //
                       // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
@@ -175,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                         child: listStory.length > 0
                             ? GridView.builder(
                           shrinkWrap: true,
-                                itemCount: state.storyModel.length,
+                                itemCount: listStory.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
@@ -183,18 +189,28 @@ class _HomePageState extends State<HomePage> {
 
                                     ),
                                 itemBuilder: (context, index) {
-                                  return InkWell(
+                                  return int.parse(listStory[index]?.stars) ==0 ?
+                                  InkWell(
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            CustomPageRoute(
-                                                child: StoryPage(
-                                              id: listStory[index]?.id,
-                                            )));
+                                        showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.only(top:15.0),
-                                        child: StoryCard(
+                                        child: StoryCardLock(
+                                          name:
+                                          listStory[index]?.name,
+                                          starts: int.parse(listStory[index]?.stars),
+                                          photo: listStory[index]!.cover_photo
+                                              .toString(),
+                                        ),
+                                      )):InkWell(
+                                      onTap: () {
+                                        showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top:15.0),
+                                        child: StoryCardNotDownloded(
                                           name:
                                           listStory[index]?.name,
                                           starts: int.parse(listStory[index]?.stars),
@@ -220,8 +236,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   onScearch(String searchWord) {
-    print(listStoryWithSearch.length);
-    print('------------befor serch---------******************************------------------------');
+
 
     setState(() {
       listStoryWithSearch = listStoryWithSearch
@@ -229,8 +244,6 @@ class _HomePageState extends State<HomePage> {
           .toList();
     });
 
-    print(listStoryWithSearch.length);
-    print('---------------------after serch----00000000000000000000000000--------------------');
 
   }
 
@@ -238,10 +251,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(listStoryWithSearch.length);
+
     listStoryWithSearch = listStory;
     Carecters_id=  getCachedDate('Carecters',String);
-    print(listStoryWithSearch.length);
+
+
 
 
   }

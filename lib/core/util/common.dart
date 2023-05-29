@@ -92,9 +92,7 @@ dynamic  getCachedDate(String key,dynamic type) {
        if(data ==null){
          return '';
        }else {
-         print(']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]');
-         print(data);
-         print(data.runtimeType);
+
          return data;
      }}catch(e){
       print(e.toString());

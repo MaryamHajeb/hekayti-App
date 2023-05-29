@@ -23,7 +23,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
     if(event is GetAllStory){
       yield StoryLoading();
-      final failureOrData = await repository.getAllStory(token: event.token);
+      final failureOrData = await repository.getAllStory();
       yield* failureOrData.fold(
             (failure) async* {
           log('yield is error');

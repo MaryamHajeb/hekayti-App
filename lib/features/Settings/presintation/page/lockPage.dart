@@ -118,9 +118,9 @@ int num3 = Random().nextInt(100);
                                                 if (value.toString().isEmpty) {
                                                   return 'يرجئ منك كتابه الحل';
                                                 }
-                                                if(int.parse(value.toString())!= num1+num2+num3){
-                                                  return 'يرجئ منك كتابه الحل بشكل صحيح';
-                                                }
+                                                // if(int.parse(value.toString())!= num1+num2+num3){
+                                                //   return 'يرجئ منك كتابه الحل بشكل صحيح';
+                                                // }
 
                                                 return null;
                                               },

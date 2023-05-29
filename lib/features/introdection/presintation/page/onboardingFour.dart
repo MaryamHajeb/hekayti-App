@@ -22,7 +22,7 @@ class _onboardingFourState extends State<onboardingFour> {
 ScreenUtil screenUtil=ScreenUtil();
   @override
   Carecters carecterslist =Carecters();
- static int itemSelected =10;
+ static int itemSelected =0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return

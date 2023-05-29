@@ -199,13 +199,13 @@ initCarecters();
   int?   carectersnum= await  getCachedDate('Carecters',String) ?? '';
   int?      levels= await  getCachedDate('level',String)  ?? '';
   String?   t= await getCachedDate('nameChlied',String)  ?? '';
- // bool?   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
+  bool?   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
 
     setState( () {
       nameChiled.text=t ?? '';
       itemSelected=carectersnum ?? 10;
       itemSelectedlevel= levels! ;
-  //    chackboxStata =lisent!;
+    chackboxStata =lisent!;
     });
 
 
