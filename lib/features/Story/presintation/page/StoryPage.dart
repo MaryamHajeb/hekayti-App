@@ -461,7 +461,7 @@ class _StoryPageState extends State<StoryPage> {
   }
 
   getaccurac() async {
-    List dd = await db.getAllstory('accuracy');
+    List dd = await db.getAllstory('accuracy','1');
     print('--------------------------------------------');
     print(dd.toString());
     print('--------------------------------------------');

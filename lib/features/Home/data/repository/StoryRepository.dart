@@ -32,51 +32,85 @@ class StoryRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          List<dynamic> reslet = await db.getAllstory('story');
-          List<StoryModel> list=[] ;
-          reslet.forEach((element) {
-            StoryModel user = StoryModel.fromJson(element);
-            list.add(user);
+          List<StoryModel>list =[];
+          List<dynamic> reslet = await db.getAllstory('story','1');
+
+          int? start=0;
+          int collected_stars =0;
+          int all_stars=0;
+          reslet.forEach((element) async{
+            start  =await db.getStoryStars('1',element['id']);
+
+
+            all_stars+= int.parse(element['required_star'].toString());
+
+
+            print(start!);
+
+
+            print('///////////////////////////////////');
+            list.add(
+                StoryModel(
+                    cover_photo: element['coverphoto'],
+                    auther: element['auther'],
+                    level: element['level'],
+                    required_star: element['required_star'],
+                    name: element['name'],
+                    stars: start.toString(),
+                    id: element['id'])
+            );
+            start=0;
           });
 
+          print('list lenght');
+          print(list.length);
+          print('list lenght');
 
-          return  list;;
-
+          return  list;
           // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
           //
           // return remoteData;
         },
 
         getCacheDataFunction: ()async {
-          List<dynamic> reslet = await db.getAllstory('story');
-          List<StoryModel> list=[] ;
-          reslet.forEach((element) {
-            StoryModel user = StoryModel.fromJson(element);
-         list.add(user);
+          List<StoryModel>list =[];
+          List<dynamic> reslet = await db.getAllstory('story','1');
+
+          int? start=0;
+          int collected_stars =0;
+          int all_stars=0;
+          reslet.forEach((element) async{
+          start  =await db.getStoryStars('1',element['id']);
+
+
+            all_stars+= int.parse(element['required_star'].toString());
+
+
+            print(start!);
+
+
+            print('///////////////////////////////////');
+            list.add(
+                StoryModel(
+                    cover_photo: element['coverphoto'],
+                    auther: element['auther'],
+                    level: element['level'],
+                    required_star: element['required_star'],
+                    name: element['name'],
+                    stars: start.toString(),
+                    id: element['id'])
+            );
+            start=0;
           });
 
+              print('list lenght');
+              print(list.length);
+              print('list lenght');
 
           return  list;
         });
   }
 
-
-//   Future<Either<List<StoryModel>, Failure>>getdatafromsqflite(){
-//
-//     StoryModel storyModel =StoryModel(cover_photo: null, author: null, level: null, required_stars: null, name: null);
-//
-//      if(networkInfo.isConnected ==true){
-//        try {
-//
-//          return Right(storyModel);
-//        } on CacheException {
-//          return Left(CacheFailure());
-//        }
-//
-//
-//      }
-// }
-//
 
 
 

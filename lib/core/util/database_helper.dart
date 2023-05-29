@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
+import '../../features/Home/data/model/StoryMode.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../gen/assets.gen.dart';
 
@@ -61,13 +62,28 @@ Future<int> inser({required dynamic data,required String tableName}) async{
 
 
 
- Future<List> getAllstory(tableName) async{
-
+ Future<List<dynamic>> getAllstory(tableName, level) async{
     Database? dbClient = await  db;
-  var sql = "SELECT * FROM $tableName";
+  var sql = "SELECT * FROM $tableName where level =$level ";
+
   List<dynamic> result = await dbClient!.rawQuery(sql);
-  return await result.toList();
+
+    return  result.toList();
   }
+
+
+
+ getStoryStars(level,id)async{
+  Database? dbClient = await  db;
+  List<dynamic> result2 = await dbClient!.rawQuery("SELECT start FROM complation where story_id like '$level-$id' ");
+  if(result2.isNotEmpty){
+    return result2[0]['start'];
+  }
+  else{
+    return 0;
+  }
+
+}
 
 
   Future<List> getAllstoryfromdb(tableName) async{

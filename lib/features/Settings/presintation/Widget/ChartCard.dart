@@ -21,48 +21,61 @@ class _ChartCardState extends State<ChartCard> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 1,
-            child: Column(
+          Column(
+            children: [
+              SizedBox(height: screenUtil.screenHeight *.08,),
+              Container(
+                height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
 
-              children: [
-            SizedBox(height: 20,),
-          SizedBox(width: 010,),
-          CircleAvatar(child: Text('2',style:AppTheme.textTheme.headline5 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right)),
+                          right: BorderSide(color:Colors.brown ,width: 2),
+                          top: BorderSide(color:Colors.brown ,width: 2),
+                          bottom:  BorderSide(color:Colors.brown,width: 2 )
 
-        ],)),
-          Expanded(
-            flex: 5,
-            child: Card(
-
-              margin: EdgeInsets.only(right: 10,left: 0,top: 30),
-              shape: ContinuousRectangleBorder(
+                      ),
+                  ),
+                  child: Center(child:                 Text('24',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
 
 
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              elevation: 10,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: AppTheme.primaryColor,width: 2)
-                ),
+
+                  ),
+              ),
+            ],
+          ),
+          Card(
+
+            margin: EdgeInsets.only(right: 0,left: 0,top: 30),
+            shape: ContinuousRectangleBorder(
+
+
+                borderRadius: BorderRadius.all(Radius.circular(25))),
+            elevation: 10,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                border: Border.all(color: Colors.brown,width: 2)
+              ),
 width: screenUtil.screenWidth *.38,
  height: screenUtil.screenHeight *.2,
-                  child: Row(
+                child: Row(
 mainAxisAlignment: MainAxisAlignment.spaceAround,
 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+              children: [
 
-                  Center(child: Image.asset(Assets.images.story1.path)),
-                  Text('مشت ليلى عبر الغابة ',style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                Center(child: Image.asset(Assets.images.story1.path)),
+                Text('مشت ليلى عبر الغابة ',style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
 
-                  Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
 
 
-                ],
-              )),
-            ),
+              ],
+            )),
           ),
         ],
       ),

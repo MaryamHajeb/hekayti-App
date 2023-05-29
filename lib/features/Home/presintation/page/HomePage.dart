@@ -69,8 +69,10 @@ class _HomePageState extends State<HomePage> {
                     child: CustemIcon2(
                       icon: Image.asset('${carectersobj.FaceCarecters[Carecters_id]['image']}', fit: BoxFit.cover),
                       ontap: () {
+
                         Navigator.push(
                             context, CustomPageRoute(child: lockPage()));
+
                       },
                     ),
                   ),
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                         alignment: AlignmentDirectional.center,
                         children: [
                           SizedBox(height: 30,),
-                          LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: 9,),
+                          LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: .6,),
                           Row(
                             children: [
                               SizedBox(width: 30,),
@@ -157,23 +159,23 @@ class _HomePageState extends State<HomePage> {
                     }
 
                     if (state is StoryILoaded) {
-                      //TODO::Show Story here
-                      state.storyModel.forEach((element) {
-                        listStory.add(element!);
-                      });
+                      // //TODO::Show Story here
+
+                      insertStory(state);
+
                       //
                       // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
 
-                      print(listStory.length);
-                      print('-------block--------------------------------------');
-                      print(listStoryWithSearch.length);
+
+                      // print('-------block--------------------------------------');
+                      // print(listStoryWithSearch.length);
                       StoryWidget = Container(
                         height: screenUtil.screenHeight * .8,
                         width: double.infinity,
-                        child: listStoryWithSearch.length > 0
+                        child: listStory.length > 0
                             ? GridView.builder(
                           shrinkWrap: true,
-                                itemCount: listStoryWithSearch.length,
+                                itemCount: state.storyModel.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
@@ -187,17 +189,16 @@ class _HomePageState extends State<HomePage> {
                                             context,
                                             CustomPageRoute(
                                                 child: StoryPage(
-                                              id: listStoryWithSearch[index].id,
+                                              id: listStory[index]?.id,
                                             )));
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.only(top:15.0),
                                         child: StoryCard(
                                           name:
-                                              listStoryWithSearch[index].name,
-                                          starts: 3,
-                                          photo: listStoryWithSearch[index]
-                                              .cover_photo
+                                          listStory[index]?.name,
+                                          starts: int.parse(listStory[index]?.stars),
+                                          photo: listStory[index]!.cover_photo
                                               .toString(),
                                         ),
                                       ));
@@ -241,5 +242,15 @@ class _HomePageState extends State<HomePage> {
     listStoryWithSearch = listStory;
     Carecters_id=  getCachedDate('Carecters',String);
     print(listStoryWithSearch.length);
+
+
   }
+
+  insertStory(state){
+    state.storyModel.forEach((element) {
+      listStory.add(element!);
+    });
+
+  }
+
 }

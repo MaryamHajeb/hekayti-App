@@ -165,10 +165,9 @@ void showImagesDialog(BuildContext context, String image,String text) {
         );
       });
 }
-void showImagesDialogWithCancleButten(BuildContext context, String image,String text) {
+void showImagesDialogWithCancleButten(BuildContext context2, String image,String text) {
   showDialog(
-
-      context: context,
+      context: context2,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
@@ -204,9 +203,8 @@ void showImagesDialogWithCancleButten(BuildContext context, String image,String 
                   children: [
                     CustemButten(ontap: (){
 
-                      Navigator.push(
-                          context,
-                          CustomPageRoute(  child:   HomePage()));
+                      Navigator.pop(context);
+                      Navigator.pop(context2);
 
                     }, text: 'نعم',),
                     CustemButten(ontap: (){

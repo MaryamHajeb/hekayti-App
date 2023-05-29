@@ -1,5 +1,5 @@
 class StoryModel {
-  dynamic id, name,cover_photo,auther,level,required_star;
+  dynamic id, name,cover_photo,auther,level,required_star,stars;
 
   StoryModel({
 
@@ -8,7 +8,11 @@ class StoryModel {
     required this.auther,
     required this.level,
     required this.required_star,
-    required this.name,});
+    required this.name,
+     required this.stars,
+
+
+    });
 
   factory StoryModel.fromJson(Map<String, dynamic> story) {
     return StoryModel(
@@ -20,7 +24,10 @@ class StoryModel {
         auther: story['auther'],
         level: story['level'],
         required_star: story['required_star'],
-        name: story['name']);
+        name: story['name'],
+        stars: story['start']
+
+    );
   }
 
   StoryModel fromJson(Map<String, dynamic> json) {
@@ -35,6 +42,7 @@ class StoryModel {
       level: '',
       auther: '',
       cover_photo: '',
+      stars: '',
 
 
     );
@@ -55,6 +63,7 @@ class StoryModel {
     'level': level,
     'auther': auther,
     'coverphoto': cover_photo,
-    'name': name
+    'name': name,
+    'start': stars,
   };
 }

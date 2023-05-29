@@ -17,7 +17,7 @@ class StoryLoading extends StoryState {
 class StoryILoaded extends StoryState {
 
   List<StoryModel?> storyModel;
-  StoryILoaded({required    this.storyModel });
+  StoryILoaded({required  this.storyModel });
 
   @override
   List<Object> get props => [storyModel];

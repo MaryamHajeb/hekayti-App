@@ -28,9 +28,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   Carecters carecterslist =Carecters();
 
   TextEditingController nameChiled =TextEditingController();
-   int itemSelected=0 ;
+   int itemSelected=0;
   int itemSelectedlevel =0;
-  bool chackboxStata=false;
+  bool chackboxStata=true;
 
 
   ScreenUtil screenUtil=ScreenUtil();
@@ -62,7 +62,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(height: 20,),
           Text('الشخصيات :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
           SizedBox(height: 20,),
-
           Container(
             height: screenUtil.screenHeight * .4,
             width: double.infinity,
@@ -163,12 +162,8 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                 style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
               ),
             ],),
-
           SizedBox(height: 50,),
-
           Divider(color: AppTheme.primaryColor,),
-
-
           Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -186,7 +181,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             },),
           ],
         ),
-          SizedBox(height: 50,),
+          SizedBox(height: 20,),
 
 
         ],
@@ -202,14 +197,14 @@ initCarecters();
   }
   initCarecters()async{
   int?   carectersnum= await  getCachedDate('Carecters',String) ?? '';
-  String?      levels= await  getCachedDate('level',String)  ?? '';
+  int?      levels= await  getCachedDate('level',String)  ?? '';
   String?   t= await getCachedDate('nameChlied',String)  ?? '';
  // bool?   lisent= await getCachedDate('Listen_to_story',String)  ?? '';
 
     setState( () {
       nameChiled.text=t ?? '';
       itemSelected=carectersnum ?? 10;
-      itemSelectedlevel= int.parse(levels!  ) ?? 10;
+      itemSelectedlevel= levels! ;
   //    chackboxStata =lisent!;
     });
 

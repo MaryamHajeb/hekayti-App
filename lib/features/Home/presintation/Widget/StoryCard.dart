@@ -53,9 +53,9 @@ class _StoryCardState extends State<StoryCard> {
                 Image.asset(Assets.images.start.path,width: 40,height: 40,),
                      Padding(
                        padding: const EdgeInsets.only(bottom: 20.0),
-                       child: Image.asset(Assets.images.emptyStar.path),
+                       child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
                      ),
-                     Image.asset(Assets.images.emptyStar.path),
+                     Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
 
                    ],
                  ):widget.starts ==2?
@@ -70,7 +70,7 @@ class _StoryCardState extends State<StoryCard> {
                        padding: const EdgeInsets.only(bottom: 20.0),
                        child:Image.asset(Assets.images.start.path,width: 40,height: 40),
                      ),
-                     Image.asset(Assets.images.emptyStar.path),
+                     Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
 
                    ],
                  ): widget.starts ==0 ? Row(
@@ -79,12 +79,12 @@ class _StoryCardState extends State<StoryCard> {
 
 
 
-                     Image.asset(Assets.images.emptyStar.path),
+                     Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
                      Padding(
                        padding: const EdgeInsets.only(bottom: 20.0),
-                       child: Image.asset(Assets.images.emptyStar.path),
+                       child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
                      ),
-                     Image.asset(Assets.images.emptyStar.path),
+                     Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
 
                    ],
                  ):
