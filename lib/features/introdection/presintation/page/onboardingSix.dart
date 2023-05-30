@@ -45,8 +45,9 @@ class _onboardingSixState extends State<onboardingSix> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                SizedBox(height: 20,),
                 Text('هل تريد حفظ بياناتك معنا   (اختياري) ', style: AppTheme.textTheme.headline3),
-
+               SizedBox(height: 20,),
                 ElevatedButton(
                   onPressed: () {
 
@@ -87,7 +88,7 @@ class _onboardingSixState extends State<onboardingSix> {
     // TODO: implement initState
     super.initState();
 
-    Carecters_id=  getCachedDate('Carecters',String);
+    Carecters_id=  getCachedDate('Carecters',String) ?? 0;
 
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
@@ -10,6 +9,7 @@ import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/widgets/CustemButten2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../main.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
@@ -167,7 +167,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustemButten( text: 'حفظ',ontap: ()async{
+            CustemButten2( text: 'حفظ',ontap: ()async{
               saveNewSttings();
 
             },),
@@ -181,7 +181,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             },),
           ],
         ),
-          SizedBox(height: 20,),
+          SizedBox(height: 50,),
 
 
         ],
@@ -219,4 +219,6 @@ initCarecters();
     CachedDate('level',level);
     CachedDate('Listen_to_story',chackboxStata);
   }
+
+
 }

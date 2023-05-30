@@ -95,7 +95,7 @@ TextEditingController CofemPassword = TextEditingController();
                           child: Column(children: [
                             SizedBox(height: 20,),
 
-                            Text('إنشاء حساب',style:AppTheme.textTheme.headline3 ),
+                            Text('إنشاء حساب',style:AppTheme.textTheme.headline1 ),
                             SizedBox(height: 20,),
 
                             Row(
@@ -180,9 +180,10 @@ TextEditingController CofemPassword = TextEditingController();
                                         ],),
                                       SizedBox(height: 10,),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
+                                          Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 15)),
+                                          SizedBox(width: 10,),
                                           InkWell(
 
                                               onTap: (){
@@ -191,7 +192,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                     CustomPageRoute(  child:   LoginPage()));
 
                                               },
-                                              child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
+                                              child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 15))),
 
                                         ],
                                       ),
@@ -210,24 +211,12 @@ TextEditingController CofemPassword = TextEditingController();
                               ],
                             ),
                             CustemButten(ontap: (){
-                              // if (_signupFormKey.currentState!.validate()) {
-                              //   BlocProvider.of<RegistrationBloc>(_context).add(
-                              //     Signup(
-                              //         email: email.text,
-                              //         password: password.text
-                              //
-                              //     ),
-                              //   );
-                              //   setState(() {
-                              //     requestPending = true;
-                              //   });
-                              // } else {
-                              //   print('error');
-                              // }
+
                               Navigator.push(
                                   context,
                                   CustomPageRoute(  child:   HomePage()));
-                            },text: 'إنشاء',)
+                            },text: 'إنشاء',),
+                            SizedBox(height: 30,),
 
                           ]),
                         ),

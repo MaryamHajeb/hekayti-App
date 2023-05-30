@@ -207,7 +207,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
   initdata()async{
 
-    int?   Carecters=await   getCachedDate('Carecters',String) ?? 10;
+    int?   Carecters=await   getCachedDate('Carecters',String) ?? 0;
     carectersnum=Carecters!;
 
 

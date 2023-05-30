@@ -60,6 +60,8 @@ dependencies:
   audioplayers: ^4.0.1
   flutter_charts: ^0.5.1
   flutter_downloader: ^1.10.4
+  flame: 1.7.0
+  flame_audio: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,6 +94,7 @@ flutter:
   assets:
       - assets/images/
       - assets/
+      - assets/audio/
       - assets/images/carecters/abdu/
       - assets/images/carecters/hana/
       - assets/images/carecters/hasham/
