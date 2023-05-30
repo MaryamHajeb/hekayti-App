@@ -102,7 +102,7 @@ TextEditingController CofemPassword = TextEditingController();
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('تسجيل الدخول',style:AppTheme.textTheme.headline3 ),
+                                  Text('تسجيل الدخول',style:AppTheme.textTheme.headline1 ),
                                   SizedBox(height: 30,),
 
 
@@ -193,8 +193,9 @@ TextEditingController CofemPassword = TextEditingController();
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('ليس لدئ حساب ? ',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 10)),
-                                      SizedBox(width: 40,),
+                                      Text('ليس لدئ حساب ? ',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 15)),
+                                      SizedBox(width: 10,),
+
                                       InkWell(
 
                                           onTap: (){
@@ -203,7 +204,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                 CustomPageRoute(  child:   SignupPage()));
 
                                           },
-                                          child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 10))),
+                                          child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 15))),
 
                                     ],
                                   ),

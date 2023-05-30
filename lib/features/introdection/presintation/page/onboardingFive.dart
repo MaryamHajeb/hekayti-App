@@ -57,7 +57,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                         });
 
                         int dd=int.parse(carecters.Levels[index]['id'].toString());
-                        CachedDate('level',dd);
+                        CachedDate('level',itemSelected);
 
 
                       },

@@ -80,7 +80,7 @@ import '../widgets/primaryText.dart';
 //
 //
 dynamic  getCachedDate(String key,dynamic type) {
-     try {
+
        final data = LocalDataProvider(
            sharedPreferences: sl<SharedPreferences>())
            .getCachedData(
@@ -89,14 +89,7 @@ dynamic  getCachedDate(String key,dynamic type) {
            returnType: type
        );
 
-       if(data ==null){
-         return '';
-       }else {
-
-         return data;
-     }}catch(e){
-      print(e.toString());
-     }
+      return data;
 
 }
 

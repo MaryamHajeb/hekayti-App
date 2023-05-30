@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {},
                     child: CustemIcon2(
-                      icon: Image.asset('${carectersobj.FaceCarecters[Carecters_id]['image'] ?? 0}', fit: BoxFit.cover),
+                      icon: Image.asset('${carectersobj.FaceCarecters[Carecters_id ?? 0]['image'] ?? 0}', fit: BoxFit.cover),
                       ontap: () {
                         Navigator.push(
                             context, CustomPageRoute(child: lockPage()));

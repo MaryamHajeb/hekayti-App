@@ -144,6 +144,12 @@ class _IntroScreenState extends State<IntroScreen> {
 
 
                                                         print(index);
+                                                        if(index==2){
+                                                          CachedDate('Carecters',0);
+                                                        }if(index==2){
+                                                          CachedDate('level',0);
+                                                        }
+
 
                                                         SharedPreferences prefs;
                                                         index==5 ?

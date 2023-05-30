@@ -44,8 +44,8 @@ ScreenUtil screenUtil=ScreenUtil();
 
                 });
 
-                int dd=int.parse(carecterslist.listcarecters[index]['id'].toString());
-                CachedDate('Carecters',dd);
+                 int dd=int.parse(carecterslist.listcarecters[itemSelected]['id'].toString());
+                CachedDate('Carecters',itemSelected);
 
               }, isSelected: itemSelected==index?  true : false ,);
 
