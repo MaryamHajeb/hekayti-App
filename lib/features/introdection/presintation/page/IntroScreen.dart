@@ -135,7 +135,6 @@ class _IntroScreenState extends State<IntroScreen> {
                                                 ),
                                                 InkWell(
                                                   onTap: () async{
-                                                    initdata();
 
                                                     if (_formKey.currentState!.validate()){
                                                       // If the form is valid, display a snackbar. In the real world,
@@ -205,19 +204,6 @@ class _IntroScreenState extends State<IntroScreen> {
       ),
     );
   }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    initdata();
-  }
-  initdata()async{
-
-    int?   Carecters=await   getCachedDate('Carecters',String) ?? 0;
-    carectersnum=Carecters!;
 
 
-
-
-  }
 }

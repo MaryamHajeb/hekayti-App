@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
   Carecters carectersobj =Carecters();
   int collected_stars=0;
   int stars=0;
+  bool bgm=true;
   bool islistToStory=true;
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
@@ -122,21 +124,24 @@ class _HomePageState extends State<HomePage> {
                         controler: search,
                         size: 340,
                       )),
-                  islistToStory ==false?
-                  CustemIcon(
+                  bgm ==false?
+                  CustemIcon2(
                       icon: Icon(Icons.volume_up_rounded,
-                          color: Colors.white),
+                          color: AppTheme.primaryColor,),
                       ontap: () async {
                         setState(() {
-                          islistToStory=!islistToStory;
+                          bgm=!bgm;
+                          FlameAudio.bgm.pause();
 
                        });
-                      }):CustemIcon(
+                      }):CustemIcon2(
                       icon: Icon(Icons.volume_off,
-                          color: Colors.white),
+                          color: AppTheme.primaryColor),
                       ontap: () async {
                         setState(() {
-                          islistToStory=!islistToStory;
+                          bgm=!bgm;
+                          FlameAudio.bgm.play('backgrandmuisc.mp3',volume: 100);
+
                         });
                       }),
                 ],
