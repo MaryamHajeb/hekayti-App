@@ -207,14 +207,20 @@ class _HomePageState extends State<HomePage> {
                                           photo: listStory[index]!.cover_photo
                                               .toString(),
                                         ),
-                                      )):InkWell(
-                                      onTap: () {
-                                        showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                      )):
 
+                                  InkWell(
+                                      onTap: () {
+                                        // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                        Navigator.push(
+                                            context,
+                                            CustomPageRoute(
+                                                child: StoryPage(id:listStory[index]?.id ,)));
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.only(top:15.0),
-                                        child: StoryCardNotDownloded(
+                                        child: StoryCard(
                                           name:
                                           listStory[index]?.name,
                                           starts: int.parse(listStory[index]?.stars),
