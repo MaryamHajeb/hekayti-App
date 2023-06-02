@@ -33,7 +33,7 @@ ScreenUtil screenUtil=ScreenUtil();
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .3,
-                  child: Image.asset(Assets.images.carecters.abdu.happy.path)),
+                  child: Image.asset(Assets.images.carecters.abdu.left.path)),
               Container(
                   height: screenUtil.screenHeight *.4,
                   width: screenUtil.screenWidth * .3,

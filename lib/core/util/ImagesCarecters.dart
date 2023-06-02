@@ -1,12 +1,12 @@
 class ImagesCarecters{
 
   List happyCarecters=[
-    'assest/images/abdu/happy.png',
-    'assest/images/hana/happy.png',
-    'assest/images/hasham/happy.png',
-    'assest/images/mohamed/happy.png',
-    'assest/images/wafa/happy.png',
-    'assest/images/maryam/happy.png',
+    'assest/images/abdu/left.png',
+    'assest/images/hana/left.png',
+    'assest/images/hasham/left.png',
+    'assest/images/mohamed/left.png',
+    'assest/images/wafa/left.png',
+    'assest/images/maryam/left.png',
   ];
 
 

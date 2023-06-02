@@ -19,6 +19,19 @@ class $AssetsDBGen {
   List<String> get values => [hakity];
 }
 
+class $AssetsAudioGen {
+  const $AssetsAudioGen();
+
+  /// File path: assets/audio/backgrandmuisc.mp3
+  String get backgrandmuisc => 'assets/audio/backgrandmuisc.mp3';
+
+  /// File path: assets/audio/music.mp3
+  String get music => 'assets/audio/music.mp3';
+
+  /// List of all assets
+  List<String> get values => [backgrandmuisc, music];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -118,16 +131,25 @@ class $AssetsImagesCarectersAbduGen {
   AssetGenImage get happy =>
       const AssetGenImage('assets/images/carecters/abdu/happy.png');
 
+  /// File path: assets/images/carecters/abdu/left.png
+  AssetGenImage get left =>
+      const AssetGenImage('assets/images/carecters/abdu/left.png');
+
   /// File path: assets/images/carecters/abdu/sad.png
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/abdu/sad.png');
+
+  /// File path: assets/images/carecters/abdu/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/abdu/show.png');
 
   /// File path: assets/images/carecters/abdu/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/abdu/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values =>
+      [confused, face, happy, left, sad, show, sing];
 }
 
 class $AssetsImagesCarectersHanaGen {
@@ -149,12 +171,16 @@ class $AssetsImagesCarectersHanaGen {
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/hana/sad.png');
 
+  /// File path: assets/images/carecters/hana/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/hana/show.png');
+
   /// File path: assets/images/carecters/hana/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/hana/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
 class $AssetsImagesCarectersHashamGen {
@@ -176,12 +202,16 @@ class $AssetsImagesCarectersHashamGen {
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/hasham/sad.png');
 
+  /// File path: assets/images/carecters/hasham/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/hasham/show.png');
+
   /// File path: assets/images/carecters/hasham/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/hasham/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
 class $AssetsImagesCarectersMariamGen {
@@ -203,12 +233,16 @@ class $AssetsImagesCarectersMariamGen {
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/mariam/sad.png');
 
+  /// File path: assets/images/carecters/mariam/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/mariam/show.png');
+
   /// File path: assets/images/carecters/mariam/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/mariam/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
 class $AssetsImagesCarectersMohamedGen {
@@ -230,12 +264,16 @@ class $AssetsImagesCarectersMohamedGen {
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/mohamed/sad.png');
 
+  /// File path: assets/images/carecters/mohamed/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/mohamed/show.png');
+
   /// File path: assets/images/carecters/mohamed/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/mohamed/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
 class $AssetsImagesCarectersWafaGen {
@@ -257,23 +295,28 @@ class $AssetsImagesCarectersWafaGen {
   AssetGenImage get sad =>
       const AssetGenImage('assets/images/carecters/wafa/sad.png');
 
+  /// File path: assets/images/carecters/wafa/show.png
+  AssetGenImage get show =>
+      const AssetGenImage('assets/images/carecters/wafa/show.png');
+
   /// File path: assets/images/carecters/wafa/sing.png
   AssetGenImage get sing =>
       const AssetGenImage('assets/images/carecters/wafa/sing.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [confused, face, happy, sad, sing];
+  List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
 class Assets {
   Assets._();
 
   static const $AssetsDBGen db = $AssetsDBGen();
+  static const $AssetsAudioGen audio = $AssetsAudioGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const String music = 'assets/music.mp3';
+  static const String testServiceAccount = 'assets/test_service_account.json';
 
   /// List of all assets
-  List<String> get values => [music];
+  List<String> get values => [testServiceAccount];
 }
 
 class AssetGenImage {

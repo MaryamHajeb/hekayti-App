@@ -59,6 +59,15 @@ class Carecters{
     {'id':'5','image':  Assets.images.carecters.wafa.face.path,},
 
   ];
+  List  showCarecters =[
+    {'id':'0','image':  Assets.images.carecters.abdu.show.path,},
+    {'id':'1','image':  Assets.images.carecters.mohamed.show.path,},
+    {'id':'2','image':  Assets.images.carecters.hasham.show.path,},
+    {'id':'3','image':  Assets.images.carecters.mariam.show.path,},
+    {'id':'4','image':  Assets.images.carecters.hana.show.path,},
+    {'id':'5','image':  Assets.images.carecters.wafa.show.path,},
+
+  ];
 
 
   List Levels = [

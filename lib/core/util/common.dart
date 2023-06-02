@@ -140,9 +140,9 @@ void showImagesDialog(BuildContext context, String image,String text) {
                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
-                  SizedBox(width: 10,),
-                  Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      SizedBox(width: 10,),
+                      Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
 
 
                     ]),
@@ -182,9 +182,10 @@ void showImagesDialogWithCancleButten(BuildContext context2, String image,String
                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
-                  SizedBox(width: 10,),
-                  Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      SizedBox(width: 10,),
+
+                      Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
 
 
                     ]),

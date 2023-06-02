@@ -18,6 +18,7 @@ import '../../../../core/widgets/CastemInputForSearch.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../core/widgets/PlayButton.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   Carecters carectersobj =Carecters();
   int collected_stars=0;
   int stars=0;
-  bool bgm=true;
+  bool bgm=false;
   bool islistToStory=true;
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {},
                     child: CustemIcon2(
-                      icon: Image.asset('${carectersobj.FaceCarecters[Carecters_id ?? 0]['image'] ?? 0}', fit: BoxFit.cover),
+                      icon: Image.asset('${carectersobj.showCarecters[Carecters_id ?? 0]['image'] ?? 0}', fit: BoxFit.cover),
                       ontap: () {
                         Navigator.push(
                             context, CustomPageRoute(child: lockPage()));
@@ -130,8 +131,9 @@ class _HomePageState extends State<HomePage> {
                           color: AppTheme.primaryColor,),
                       ontap: () async {
                         setState(() {
+
+                          FlameAudio.bgm.stop();
                           bgm=!bgm;
-                          FlameAudio.bgm.pause();
 
                        });
                       }):CustemIcon2(
@@ -140,10 +142,11 @@ class _HomePageState extends State<HomePage> {
                       ontap: () async {
                         setState(() {
                           bgm=!bgm;
-                          FlameAudio.bgm.play('backgrandmuisc.mp3',volume: 100);
+                          FlameAudio.bgm.play('bgm.mp3',volume: 100);
 
                         });
                       }),
+
                 ],
               ),
               SizedBox(height: 10),
@@ -196,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                                   return int.parse(listStory[index]?.stars) ==0 ?
                                   InkWell(
                                       onTap: () {
-                                        showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                        showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.only(top:15.0),

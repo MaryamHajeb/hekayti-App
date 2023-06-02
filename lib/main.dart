@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
- var dd=   FlameAudio.bgm.play('backgrandmuisc.mp3',volume: 100);
+ var dd=   FlameAudio.bgm.play('bgm.mp3',volume: 100);
 
 }
 }

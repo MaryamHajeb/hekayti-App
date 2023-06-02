@@ -30,6 +30,7 @@ import 'package:file/file.dart';
 
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
+import '../../../../core/widgets/PlayButton.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
@@ -158,31 +159,17 @@ class _StoryPageState extends State<StoryPage> {
                                     SizedBox(
                                       height: 30,
                                     ),
-                                    visiblety
-                                        ? CustemIcon(
-                                            icon: Icon(
-                                              Icons.mic,
-                                            ),
-                                            ontap: () async {
-                                              setState(() {
-                                                visiblety = !visiblety;
+                                    SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: PlayButton(onPressed: () {
+                                          setState(() {
+                                            visiblety = !visiblety;
 
-                                                _currentStatus != RecordingStatus.Unset ? _stop() : null;
+                                            visiblety ? _start():  _currentStatus != RecordingStatus.Unset ? _stop() : null;
 
-
-                                              });
-                                            })
-                                        : CustemIcon2(
-                                            icon: Icon(
-                                              Icons.mic,
-                                              color: AppTheme.primaryColor,
-                                            ),
-                                            ontap: () async {
-                                              visiblety = !visiblety;
-                                              _currentStatus == RecordingStatus.Unset ? _start() : null;
-
-                                              setState(() {});
-                                            }),
+                                          });
+                                        },initialIsPlaying:      visiblety,pauseIcon: Icon(Icons.stop,color: AppTheme.primaryColor),playIcon: Icon(Icons.mic,color: AppTheme.primaryColor),)),
                                   ],
                                 )
                               ],
