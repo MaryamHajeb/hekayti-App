@@ -1,13 +1,14 @@
 class StoryModel {
-  dynamic id, name,cover_photo,auther,level,required_star,stars;
+  dynamic id, name,cover_photo,auther,level,required_stars,stars,story_order;
 
   StoryModel({
 
      this.id,
     required this.cover_photo,
+    required this.story_order,
     required this.auther,
     required this.level,
-    required this.required_star,
+    required this.required_stars,
     required this.name,
      required this.stars,
 
@@ -20,12 +21,13 @@ class StoryModel {
 
 
         id: story['id'],
-        cover_photo: story['coverphoto'],
+        cover_photo: story['cover_photo'],
         auther: story['auther'],
         level: story['level'],
-        required_star: story['required_star'],
+        required_stars: story['required_stars'],
         name: story['name'],
-        stars: story['start']
+        stars: story['stars'],
+        story_order: story['story_order']
 
     );
   }
@@ -38,11 +40,12 @@ class StoryModel {
     return StoryModel(
       id: '',
       name: '',
-      required_star: '',
+      required_stars: '',
       level: '',
       auther: '',
       cover_photo: '',
       stars: '',
+      story_order: '',
 
 
     );
@@ -59,11 +62,12 @@ class StoryModel {
   Map<String, dynamic> toJson() => {
 
     'id': id,
-    'required_star': required_star,
+    'required_stars': required_stars,
     'level': level,
     'auther': auther,
-    'coverphoto': cover_photo,
+    'cover_photo': cover_photo,
     'name': name,
-    'start': stars,
+    'stars': stars,
+    'story_order': story_order,
   };
 }

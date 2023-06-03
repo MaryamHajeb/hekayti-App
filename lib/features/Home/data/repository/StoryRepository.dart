@@ -36,7 +36,7 @@ class StoryRepository extends Repository{
 
 
           List<StoryModel>list =[];
-          List<dynamic> reslet = await db.getAllstory('story','1');
+          List<dynamic> reslet = await db.getAllstory('stories','1');
 
           int? start=0;
           int collected_stars =0;
@@ -45,7 +45,7 @@ class StoryRepository extends Repository{
             start  =await db.getStoryStars('1',element['id']);
             all_stars+=start!;
 
-            collected_stars+= int.parse(element['required_star'].toString());
+            collected_stars+= int.parse(element['required_stars'].toString());
 
 
 
@@ -55,10 +55,12 @@ class StoryRepository extends Repository{
                     cover_photo: element['coverphoto'],
                     auther: element['auther'],
                     level: element['level'],
-                    required_star: element['required_star'],
+                    required_stars: element['required_stars'],
                     name: element['name'],
                     stars: start.toString(),
-                    id: element['id'])
+                    id: element['id'],
+
+                    story_order:element['story_order'] )
             );
             start=0;
           });
@@ -76,7 +78,7 @@ class StoryRepository extends Repository{
 
         getCacheDataFunction: ()async {
           List<StoryModel>list =[];
-          List<dynamic> reslet = await db.getAllstory('story','1');
+          List<dynamic> reslet = await db.getAllstory('stories','1');
 
           int? start=0;
           int collected_stars =0;
@@ -84,7 +86,7 @@ class StoryRepository extends Repository{
           start  =await db.getStoryStars('1',element['id']);
 
 
-          collected_stars+= int.parse(element['required_star'].toString());
+          collected_stars+= int.parse(element['required_stars'].toString());
 
 
 
@@ -95,15 +97,17 @@ class StoryRepository extends Repository{
                     cover_photo: element['coverphoto'],
                     auther: element['auther'],
                     level: element['level'],
-                    required_star: element['required_star'],
+                    required_stars: element['required_stars'],
                     name: element['name'],
                     stars: start.toString(),
-                    id: element['id'])
+                    id: element['id'],
+                    story_order: element['story_order'])
             );
             start=0;
           });
 
           CachedDate('stars',start);
+
           CachedDate('collected_stars',collected_stars);
 
 

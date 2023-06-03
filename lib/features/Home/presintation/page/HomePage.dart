@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                       ontap: () async {
                         setState(() {
                           bgm=!bgm;
-                          FlameAudio.bgm.play('bgm.mp3',volume: 100);
+                          // FlameAudio.bgm.play('bgm.mp3',volume: 100);
 
                         });
                       }),

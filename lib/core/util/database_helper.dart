@@ -75,9 +75,9 @@ Future<int> inser({required dynamic data,required String tableName}) async{
 
  Future<int> getStoryStars(level,id)async{
   Database? dbClient = await  db;
-  List<dynamic> result2 = await dbClient!.rawQuery("SELECT start FROM complation where story_id like '$level-$id' ");
+  List<dynamic> result2 = await dbClient!.rawQuery("SELECT stars FROM completion WHERE story_id =$id ");
   if(result2.isNotEmpty){
-    return result2[0]['start'];
+    return result2[0]['stars'];
   }
   else{
     return 0;
