@@ -15,6 +15,7 @@ import 'features/Home/data/model/StoryMode.dart';
 import 'features/Settings/presintation/page/ChartPage.dart';
 import 'features/Settings/presintation/page/lockPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
+import 'features/introdection/presintation/page/Splach_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 import 'package:flame_audio/flame_audio.dart';
 DatabaseHelper db = new DatabaseHelper();
@@ -76,58 +77,12 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: AppTheme.primarySwatch,
       ),
-      home: islogin ? HomePage():IntroScreen(),
+      home:Splach_screen()
+
+      //islogin ? HomePage():IntroScreen(),
     );
   }
-  void test() async {
-    DatabaseHelper db = new DatabaseHelper();
 
-    //    try {
-    //      var dd = await db.inser(data: StoryModel(cover_photo: 'cover_photo', auther: 'author', level: 1, required_star: '3', name: 'almomyz'), tableName: 'story');
-    //      print('---------------------------------------------------------');
-    //
-    //      print('---------------------------------------------------------');
-    //    }catch(e){
-    //      print(e.toString());
-    //    }
-    //
-    //
-    //    List dd= await db.getAllstory('accuracy');
-    // print('--------------------------------------------');
-    // print(dd.toString());
-    // print('--------------------------------------------');
-    //
-    //    for (int i = 0; i < dd.length; i++) {
-    //      accuracyModel user = accuracyModel.fromJson(dd[i]);
-    //      print('ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
-    //    }
-
-//
-//
-//     var res = await db.getAllstory();
-//     for (int i = 0; i < res.length; i++) {
-//       StoryModel user = StoryModel.fromJson(res[i]);
-//       print('ID: ${user.id} - username: ${user.name} - city: ${user.level}');
-//     }
-    // List myUsers = await db.getAllstory();
-    // for(int i =0 ; i < myUsers!.length;i++){
-    //   MeadiaModel user =   MeadiaModel.fromJson(myUsers[i]);
-    //   print('ID: ${user.id} - page_no: ${user.page_no} - text: ${user.text}');
-    //
-    // }
-
-    //
-    // int? res = await db.inserStory(MeadiaModel(
-    //     story_id: '1',
-    //     id: '14',
-    //     photo: 'photo',
-    //     sound: 'sound',
-    //     text: 'text',
-    //     page_no: '3'));
-    // print(res);
-
-
-  }
 @override
   void initState() {
     // TODO: implement initState
