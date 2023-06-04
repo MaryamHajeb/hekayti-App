@@ -41,7 +41,7 @@ class _Splach_screenState extends State<Splach_screen>
 
     Timer(Duration(seconds: 2), () {
       setState(() {
-        _fontSize = 1.06;
+        _fontSize = 1.4;
       });
     });
 
@@ -78,9 +78,11 @@ class _Splach_screenState extends State<Splach_screen>
             child: Column(
               children: [
                 AnimatedContainer(
+
                     duration: Duration(milliseconds: 2000),
                     curve: Curves.fastLinearToSlowEaseIn,
-                    height: _height / _fontSize
+                    height: _height / _fontSize,
+
                 ),
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 2000),
@@ -88,8 +90,7 @@ class _Splach_screenState extends State<Splach_screen>
                   child: Text(
                     'حكايتي',
                     style: TextStyle(
-
-                      color: Colors.brown,
+                      color: Colors.white,
                       fontFamily: AppTheme.fontFamily,
                       fontSize: animation1!.value,
                     ),
@@ -100,18 +101,19 @@ class _Splach_screenState extends State<Splach_screen>
           ),
           Center(
             child: AnimatedOpacity(
+
               duration: Duration(milliseconds: 2000),
               curve: Curves.fastLinearToSlowEaseIn,
               opacity: _containerOpacity,
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 2000),
                 curve: Curves.fastLinearToSlowEaseIn,
-                height: _width / _containerSize,
-                width: _width / _containerSize,
+                height: 120,
+                width: 120,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white.withOpacity(.8),
+                  borderRadius: BorderRadius.circular(100),
                 ),
                 // child: Image.asset('assets/images/file_name.png')
                 child: CircleAvatar(

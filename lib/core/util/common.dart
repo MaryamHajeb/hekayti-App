@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../dataProviders/local_data_provider.dart';
 import '../../injection_container.dart';
 import '../widgets/CustemButten.dart';
+import '../widgets/CustemButten2.dart';
 import '../widgets/CustomPageRoute.dart';
 import '../widgets/primaryText.dart';
 
@@ -199,7 +200,7 @@ void showImagesDialogWithCancleButten(BuildContext context2, String image,String
                       Navigator.pop(context2);
 
                     }, text: 'نعم',),
-                    CustemButten(ontap: (){
+                    CustemButten2(ontap: (){
                       Navigator.pop(context);
                     }, text: 'لا',),
                   ],

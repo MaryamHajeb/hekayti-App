@@ -92,7 +92,7 @@ class _StoryPageState extends State<StoryPage> {
               builder: (_context, state) {
                 if (state is SliedInitial) {
                   BlocProvider.of<SliedBloc>(_context).add(GetAllSlied(
-                      story_id: widget.id.toString(), tableName: 'meadia'));
+                      story_id: widget.id.toString(), tableName: 'stories_media'));
                 }
 
                 if (state is SliedLoading) {
@@ -209,10 +209,7 @@ class _StoryPageState extends State<StoryPage> {
                                                 screenUtil.screenHeight * .85,
                                             padding: EdgeInsets.only(
                                                 right: 10, left: 10, top: 10),
-                                            child: Image.memory(
-                                              converToBase64(state
-                                                  .SliedModel[index].photo
-                                                  .toString()),
+                                            child: Image.asset(Assets.images.storypages.path,
                                               fit: BoxFit.cover,
                                               height:
                                                   screenUtil.screenHeight * .9,
