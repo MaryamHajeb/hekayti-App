@@ -35,7 +35,25 @@ class StoryRepository extends Repository{
         remoteFunction: () async {
 
 
+         List<StoryModel> remoteData = await remoteDataProvider.sendData(
+              url: DataSourceURL.getAllStory,
+              retrievedDataType: StoryModel.init(),
+              returnType:List,
+              body: {}
+          );
+
+         // print(remoteData);
+         // List<StoryModel> list=remoteData;
+         // list.forEach((element) {
+         //   print(element.name);
+         // });
+        db.checkStoryFound(remoteData);
+         print("remoteData-------------------------------");
+
+
           List<StoryModel>list =[];
+
+
           List<dynamic> reslet = await db.getAllstory('stories','1');
 
           int? start=0;
@@ -50,17 +68,17 @@ class StoryRepository extends Repository{
 
 
             list.add(
-              
+
                 StoryModel(
                     cover_photo: element['coverphoto'],
-                    auther: element['auther'],
+                    author: element['author'],
                     level: element['level'],
                     required_stars: element['required_stars'],
                     name: element['name'],
                     stars: start.toString(),
                     id: element['id'],
 
-                    story_order:element['story_order'] )
+                    story_order:element['story_order'], updated_at: element['updated_at'] )
             );
             start=0;
           });
@@ -68,9 +86,11 @@ class StoryRepository extends Repository{
           CachedDate('collected_stars',collected_stars);
 
           return  list;
-          // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
+          // // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
+          // //
+          // // return remoteData;
           //
-          // return remoteData;
+
         },
 
 
@@ -95,13 +115,15 @@ class StoryRepository extends Repository{
             list.add(
                 StoryModel(
                     cover_photo: element['coverphoto'],
-                    auther: element['auther'],
+                    author: element['author'],
                     level: element['level'],
                     required_stars: element['required_stars'],
                     name: element['name'],
                     stars: start.toString(),
                     id: element['id'],
-                    story_order: element['story_order'])
+                    story_order: element['story_order'],
+
+                    updated_at: element['updated_at'])
             );
             start=0;
           });

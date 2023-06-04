@@ -1,23 +1,23 @@
-class StoryModel {
-  dynamic id, name,cover_photo,author,level,required_stars,stars,story_order,updated_at;
+class WebStoryModel{
+  dynamic id, name,cover_photo,author,level,required_stars,updated_at,story_order;
 
-  StoryModel({
+  WebStoryModel({
 
    required  this.id,
     required this.cover_photo,
-     this.story_order,
+  required  this.story_order,
     required this.updated_at,
     required this.author,
     required this.level,
     required this.required_stars,
     required this.name,
-      this.stars,
+
 
 
     });
 
-  factory StoryModel.fromJson(Map<String, dynamic> story) {
-    return StoryModel(
+  factory WebStoryModel.fromJson(Map<String, dynamic> story) {
+    return WebStoryModel(
 
 
 
@@ -28,18 +28,17 @@ class StoryModel {
         required_stars: story['required_stars'],
         name: story['name'],
         updated_at: story['updated_at'],
-        stars: story['stars'],
-        story_order: story['story_order']
+      story_order: story['story_order'],
 
     );
   }
 
-  StoryModel fromJson(Map<String, dynamic> json) {
-    return StoryModel.fromJson(json);
+  WebStoryModel fromJson(Map<String, dynamic> json) {
+    return WebStoryModel.fromJson(json);
   }
 
-  factory StoryModel.init() {
-    return StoryModel(
+  factory WebStoryModel.init() {
+    return WebStoryModel(
       id: '',
       name: '',
       updated_at: '',
@@ -47,17 +46,17 @@ class StoryModel {
       level: '',
       author: '',
       cover_photo: '',
-      stars: '',
       story_order: '',
+
 
 
     );
   }
 
   fromJsonList(List<dynamic> jsonList) {
-    List<StoryModel> data = [];
+    List<WebStoryModel> data = [];
     jsonList.forEach((post) {
-      data.add(StoryModel.fromJson(post));
+      data.add(WebStoryModel.fromJson(post));
     });
     return data;
   }
@@ -70,8 +69,8 @@ class StoryModel {
     'author': author,
     'cover_photo': cover_photo,
     'name': name,
-    'stars': stars,
-    'story_order': story_order,
     'updated_at': updated_at,
+    'story_order': story_order,
+
   };
 }

@@ -319,7 +319,7 @@ class _StoryPageState extends State<StoryPage> {
                                                             '! ياللأسف         أعد المحاولة مرة أخرى'
                                                                 '');
                                                       }
-                                                      db.inser(
+                                                      db.insert(
                                                           data: accuracyModel(
                                                               media_id: state
                                                                   .SliedModel[
@@ -434,7 +434,7 @@ class _StoryPageState extends State<StoryPage> {
   Future<String> saveAcurrcy(
       dynamic media_id, user_id, accuracy_percentage) async {
     try {
-      await db.inser(
+      await db.insert(
           data: accuracyModel(
               media_id: media_id,
               user_id: user_id,

@@ -172,8 +172,8 @@ class _HomePageState extends State<HomePage> {
                       // //TODO::Show Story here
 
                       insertStory(state);
-                      stars=  getCachedDate('stars',String);
-                      collected_stars= getCachedDate('collected_stars',String);
+                      // stars=  getCachedDate('stars',String);
+                      // collected_stars= getCachedDate('collected_stars',String);
 
 
                       //
@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.only(top:15.0),
                                         child: StoryCard(
                                           name:
-                                          listStory[index]?.name,
+                                          listStory[index]!.name,
                                           starts: int.parse(listStory[index]?.stars),
                                           photo: listStory[index]!.cover_photo
                                               .toString(),
