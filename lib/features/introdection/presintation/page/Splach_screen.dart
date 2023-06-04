@@ -112,7 +112,8 @@ class _Splach_screenState extends State<Splach_screen>
                 width: 120,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.8),
+                  border: Border.all(width: 3,color: Colors.white),
+                  color: Colors.white.withOpacity(.9),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 // child: Image.asset('assets/images/file_name.png')
