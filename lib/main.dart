@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Home/data/model/WebStoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
-import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
+import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,6 +88,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    
+    //  var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: 'level', required_stars: 'required_stars', name: 'name'), tableName: '"stories" ');
+    // var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: 'level', required_stars: 'required_stars', name: 'name'), tableName: '"stories" ');
+    // var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: 'level', required_stars: 'required_stars', name: 'name'), tableName: '"stories" ');
+
+
+
  //
  // var dd=   FlameAudio.bgm.play('bgm.mp3',volume: 100);
 

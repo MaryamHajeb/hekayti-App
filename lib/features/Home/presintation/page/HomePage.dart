@@ -22,7 +22,7 @@ import '../../../../core/widgets/PlayButton.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
-import '../../../Story/date/model/MeadiaModel.dart';
+import '../../../Story/date/model/StoryMediaModel.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
 import '../Widget/StoryCardLock.dart';

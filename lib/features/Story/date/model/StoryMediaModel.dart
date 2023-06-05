@@ -1,36 +1,39 @@
-class MeadiaModel {
-  dynamic id, page_no,story_id,photo,sound,text;
+class StoryMediaModel {
+  dynamic id, page_no,story_id,photo,sound,text,updated_at;
 
-  MeadiaModel({
+  StoryMediaModel({
      this.id,
     required this.story_id,
     required this.photo,
     required this.sound,
     required this.text,
+    required this.updated_at,
     required this.page_no,});
 
-  factory MeadiaModel.fromJson(Map<String, dynamic> meadia) {
-    return MeadiaModel(
+  factory StoryMediaModel.fromJson(Map<String, dynamic> meadia) {
+    return StoryMediaModel(
 
 
 
         id: meadia['id'],
         story_id: meadia['story_id'],
+        updated_at: meadia['updated_at'],
         photo: meadia['photo'],
         sound: meadia['sound'],
         text: meadia['text'],
         page_no: meadia['page_no']);
   }
 
-  MeadiaModel fromJson(Map<String, dynamic> json) {
-    return MeadiaModel.fromJson(json);
+  StoryMediaModel fromJson(Map<String, dynamic> json) {
+    return StoryMediaModel.fromJson(json);
   }
 
-  factory MeadiaModel.init() {
-    return MeadiaModel(
+  factory StoryMediaModel.init() {
+    return StoryMediaModel(
       id: '',
       page_no: '',
       text: '',
+      updated_at: '',
       sound: '',
       photo: '',
       story_id: '',
@@ -40,9 +43,9 @@ class MeadiaModel {
   }
 
   fromJsonList(List<dynamic> jsonList) {
-    List<MeadiaModel> data = [];
+    List<StoryMediaModel> data = [];
     jsonList.forEach((post) {
-      data.add(MeadiaModel.fromJson(post));
+      data.add(StoryMediaModel.fromJson(post));
     });
     return data;
   }
@@ -53,6 +56,7 @@ class MeadiaModel {
     'text': text,
     'sound': sound,
     'photo': photo,
+    'updated_at': updated_at,
     'story_id': story_id,
     'page_no': page_no};
 }

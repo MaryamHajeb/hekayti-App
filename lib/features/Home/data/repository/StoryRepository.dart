@@ -8,10 +8,12 @@ import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
 
+
 import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/exceptions.dart';
 import '../../../../dataProviders/error/failures.dart';
+import '../../../Story/date/model/StoryMediaModel.dart';
 import '../model/StoryMode.dart';
 
 class StoryRepository extends Repository{
@@ -35,19 +37,32 @@ class StoryRepository extends Repository{
         remoteFunction: () async {
 
 
-         List<StoryModel> remoteData = await remoteDataProvider.sendData(
+         List<StoryModel> remoteData_story = await remoteDataProvider.sendData(
               url: DataSourceURL.getAllStory,
               retrievedDataType: StoryModel.init(),
               returnType:List,
               body: {}
           );
+         
+         
+         List<StoryMediaModel> remoteData_storyMedia = await remoteDataProvider.sendData(
+              url: DataSourceURL.getAllmedia,
+              retrievedDataType: StoryMediaModel.init(),
+              returnType:List,
+              body: {}
+          );
+         
+         
 
          // print(remoteData);
          // List<StoryModel> list=remoteData;
          // list.forEach((element) {
          //   print(element.name);
          // });
-        db.checkStoryFound(remoteData);
+         db.checkStoryFound(remoteData_story);
+         db.checkMediaFound(remoteData_storyMedia);
+
+
          print("remoteData-------------------------------");
 
 

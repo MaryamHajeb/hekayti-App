@@ -6,7 +6,7 @@ import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:hikayati_app/features/Story/date/model/MeadiaModel.dart';
+import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
 
 
 import '../../../../core/util/database_helper.dart';
@@ -37,9 +37,9 @@ class ReportRepository extends Repository{
 
         remoteFunction: () async {
           List<dynamic> reslet = await db.getAllstory(tableName, story_id);
-          List<MeadiaModel> list=[] ;
+          List<StoryMediaModel> list=[] ;
           reslet.forEach((element) {
-            MeadiaModel story = MeadiaModel.fromJson(element);
+            StoryMediaModel story = StoryMediaModel.fromJson(element);
             list.add(story);
           });
 
@@ -49,9 +49,9 @@ class ReportRepository extends Repository{
 
         getCacheDataFunction: () async{
           List<dynamic> reslet = await db.getAllstory(tableName, story_id);
-          List<MeadiaModel> list=[] ;
+          List<StoryMediaModel> list=[] ;
           reslet.forEach((element) {
-            MeadiaModel story = MeadiaModel.fromJson(element);
+            StoryMediaModel story = StoryMediaModel.fromJson(element);
             list.add(story);
           });
 

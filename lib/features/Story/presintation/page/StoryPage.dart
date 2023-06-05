@@ -316,19 +316,18 @@ class _StoryPageState extends State<StoryPage> {
                                                             '! ياللأسف         أعد المحاولة مرة أخرى'
                                                                 '');
                                                       }
-                                                      db.insert(
-                                                          data: accuracyModel(
-                                                              media_id: state
-                                                                  .SliedModel[
-                                                                      currentIndexPage]
-                                                                  .id,
-                                                              user_id:
-                                                                  'almomyz@gami',
-                                                              accuracy_percentage:
-                                                                  rendom),
-                                                          tableName:
-                                                              'accuracy');
-                                                      ;
+                                                      // db.insert(
+                                                      //     data: accuracyModel(
+                                                      //         media_id: state
+                                                      //             .SliedModel[
+                                                      //                 currentIndexPage]
+                                                      //             .id,
+                                                      //         user_id:
+                                                      //             'almomyz@gami',
+                                                      //         accuracy_percentage:
+                                                      //             rendom),
+                                                      //     tableName:
+                                                      //         'accuracy');
                                                     },
                                                     child: Image.asset(
                                                       color: AppTheme
@@ -428,36 +427,37 @@ class _StoryPageState extends State<StoryPage> {
     Carecters_id = getCachedDate('Carecters', String);
   }
 
-  Future<String> saveAcurrcy(
-      dynamic media_id, user_id, accuracy_percentage) async {
-    try {
-      await db.insert(
-          data: accuracyModel(
-              media_id: media_id,
-              user_id: user_id,
-              accuracy_percentage: accuracy_percentage),
-          tableName: 'accuracy');
-      print('---------------------------------------------------------');
-
-      print('---------------------------------------------------------');
-    } catch (e) {
-      print(e.toString());
-    }
-    return db.toString();
-  }
-
-  getaccurac() async {
-    List dd = await db.getAllstory('accuracy', '1');
-    print('--------------------------------------------');
-    print(dd.toString());
-    print('--------------------------------------------');
-
-    for (int i = 0; i < dd.length; i++) {
-      accuracyModel user = accuracyModel.fromJson(dd[i]);
-      print(
-          'ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
-    }
-  }
+//  Future<String> saveAcurrcy(
+  //     dynamic media_id, user_id, accuracy_percentage) async {
+  //   try {
+  //     await db.insert(
+  //         data: accuracyModel(
+  //           accuracy_stars: ,
+  //             media_id: media_id,
+  //             user_id: user_id,
+  //             accuracy_percentage: accuracy_percentage),
+  //         tableName: 'accuracy');
+  //     print('---------------------------------------------------------');
+  //
+  //     print('---------------------------------------------------------');
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  //   return db.toString();
+  // }
+  //
+  // getaccurac() async {
+  //   List dd = await db.getAllstory('accuracy', '1');
+  //   print('--------------------------------------------');
+  //   print(dd.toString());
+  //   print('--------------------------------------------');
+  //
+  //   for (int i = 0; i < dd.length; i++) {
+  //     accuracyModel user = accuracyModel.fromJson(dd[i]);
+  //     print(
+  //         'ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
+  //   }
+  // }
 
   _init() async {
     try {

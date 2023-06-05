@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../date/model/MeadiaModel.dart';
+import '../../date/model/StoryMediaModel.dart';
 import '../../../Home/data/model/StoryMode.dart';
 
 abstract class ReportState extends Equatable {
@@ -20,7 +20,7 @@ class ReportLoading extends ReportState {
 
 class ReportILoaded extends ReportState {
 
-  List<MeadiaModel> ReportModel;
+  List<StoryMediaModel> ReportModel;
   ReportILoaded({required this.ReportModel});
 
   @override
