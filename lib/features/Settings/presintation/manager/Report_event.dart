@@ -6,10 +6,10 @@ abstract class ReportEvent extends Equatable {
 }
 
 class GetAllReport extends ReportEvent {
-  String story_id,tableName;
 
 
-  GetAllReport({required this.story_id,required this.tableName});
+
+  GetAllReport();
 
   @override
   List<Object> get props => [];

@@ -78,12 +78,12 @@ class _SettingPageState extends State<SettingPage> {
                           width: double.infinity,
                           height: screenUtil.screenHeight *.8,
                           child: TabBarView(children: [
-                            Expanded(child: SettingTapbarpage()),
+                            SettingTapbarpage(),
                             Column(
                               children: [
                                 Visibility(
                                     visible: visible,
-                                    replacement:Expanded(child: ChartPage()) ,
+                                    replacement:ChartPage() ,
                                     child: InkWell(
                                         onTap: (){
                                           setState(() {
@@ -91,7 +91,7 @@ class _SettingPageState extends State<SettingPage> {
 
                                           });
                                         },
-                                        child: Expanded(child: ReportTapbarPage()))),
+                                        child: ReportTapbarPage())),
 
                               ],
                             )

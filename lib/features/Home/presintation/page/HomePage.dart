@@ -150,97 +150,97 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: 10),
-              BlocProvider(
-                create: (context) => sl<StoryBloc>(),
-                child: BlocConsumer<StoryBloc, StoryState>(
-                  listener: (_context, state) {
-                    if (state is StoryError) {
-                      print(state.errorMessage);
-                    }
-                  },
-                  builder: (_context, state) {
-                    if (state is StoryInitial) {
-                      BlocProvider.of<StoryBloc>(_context)
-                          .add(GetAllStory(token: ''));
-                    }
+                BlocProvider(
+                  create: (context) => sl<StoryBloc>(),
+                  child: BlocConsumer<StoryBloc, StoryState>(
+                    listener: (_context, state) {
+                      if (state is StoryError) {
+                        print(state.errorMessage);
+                      }
+                    },
+                    builder: (_context, state) {
+                      if (state is StoryInitial) {
+                        BlocProvider.of<StoryBloc>(_context)
+                            .add(GetAllStory(token: ''));
+                      }
 
-                    if (state is StoryLoading) {
-                      StoryWidget = CircularProgressIndicator();
-                    }
+                      if (state is StoryLoading) {
+                        StoryWidget = CircularProgressIndicator();
+                      }
 
-                    if (state is StoryILoaded) {
-                      // //TODO::Show Story here
+                      if (state is StoryILoaded) {
+                        // //TODO::Show Story here
 
-                      insertStory(state);
-                      // stars=  getCachedDate('stars',String);
-                      // collected_stars= getCachedDate('collected_stars',String);
-
-
-                      //
-                      // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
+                        insertStory(state);
+                        // stars=  getCachedDate('stars',String);
+                        // collected_stars= getCachedDate('collected_stars',String);
 
 
-                      // print('-------block--------------------------------------');
-                      // print(listStoryWithSearch.length);
-                      StoryWidget = Container(
-                        height: screenUtil.screenHeight * .8,
-                        width: double.infinity,
-                        child: listStory.length > 0
-                            ? GridView.builder(
-                          shrinkWrap: true,
-                                itemCount: listStory.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                       mainAxisSpacing: 20
+                        //
+                        // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
 
-                                    ),
-                                itemBuilder: (context, index) {
-                                  return int.parse(listStory[index]?.stars) ==0 ?
-                                  InkWell(
-                                      onTap: () {
-                                        showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top:15.0),
-                                        child: StoryCardLock(
-                                          name:
-                                          listStory[index]?.name,
-                                          starts: int.parse(listStory[index]?.stars),
-                                          photo: listStory[index]!.cover_photo
-                                              .toString(),
-                                        ),
-                                      )):
 
-                                  InkWell(
-                                      onTap: () {
-                                        // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                        // print('-------block--------------------------------------');
+                        // print(listStoryWithSearch.length);
+                        StoryWidget = Container(
+                          height: screenUtil.screenHeight * .8,
+                          width: double.infinity,
+                          child: listStory.length > 0
+                              ? GridView.builder(
+                            shrinkWrap: true,
+                                  itemCount: listStory.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                         mainAxisSpacing: 20
 
-                                        Navigator.push(
-                                            context,
-                                            CustomPageRoute(
-                                                child: StoryPage(id:listStory[index]?.id ,)));
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top:15.0),
-                                        child: StoryCard(
-                                          name:
-                                          listStory[index]!.name,
-                                          starts: int.parse(listStory[index]?.stars),
-                                          photo: listStory[index]!.cover_photo
-                                              .toString(),
-                                        ),
-                                      ));
-                                },
-                              )
-                            : Center(child: Text('القائمه فارغه',style: AppTheme.textTheme.headline2,)),
-                      );
-                    }
+                                      ),
+                                  itemBuilder: (context, index) {
+                                    return int.parse(listStory[index]?.stars) ==0 ?
+                                    InkWell(
+                                        onTap: () {
+                                          showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top:15.0),
+                                          child: StoryCardLock(
+                                            name:
+                                            listStory[index]?.name,
+                                            starts: int.parse(listStory[index]?.stars),
+                                            photo: listStory[index]!.cover_photo
+                                                .toString(),
+                                          ),
+                                        )):
 
-                    return StoryWidget;
-                  },
-                ),
-              )
+                                    InkWell(
+                                        onTap: () {
+                                          // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                          Navigator.push(
+                                              context,
+                                              CustomPageRoute(
+                                                  child: StoryPage(id:listStory[index]?.id ,)));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top:15.0),
+                                          child: StoryCard(
+                                            name:
+                                            listStory[index]!.name,
+                                            starts: int.parse(listStory[index]?.stars),
+                                            photo: listStory[index]!.cover_photo
+                                                .toString(),
+                                          ),
+                                        ));
+                                  },
+                                )
+                              : Center(child: Text('القائمه فارغه',style: AppTheme.textTheme.headline2,)),
+                        );
+                      }
+
+                      return StoryWidget;
+                    },
+                  ),
+                )
             ]),
       ),
         ),

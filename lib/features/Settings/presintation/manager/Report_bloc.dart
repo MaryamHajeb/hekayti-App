@@ -22,7 +22,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
     if(event is GetAllReport){
       yield ReportLoading();
-      final failureOrData = await repository.getAllReport(story_id: event.story_id,tableName: event.tableName);
+      final failureOrData = await repository.getAllReport();
       yield* failureOrData.fold(
             (failure) async* {
           log('yield is error');
@@ -30,7 +30,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         },
             (data) async* {
           log('yield is loaded');
-          yield ReportILoaded(ReportModel: data);
+          yield ReportILoaded(reportModel: data);
         },
       );
     }

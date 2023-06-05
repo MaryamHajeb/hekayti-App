@@ -6,7 +6,6 @@ import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:hikayati_app/features/Settings/date/model/ReportModel.dart';
 import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
 
 
@@ -16,14 +15,14 @@ import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../Home/data/model/StoryMode.dart';
 
 
-class ReportRepository extends Repository{
+class chartRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
   DatabaseHelper db = new DatabaseHelper();
 
 
-  ReportRepository({
+  chartRepository({
 
     required this.remoteDataProvider,
     required this.localDataProvider,
@@ -31,16 +30,16 @@ class ReportRepository extends Repository{
   });
 
 
-  Future<Either<Failure, dynamic>> getAllReport() async {
+  Future<Either<Failure, dynamic>> getAllchart({required String story_id,required String tableName}) async {
     return await sendRequest(
 
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          List<dynamic> reslet = await db.getReport();
-          List<ReportModel> list=[] ;
+          List<dynamic> reslet = await db.getAllstory(tableName, story_id);
+          List<StoryMediaModel> list=[] ;
           reslet.forEach((element) {
-            ReportModel story = ReportModel.fromJson(element);
+            StoryMediaModel story = StoryMediaModel.fromJson(element);
             list.add(story);
           });
 
@@ -49,10 +48,10 @@ class ReportRepository extends Repository{
         },
 
         getCacheDataFunction: () async{
-          List<dynamic> reslet = await db.getReport();
-          List<ReportModel> list=[] ;
+          List<dynamic> reslet = await db.getAllstory(tableName, story_id);
+          List<StoryMediaModel> list=[] ;
           reslet.forEach((element) {
-            ReportModel story = ReportModel.fromJson(element);
+            StoryMediaModel story = StoryMediaModel.fromJson(element);
             list.add(story);
           });
 

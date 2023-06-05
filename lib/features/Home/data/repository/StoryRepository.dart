@@ -36,22 +36,22 @@ class StoryRepository extends Repository{
 
         remoteFunction: () async {
 
-
-         List<StoryModel> remoteData_story = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllStory,
-              retrievedDataType: StoryModel.init(),
-              returnType:List,
-              body: {}
-          );
-         
-         
-         List<StoryMediaModel> remoteData_storyMedia = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllmedia,
-              retrievedDataType: StoryMediaModel.init(),
-              returnType:List,
-              body: {}
-          );
-         
+         //
+         // List<StoryModel> remoteData_story = await remoteDataProvider.sendData(
+         //      url: DataSourceURL.getAllStory,
+         //      retrievedDataType: StoryModel.init(),
+         //      returnType:List,
+         //      body: {}
+         //  );
+         //
+         //
+         // List<StoryMediaModel> remoteData_storyMedia = await remoteDataProvider.sendData(
+         //      url: DataSourceURL.getAllmedia,
+         //      retrievedDataType: StoryMediaModel.init(),
+         //      returnType:List,
+         //      body: {}
+         //  );
+         //
          
 
          // print(remoteData);
@@ -59,8 +59,8 @@ class StoryRepository extends Repository{
          // list.forEach((element) {
          //   print(element.name);
          // });
-         db.checkStoryFound(remoteData_story);
-         db.checkMediaFound(remoteData_storyMedia);
+         // db.checkStoryFound(remoteData_story);
+         // db.checkMediaFound(remoteData_storyMedia);
 
 
          print("remoteData-------------------------------");
@@ -71,36 +71,8 @@ class StoryRepository extends Repository{
 
           List<dynamic> reslet = await db.getAllstory('stories','1');
 
-          int? start=0;
-          int collected_stars =0;
-          int all_stars =0;
-          reslet.forEach((element) async{
-            start  =await db.getStoryStars('1',element['id']);
-            all_stars+=start!;
 
-            collected_stars+= int.parse(element['required_stars'].toString());
-
-
-
-            list.add(
-
-                StoryModel(
-                    cover_photo: element['coverphoto'],
-                    author: element['author'],
-                    level: element['level'],
-                    required_stars: element['required_stars'],
-                    name: element['name'],
-                    stars: start.toString(),
-                    id: element['id'],
-
-                    story_order:element['story_order'], updated_at: element['updated_at'] )
-            );
-            start=0;
-          });
-          CachedDate('stars',start);
-          CachedDate('collected_stars',collected_stars);
-
-          return  list;
+          return await  getStars(reslet, list);
           // // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
           // //
           // // return remoteData;
@@ -153,7 +125,37 @@ class StoryRepository extends Repository{
         });
   }
 
+  getStars(reslet,list)async{
+    int? start=0;
+    int collected_stars =0;
+    int all_stars =0;
+    reslet.forEach((element) async{
+      start  =await db.getStoryStars('1',element['id']);
+      all_stars+=start!;
 
+      collected_stars+= int.parse(element['required_stars'].toString());
+
+
+
+      list.add(
+
+          StoryModel(
+              cover_photo: element['coverphoto'],
+              author: element['author'],
+              level: element['level'],
+              required_stars: element['required_stars'],
+              name: element['name'],
+              stars: start.toString(),
+              id: element['id'],
+
+              story_order:element['story_order'], updated_at: element['updated_at'] )
+      );
+      start=0;
+    });
+    CachedDate('stars',start);
+    CachedDate('collected_stars',collected_stars);
+  return list;
+  }
 
 
 

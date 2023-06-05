@@ -109,6 +109,7 @@ CREATE TABLE "completion" (
 	"stars"	INTEGER,
 	"story_id"	INTEGER,
 	"updated_at"	TEXT,
+	"percentage"	TEXT,
 	FOREIGN KEY("story_id") REFERENCES "stories"("id") ON DELETE CASCADE,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
@@ -117,7 +118,11 @@ CREATE TABLE "completion" (
      );
   }
 
-
+getReport()async{
+  var dbClient = await  db;
+  List<dynamic> result = await dbClient!.rawQuery('SELECT stories.*,completion.stars,completion.percentage from stories JOIN completion on stories.id==completion.story_id');
+return result.toList();
+  }
 
 Future<int> insert({required dynamic data,required String tableName}) async{
     var dbClient = await  db;

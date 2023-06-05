@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../injection_container.dart';
+import '../manager/Report_bloc.dart';
+import '../manager/Report_event.dart';
+import '../manager/Report_state.dart';
 import 'ReportCard.dart';
 
 class ReportTapbarPage extends StatefulWidget {
@@ -14,24 +19,54 @@ class ReportTapbarPage extends StatefulWidget {
 class _ReportTapbarPageState extends State<ReportTapbarPage> {
   TextEditingController nameChiled =TextEditingController();
   ScreenUtil screenUtil=ScreenUtil();
-
+ Widget ReportWidget=Center();
   @override
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    return Column(
-      children: [
-        Text('المستوى الأول :',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-        Divider(color: AppTheme.primaryColor,),
-        Container(
-          height: screenUtil.screenHeight * .7 ,
-          width: double.infinity,
-          child: ListView.builder(itemCount: 20,itemBuilder: (context, index) {
-             return ReportCard();
-          },),
-        )
-      ],
+    return BlocProvider(
+      create: (context) => sl<ReportBloc>(),
+      child: BlocConsumer<ReportBloc, ReportState>(
+        listener: (_context, state) {
+          if (state is ReportError) {
+            print(state.errorMessage);
+          }
+        },
+        builder: (_context, state) {
+          if (state is ReportInitial) {
+            BlocProvider.of<ReportBloc>(_context)
+                .add(GetAllReport());
+          }
+
+          if (state is ReportLoading) {
+            ReportWidget = CircularProgressIndicator();
+          }
+
+          if (state is ReportILoaded) {
+            // //TODO::Show Report here
+            ReportWidget = Column(
+              children: [
+                Divider(color: AppTheme.primaryColor,),
+                Container(
+                  height: screenUtil.screenHeight * .7 ,
+                  width: double.infinity,
+                  child: ListView.builder(itemCount: state.reportModel.length,itemBuilder: (context, index) {
+                    return ReportCard(cover_photo: state.reportModel[index].cover_photo
+                      ,name: state.reportModel[index].name,
+                      percentage: state.reportModel[index].percentage,
+                      stars: state.reportModel[index].stars,
+
+                    );
+                  },),
+                )
+              ],
+            );
+          }
+
+          return ReportWidget;
+        },
+      ),
     );
   }
 }
