@@ -38,10 +38,9 @@ class StoryRepository extends Repository{
         remoteFunction: () async {
 
 
-        await  db.uploadAccuracy('1');
 
          //
-         // //
+         //
          // var remoteData_accruacy = await remoteDataProvider.sendData(
          //      url: DataSourceURL.getAllaccuracy,
          //      retrievedDataType: accuracyModel.init(),
@@ -54,25 +53,28 @@ class StoryRepository extends Repository{
          // print(remoteData_accruacy);
          // db.checkAccuracyFound(remoteData_accruacy);
 
+          //
+          //  List<dynamic>  dd=await   db.uploadAccuracy('1');
+          //  dd.forEach((element) {
+          //
+          //    print(element);
+          //  });
 
-           List<dynamic>  dd=await   db.uploadAccuracy('1');
 
-          dd.forEach((element)async {
           var upload_accuracy = await remoteDataProvider.sendData(
               url: DataSourceURL.upload_accuracy,
-              retrievedDataType:  accuracyModel.init(),
-              returnType:List,
+              retrievedDataType: String,
+              returnType:String,
               body:{
-                'user_id': 1,
-                'updated_at': element['updated_at'],
-                'readed_text': element['readed_text'],
-                'media_id': element['media_id'],
-                'accuracy_stars':element['accuracy_stars']
+                'user_id': '1',
+                'updated_at': 'updated_at',
+                'readed_text':'readed_text',
+                'media_id': '1',
+                'accuracy_stars':'2'
               }
           );
           print(upload_accuracy+'kkkkk');
 
-          });
 
 
          // List<StoryModel> list=remoteData;
@@ -82,22 +84,23 @@ class StoryRepository extends Repository{
          // db.checkStoryFound(remoteData_story);
          // db.checkMediaFound(remoteData_storyMedia);
 
-
-         print("remoteData-------------------------------");
-
-
-          List<StoryModel>list =[];
-
-
+         //
+         // print("remoteData-------------------------------");
+         //
+         //
+         //  List<StoryModel>list =[];
+         //
+         //
           List<dynamic> reslet = await db.getAllstory('stories','1');
-
-
-          return await  getStars(reslet, list);
+         //
+         //
+         //  return await  getStars(reslet, list);
           // // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
           // //
           // // return remoteData;
           //
 
+         return reslet;
         },
 
 
