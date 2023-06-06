@@ -9,6 +9,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
+import '../../dataProviders/remote_data_provider.dart';
 import '../../features/Home/data/model/StoryMode.dart';
 import '../../features/Home/data/model/WebStoryMode.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
@@ -19,7 +20,7 @@ class DatabaseHelper{
    Database? _db ;
    var path;
 String TableName='meadia';
-  
+ RemoteDataProvider? remoteDataProvider;
   Future<Database?> get db async{
     if(_db != null){
       return _db;
@@ -285,7 +286,6 @@ Future<int> update({required  data,required String tableName,required String whe
 
   }
 
-
   checkMediaFound(List<StoryMediaModel> data)async{
 
     data.forEach((element) async{
@@ -330,11 +330,16 @@ Future<int> update({required  data,required String tableName,required String whe
       if(await localdata!=null){
         // print(element.updated_at);
         // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
-        if( checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())==1){
+        if( checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
           update(data:
-          accuracyModel(media_id: element.media_id, readed_text: element.readed_text, accuracy_stars: element.accuracy_stars, updated_at: element.updated_at),
+          accuracyModel(
+              id: localdata[0]['id'],
+              media_id: element.media_id,
+              readed_text: element.readed_text,
+              accuracy_stars: element.accuracy_stars,
+              updated_at: element.updated_at),
               tableName: 'accuracy',
-              where: 'id=${element.id}'
+              where: 'id=${localdata[0]['id']}'
 
           );
 
@@ -356,19 +361,44 @@ Future<int> update({required  data,required String tableName,required String whe
     });
 
   }
+  uploadAccuracy(String user_id)async{
+    Database? dbClient = await  db;
+    var sql = "SELECT * FROM accuracy";
+     List<dynamic> res=     await dbClient!.rawQuery(sql);
+     List<dynamic> res2=[];
+
+     res.forEach((element) {
+       res2.add(
+           {
+             'user_id': user_id,
+             'updated_at': element['updated_at'],
+             'readed_text': 'jjjj',
+             'media_id': element['media_id'],
+             'accuracy_stars': element['accuracy_stars']
+           }
+       );
+
+     });
+
+
+
+
+print(res2);
+
+return res2;
+  }
+
   // checkCompletionFound(List<StoryMediaModel> data)async{
   //
   //   data.forEach((element) async{
-  //     dynamic localdata=await foundRecord(element.id,'completion');
+  //     dynamic localdata=await foundRecord('story_id',element.story_id,'completion');
   //
   //     if(await localdata!=null){
   //       // print(element.updated_at);
   //       // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
-  //       if(      checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
-  //
-  //
+  //       if(checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
   //         update(data:
-  //         StoryMediaModel(id:element.id,story_id: element.id, photo: element.photo, sound: element.sound, text: element.text, updated_at: element.updated_at, page_no: element.page_no),
+  //         CompletionModel(),
   //             tableName: 'completion',
   //             where: 'id=${element.id}'
   //
@@ -380,7 +410,7 @@ Future<int> update({required  data,required String tableName,required String whe
   //     }else{
   //       insert(tableName: 'completion',data:
   //
-  //       StoryMediaModel(story_id: element.id, photo: element.photo, sound: element.sound, text: element.text, updated_at: element.updated_at, page_no: element.page_no),
+  //       CompletionModel(),
   //
   //
   //
@@ -392,7 +422,7 @@ Future<int> update({required  data,required String tableName,required String whe
   //   });
   //
   // }
-
+  //
 
 
 

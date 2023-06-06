@@ -89,9 +89,9 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     
-     var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY1'), tableName: '"stories" ');
-    var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
-    var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
+    //  var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY1'), tableName: '"stories" ');
+    // var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
+    // var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
 
 
 // db.insert(data: {

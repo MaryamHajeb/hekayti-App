@@ -16,7 +16,7 @@ class accuracyModel {
 
         id: accuracy['id'],
         media_id: accuracy['media_id'],
-        readed_text: accuracy['photo'],
+        readed_text: accuracy['readed_text'],
 
         accuracy_stars: accuracy['accuracy_stars'],
         updated_at: accuracy['updated_at'],
@@ -51,5 +51,7 @@ class accuracyModel {
     'updated_at':updated_at,
     'readed_text': readed_text,
     'media_id': media_id,
-    'accuracy_stars': accuracy_stars};
+    'accuracy_stars': accuracy_stars
+
+  };
 }

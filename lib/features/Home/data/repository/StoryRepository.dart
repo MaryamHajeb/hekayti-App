@@ -6,6 +6,7 @@ import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 
 
 
@@ -36,25 +37,44 @@ class StoryRepository extends Repository{
 
         remoteFunction: () async {
 
-         //
-         // List<StoryModel> remoteData_story = await remoteDataProvider.sendData(
-         //      url: DataSourceURL.getAllStory,
-         //      retrievedDataType: StoryModel.init(),
-         //      returnType:List,
-         //      body: {}
-         //  );
-         //
-         //
-         // List<StoryMediaModel> remoteData_storyMedia = await remoteDataProvider.sendData(
-         //      url: DataSourceURL.getAllmedia,
-         //      retrievedDataType: StoryMediaModel.init(),
-         //      returnType:List,
-         //      body: {}
-         //  );
-         //
-         
 
-         // print(remoteData);
+        await  db.uploadAccuracy('1');
+
+         //
+         // //
+         // var remoteData_accruacy = await remoteDataProvider.sendData(
+         //      url: DataSourceURL.getAllaccuracy,
+         //      retrievedDataType: accuracyModel.init(),
+         //      returnType:List,
+         //      body: {
+         //        'id':'1'
+         //      }
+         //  );
+         //
+         // print(remoteData_accruacy);
+         // db.checkAccuracyFound(remoteData_accruacy);
+
+
+           List<dynamic>  dd=await   db.uploadAccuracy('1');
+
+          dd.forEach((element)async {
+          var upload_accuracy = await remoteDataProvider.sendData(
+              url: DataSourceURL.upload_accuracy,
+              retrievedDataType:  accuracyModel.init(),
+              returnType:List,
+              body:{
+                'user_id': 1,
+                'updated_at': element['updated_at'],
+                'readed_text': element['readed_text'],
+                'media_id': element['media_id'],
+                'accuracy_stars':element['accuracy_stars']
+              }
+          );
+          print(upload_accuracy+'kkkkk');
+
+          });
+
+
          // List<StoryModel> list=remoteData;
          // list.forEach((element) {
          //   print(element.name);
