@@ -7,6 +7,7 @@ import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/util/common.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../model/userMode.dart';
 
@@ -28,11 +29,15 @@ class RegistrationRepository extends Repository {
         remoteFunction: () async {
           final remoteData = await remoteDataProvider.sendData(
               url: DataSourceURL.signup,
-              retrievedDataType: String,
-              returnType: String,
+              retrievedDataType: int,
+              returnType: int,
               body: {
                 'password': password,
                 'email': email,
+                'character': '${getCachedDate('Carecters', String)}',
+                'level': '${getCachedDate('level',String)}',
+                'user_name': getCachedDate('nameChlied',String),
+
               });
 
           return remoteData;

@@ -1,18 +1,24 @@
 class UserModel {
-  dynamic id, userName, email, token;
+  dynamic id, user_name, email, level,character;
 
   UserModel(
       {
-      required this.userName,
+      required this.user_name,
       required this.email,
-      required this.token});
+      required this.level,
+      required this.character,
+      required this.id
+
+      });
 
   factory UserModel.fromJson(Map<String, dynamic> category) {
     return UserModel(
 
-      userName: category['userName'],
+      user_name: category['user_name'],
       email: category['email'],
-      token: category['token'],
+      level: category['level'],
+      character: category['character'],
+      id: category['id'],
     );
   }
 
@@ -23,9 +29,11 @@ class UserModel {
   factory UserModel.init() {
     return UserModel(
 
-      userName: '',
+      user_name: '',
       email: '',
-      token: '',
+      character: '',
+      id: '',
+      level: '',
     );
   }
 
@@ -39,8 +47,9 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'userName': userName,
+        'user_name': user_name,
         'email': email,
-        'token': token,
+        'level': level,
+        'character': character,
       };
 }

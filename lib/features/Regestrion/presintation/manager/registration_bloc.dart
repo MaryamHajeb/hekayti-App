@@ -39,7 +39,6 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     if (event is Signup) {
       yield RegistrationLoading();
       final failureOrData = await repository.signup(
-
           password: event.password,
           email: event.email);
       yield* failureOrData.fold(
