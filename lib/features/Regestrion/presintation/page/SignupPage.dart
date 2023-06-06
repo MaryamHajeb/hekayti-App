@@ -212,9 +212,12 @@ TextEditingController CofemPassword = TextEditingController();
                             ),
                             CustemButten(ontap: (){
 
-                              Navigator.push(
-                                  context,
-                                  CustomPageRoute(  child:   HomePage()));
+                              BlocProvider.of<RegistrationBloc>(_context).add(
+                                Signup(
+                                  email: email.text.toString(),
+                                  password: password.text,
+                                ),
+                              );
                             },text: 'إنشاء',),
                             SizedBox(height: 30,),
 
