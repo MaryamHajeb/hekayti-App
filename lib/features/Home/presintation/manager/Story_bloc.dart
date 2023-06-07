@@ -15,6 +15,8 @@ part 'Story_state.dart';
 class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
   final StoryRepository repository;
+
+
   StoryBloc({required this.repository})
       : assert(repository != null),
         super(StoryInitial());

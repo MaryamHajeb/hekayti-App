@@ -11,14 +11,14 @@ class UserModel {
 
       });
 
-  factory UserModel.fromJson(Map<String, dynamic> category) {
+  factory UserModel.fromJson(Map<String, dynamic> user) {
     return UserModel(
 
-      user_name: category['user_name'],
-      email: category['email'],
-      level: category['level'],
-      character: category['character'],
-      id: category['id'],
+      user_name: user['user_name'],
+      email: user['email'],
+      level: user['level'],
+      character: user['character'],
+      id: user['id'],
     );
   }
 

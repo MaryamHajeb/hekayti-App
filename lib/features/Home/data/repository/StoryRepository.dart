@@ -38,7 +38,9 @@ class StoryRepository extends Repository{
         remoteFunction: () async {
 
 
-
+          db.addAccuracy(accuracyModel(media_id: '11', readed_text: 'jjjj', accuracy_stars: '2', updated_at: '20-05-2022'));
+          
+          
          //
          //
          // var remoteData_accruacy = await remoteDataProvider.sendData(
@@ -53,23 +55,25 @@ class StoryRepository extends Repository{
          // print(remoteData_accruacy);
          // db.checkAccuracyFound(remoteData_accruacy);
 
-
-           List<dynamic>  dd=await   db.uploadAccuracy('1');
-           dd.forEach((element) async{
-             var upload_accuracy = await remoteDataProvider.sendData(
-                 url: DataSourceURL.upload_accuracy,
-                 retrievedDataType: String,
-                 returnType:String,
-                 body:{
-                   'user_id': '1',
-                   'updated_at': 'updated_at',
-                   'readed_text':'readed_text',
-                   'media_id': '1',
-                   'accuracy_stars':'2'
-                 }
-             );
-           });
-
+          // try {
+          //   List<dynamic> dd = await db.uploadAccuracy('1');
+          //   dd.forEach((element) async {
+          //     var upload_accuracy = await remoteDataProvider.sendData(
+          //         url: DataSourceURL.upload_accuracy,
+          //         retrievedDataType: String,
+          //         returnType: String,
+          //         body: {
+          //           'user_id': '1',
+          //           'updated_at': 'updated_at',
+          //           'readed_text':'readed_text',
+          //           'media_id': '1',
+          //           'accuracy_stars':'2'
+          //         }
+          //     );
+          //   });
+          // }catch(e){
+          //   print(e.toString());
+          // }
 
 
           // print(upload_accuracy+'kkkkk');
@@ -90,7 +94,7 @@ class StoryRepository extends Repository{
          //  List<StoryModel>list =[];
          //
          //
-          List<dynamic> reslet = await db.getAllstory('stories','1');
+         //  List<dynamic> reslet = await db.getAllstory('stories','1');
          //
          //
          //  return await  getStars(reslet, list);
@@ -99,7 +103,7 @@ class StoryRepository extends Repository{
           // // return remoteData;
           //
 
-         return reslet;
+         // return reslet;
         },
 
 

@@ -9,9 +9,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
+import '../../dataProviders/network/data_source_url.dart';
 import '../../dataProviders/remote_data_provider.dart';
 import '../../features/Home/data/model/StoryMode.dart';
 import '../../features/Home/data/model/WebStoryMode.dart';
+import '../../features/Home/data/repository/StoryRepository.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../gen/assets.gen.dart';
 
@@ -19,8 +21,9 @@ import '../../gen/assets.gen.dart';
 class DatabaseHelper{
    Database? _db ;
    var path;
+
 String TableName='meadia';
- RemoteDataProvider? remoteDataProvider;
+    StoryRepository? dd;
   Future<Database?> get db async{
     if(_db != null){
       return _db;
@@ -323,6 +326,8 @@ Future<int> update({required  data,required String tableName,required String whe
 
   }
 
+
+  //GET DATA ACCURACY FROM REMOTE DATABASE INSERTED OR UPDATE
   checkAccuracyFound(List<accuracyModel> data)async{
 
     data.forEach((element) async{
@@ -361,6 +366,66 @@ Future<int> update({required  data,required String tableName,required String whe
     });
 
   }
+
+  //UPDATE AND INSERT ACCURACY FROM LOCALY
+  addAccuracy(accuracyModel data)async{
+      dynamic localdata=await foundRecord('media_id',data.media_id,'accuracy');
+      if(await localdata!=null) {
+        // print(element.updated_at);
+        // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
+        if (int.parse(data.accuracy_stars) >
+            int.parse(localdata[0]['accuracy_stars'])) {
+          update(data:
+          accuracyModel(
+              id: localdata[0]['id'],
+              media_id: data.media_id,
+              readed_text: data.readed_text,
+              accuracy_stars: data.accuracy_stars,
+              updated_at: data.updated_at),
+              tableName: 'accuracy',
+              where: 'id=${localdata[0]['id']}'
+
+          );
+          var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
+              url: DataSourceURL.update_Accuracy,
+              retrievedDataType: String,
+              returnType:String,
+              body: {
+                'user_id': '1',
+                'updated_at': 'updated_at',
+                'readed_text':'readed_text',
+                'media_id': '1',
+                'accuracy_stars':'2'
+              }
+          );
+        }
+      }
+
+      else{
+        insert(tableName: 'accuracy',data:
+
+        accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),
+        );
+
+        var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
+            url: DataSourceURL.upload_accuracy,
+            retrievedDataType: String,
+            returnType:String,
+            body: {
+                         'user_id': '1',
+                        'updated_at': 'updated_at',
+                        'readed_text':'readed_text',
+                        'media_id': '1',
+                        'accuracy_stars':'2'
+            }
+        );
+
+
+    }
+
+  }
+
+  //UPLODE DATA FROM LOCALY IF THE USER WORK THE STORY BUT NOT LOGIN
   uploadAccuracy(String user_id)async{
     Database? dbClient = await  db;
     var sql = "SELECT * FROM accuracy";
@@ -388,41 +453,152 @@ print(res2);
 return res2;
   }
 
-  // checkCompletionFound(List<StoryMediaModel> data)async{
-  //
-  //   data.forEach((element) async{
-  //     dynamic localdata=await foundRecord('story_id',element.story_id,'completion');
-  //
-  //     if(await localdata!=null){
-  //       // print(element.updated_at);
-  //       // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
-  //       if(checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
-  //         update(data:
-  //         CompletionModel(),
-  //             tableName: 'completion',
-  //             where: 'id=${element.id}'
-  //
-  //         );
-  //
-  //
-  //       }
-  //
-  //     }else{
-  //       insert(tableName: 'completion',data:
-  //
-  //       CompletionModel(),
-  //
-  //
-  //
-  //       );
-  //
-  //     }
-  //
-  //
-  //   });
-  //
-  // }
-  //
+
+
+
+  checkCompletionFound(List<dynamic> data)async{
+
+    data.forEach((element) async{
+      dynamic localdata=await foundRecord('story_id',element.story_id,'completion');
+
+      if(await localdata!=null){
+
+        if(checkUpdate(element['updated_at'].toString(),localdata[0]['updated_at'].toString())!=0){
+          update(data:
+            {
+              'id': localdata[0]['id'],
+              'stars':element['stars'],
+              'percentage':element['percentage'],
+              'story_id':element['story_id'],
+              'updated_at':element['updated_at'],
+            }
+              ,
+              tableName: 'completion',
+              where: 'id=${localdata[0]['id']}'
+
+          );
+
+
+        }
+
+      }else{
+        insert(tableName: 'completion',data:{
+          'stars':element['stars'],
+          'percentage':element['percentage'],
+          'story_id':element['story_id'],
+          'updated_at':element['updated_at'],
+        }
+
+
+
+
+
+        );
+
+      }
+
+
+    });
+
+  }
+
+
+  addCompletion(dynamic data)async{
+
+      dynamic localdata=await foundRecord('story_id',data['story_id'],'completion');
+
+      if(await localdata!=null){
+        if (int.parse(data['stars']) >
+            int.parse(localdata[0]['stars'])){
+              update(data:
+              {
+                'id': localdata[0]['id'],
+                'stars':data['stars'],
+                'percentage':data['percentage'],
+                'story_id':data['story_id'],
+                'updated_at':data['updated_at'],
+              }
+                  ,
+                  tableName: 'completion',
+                  where: 'id=${localdata[0]['id']}'
+
+              );
+              //check internet
+              var remoteData_compleyion = await dd?.remoteDataProvider.sendData(
+                  url: DataSourceURL.update_Accuracy,
+                  retrievedDataType: String,
+                  returnType:String,
+                  body: {
+                    'user_id': '1',
+                    'stars':data['stars'],
+                    'percentage':data['percentage'],
+                    'story_id':data['story_id'],
+                    'updated_at':data['updated_at'],
+                  }
+              );
+
+
+
+        }
+
+      }else{
+        insert(tableName: 'completion',data:{
+          'stars':data['stars'],
+          'percentage':data['percentage'],
+          'story_id':data['story_id'],
+          'updated_at':data['updated_at'],
+        }
+        );
+        var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
+            url: DataSourceURL.upload_accuracy,
+            retrievedDataType: String,
+            returnType:String,
+            body: {
+              'user_id': '1',
+              'stars':data['stars'],
+              'percentage':data['percentage'],
+              'story_id':data['story_id'],
+              'updated_at':data['updated_at'],
+            }
+        );
+
+      }
+
+
+
+
+    }
+
+
+  //UPLODE DATA FROM LOCALY IF THE USER WORK THE STORY BUT NOT LOGIN
+  //tableNme and data
+  uploadCompletion(String user_id)async{
+    Database? dbClient = await  db;
+    var sql = "SELECT * FROM completion";
+    List<dynamic> res=     await dbClient!.rawQuery(sql);
+    List<dynamic> res2=[];
+
+    res.forEach((element) {
+      res2.add(
+          {
+            'user_id': user_id,
+            'updated_at': element['updated_at'],
+            'percentage': element['percentage'],
+            'story_id': element['story_id'],
+            'stars': element['stars']
+          }
+      );
+
+    });
+
+
+
+
+    print(res2);
+
+    return res2;
+  }
+
 
 
 
@@ -440,12 +616,6 @@ return res2;
   }
 
  int checkUpdate(String update_at_remote,String update_at_local){
-
-    update_at_remote=  update_at_remote.replaceAll('T', ' ');
-    update_at_remote=update_at_remote.replaceRange(update_at_remote.indexOf('.'), update_at_remote.indexOf('Z')+1, '');
-
-    update_at_local=  update_at_local.replaceAll('T', ' ');
-    update_at_local=update_at_local.replaceRange(update_at_local.indexOf('.'), update_at_local.indexOf('Z')+1, '');
 
     // print(update_at_remote);
     // print('update_at_remote-----------------');
