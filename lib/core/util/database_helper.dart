@@ -24,6 +24,7 @@ class DatabaseHelper{
 
 String TableName='meadia';
     StoryRepository? dd;
+
   Future<Database?> get db async{
     if(_db != null){
       return _db;
@@ -568,6 +569,19 @@ return res2;
 
 
     }
+   calc_StoryStars(String id)async{
+     Database? dbClient = await  db;
+     var sql = "SELECT accuracy.accuracy_stars FROM stories_media JOIN  accuracy on accuracy.media_id ==stories_media.id  WHERE stories_media.story_id =$id";
+     int Stars=0;
+     List<dynamic> res=     await dbClient!.rawQuery(sql);
+     res.forEach((element) {
+       Stars+=int.parse(element[0]['accuracy_stars']);
+     });
+     int percentage=((Stars/(res.length*3))*100).toInt() ;
+     int story_stars=percentage~/33;
+
+   }
+
 
 
   //UPLODE DATA FROM LOCALY IF THE USER WORK THE STORY BUT NOT LOGIN

@@ -30,7 +30,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   late AnimationController _rotationController;
   late AnimationController _scaleController;
   double _rotation = 0;
-  double _scale = 0.95;
+  double _scale = 0.2;
 
   bool get _showWaves => !_scaleController.isDismissed;
 
@@ -68,6 +68,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     return SizedBox.expand(
       key: ValueKey<bool>(isPlaying),
       child: IconButton(
+
         icon: isPlaying ? widget.pauseIcon : widget.playIcon,
         onPressed: _onToggle,
       ),
@@ -77,27 +78,29 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 30, minHeight: 30,),
+
+      constraints: BoxConstraints(minWidth: 50, minHeight: 50,),
       child: Stack(
         alignment: Alignment.center,
         children: [
           if (_showWaves) ...[
-            Blob(color: Color(0xffffffff), scale: _scale*1, rotation: _rotation),
-            Blob(color: Color(0xfff6e4a0), scale: _scale*1, rotation: _rotation * 2 - 80),
-            Blob(color: Color(0xfff8ceb7), scale: _scale*1, rotation: _rotation * 3 - 80),
+            Blob(color: Color(0xffffffff), scale: _scale*1.1, rotation: _rotation *1.5 -80),
+            Blob(color: Color(0xfff6e4a0), scale: _scale*1.1, rotation: _rotation * 2 - 80),
+            Blob(color: Color(0xfff8ceb7), scale: _scale*1.1, rotation: _rotation * 3 - 80),
           ],
           Container(
+
             constraints: BoxConstraints.expand(),
             child: AnimatedSwitcher(
               child: _buildIcon(isPlaying),
               duration: _kToggleDuration,
             ),
             decoration: BoxDecoration(
-              border: Border.all(color: AppTheme.primaryColor,width: 2),
+              border: Border.all(color: Colors.white,width: 1),
               shape: BoxShape.rectangle
 
               ,borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: isPlaying?Colors.white:Colors.white,
+              color: isPlaying?AppTheme.primaryColor:Colors.white,
             ),
           ),
         ],
@@ -129,11 +132,15 @@ class Blob extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.all(Radius.circular(20)
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(40),
+              bottomRight: Radius.circular(40),
+              topRight:  Radius.circular(50),
+              topLeft:  Radius.circular(50),
+          )
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

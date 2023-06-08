@@ -6,7 +6,9 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:edit_distance/edit_distance.dart';
+import 'package:intl/intl.dart';
+import 'package:string_similarity/string_similarity.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,12 +57,14 @@ class StoryPage extends StatefulWidget {
 class _StoryPageState extends State<StoryPage> {
   bool visiblety = false;
   Widget SliedWidget = Center();
+  int star=0;
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = false;
   bool islisnt = false;
   final player = AudioPlayer();
   int Carecters_id = 0;
   int currentIndexPage = 0;
+  String text_orglin='';
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
@@ -79,344 +83,345 @@ class _StoryPageState extends State<StoryPage> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Scaffold(
-      body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: BlocProvider(
-            create: (context) => sl<SliedBloc>(),
-            child: BlocConsumer<SliedBloc, SliedState>(
-              listener: (_context, state) {
-                if (state is SliedError) {
-                  print(state.errorMessage);
-                }
-              },
-              builder: (_context, state) {
-                if (state is SliedInitial) {
-                  BlocProvider.of<SliedBloc>(_context).add(GetAllSlied(
-                      story_id: widget.id.toString(), tableName: 'stories_media'));
-                }
+      body: BlocProvider(
+        create: (context) => sl<SliedBloc>(),
+        child: BlocConsumer<SliedBloc, SliedState>(
+          listener: (_context, state) {
+            if (state is SliedError) {
+              print(state.errorMessage);
+            }
+          },
+          builder: (_context, state) {
+            if (state is SliedInitial) {
+              BlocProvider.of<SliedBloc>(_context).add(GetAllSlied(
+                  story_id: widget.id.toString(), tableName: 'stories_media'));
+            }
 
-                if (state is SliedLoading) {
-                  SliedWidget = CircularProgressIndicator();
-                }
+            if (state is SliedLoading) {
+              SliedWidget = CircularProgressIndicator();
+            }
 
-                if (state is SliedILoaded) {
-                  //TODO::Show Slied here
+            if (state is SliedILoaded) {
+              //TODO::Show Slied here
 
-                  SliedWidget = Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/backgraond.png',
-                          ),
-                          fit: BoxFit.fill),
-                    ),
-                    height: screenUtil.screenHeight * 1,
-                    width: screenUtil.screenWidth * 1,
-                    child: Center(
-                        child: Row(
-                      children: [
-                        SafeArea(
-                          child: Container(
-                            width: screenUtil.screenWidth * .1,
-                            height: screenUtil.screenHeight * 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              SliedWidget = Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/backgraond.png',
+                      ),
+                      fit: BoxFit.fill),
+                ),
+                height: screenUtil.screenHeight * 1,
+                width: screenUtil.screenWidth * 1,
+                child: Center(
+                    child: Row(
+                  children: [
+                    SafeArea(
+                      child: Container(
+                        width: screenUtil.screenWidth * .1,
+                        height: screenUtil.screenHeight * 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CustemIcon2(
+                                icon: Icon(Icons.home,
+                                    color: AppTheme.primaryColor),
+                                ontap: () {
+                                  showImagesDialogWithCancleButten(
+                                      context,
+                                      '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
+                                      'هل حقا تريد المغادره');
+                                }),
+                            Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
                               children: [
-                                CustemIcon2(
-                                    icon: Icon(Icons.home,
-                                        color: AppTheme.primaryColor),
-                                    ontap: () {
-                                      showImagesDialogWithCancleButten(
-                                          context,
-                                          '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
-                                          'هل حقا تريد المغادره');
-                                    }),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    isSpack == false
-                                        ? CustemIcon2(
-                                            icon: Icon(
-                                                Icons.headset_mic_outlined,
-                                                color: AppTheme.primaryColor),
-                                            ontap: () {
-                                              setState(() {
-                                                isSpack = true;
-
-                                                //   player.play(
-                                                //     AssetSource('music.mp3'));
-                                              });
-                                            })
-                                        : CustemIcon(
-                                            icon: Icon(
-                                              Icons.headset_mic_outlined,
-                                            ),
-                                            ontap: () async {
-                                              isSpack = !isSpack;
-                                              setState(() {});
-                                            }),
-                                    SizedBox(
-                                      height: 30,
-                                    ),
-                                    SizedBox(
-                                        height: 50,
-                                        width: 50,
-                                        child: PlayButton(onPressed: () {
+                                isSpack == false
+                                    ? CustemIcon2(
+                                        icon: Icon(
+                                            Icons.headset_mic_outlined,
+                                            color: AppTheme.primaryColor),
+                                        ontap: () {
                                           setState(() {
-                                            visiblety = !visiblety;
+                                            isSpack = true;
 
-                                            visiblety ? _start():  _currentStatus != RecordingStatus.Unset ? _stop() : null;
-
+                                            //   player.play(
+                                            //     AssetSource('music.mp3'));
                                           });
-                                        },initialIsPlaying:      visiblety,pauseIcon: Icon(Icons.stop,color: AppTheme.primaryColor),playIcon: Icon(Icons.mic,color: AppTheme.primaryColor),)),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: screenUtil.screenHeight * 1,
-                          width: screenUtil.screenWidth * .8,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: PageView.builder(
-                              itemCount: state.SliedModel.length,
-                              reverse: true,
-                              controller: pageControler,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      currentIndexPage = index;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    child: Stack(
-                                      alignment: AlignmentDirectional.topCenter,
-                                      children: [
-                                        Container(
-                                            width: screenUtil.screenWidth * 1,
-                                            height:
-                                                screenUtil.screenHeight * .85,
-                                            padding: EdgeInsets.only(
-                                                right: 10, left: 10, top: 10),
-                                            child: Image.asset(Assets.images.storypages.path,
-                                              fit: BoxFit.cover,
-                                              height:
-                                                  screenUtil.screenHeight * .9,
-                                              width:
-                                                  screenUtil.screenWidth * .9,
-                                            )),
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15))),
-                                          margin: EdgeInsets.all(15),
-                                          child: Visibility(
-                                            visible: visiblety,
-                                            child: Container(
-                                              margin: EdgeInsets.all(5),
-                                              width:
-                                                  screenUtil.screenWidth * .5,
-                                              height:
-                                                  screenUtil.screenHeight * .1,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  border: Border.all(
-                                                      color:
-                                                          AppTheme.primaryColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(15))),
-                                              child: Row(children: [
-                                                Expanded(
-                                                    flex: 6,
-                                                    child: Slider(
-                                                      value: valueslider,
-                                                      max: 100,
-                                                      min: 0,
-                                                      onChanged:
-                                                          (double value) {
-                                                        setState(() {
-                                                          valueslider = value;
-                                                        });
-                                                      },
-                                                    )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Row(
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(
-                                                            Icons.play_arrow,
-                                                            color: AppTheme
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(Icons.stop,
-                                                              color: AppTheme
-                                                                  .primaryColor),
-                                                        ),
-                                                      ],
-                                                    ))
-                                              ]),
-                                            ),
-                                          ),
+                                        })
+                                    : CustemIcon(
+                                        icon: Icon(
+                                          Icons.headset_mic_outlined,
                                         ),
-                                        Positioned(
-                                          height: screenUtil.screenHeight * 1.8,
-                                          width: screenUtil.screenWidth * .8,
-                                          child: Center(
-                                            child: Container(
-                                              width:
-                                                  screenUtil.screenWidth * .9,
-                                              height:
-                                                  screenUtil.screenHeight * 1,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                        ontap: () async {
+                                          isSpack = !isSpack;
+                                          setState(() {});
+                                        }),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: PlayButton(onPressed: () {
+                                      setState(() {
+                                        visiblety = !visiblety;
+
+                                        visiblety ? _start():  _currentStatus != RecordingStatus.Unset ? _stop() : null;
+
+                                      });
+                                    },initialIsPlaying:      visiblety,pauseIcon: Icon(Icons.stop,color: Colors.white),playIcon: Icon(Icons.mic,color: AppTheme.primaryColor),)),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: screenUtil.screenHeight * 1,
+                      width: screenUtil.screenWidth * .8,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: PageView.builder(
+                          itemCount: state.SliedModel.length,
+                          reverse: true,
+                          controller: pageControler,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  currentIndexPage = index;
+                                  text_orglin=state.SliedModel[index].text;
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15))),
+                                child: Stack(
+                                  alignment: AlignmentDirectional.topCenter,
+                                  children: [
+                                    Container(
+                                        width: screenUtil.screenWidth * 1,
+                                        height:
+                                            screenUtil.screenHeight * .85,
+                                        padding: EdgeInsets.only(
+                                            right: 10, left: 10, top: 10),
+                                        child: Image.asset(Assets.images.storypages.path,
+                                          fit: BoxFit.cover,
+                                          height:
+                                              screenUtil.screenHeight * .9,
+                                          width:
+                                              screenUtil.screenWidth * .9,
+                                        )),
+                                    Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      margin: EdgeInsets.all(15),
+                                      child: Visibility(
+                                        visible: visiblety,
+                                        child: Container(
+                                          margin: EdgeInsets.all(5),
+                                          width:
+                                              screenUtil.screenWidth * .5,
+                                          height:
+                                              screenUtil.screenHeight * .1,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color:
+                                                      AppTheme.primaryColor,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.all(
+                                                      Radius.circular(15))),
+                                          child: Row(children: [
+                                            Expanded(
+                                                flex: 6,
+                                                child: Slider(
+                                                  value: valueslider,
+                                                  max: 100,
+                                                  min: 0,
+                                                  onChanged:
+                                                      (double value) {
+                                                    setState(() {
+                                                      valueslider = value;
+                                                    });
+                                                  },
+                                                )),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(
+                                                        Icons.play_arrow,
+                                                        color: AppTheme
+                                                            .primaryColor,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(Icons.stop,
+                                                          color: AppTheme
+                                                              .primaryColor),
+                                                    ),
+                                                  ],
+                                                ))
+                                          ]),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      height: screenUtil.screenHeight * 1.8,
+                                      width: screenUtil.screenWidth * .8,
+                                      child: Center(
+                                        child: Container(
+                                          width:
+                                              screenUtil.screenWidth * .9,
+                                          height:
+                                              screenUtil.screenHeight * 1,
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceAround,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+
+
+                                                  index = index + 1;
+                                                  rendom =
+                                                      Random().nextInt(100);
+                                                  print(
+                                                      '333333333333333333333333333333333333333333');
+
+                                                  print(rendom);
+                                                  print(
+                                                      '333333333333333333333333333333333333333333');
+                                                  if (star >0) {
+                                                    pageControler.nextPage(
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        curve: Curves
+                                                            .bounceInOut);
+                                                  } else {
+                                                    showImagesDialogWithCancleButten(
+                                                        context,
+                                                        '${carectersobj.sadListCarecters[Carecters_id]['image']}',
+                                                        '! يرجى تسجيل الصوت أولاً'
+                                                            '');
+                                                  }
+                                                  // db.insert(
+                                                  //     data: accuracyModel(
+                                                  //         media_id: state
+                                                  //             .SliedModel[
+                                                  //                 currentIndexPage]
+                                                  //             .id,
+                                                  //         user_id:
+                                                  //             'almomyz@gami',
+                                                  //         accuracy_percentage:
+                                                  //             rendom),
+                                                  //     tableName:
+                                                  //         'accuracy');
+                                                },
+                                                child: Image.asset(
+                                                  color: AppTheme
+                                                      .primarySwatch
+                                                      .shade500,
+                                                  width: 30,
+                                                  height: 30,
+                                                  fit: BoxFit.fill,
+                                                  Assets.images.rightArrow
+                                                      .path,
+                                                ),
+                                              ),
+                                              Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
-                                                        .spaceAround,
+                                                        .center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
                                                 children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      index = index + 1;
-                                                      rendom =
-                                                          Random().nextInt(100);
-                                                      print(
-                                                          '333333333333333333333333333333333333333333');
-
-                                                      print(rendom);
-                                                      print(
-                                                          '333333333333333333333333333333333333333333');
-                                                      if (rendom >= 50) {
-                                                        pageControler.nextPage(
-                                                            duration: Duration(
-                                                                seconds: 1),
-                                                            curve: Curves
-                                                                .bounceInOut);
-                                                      } else {
-                                                        showImagesDialogWithCancleButten(
-                                                            context,
-                                                            '${carectersobj.sadListCarecters[Carecters_id]['image']}',
-                                                            '! ياللأسف         أعد المحاولة مرة أخرى'
-                                                                '');
-                                                      }
-                                                      // db.insert(
-                                                      //     data: accuracyModel(
-                                                      //         media_id: state
-                                                      //             .SliedModel[
-                                                      //                 currentIndexPage]
-                                                      //             .id,
-                                                      //         user_id:
-                                                      //             'almomyz@gami',
-                                                      //         accuracy_percentage:
-                                                      //             rendom),
-                                                      //     tableName:
-                                                      //         'accuracy');
-                                                    },
-                                                    child: Image.asset(
-                                                      color: AppTheme
-                                                          .primarySwatch
-                                                          .shade500,
-                                                      width: 30,
-                                                      height: 30,
-                                                      fit: BoxFit.fill,
-                                                      Assets.images.rightArrow
-                                                          .path,
-                                                    ),
+                                                  SizedBox(
+                                                    height: 5,
                                                   ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        state.SliedModel[index]
-                                                            .text
-                                                            .toString(),
-                                                        style: AppTheme
-                                                            .textTheme
-                                                            .headline3,
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                          '${state.SliedModel.length}/${index + 1}',
-                                                          style: TextStyle(
-                                                              color: AppTheme
-                                                                  .primaryColor,
-                                                              fontSize: 14))
-                                                    ],
+                                                  Text(
+                                                    state.SliedModel[index]
+                                                        .text
+                                                        .toString(),
+                                                    style: AppTheme
+                                                        .textTheme
+                                                        .headline3,
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        index = index + 1;
-                                                        pageControler
-                                                            .previousPage(
-                                                                duration:
-                                                                    Duration(
-                                                                        seconds:
-                                                                            1),
-                                                                curve: Curves
-                                                                    .bounceInOut);
-                                                      });
-                                                    },
-                                                    child: Image.asset(
-                                                      color: AppTheme
-                                                          .primarySwatch
-                                                          .shade500,
-                                                      Assets.images.leftArrow
-                                                          .path,
-                                                      width: 30,
-                                                      height: 30,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                  SizedBox(
+                                                    height: 5,
                                                   ),
+                                                  Text(
+                                                      '${state.SliedModel.length}/${index + 1}',
+                                                      style: TextStyle(
+                                                          color: AppTheme
+                                                              .primaryColor,
+                                                          fontSize: 14))
                                                 ],
                                               ),
-                                            ),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    index = index + 1;
+                                                    pageControler
+                                                        .previousPage(
+                                                            duration:
+                                                                Duration(
+                                                                    seconds:
+                                                                        1),
+                                                            curve: Curves
+                                                                .bounceInOut);
+                                                  });
+                                                },
+                                                child: Image.asset(
+                                                  color: AppTheme
+                                                      .primarySwatch
+                                                      .shade500,
+                                                  Assets.images.leftArrow
+                                                      .path,
+                                                  width: 30,
+                                                  height: 30,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    )),
-                  );
-                }
+                      ),
+                    ),
+                  ],
+                )),
+              );
+            }
 
-                return SliedWidget;
-              },
-            ),
-          )),
+            return SliedWidget;
+          },
+        ),
+      ),
     );
   }
 
@@ -519,14 +524,17 @@ class _StoryPageState extends State<StoryPage> {
 
 
 
-      // const tick = const Duration(seconds: 10);
-      // new Timer.periodic(tick, (Timer t) async {
-      //
-      //   visiblety=!visiblety;
-      //   if (_currentStatus == RecordingStatus.Unset) {
-      //     t.cancel();
-      //     _stop();
-      //   }
+      const tick = const Duration(seconds: 10);
+      new Timer.periodic(tick, (Timer t) async {
+
+        visiblety=!visiblety;
+        if (_currentStatus != RecordingStatus.Unset) {
+          t.cancel();
+          _stop();
+        }
+      else if (_currentStatus == RecordingStatus.Unset) {
+          t.cancel();
+        } });
       var current = await _recorder!.current(channel: 0);
 
       // print(current.status);
@@ -593,7 +601,42 @@ class _StoryPageState extends State<StoryPage> {
     }).whenComplete(() => setState(() {
       recognizeFinished = true;
       recognizing = false;
+
     }));
+    star=  await  checkText(text_orglin,text,1);
+    star !=0?
+    db.addAccuracy(accuracyModel(media_id:'', readed_text: text, accuracy_stars: star, updated_at:DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))):showImagesDialog(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى');
+
+  }
+
+  int checkText(String originalText, String readText, int level) {
+
+    if (level == 3) {
+      final int similarityPercentageInt = (StringSimilarity.compareTwoStrings(originalText, readText) * 100).toInt();
+
+      if (similarityPercentageInt > 97) return 3;
+      if (similarityPercentageInt > 89) return 2;
+      if (similarityPercentageInt > 84) return 1;
+      return 0;
+    }
+
+    final int textLength = originalText.length;
+    if (textLength < 17) {
+      var d = Levenshtein();
+      final int wrongLetter = d.distance(originalText, readText);
+
+      if (wrongLetter == 0) return 3;
+      if (textLength < 5) return wrongLetter == 1 ? 2 : 0;
+      if (textLength < 8) return wrongLetter == 1 ? 2 : wrongLetter == 2 ? 1 : 0;
+      return wrongLetter == 1 || wrongLetter == 2 ? 2 : wrongLetter == 3 ? 1 : 0;
+    }
+
+    final int similarityPercentageInt = (StringSimilarity.compareTwoStrings(originalText, readText) * 100).toInt();
+
+    if (similarityPercentageInt > 94) return 3;
+    if (similarityPercentageInt > 88) return 2;
+    if (similarityPercentageInt > 79) return 1;
+    return 0;
   }
 
 }

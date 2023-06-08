@@ -91,10 +91,15 @@ class StoryRepository extends Repository{
          // print("remoteData-------------------------------");
          //
          //
-         //  List<StoryModel>list =[];
+           List<StoryModel>list =[];
          //
          //
-         //  List<dynamic> reslet = await db.getAllstory('stories','1');
+           List<dynamic> reslet = await db.getAllstory('stories','1');
+
+           reslet.forEach((element) {
+             list.add(StoryModel(story_order: '3',stars: '2',id: element['id'], cover_photo: element['cover_photo'], updated_at: element['updated_at'], author: element['author'], level: element['level'], required_stars: element['required_stars'], name: element['name']));
+
+           });
          //
          //
          //  return await  getStars(reslet, list);
@@ -103,7 +108,7 @@ class StoryRepository extends Repository{
           // // return remoteData;
           //
 
-         // return reslet;
+          return list;
         },
 
 
@@ -125,19 +130,19 @@ class StoryRepository extends Repository{
 
 
 
-            list.add(
-                StoryModel(
-                    cover_photo: element['coverphoto'],
-                    author: element['author'],
-                    level: element['level'],
-                    required_stars: element['required_stars'],
-                    name: element['name'],
-                    stars: start.toString(),
-                    id: element['id'],
-                    story_order: element['story_order'],
-
-                    updated_at: element['updated_at'])
-            );
+            // list.add(
+            //     StoryModel(
+            //         cover_photo: element['coverphoto'],
+            //         author: element['author'],
+            //         level: element['level'],
+            //         required_stars: element['required_stars'],
+            //         name: element['name'],
+            //         stars: start.toString(),
+            //         id: element['id'],
+            //         story_order: element['story_order'],
+            //
+            //         updated_at: element['updated_at'])
+            // );
             start=0;
           });
 
@@ -163,19 +168,19 @@ class StoryRepository extends Repository{
 
 
 
-      list.add(
-
-          StoryModel(
-              cover_photo: element['coverphoto'],
-              author: element['author'],
-              level: element['level'],
-              required_stars: element['required_stars'],
-              name: element['name'],
-              stars: start.toString(),
-              id: element['id'],
-
-              story_order:element['story_order'], updated_at: element['updated_at'] )
-      );
+      // list.add(
+      //
+      //     StoryModel(
+      //         cover_photo: element['coverphoto'],
+      //         author: element['author'],
+      //         level: element['level'],
+      //         required_stars: element['required_stars'],
+      //         name: element['name'],
+      //         stars: start.toString(),
+      //         id: element['id'],
+      //
+      //         story_order:element['story_order'], updated_at: element['updated_at'] )
+      // );
       start=0;
     });
     CachedDate('stars',start);

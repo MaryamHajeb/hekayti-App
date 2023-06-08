@@ -57,7 +57,7 @@ class RegistrationRepository extends Repository {
                 'email': email,
               });
           userModel = remoteData;
-          localDataProvider.cacheData(key: 'USER', data: userModel.toJson());
+          localDataProvider.cacheData(key: 'UserInformation', data: userModel.toJson());
 
           return remoteData;
         });
