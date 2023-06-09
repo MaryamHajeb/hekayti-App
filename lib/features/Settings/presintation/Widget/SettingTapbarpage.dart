@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
@@ -31,7 +32,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
    int itemSelected=0;
   int itemSelectedlevel =0;
   bool chackboxStata=true;
+  Carecters carectersobj =Carecters();
 
+  UserModel? userModel;
 
   ScreenUtil screenUtil=ScreenUtil();
   Widget build(BuildContext context) {
@@ -131,48 +134,54 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           ),
           Divider(color: AppTheme.primaryColor,),
           SizedBox(height: 20,),
-          Text('هل تريد حفظ بياناتك معنا     (اختياري)',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
+       userModel ==null? IconButton(icon: Icon(Icons.logout,color: AppTheme.primaryColor), onPressed: () {  },) :    Column(children: [
+           Text('هل تريد حفظ بياناتك معنا     (اختياري)',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+           SizedBox(height: 20,),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceAround,
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: [
+               ElevatedButton(
+                 onPressed: () {
 
-                  Navigator.push(
-                      context,
-                      CustomPageRoute(  child:   SignupPage()));
+                   Navigator.push(
+                       context,
+                       CustomPageRoute(  child:   SignupPage()));
 
-                },
-                child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
+                 },
+                 child: Text('إنشاء حساب',style: AppTheme.textTheme.bodyText1),
 
-                style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
-              ),
-              ElevatedButton(
-                onPressed: () {
+                 style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primaryColor) ),
+               ),
+               ElevatedButton(
+                 onPressed: () {
 
 
-                  Navigator.push(
-                      context,
-                      CustomPageRoute(  child:   LoginPage()));
+                   Navigator.push(
+                       context,
+                       CustomPageRoute(  child:   LoginPage()));
 
-                },
-                child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
-                style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
-              ),
-            ],),
+                 },
+                 child: Text('تسجيل دخول',style: AppTheme.textTheme.bodyText1),
+                 style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade600) ),
+               ),
+             ],),
+         ],),
           SizedBox(height: 50,),
           Divider(color: AppTheme.primaryColor,),
           Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustemButten2( text: 'حفظ',ontap: ()async{
+            CustemButten( text: 'حفظ',ontap: ()async{
+            try {
               saveNewSttings();
+              showImagesDialog(context, '${carectersobj.FaceCarecters[itemSelected]['image']}', 'تم حفظ بيناتك بنجاح');
+            }catch(e){
 
+            }
             },),
             SizedBox(width: 20,),
-            CustemButten( text: 'رجوع',ontap: ()async{
+            CustemButten2( text: 'رجوع',ontap: ()async{
 
               Navigator.push(
                   context,
@@ -200,6 +209,11 @@ initCarecters();
   int?      levels= await  getCachedDate('level',String)  ?? '';
   String?   t= await getCachedDate('nameChlied',String)  ?? '';
   bool   lisent= await getCachedDate('Listen_to_story',bool)  ?? '';
+  checkUserLoggedIn().fold((l) {
+    userModel = l;
+  }, (r) {
+    userModel = null;
+  });
 
     setState( () {
       nameChiled.text=t ?? '';
@@ -218,6 +232,8 @@ initCarecters();
     CachedDate('nameChlied',nameChiled.text);
     CachedDate('level',level);
     CachedDate('Listen_to_story',chackboxStata);
+
+
   }
 
 

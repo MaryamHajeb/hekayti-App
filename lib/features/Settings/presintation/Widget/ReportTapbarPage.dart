@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../injection_container.dart';
-import '../manager/Report_bloc.dart';
-import '../manager/Report_event.dart';
-import '../manager/Report_state.dart';
+import '../managerReport/Report_bloc.dart';
+import '../managerReport/Report_event.dart';
+import '../managerReport/Report_state.dart';
 import 'ReportCard.dart';
 
 class ReportTapbarPage extends StatefulWidget {
@@ -45,7 +45,13 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
 
           if (state is ReportILoaded) {
             // //TODO::Show Report here
-            ReportWidget = Column(
+            ReportWidget =
+                state.reportModel.length==0?
+                Center(child: Text('لم تقراء اي قصه بعد ',style: AppTheme.textTheme.headline2,))
+                    :
+
+
+                Column(
               children: [
                 Divider(color: AppTheme.primaryColor,),
                 Container(

@@ -89,31 +89,54 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
 //
-//      var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY1'), tableName: '"stories" ');
-//     var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
-//     var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '1', name: 'STORY2'), tableName: '"stories" ');
+//      var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '2', name: 'STORY1'), tableName: '"stories" ');
+//     var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '5', name: 'STORY2'), tableName: '"stories" ');
+//     var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '7', name: 'STORY3'), tableName: '"stories" ');
+//     var dd3=db.insert(data:WebStoryModel(id: 4, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '4', name: 'STORY4'), tableName: '"stories" ');
 //
 //
+//
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '1'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '2'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '3'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '4'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '5'), tableName: 'stories_media');
+//
+// db.insert(data: accuracyModel(media_id: '1', readed_text: 'سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '2', readed_text: '1سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '3', readed_text: 'سار احمد الى المدرسه اليوم2', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+
+
 // db.insert(data: {
-//   'id':7,
-//   'stars':'3',
+//   'id':1,
+//   'stars':'0',
 //   'story_id':'2',
 //   'updated_at':'2:22',
 //   'percentage':'80'
 //
 // }, tableName: 'completion');
 // db.insert(data: {
-//   'id':8,
-//   'stars':'0',
+//   'id':2,
+//   'stars':'1',
 //   'story_id':'3',
 //   'updated_at':'2:22',
 //   'percentage':'80'
 //
 // }, tableName: 'completion');
 // db.insert(data: {
-//   'id':9,
-//   'stars':'1',
-//   'story_id':'2',
+//   'id':3,
+//   'stars':'2',
+//   'story_id':'1',
+//   'updated_at':'2:22',
+//   'percentage':'80'
+//
+// }, tableName: 'completion');
+// db.insert(data: {
+//   'id':4,
+//   'stars':'3',
+//   'story_id':'4',
 //   'updated_at':'2:22',
 //   'percentage':'80'
 //

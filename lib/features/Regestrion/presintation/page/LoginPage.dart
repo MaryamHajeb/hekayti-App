@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
@@ -40,11 +41,16 @@ TextEditingController CofemPassword = TextEditingController();
     BlocProvider(
       create: (context) => sl<RegistrationBloc>(),
       child: BlocConsumer<RegistrationBloc, RegistrationState>(
-        listener: (_context, state) {
+        listener: (_context, state) async {
           if (state is RegisterLoaded) {
             setState(() {
               requestPending = false;
             });
+
+
+           var prefs = await SharedPreferences.getInstance();
+          prefs.setBool('onbording', true);
+
             showSnackBar(context: context,title: state.successMessage,bkColor: Colors.green,callBackFunction: (){
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
             });

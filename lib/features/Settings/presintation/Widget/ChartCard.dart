@@ -5,7 +5,12 @@ import '../../../../core/util/ScreenUtil.dart';
 import '../../../../gen/assets.gen.dart';
 
 class ChartCard extends StatefulWidget {
-  const ChartCard({Key? key}) : super(key: key);
+  String page_no;
+  String text;
+  String text_readd;
+  String photo;
+  String accuracy_stars;
+   ChartCard({Key? key,required this.text,required this.text_readd, required this.photo,required this.accuracy_stars,required this.page_no }) : super(key: key);
 
   @override
   State<ChartCard> createState() => _ChartCardState();
@@ -31,19 +36,22 @@ class _ChartCardState extends State<ChartCard> {
                 height: 40,
                   width: 40,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(10),
+
+                    ),
                       color: Colors.white,
                       border: Border(
 
-                          right: BorderSide(color:Colors.brown ,width: 2),
+                          right: BorderSide(color:Colors.brown ,width: 2,),
+                          left: BorderSide(color:Colors.brown ,width: 2,),
                           top: BorderSide(color:Colors.brown ,width: 2),
                           bottom:  BorderSide(color:Colors.brown,width: 2 )
 
                       ),
                   ),
-                  child: Center(child:                 Text('24',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-
-
-
+                  child: Center(child:                 Text(widget.page_no,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
                   ),
               ),
             ],
@@ -69,9 +77,16 @@ crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
                 Center(child: Image.asset(Assets.images.story1.path)),
-                Text('مشت ليلى عبر الغابة ',style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(widget.text,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                    Text(widget.text_readd,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                  ],
+                ),
 
-                Text('90%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                Text(widget.accuracy_stars,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
 
 
               ],

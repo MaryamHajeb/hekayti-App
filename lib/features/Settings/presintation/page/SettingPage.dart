@@ -83,7 +83,7 @@ class _SettingPageState extends State<SettingPage> {
                               children: [
                                 Visibility(
                                     visible: visible,
-                                    replacement:ChartPage() ,
+                                    replacement:Expanded(child: ChartPage()) ,
                                     child: InkWell(
                                         onTap: (){
                                           setState(() {

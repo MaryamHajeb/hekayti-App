@@ -152,6 +152,17 @@ Future<int> update({required  data,required String tableName,required String whe
   var sql = "SELECT * FROM $tableName where level =$level ";
 
   List<dynamic> result = await dbClient!.rawQuery(sql);
+ print(result);
+
+    return  result.toList();
+  }
+
+
+ Future<List<dynamic>> getAllReportChart(id) async{
+    Database? dbClient = await  db;
+  var sql = "select stories_media.*,accuracy.readed_text,accuracy.accuracy_stars from stories_media JOIN accuracy on stories_media.id==accuracy.media_id WHERE stories_media.story_id==$id ";
+
+  List<dynamic> result = await dbClient!.rawQuery(sql);
 
 
     return  result.toList();
@@ -159,18 +170,24 @@ Future<int> update({required  data,required String tableName,required String whe
 
 
 
- Future<int> getStoryStars(level,id)async{
+ Future<String> getStoryStars(level,id)async{
   Database? dbClient = await  db;
-  List<dynamic> result2 = await dbClient!.rawQuery("SELECT stars FROM completion WHERE story_id =$id ");
-  if(result2.isNotEmpty){
-    return result2[0]['stars'];
+  List<dynamic?> result2 = await dbClient!.rawQuery("SELECT stars FROM completion WHERE story_id =$id ");
+
+  if(result2[0]['stars']!=null){
+
+    return result2[0]['stars'].toString();
+
   }
-  else{
-    return 0;
+  if(result2[0]['stars']==null || result2.length==0||result2.isEmpty||result2[0]['stars']==''){
+
+    return '0';
+
   }
 
 
 
+return '0';
 
 }
 
@@ -186,6 +203,12 @@ Future<int> update({required  data,required String tableName,required String whe
   List<dynamic> result = await dbClient!.rawQuery(sql);
   return await result.toList();
   }
+
+
+
+
+
+
 
 
    Future<List> getAllSliedForStory(String  table,where_arg) async{
@@ -375,7 +398,7 @@ Future<int> update({required  data,required String tableName,required String whe
         // print(element.updated_at);
         // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
         if (int.parse(data.accuracy_stars) >
-            int.parse(localdata[0]['accuracy_stars'])) {
+            localdata[0]['accuracy_stars']) {
           update(data:
           accuracyModel(
               id: localdata[0]['id'],

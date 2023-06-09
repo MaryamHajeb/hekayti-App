@@ -5,9 +5,10 @@ abstract class StoryEvent extends Equatable {
 }
 
 class GetAllStory extends StoryEvent {
-  String token;
 
-  GetAllStory({required this.token});
+
+  GetAllStory();
+
 
   @override
   List<Object> get props => [];

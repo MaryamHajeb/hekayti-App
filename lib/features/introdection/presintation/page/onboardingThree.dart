@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/dataProviders/local_data_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

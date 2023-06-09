@@ -11,8 +11,10 @@ import 'features/Regestrion/presintation/manager/registration_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
+import 'features/Settings/date/repository/ChartRepository.dart';
 import 'features/Settings/date/repository/ReportRepository.dart';
-import 'features/Settings/presintation/manager/Report_bloc.dart';
+import 'features/Settings/presintation/managerChart/Chart_bloc.dart';
+import 'features/Settings/presintation/managerReport/Report_bloc.dart';
 import 'features/Story/date/repository/SliedsRepository.dart';
 import 'features/Story/presintation/manager/Slied_bloc.dart';
 final sl = GetIt.instance;
@@ -29,6 +31,7 @@ Future<void> init() async {
   _initSliedFeature();
   _initStoryFeature();
   _initReportFeature();
+  _initChartFeature();
   ///service provider
 
   //! Core
@@ -88,6 +91,21 @@ void _initSliedFeature() {
     ),
   );
 }
+void _initChartFeature() {
+//bloc
+  sl.registerFactory(() => ChartBloc(repository: sl()));
+
+  //repositories
+  sl.registerLazySingleton<ChartRepository>(
+    () => ChartRepository(
+      remoteDataProvider: sl(),
+      localDataProvider: sl(),
+      networkInfo: sl(),
+    ),
+  );
+}
+
+
 void _initReportFeature() {
 //bloc
   sl.registerFactory(() => ReportBloc(repository: sl()));

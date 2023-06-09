@@ -6,16 +6,15 @@ import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
-
+import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
 
 
 import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
-import '../../../../dataProviders/error/exceptions.dart';
 import '../../../../dataProviders/error/failures.dart';
-import '../../../Story/date/model/StoryMediaModel.dart';
-import '../model/StoryMode.dart';
+import '../../../../dataProviders/network/data_source_url.dart';
+import '../../../Home/data/model/StoryMode.dart';
+
 
 class StoryRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
@@ -23,7 +22,9 @@ class StoryRepository extends Repository{
   final NetworkInfo networkInfo; //check if the device is connected to internet
   DatabaseHelper db = new DatabaseHelper();
 
+
   StoryRepository({
+
     required this.remoteDataProvider,
     required this.localDataProvider,
     required this.networkInfo,
@@ -36,158 +37,75 @@ class StoryRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-
-
-          db.addAccuracy(accuracyModel(media_id: '11', readed_text: 'jjjj', accuracy_stars: '2', updated_at: '20-05-2022'));
-          
-          
-         //
-         //
-         // var remoteData_accruacy = await remoteDataProvider.sendData(
-         //      url: DataSourceURL.getAllaccuracy,
-         //      retrievedDataType: accuracyModel.init(),
-         //      returnType:List,
-         //      body: {
-         //        'id':'1'
-         //      }
-         //  );
-         //
-         // print(remoteData_accruacy);
-         // db.checkAccuracyFound(remoteData_accruacy);
-
-          // try {
-          //   List<dynamic> dd = await db.uploadAccuracy('1');
-          //   dd.forEach((element) async {
-          //     var upload_accuracy = await remoteDataProvider.sendData(
-          //         url: DataSourceURL.upload_accuracy,
-          //         retrievedDataType: String,
-          //         returnType: String,
-          //         body: {
-          //           'user_id': '1',
-          //           'updated_at': 'updated_at',
-          //           'readed_text':'readed_text',
-          //           'media_id': '1',
-          //           'accuracy_stars':'2'
-          //         }
-          //     );
-          //   });
-          // }catch(e){
-          //   print(e.toString());
-          // }
-
-
-          // print(upload_accuracy+'kkkkk');
-
-
-
-         // List<StoryModel> list=remoteData;
-         // list.forEach((element) {
-         //   print(element.name);
-         // });
-         // db.checkStoryFound(remoteData_story);
-         // db.checkMediaFound(remoteData_storyMedia);
-
-         //
-         // print("remoteData-------------------------------");
-         //
-         //
-           List<StoryModel>list =[];
-         //
-         //
-           List<dynamic> reslet = await db.getAllstory('stories','1');
-
-           reslet.forEach((element) {
-             list.add(StoryModel(story_order: '3',stars: '2',id: element['id'], cover_photo: element['cover_photo'], updated_at: element['updated_at'], author: element['author'], level: element['level'], required_stars: element['required_stars'], name: element['name']));
-
-           });
-         //
-         //
-         //  return await  getStars(reslet, list);
-          // // localDataProvider.cacheData(key: 'CACHED_Story', data: remoteData);
-          // //
-          // // return remoteData;
-          //
-
-          return list;
-        },
-
-
-
-
-        getCacheDataFunction: ()async {
-          List<StoryModel>list =[];
           List<dynamic> reslet = await db.getAllstory('stories','1');
+          List<StoryModel>list =[];
 
-          int? start=0;
-          int collected_stars =0;
-          reslet.forEach((element) async{
-          start  =await db.getStoryStars('1',element['id']);
+          list =  await  getStars(reslet);
+          print(list.length);
+          print('ddddd');
 
-
-          collected_stars+= int.parse(element['required_stars'].toString());
-
-
-
-
-
-            // list.add(
-            //     StoryModel(
-            //         cover_photo: element['coverphoto'],
-            //         author: element['author'],
-            //         level: element['level'],
-            //         required_stars: element['required_stars'],
-            //         name: element['name'],
-            //         stars: start.toString(),
-            //         id: element['id'],
-            //         story_order: element['story_order'],
-            //
-            //         updated_at: element['updated_at'])
-            // );
-            start=0;
-          });
-
-          CachedDate('stars',start);
-
-          CachedDate('collected_stars',collected_stars);
-
-
+          return   list;
 
           return  list;
-        });
+        },
+
+        getCacheDataFunction: () async{
+
+
+
+        }
+
+
+
+    );
+
+
+
   }
 
-  getStars(reslet,list)async{
-    int? start=0;
+
+
+
+
+
+  getStars(reslet)async{
+    List<StoryModel> dd=[];
     int collected_stars =0;
     int all_stars =0;
     reslet.forEach((element) async{
+      String? start='';
       start  =await db.getStoryStars('1',element['id']);
-      all_stars+=start!;
+      if(start=='')
+      {
+        start='0';
+      }
+      print(start);
+      print('start');
+      // all_stars+=start!;
 
       collected_stars+= int.parse(element['required_stars'].toString());
 
 
 
-      // list.add(
-      //
-      //     StoryModel(
-      //         cover_photo: element['coverphoto'],
-      //         author: element['author'],
-      //         level: element['level'],
-      //         required_stars: element['required_stars'],
-      //         name: element['name'],
-      //         stars: start.toString(),
-      //         id: element['id'],
-      //
-      //         story_order:element['story_order'], updated_at: element['updated_at'] )
-      // );
-      start=0;
+      dd.add(
+
+          StoryModel(
+              cover_photo: element['cover_photo'],
+              author: element['author'],
+              level: element['level'],
+              required_stars: element['required_stars'],
+              name: element['name'],
+              stars: start.toString(),
+              id: element['id'],
+              story_order:element['story_order'],
+              updated_at: element['updated_at'] )
+      );
+//      start='';
+
     });
-    CachedDate('stars',start);
+    //CachedDate('stars',start);
     CachedDate('collected_stars',collected_stars);
-  return list;
+    return  dd;
   }
-
-
 
 }

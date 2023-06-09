@@ -8,8 +8,8 @@ import '../../../../gen/assets.gen.dart';
 class StoryCard extends StatefulWidget {
   final name;
   String photo;
-  final starts;
-   StoryCard({Key? key,required this.name,required this.photo,required this.starts}) : super(key: key);
+  int starts=0;
+   StoryCard({Key? key,required this.name,required this.photo, required this.starts}) : super(key: key);
 
   @override
   State<StoryCard> createState() => _StoryCardState();
@@ -88,6 +88,7 @@ class _StoryCardState extends State<StoryCard> {
 
                    ],
                  ):
+                 widget.starts==3?
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
@@ -102,7 +103,7 @@ class _StoryCardState extends State<StoryCard> {
                     Image.asset(Assets.images.start.path,width: 40,height: 40),
 
                    ],
-                 ),
+                 ):Center(child: Text('kkkkkkkkkk')),
 
 
 

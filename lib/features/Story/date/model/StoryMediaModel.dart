@@ -21,7 +21,9 @@ class StoryMediaModel {
         photo: meadia['photo'],
         sound: meadia['sound'],
         text: meadia['text'],
-        page_no: meadia['page_no']);
+        page_no: meadia['page_no']
+
+    );
   }
 
   StoryMediaModel fromJson(Map<String, dynamic> json) {

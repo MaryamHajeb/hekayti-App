@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,8 +56,8 @@ class _onboardingFiveState extends State<onboardingFive> {
                           itemSelected = index;
                         });
 
-                        int dd=int.parse(carecters.Levels[index]['id'].toString());
-                        CachedDate('level',itemSelected);
+                        int dd=int.parse(carecters.Levels[index]['num'].toString());
+                        CachedDate('level',dd);
 
 
                       },

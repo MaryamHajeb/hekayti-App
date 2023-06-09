@@ -2,10 +2,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hikayati_app/features/Settings/date/model/ReportModel.dart';
 
-import '../../../Story/date/model/StoryMediaModel.dart';
-import '../../../Home/data/model/StoryMode.dart';
-import '../../date/model/ReportModel.dart';
-import '../../date/model/ReportModel.dart';
 
 abstract class ReportState extends Equatable {
   const ReportState();
