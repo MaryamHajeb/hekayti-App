@@ -44,10 +44,10 @@ class _ChartCardState extends State<ChartCard> {
                       color: Colors.white,
                       border: Border(
 
-                          right: BorderSide(color:Colors.brown ,width: 2,),
-                          left: BorderSide(color:Colors.brown ,width: 2,),
-                          top: BorderSide(color:Colors.brown ,width: 2),
-                          bottom:  BorderSide(color:Colors.brown,width: 2 )
+                          right: BorderSide(color:AppTheme.primaryColor ,width: 2,),
+                          left: BorderSide(color:AppTheme.primaryColor ,width: 2,),
+                          top: BorderSide(color:AppTheme.primaryColor ,width: 2),
+                          bottom:  BorderSide(color:AppTheme.primaryColor,width: 2 )
 
                       ),
                   ),
@@ -67,7 +67,7 @@ class _ChartCardState extends State<ChartCard> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(color: Colors.brown,width: 2)
+                border: Border.all(color: AppTheme.primaryColor,width: 2)
               ),
 width: screenUtil.screenWidth *.38,
  height: screenUtil.screenHeight *.2,
@@ -86,8 +86,16 @@ crossAxisAlignment: CrossAxisAlignment.center,
                   ],
                 ),
 
-                Text(widget.accuracy_stars,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+               Column(
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
 
+                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+
+               ],),
 
               ],
             )),
