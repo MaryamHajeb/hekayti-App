@@ -47,10 +47,13 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
             // //TODO::Show Report here
             ReportWidget =
                 state.reportModel.length==0?
-                Center(child: Text('لم تقراء اي قصه بعد ',style: AppTheme.textTheme.headline2,))
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                  Center(child: Text('لم يتم اكمال اي قصه بعد',style: AppTheme.textTheme.headline2,))])
                     :
-
-
                 Column(
               children: [
                 Divider(color: AppTheme.primaryColor,),

@@ -107,8 +107,8 @@ class _MyAppState extends State<MyApp> {
 // db.insert(data: accuracyModel(media_id: '3', readed_text: 'سار احمد الى المدرسه اليوم2', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
-
-
+//
+//
 // db.insert(data: {
 //   'id':1,
 //   'stars':'0',
@@ -141,10 +141,10 @@ class _MyAppState extends State<MyApp> {
 //   'percentage':'80'
 //
 // }, tableName: 'completion');
+//
 
 
- //
- // var dd=   FlameAudio.bgm.play('bgm.mp3',volume: 100);
+    FlameAudio.bgm.play('bgm.mp3',volume: 100);
 
 }
 }

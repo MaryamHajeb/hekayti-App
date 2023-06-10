@@ -134,6 +134,8 @@ class _HomePageState extends State<HomePage> {
 
                           FlameAudio.bgm.stop();
                           bgm=!bgm;
+                          CachedDate('bgm',bgm);
+
 
                        });
                       }):CustemIcon2(
@@ -142,8 +144,8 @@ class _HomePageState extends State<HomePage> {
                       ontap: () async {
                         setState(() {
                           bgm=!bgm;
-                          // FlameAudio.bgm.play('bgm.mp3',volume: 100);
-
+                           FlameAudio.bgm.play('bgm.mp3',volume: 100);
+                          CachedDate('bgm',bgm);
                         });
                       }),
 
@@ -160,37 +162,17 @@ class _HomePageState extends State<HomePage> {
                   },
                   builder: (_context, state) {
                     if (state is StoryInitial) {
-
-
-                      BlocProvider.of<StoryBloc>(_context)
-                          .add(GetAllStory());
-
+                      BlocProvider.of<StoryBloc>(_context).add(GetAllStory());
                     }
 
                     if (state is StoryLoading) {
-
-
                       StoryWidget = CircularProgressIndicator();
                     }
 
                     if (state is StoryILoaded) {
-                      // //TODO::Show Story here
+                      //TODO::Show Story here
 
-
-                       insertStory(state);
-
-
-                      // stars=  getCachedDate('stars',String);
-                      // collected_stars= getCachedDate('collected_stars',String);
-
-
-                      //
-                      // listStory=  listStory=state.storyModel.toList() as List<StoryModel>;
-
-
-                      // print('-------block--------------------------------------');
-                      // print(listStoryWithSearch.length);
-                      StoryWidget = Container(
+                      StoryWidget =  Container(
                         height: screenUtil.screenHeight * .8,
                         width: double.infinity,
                         child: state.storyModel.length > 0

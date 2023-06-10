@@ -13,7 +13,7 @@ class CustemButten2 extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(9))),
             padding: EdgeInsets.all(0),
-            backgroundColor: AppTheme.primarySwatch.shade200,side: BorderSide( color: Colors.white,)),
+            backgroundColor: Color(0xFFF7BCA3),side: BorderSide( color: Colors.white,)),
 
         onPressed: (){
           ontap();
@@ -24,7 +24,7 @@ class CustemButten2 extends StatelessWidget {
             color: Colors.white,
             border: Border.all(width: 3,color: AppTheme.primarySwatch.shade200),
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Center(child: Text(text,style: TextStyle(fontSize: 14,fontFamily: AppTheme.fontFamily,color: Colors.orange.shade500),))));
+        child: Center(child: Text(text,style: TextStyle(fontSize: 14,fontFamily: AppTheme.fontFamily,color:Color(0xFFF7BCA3)),))));
 
   }
 }

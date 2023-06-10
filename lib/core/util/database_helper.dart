@@ -179,11 +179,7 @@ Future<int> update({required  data,required String tableName,required String whe
     return result2[0]['stars'].toString();
 
   }
-  if(result2[0]['stars']==null || result2.length==0||result2.isEmpty||result2[0]['stars']==''){
 
-    return '0';
-
-  }
 
 
 

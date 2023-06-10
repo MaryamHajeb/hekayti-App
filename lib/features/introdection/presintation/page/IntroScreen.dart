@@ -113,7 +113,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                         curve: Curves.bounceInOut);
                                                   },
                                                   child: Image.asset(
-                                                    color: AppTheme.primarySwatch.shade500,
+                                                      color: AppTheme.primarySwatch.shade400,
                                                     Assets.images.leftArrow.path,
                                                     width: 30,
                                                     height: 30,
@@ -175,7 +175,8 @@ class _IntroScreenState extends State<IntroScreen> {
 
                                                   },
                                                   child: Image.asset(
-                                                    color: AppTheme.primarySwatch.shade500,
+                                                    color: AppTheme.primarySwatch.shade800,
+
                                                     Assets.images.rightArrow.path,
                                                     width: 30,
                                                     height: 30,

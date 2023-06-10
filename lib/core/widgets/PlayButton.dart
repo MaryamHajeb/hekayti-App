@@ -96,7 +96,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
               duration: _kToggleDuration,
             ),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white,width: 1),
+              border: Border.all(color: isPlaying?Colors.white:AppTheme.primaryColor,width: 2),
               shape: BoxShape.rectangle
 
               ,borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -130,6 +130,7 @@ class Blob extends StatelessWidget {
       child: Transform.rotate(
         angle: rotation,
         child: Container(
+
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.only(

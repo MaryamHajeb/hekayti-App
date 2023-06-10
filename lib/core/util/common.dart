@@ -159,7 +159,7 @@ void showImagesDialog(BuildContext context, String image,String text) {
         );
       });
 }
-void showImagesDialogWithCancleButten(BuildContext context2, String image,String text) {
+ showImagesDialogWithCancleButten(BuildContext context2, String image,String text) {
   showDialog(
       context: context2,
       builder: (BuildContext context) {
@@ -196,13 +196,13 @@ void showImagesDialogWithCancleButten(BuildContext context2, String image,String
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustemButten(ontap: (){
+                    CustemButten2(ontap: (){
 
                       Navigator.pop(context);
                       Navigator.pop(context2);
 
                     }, text: 'نعم',),
-                    CustemButten2(ontap: (){
+                    CustemButten(ontap: (){
                       Navigator.pop(context);
                     }, text: 'لا',),
                   ],

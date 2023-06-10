@@ -32,27 +32,33 @@ class StoryRepository extends Repository{
 
 
   Future<Either<Failure, dynamic>> getAllStory() async {
-    return await sendRequest(
+    return  sendRequest(
 
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          List<dynamic> reslet = await db.getAllstory('stories','1');
+
           List<StoryModel>list =[];
 
-          list =  await  getStars(reslet);
-          print(list.length);
-          print('ddddd');
+          // list= ;
+          // print(list.length);
+          // print('ddddd');
 
-          return   list;
+          return  await getStars();
 
           return  list;
         },
 
         getCacheDataFunction: () async{
 
+       //   List<dynamic> reslet = await db.getAllstory('stories','1');
+          List<StoryModel>list =[];
 
+          list= await getStars();
+          print(list.length);
+          print('ddddd');
 
+          return   list;
         }
 
 
@@ -68,7 +74,8 @@ class StoryRepository extends Repository{
 
 
 
-  getStars(reslet)async{
+ Future<List<StoryModel>> getStars()async{
+   List<dynamic> reslet = await db.getAllstory('stories','1');
     List<StoryModel> dd=[];
     int collected_stars =0;
     int all_stars =0;
@@ -105,6 +112,7 @@ class StoryRepository extends Repository{
     });
     //CachedDate('stars',start);
     CachedDate('collected_stars',collected_stars);
+    await Future.delayed(Duration(seconds: 1));
     return  dd;
   }
 
