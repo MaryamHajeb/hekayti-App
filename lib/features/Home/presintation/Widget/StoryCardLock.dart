@@ -39,7 +39,7 @@ class _StoryCardLockState extends State<StoryCardLock> {
 
             ),
             child: Opacity(
-              opacity: .6,
+              opacity: .4,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +117,7 @@ class _StoryCardLockState extends State<StoryCardLock> {
                             alignment: Alignment.center,
                             children: [
                           Image.asset(Assets.images.storypages.path,height: 150,fit: BoxFit.cover,),
-                          Icon(Icons.lock,color: Colors.brown,size: 50,),
+                          Icon(Icons.lock,color: Colors.yellow,size: 50,),
 
                         ]),
                         // child: Image.memory(

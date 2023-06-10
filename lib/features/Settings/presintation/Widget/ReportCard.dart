@@ -35,40 +35,53 @@ class _ReportCardState extends State<ReportCard> {
 width: screenUtil.screenWidth *.6,
  height: screenUtil.screenHeight *.2,
           child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-crossAxisAlignment: CrossAxisAlignment.center,
+
         children: [
-          Center(child: Image.asset(Assets.images.story1.path)),
-          Text(widget.name,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+            Expanded(flex: 1,child: Center(child: Image.asset(Assets.images.story1.path))),
+          Expanded(flex: 3,child: Center(child: Text(widget.name,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right))),
 
-         widget.stars ==0?Row(children: [
-           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
-           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
-           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
-
-
-         ],): widget.stars ==1?
-         Row(children: [
-           Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
-           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
-           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
+         widget.stars ==0?
+         Expanded(
+           flex: 3,
+           child: Row(children: [
+             Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
+             Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
+             Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
 
 
-         ],):widget.stars ==2?Row(children: [
-            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
-            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
-            Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
+           ],),
+         ): widget.stars ==1?
+         Expanded(
+           flex: 3,
+           child: Row(children: [
+             Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+             Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
+             Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
 
 
-          ],):
-          Row(children: [
-            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
-            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
-            Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+           ],),
+         ):widget.stars ==2?
+         Expanded(
+           flex: 3,
+           child: Row(children: [
+              Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+              Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+              Image.asset(Assets.images.emptyStar.path,width: 40,height: 40,fit: BoxFit.fill),
 
 
-          ],),
-          Text(widget.percentage+'%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+            ],),
+         ):
+         Expanded(
+           flex: 3,
+           child: Row(children: [
+              Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+              Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+              Image.asset(Assets.images.start.path,width: 40,height: 40,fit: BoxFit.fill),
+
+
+            ],),
+         ),
+          Expanded(flex: 2,child: Center(child: Text(widget.percentage+'%',style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right))),
 
 
         ],

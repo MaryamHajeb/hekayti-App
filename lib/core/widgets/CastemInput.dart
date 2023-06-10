@@ -40,8 +40,11 @@ class _CustemInputState extends State<CustemInput> {
               contentPadding:
               EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             fillColor: AppTheme.primarySwatch.shade200,
+
+            errorStyle: TextStyle(color: AppTheme.primarySwatch,fontFamily: AppTheme.fontFamily,fontSize: 10,),
             filled: true,
             errorBorder: UnderlineInputBorder(
+
               borderRadius: BorderRadius.all(Radius.circular(15)),
 
               borderSide: BorderSide(color: Colors.transparent),

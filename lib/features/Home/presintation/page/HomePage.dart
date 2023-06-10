@@ -53,193 +53,205 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: Container(
-      height: screenUtil.screenHeight * 1,
-      width: screenUtil.screenWidth * 1,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/backgraond.png'),
-              fit: BoxFit.fill)),
-      child: SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: CustemIcon2(
-                      icon: Image.asset('${carectersobj.showCarecters[Carecters_id ?? 0]['image'] ?? 0}', fit: BoxFit.cover),
-                      ontap: () {
-                        Navigator.push(
-                            context, CustomPageRoute(child: lockPage()));
+    return WillPopScope(
+      onWillPop: ()async{
+        final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره');
 
-                      },
+        if(value!=null){
+          return Future.value(value);
+        }
+        else{
+          return Future.value(false);
+        }
+      },
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          body: Container(
+        height: screenUtil.screenHeight * 1,
+        width: screenUtil.screenWidth * 1,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/backgraond.png'),
+                fit: BoxFit.fill)),
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: CustemIcon2(
+                        icon: Image.asset('${carectersobj.showCarecters[Carecters_id ?? 0]['image'] ?? 0}', fit: BoxFit.cover),
+                        ontap: () {
+                          Navigator.push(
+                              context, CustomPageRoute(child: lockPage()));
+
+                        },
+                      ),
                     ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppTheme.primarySwatch.shade600,
-                              width: 2),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                      width: screenUtil.screenWidth * .2,
-                      height: screenUtil.screenHeight * .1,
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          SizedBox(height: 30,),
-                          LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: .6,),
-                          Row(
-                            children: [
-                              SizedBox(width: 30,),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: AppTheme.primarySwatch.shade600,
+                                width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: screenUtil.screenWidth * .2,
+                        height: screenUtil.screenHeight * .1,
+                        child: Stack(
+                          alignment: AlignmentDirectional.center,
+                          children: [
+                            SizedBox(height: 30,),
+                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: .6,),
+                            Row(
+                              children: [
+                                SizedBox(width: 30,),
 
-                          Image.asset('assets/images/start.png',width: 30,height: 30,),
-                          SizedBox(width: 20,),
-                          Text('2/24',style: AppTheme.textTheme.headline3,),
+                            Image.asset('assets/images/start.png',width: 30,height: 30,),
+                            SizedBox(width: 20,),
+                            Text('2/24',style: AppTheme.textTheme.headline3,),
 
-                            ],
-                          )
-                        ],
-                      )),
-                  Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppTheme.primarySwatch.shade600,
-                              width: 2),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: screenUtil.screenWidth * .4,
-                      height: screenUtil.screenHeight * .1,
-                      child: CastemInputForSearch(
-                        onching: (value) => onScearch(value),
-                        valdution: (value) {},
-                        icon: Icon(Icons.search),
-                        text: 'بحث',
-                        controler: search,
-                        size: 340,
-                      )),
-                  bgm ==false?
-                  CustemIcon2(
-                      icon: Icon(Icons.volume_up_rounded,
-                          color: AppTheme.primaryColor,),
-                      ontap: () async {
-                        setState(() {
+                              ],
+                            )
+                          ],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: AppTheme.primarySwatch.shade600,
+                                width: 2),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        width: screenUtil.screenWidth * .4,
+                        height: screenUtil.screenHeight * .1,
+                        child: CastemInputForSearch(
+                          onching: (value) => onScearch(value),
+                          valdution: (value) {},
+                          icon: Icon(Icons.search),
+                          text: 'بحث',
+                          controler: search,
+                          size: 340,
+                        )),
+                    bgm ==false?
+                    CustemIcon2(
+                        icon: Icon(Icons.volume_up_rounded,
+                            color: AppTheme.primaryColor,),
+                        ontap: () async {
+                          setState(() {
 
-                          FlameAudio.bgm.stop();
-                          bgm=!bgm;
-                          CachedDate('bgm',bgm);
+                            FlameAudio.bgm.stop();
+                            bgm=!bgm;
+                            CachedDate('bgm',bgm);
 
 
-                       });
-                      }):CustemIcon2(
-                      icon: Icon(Icons.volume_off,
-                          color: AppTheme.primaryColor),
-                      ontap: () async {
-                        setState(() {
-                          bgm=!bgm;
-                           FlameAudio.bgm.play('bgm.mp3',volume: 100);
-                          CachedDate('bgm',bgm);
-                        });
-                      }),
+                         });
+                        }):CustemIcon2(
+                        icon: Icon(Icons.volume_off,
+                            color: AppTheme.primaryColor),
+                        ontap: () async {
+                          setState(() {
+                            bgm=!bgm;
+                             FlameAudio.bgm.play('bgm.mp3',volume: 100);
+                            CachedDate('bgm',bgm);
+                          });
+                        }),
 
-                ],
-              ),
-              SizedBox(height: 10),
-              BlocProvider(
-                create: (context) => sl<StoryBloc>(),
-                child: BlocConsumer<StoryBloc, StoryState>(
-                  listener: (_context, state) {
-                    if (state is StoryError) {
-                      print(state.errorMessage);
-                    }
-                  },
-                  builder: (_context, state) {
-                    if (state is StoryInitial) {
-                      BlocProvider.of<StoryBloc>(_context).add(GetAllStory());
-                    }
-
-                    if (state is StoryLoading) {
-                      StoryWidget = CircularProgressIndicator();
-                    }
-
-                    if (state is StoryILoaded) {
-                      //TODO::Show Story here
-
-                      StoryWidget =  Container(
-                        height: screenUtil.screenHeight * .8,
-                        width: double.infinity,
-                        child: state.storyModel.length > 0
-                            ? GridView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.storyModel.length,
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 20
-
-                          ),
-                          itemBuilder: (context, index) {
-
-                            print(state.storyModel[index]?.stars);
-                            print('sttttt');
-                            return int.parse(state.storyModel[index]?.stars) ==0 ?
-                            InkWell(
-                                onTap: () {
-                                  showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:15.0),
-                                  child: StoryCardLock(
-                                    name:
-                                    state.storyModel[index]?.name,
-                                    starts: int.parse(state.storyModel[index]?.stars),
-                                    photo: state.storyModel[index]!.cover_photo
-                                        .toString(),
-                                  ),
-                                )):
-
-                            InkWell(
-                                onTap: () {
-                                  // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
-
-                                  Navigator.push(
-                                      context,
-                                      CustomPageRoute(
-                                          child: StoryPage(id:state.storyModel[index]?.id ,))
-
-                                  );
-
-                                  FlameAudio.bgm.pause();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:15.0),
-                                  child: StoryCard(
-                                    name:
-                                    state.storyModel[index]!.name,
-                                    starts: int.parse(state.storyModel[index]?.stars),
-                                    photo: state.storyModel[index]!.cover_photo
-                                        .toString(),
-                                  ),
-                                ));
-                          },
-                        )
-                            : Center(child: Text('القائمه فارغه',style: AppTheme.textTheme.headline2,)),
-                      );
-                    }
-
-                    return StoryWidget;
-                  },
+                  ],
                 ),
-              )
-            ]),
-      ),
+                SizedBox(height: 10),
+                BlocProvider(
+                  create: (context) => sl<StoryBloc>(),
+                  child: BlocConsumer<StoryBloc, StoryState>(
+                    listener: (_context, state) {
+                      if (state is StoryError) {
+                        print(state.errorMessage);
+                      }
+                    },
+                    builder: (_context, state) {
+                      if (state is StoryInitial) {
+                        BlocProvider.of<StoryBloc>(_context).add(GetAllStory());
+                      }
+
+                      if (state is StoryLoading) {
+                        StoryWidget = CircularProgressIndicator();
+                      }
+
+                      if (state is StoryILoaded) {
+                        //TODO::Show Story here
+
+                        StoryWidget =  Container(
+                          height: screenUtil.screenHeight * .8,
+                          width: double.infinity,
+                          child: state.storyModel.length > 0
+                              ? GridView.builder(
+                            shrinkWrap: true,
+                            itemCount: state.storyModel.length,
+                            gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 20
+
+                            ),
+                            itemBuilder: (context, index) {
+
+                              print(state.storyModel[index]?.stars);
+                              print('sttttt');
+                              return int.parse(state.storyModel[index]?.stars) ==0 ?
+                              InkWell(
+                                  onTap: () {
+                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: StoryCardLock(
+                                      name:
+                                      state.storyModel[index]?.name,
+                                      starts: int.parse(state.storyModel[index]?.stars),
+                                      photo: state.storyModel[index]!.cover_photo
+                                          .toString(),
+                                    ),
+                                  )):
+
+                              InkWell(
+                                  onTap: () {
+                                    // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                    Navigator.push(
+                                        context,
+                                        CustomPageRoute(
+                                            child: StoryPage(id:state.storyModel[index]?.id ,))
+
+                                    );
+
+                                    FlameAudio.bgm.pause();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: StoryCard(
+                                      name:
+                                      state.storyModel[index]!.name,
+                                      starts: int.parse(state.storyModel[index]?.stars),
+                                      photo: state.storyModel[index]!.cover_photo
+                                          .toString(),
+                                    ),
+                                  ));
+                            },
+                          )
+                              : Center(child: Text('القائمه فارغه',style: AppTheme.textTheme.headline2,)),
+                        );
+                      }
+
+                      return StoryWidget;
+                    },
+                  ),
+                )
+              ]),
+        ),
+          ),
         ),
       ),
     );

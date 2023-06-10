@@ -5,6 +5,7 @@ import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
 
 import '../../../../injection_container.dart';
+import '../../date/model/ChartModel.dart';
 import '../Widget/ChartCard.dart';
 import '../managerChart/Chart_bloc.dart';
 import '../managerChart/Chart_event.dart';
@@ -57,7 +58,7 @@ class _ChartPageState extends State<ChartPage> {
 
                           Expanded(
                             // #### Core chart
-                            child: chartToRun(), // verticalBarChart, lineChart
+                            child: chartToRun(state.chartModel), // verticalBarChart, lineChart
                           ),
 
                         ],
@@ -68,7 +69,7 @@ class _ChartPageState extends State<ChartPage> {
                       return ChartCard(
                         text: state.chartModel[index].text,
                         photo: state.chartModel[index].photo,
-                        accuracy_stars: state.chartModel[index].accuracy_stars.toString(),
+                        accuracy_stars: state.chartModel[index].accuracy_stars,
                         text_readd: state.chartModel[index].readed_text,
                         page_no: state.chartModel[index].page_no.toString(),
 
@@ -94,7 +95,20 @@ class _ChartPageState extends State<ChartPage> {
 
 }
 
-Widget chartToRun() {
+Widget chartToRun(List<ChartModel> chartModel) {
+  List<double> stars=[];
+  List<String> num=[];
+
+  chartModel.forEach((element) {
+    print(element.accuracy_stars);
+    print('element.accuracy_stars');
+    stars.add(double.parse(element.accuracy_stars.toString()));
+
+  });
+  chartModel.forEach((element) {
+    num.add(element.page_no.toString());
+  });
+
   LabelLayoutStrategy? xContainerLabelLayoutStrategy;
   ChartData chartData;
   ChartOptions chartOptions = const ChartOptions(
@@ -107,16 +121,16 @@ Widget chartToRun() {
   // The iterative layout strategy causes more labels to be skipped.
   chartData = ChartData(
 
-    dataRows: const [
-      [90.0, 80.0, 70.0, 60.0, 50.0, 40.0,30,20,10,5],
+    dataRows:  [
+      stars,
 
     ],
-    xUserLabels: const ['1', '2', '3', '4', '5', '6','7','8','9','10'],
+    xUserLabels:  num,
     dataRowsLegends: const [
       'المستوى الأول: ذات الرداء الأحمر',
 
     ],
-    yUserLabels: ['10%','20%','30%','40%','50%','60%','70%','80%','90%','100%'],
+    yUserLabels: ['1','2','3'],
     dataRowsColors: [
       AppTheme.primarySwatch.shade300
     ],

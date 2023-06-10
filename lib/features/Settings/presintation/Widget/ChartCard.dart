@@ -9,7 +9,7 @@ class ChartCard extends StatefulWidget {
   String text;
   String text_readd;
   String photo;
-  String accuracy_stars;
+  int accuracy_stars;
    ChartCard({Key? key,required this.text,required this.text_readd, required this.photo,required this.accuracy_stars,required this.page_no }) : super(key: key);
 
   @override
@@ -72,31 +72,73 @@ class _ChartCardState extends State<ChartCard> {
 width: screenUtil.screenWidth *.38,
  height: screenUtil.screenHeight *.2,
                 child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceAround,
-crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                Center(child: Image.asset(Assets.images.story1.path)),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(widget.text,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-                    Text(widget.text_readd,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
-                  ],
+                Expanded(flex: 2,child: Center(child: Image.asset(Assets.images.story1.path))),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(widget.text,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                      Text(widget.text_readd,style:AppTheme.textTheme.headline5,overflow: TextOverflow.clip, textDirection: TextDirection.rtl,textAlign: TextAlign.right),
+                    ],
                 ),
+                  ),
 
-               Column(
+             widget.accuracy_stars ==0?Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+
+                      Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
+                      Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
+                      Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
+
+                    ],),
+                ):
+             widget.accuracy_stars ==1? Expanded(
+    flex: 1,
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+
+    Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+    Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
+    Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
+
+    ],),
+    ):
+             widget.accuracy_stars==2?Expanded(
+               flex: 1,
+               child: Column(
                  crossAxisAlignment: CrossAxisAlignment.center,
-                 mainAxisAlignment: MainAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
 
-                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
-                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
-                 Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                   Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                   Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                   Image.asset(Assets.images.emptyStar.path,width: 20,height: 20,fit: BoxFit.fill),
 
-               ],),
+                 ],),
+             ):
+             widget.accuracy_stars==3?   Expanded(
+               flex: 1,
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: [
 
+                   Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                   Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+                   Image.asset(Assets.images.start.path,width: 20,height: 20,fit: BoxFit.fill),
+
+                 ],),
+             ):Container(color: AppTheme.primaryColor,child: Text('kkkkk'),),
               ],
             )),
           ),

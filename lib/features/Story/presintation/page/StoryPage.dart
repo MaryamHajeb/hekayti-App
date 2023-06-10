@@ -358,7 +358,7 @@ class _StoryPageState extends State<StoryPage> {
                                                       //         'accuracy');
                                                     },
                                                     child: Image.asset(
-
+                                                      color: AppTheme.primarySwatch.shade800,
                                                       width: 30,
                                                       height: 30,
                                                       fit: BoxFit.fill,
@@ -411,7 +411,7 @@ class _StoryPageState extends State<StoryPage> {
                                                       });
                                                     },
                                                     child: Image.asset(
-
+                                                      color: AppTheme.primarySwatch.shade400,
                                                       Assets.images.leftArrow
                                                           .path,
                                                       width: 30,

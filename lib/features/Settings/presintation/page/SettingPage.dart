@@ -73,7 +73,7 @@ class _SettingPageState extends State<SettingPage> {
 
                               ]),
                         ),
-                        SizedBox(height: 30,),
+
                         Container(
                           width: double.infinity,
                           height: screenUtil.screenHeight *.8,

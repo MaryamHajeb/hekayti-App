@@ -38,27 +38,18 @@ class StoryRepository extends Repository{
 
         remoteFunction: () async {
 
-          List<StoryModel>list =[];
 
-          // list= ;
-          // print(list.length);
-          // print('ddddd');
+
+
 
           return  await getStars();
 
-          return  list;
+
         },
 
         getCacheDataFunction: () async{
 
-       //   List<dynamic> reslet = await db.getAllstory('stories','1');
-          List<StoryModel>list =[];
-
-          list= await getStars();
-          print(list.length);
-          print('ddddd');
-
-          return   list;
+          return  await getStars();
         }
 
 
@@ -75,6 +66,7 @@ class StoryRepository extends Repository{
 
 
  Future<List<StoryModel>> getStars()async{
+
    List<dynamic> reslet = await db.getAllstory('stories','1');
     List<StoryModel> dd=[];
     int collected_stars =0;

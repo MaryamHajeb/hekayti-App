@@ -102,11 +102,11 @@ class _MyAppState extends State<MyApp> {
 // db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '4'), tableName: 'stories_media');
 // db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '5'), tableName: 'stories_media');
 //
-// db.insert(data: accuracyModel(media_id: '1', readed_text: 'سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '1', readed_text: 'سار احمد الى المدرسه اليوم', accuracy_stars:'3', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '2', readed_text: '1سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '3', readed_text: 'سار احمد الى المدرسه اليوم2', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '3', readed_text: 'سار احمد الى المدرسه اليوم2', accuracy_stars:'3', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
+// db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
 //
 //
 // db.insert(data: {
@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
 //
 
 
-    FlameAudio.bgm.play('bgm.mp3',volume: 100);
+   // FlameAudio.bgm.play('bgm.mp3',volume: 100);
 
 }
 }
