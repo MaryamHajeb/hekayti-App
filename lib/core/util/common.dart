@@ -1,16 +1,12 @@
-
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../dataProviders/local_data_provider.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../injection_container.dart';

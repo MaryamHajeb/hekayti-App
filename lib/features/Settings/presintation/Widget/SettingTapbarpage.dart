@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
+import 'package:hikayati_app/features/introdection/presintation/page/Splach_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
@@ -173,35 +174,43 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
               ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
-                      children: [
-                        Row(children: [
-                          Text('الايميل :',style: AppTheme.textTheme.headline4),
-                          SizedBox(width: 20,),
-                          Text('${userModel?.email.toString()}',style: AppTheme.textTheme.headline3),
+                    Container(
+                      width: screenUtil.screenWidth* .3,
+                      height: screenUtil.screenHeight *.2,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Text('الايميل :',style: AppTheme.textTheme.headline3),
+                            SizedBox(width: 20,),
+                            Text('${userModel?.email.toString()}',style: TextStyle(color: Colors.grey,fontFamily: AppTheme.fontFamily,fontSize: 14),
+                            )
+                          ]),
+                          SizedBox(height: 20,),
+                          Row(children: [
+                            Text('كلمه المررو :',style: AppTheme.textTheme.headline3),
+                            SizedBox(width: 20,),
+                            Text('اعاده تعيين',style: AppTheme.textTheme.headline4,),
 
-                        ]),
-                        SizedBox(height: 20,),
-                        Row(children: [
-                          Text('كلمه المررو :',style: AppTheme.textTheme.headline4),
-
-                          Text('اعاده تعيين',style: AppTheme.textTheme.headline3,),
-
-                        ]),
-                      ],
+                          ]),
+                        ],
+                      ),
                     ),
 
-                    Column(
-                      children: [
-                        Text('تسجيل الخروج',style: AppTheme.textTheme.headline3,),
-                        SizedBox(height: 20,),
-                        IconButton(
-                          icon: Icon(Icons.logout, color: AppTheme.primaryColor,size: 30),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+                    ElevatedButton(
+                      onPressed: ()async {
 
+                        SharedPreferences prefs;
+                        prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('onbording', false);
+
+                        Navigator.push(
+                            context,
+                            CustomPageRoute(  child:   MyApp()));
+
+                      },
+                      child: Text('تسجيل الخروج',style: AppTheme.textTheme.bodyText1),
+                      style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade500) ),
+                    ),
 
 
                   ],

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:hikayati_app/dataProviders/local_data_provider.dart';
 import 'package:hikayati_app/dataProviders/network/Network_info.dart';
 import 'package:hikayati_app/dataProviders/network/data_source_url.dart';

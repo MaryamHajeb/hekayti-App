@@ -1,3 +1,6 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +56,8 @@ class _HomePageState extends State<HomePage> {
   bool islistToStory=true;
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
+  int progress=0;
+
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -109,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             SizedBox(height: 30,),
-                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: collected_stars / all_stars,),
+                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: (collected_stars / all_stars),),
                             Row(
                               children: [
                                 SizedBox(width: 30,),
@@ -210,9 +215,9 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),
-                                    child: StoryCardLock(
-                                      name:
-                                      state.storyModel[index]?.name,
+                                    child: StoryCardNotDownloded(
+                                      progress: progress,
+                                      name: state.storyModel[index]?.name,
                                       starts: int.parse(state.storyModel[index]?.stars),
                                       photo: state.storyModel[index]!.cover_photo
                                           .toString(),
@@ -285,8 +290,26 @@ class _HomePageState extends State<HomePage> {
 initlist();
 
 
+
+
+
+
+
+
+    FlutterDownloader.registerCallback(downloadCallback, step: 1);
+
   }
+  static  void downloadCallback(String id, int status, int progress) {
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+
+
+
+    send!.send([id, status, progress]);
+  }
+
+
   initlist(){
+
     setState(() {
       listStory;
     });
@@ -304,7 +327,8 @@ initlist();
 
 
 
-
-
-
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
 }

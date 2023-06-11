@@ -1,3 +1,5 @@
+import 'dart:isolate';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -93,6 +95,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
 //
 //      var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '2', name: 'STORY1'), tableName: '"stories" ');
 //     var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: 'cover_photo', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '5', name: 'STORY2'), tableName: '"stories" ');
@@ -149,11 +153,38 @@ class _MyAppState extends State<MyApp> {
 //
 
 
-   // FlameAudio.bgm.play('bgm.mp3',volume: 100);
-  //
-  // db.downloadStoriesCover();
-
-
-}
+  // FlameAudio.bgm.play('bgm.mp3',volume: 100);
+//   ReceivePort _port = ReceivePort();
+//   db.downloadStoriesCover();
+//   FlutterDownloader.registerCallback(downloadCallback, step: 1);
+//
+//
+//
+//   IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+//   _port.listen((dynamic data) {
+//     String id = data[0];
+//     print(id);
+//     DownloadTaskStatus status = DownloadTaskStatus(data[1]);
+//     int progress = data[2];
+//     print(status);
+//     setState((){ });
+//   });
+//
+//
+//   }
+//
+// static  void downloadCallback(String id, int status, int progress) {
+//     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+//     print(progress);
+//     print('progress');
+//     print(status);
+//
+//     send!.send([id, status, progress]);
+//   }
+//
+//   void dispose() {
+//     IsolateNameServer.removePortNameMapping('downloader_send_port');
+//     super.dispose();
+   }
 }
 

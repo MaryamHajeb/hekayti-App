@@ -142,10 +142,15 @@ class _IntroScreenState extends State<IntroScreen> {
 
 
 
+
                                                         print(index);
                                                         if(index==2){
                                                           CachedDate('Carecters',0);
+                                                          CachedDate('collected_stars',0);
+                                                          CachedDate('all_stars',0);
                                                           CachedDate('Listen_to_story',true);
+
+
                                                         }if(index==2){
                                                           CachedDate('level',0);
                                                         }

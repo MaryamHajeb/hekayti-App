@@ -354,15 +354,31 @@ return '0';
 
 
 
-  downloadStoriesCover()async{
+  downloadStoriesCover( )async{
     var dbClient = await  db;
-    List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
-    Directory? appDocDirectory = await getExternalStorageDirectory();
-    String path= await  AndroidPathProvider.downloadsPath;
-
+    List<String> dd=[
+      '1_1_sc.jpg',
+      '1_2_sc.jpg',
+      '1_3_sc.jpg',
+      '1_4_sc.jpg',
+      ];
     final status= await Permission.storage.request();
+    List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
+    final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
+    if ((await dir.exists())) {
+      print( dir.path);;
+    } else {
+      dir.create();
+      print( dir.path);
+    }
+
     if(status.isGranted) {
-      fileDownload('3_1_sc.jpg', path);
+      dd.forEach((element) {
+        print(element+'dkkdk');
+        fileDownload(element,dir.path );
+
+     });
+
     }
     // result.forEach((element){
     //   fileDownload(element['cover_photo'].toString(),path);
@@ -370,21 +386,14 @@ return '0';
 
 
 
-    await FlutterDownloader.registerCallback(downloadCallback);
 
 
   }
 
   fileDownload(String fileName,String path)async{
 
-    final taskId = await   FlutterDownloader.enqueue(savedDir: path,url:DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName);
+       FlutterDownloader.enqueue(savedDir: path,url:DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName);
 
-    FlutterDownloader.registerCallback(downloadCallback);
-  }
-  static void downloadCallback(String id, int status, int progress) {
-    print('fdmkfmkdmkfmdkmfkdmfkdmfkmdmfkmdkfmdkfmd');
-    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
-    send!.send([id, status, progress]);
   }
 
 
