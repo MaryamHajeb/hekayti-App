@@ -1,7 +1,7 @@
 class DataSourceURL {
 
      static String baseUrl = 'http://192.168.137.1:8000/api/';
-     static String baseImageUrl = 'http://192.168.137.1/';
+     static String baseDownloadUrl = 'https://hikayati.000webhostapp.com/upload/';
      static String getAllStory='stories';
      static String getAllmedia='media';
      static String getAllaccuracy='accuracy';
@@ -11,4 +11,7 @@ class DataSourceURL {
      static String getLast10Story='get/last10/Story';
      static String signup = 'signup';
      static String login = 'login';
+     static String cover = 'stories_covers/';
+     static String photo = 'slides_photos/';
+     static String sound = 'slides_sounds/';
 }

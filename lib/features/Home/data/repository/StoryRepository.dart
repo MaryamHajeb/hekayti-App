@@ -70,7 +70,8 @@ class StoryRepository extends Repository{
    List<dynamic> reslet = await db.getAllstory('stories','1');
     List<StoryModel> dd=[];
     int collected_stars =0;
-    int all_stars =0;
+    int all_stars =reslet.length *3;
+
     reslet.forEach((element) async{
       String? start='';
       start  =await db.getStoryStars('1',element['id']);
@@ -78,11 +79,10 @@ class StoryRepository extends Repository{
       {
         start='0';
       }
-      print(start);
-      print('start');
-      // all_stars+=start!;
 
-      collected_stars+= int.parse(element['required_stars'].toString());
+      collected_stars+=int.parse(start);
+
+
 
 
 
@@ -102,9 +102,12 @@ class StoryRepository extends Repository{
 //      start='';
 
     });
-    //CachedDate('stars',start);
+   await Future.delayed(Duration(seconds: 1));
+ print(collected_stars);
+ print(all_stars);
+ print('all_stars');
+    CachedDate('all_stars',all_stars);
     CachedDate('collected_stars',collected_stars);
-    await Future.delayed(Duration(seconds: 1));
     return  dd;
   }
 

@@ -283,7 +283,6 @@ Either<UserModel, bool> checkUserLoggedIn() {
   try {
     final customer =
     //RemoteDataProvider(client: sl()).sendData(url: url, body: body, retrievedDataType: retrievedDataType)
-
     LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
         .getCachedData(
         key: 'UserInformation',

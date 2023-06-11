@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/data/model/WebStoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
@@ -8,6 +9,7 @@ import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'core/util/common.dart';
 import 'core/util/database_helper.dart';
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/date/model/userMode.dart';
@@ -29,7 +31,10 @@ void main() async{
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
   );
-
+  await FlutterDownloader.initialize(
+      debug: true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl: true // option: set to false to disable working with http links (default: false)
+  );
   final prefs = await SharedPreferences.getInstance();
   islogin=await prefs.getBool('onbording')??false;
  carecters= await  prefs.getString('Carecters') ?? '';
@@ -145,6 +150,9 @@ class _MyAppState extends State<MyApp> {
 
 
    // FlameAudio.bgm.play('bgm.mp3',volume: 100);
+  //
+  // db.downloadStoriesCover();
+
 
 }
 }

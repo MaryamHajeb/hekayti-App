@@ -8,6 +8,7 @@ import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/util/common.dart';
+import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../model/userMode.dart';
 
@@ -15,6 +16,9 @@ class RegistrationRepository extends Repository {
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
+
+  DatabaseHelper db = new DatabaseHelper();
+
 
   RegistrationRepository({
     required this.remoteDataProvider,
@@ -61,5 +65,8 @@ class RegistrationRepository extends Repository {
 
           return remoteData;
         });
+   // db.checkAccuracyFound(data);
+    //
+    //
   }
 }

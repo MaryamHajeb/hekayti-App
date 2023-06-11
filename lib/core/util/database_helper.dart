@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
+import 'package:android_path_provider/android_path_provider.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:intl/intl.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -149,7 +154,7 @@ Future<int> update({required  data,required String tableName,required String whe
 
  Future<List<dynamic>> getAllstory(tableName, level) async{
     Database? dbClient = await  db;
-  var sql = "SELECT * FROM $tableName where level =$level ";
+  var sql = "SELECT * FROM $tableName where level =$level  order by story_order ";
 
   List<dynamic> result = await dbClient!.rawQuery(sql);
  print(result);
@@ -347,7 +352,45 @@ return '0';
   }
 
 
-  //GET DATA ACCURACY FROM REMOTE DATABASE INSERTED OR UPDATE
+
+
+  downloadStoriesCover()async{
+    var dbClient = await  db;
+    List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
+    Directory? appDocDirectory = await getExternalStorageDirectory();
+    String path= await  AndroidPathProvider.downloadsPath;
+
+    final status= await Permission.storage.request();
+    if(status.isGranted) {
+      fileDownload('3_1_sc.jpg', path);
+    }
+    // result.forEach((element){
+    //   fileDownload(element['cover_photo'].toString(),path);
+    // });
+
+
+
+    await FlutterDownloader.registerCallback(downloadCallback);
+
+
+  }
+
+  fileDownload(String fileName,String path)async{
+
+    final taskId = await   FlutterDownloader.enqueue(savedDir: path,url:DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName);
+
+    FlutterDownloader.registerCallback(downloadCallback);
+  }
+  static void downloadCallback(String id, int status, int progress) {
+    print('fdmkfmkdmkfmdkmfkdmfkdmfkmdmfkmdkfmdkfmd');
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
+  }
+
+
+
+  //GET DATA ACCUR
+  // ACY FROM REMOTE DATABASE INSERTED OR UPDATE
   checkAccuracyFound(List<accuracyModel> data)async{
 
     data.forEach((element) async{

@@ -30,6 +30,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
 import 'package:file/file.dart';
 
+import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
@@ -120,7 +121,10 @@ class _StoryPageState extends State<StoryPage> {
                 if (state is SliedILoaded) {
                   //TODO::Show Slied here
 
-                  SliedWidget = Container(
+                  SliedWidget =
+
+
+                      Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
@@ -203,12 +207,67 @@ class _StoryPageState extends State<StoryPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: PageView.builder(
+                            child:
+
+
+                            PageView.builder(
+                              physics: NeverScrollableScrollPhysics(),
                               itemCount: state.SliedModel.length,
                               reverse: true,
                               controller: pageControler,
                               itemBuilder: (context, index) {
-                                return InkWell(
+                                return
+                                  state.SliedModel[index].page_no ==1? InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        currentIndexPage = index;
+                                        text_orglin=state.SliedModel[index].text;
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.topCenter,
+                                        children: [
+                                          Container(
+                                              width: screenUtil.screenWidth * 1,
+                                              height:
+                                              screenUtil.screenHeight * .80,
+                                              padding: EdgeInsets.only(
+                                                  right: 10, left: 10, top: 10),
+                                              child: Image.asset(Assets.images.storypages.path,
+                                                fit: BoxFit.cover,
+                                                height:
+                                                screenUtil.screenHeight * .9,
+                                                width:
+                                                screenUtil.screenWidth * .9,
+                                              )),
+
+                                          Positioned(
+                                            height: screenUtil.screenHeight * 1.75,
+                                            width: screenUtil.screenWidth * .8,
+                                            child: Center(
+                                              child: CustemButten(ontap: (){
+                                                pageControler.nextPage(
+                                                    duration: Duration(
+                                                        seconds: 1),
+                                                    curve: Curves
+                                                        .fastOutSlowIn);
+
+
+                                              },text: 'ابدأ',),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ):
+
+                                  InkWell(
                                   onTap: () {
                                     setState(() {
                                       currentIndexPage = index;
@@ -227,7 +286,7 @@ class _StoryPageState extends State<StoryPage> {
                                         Container(
                                             width: screenUtil.screenWidth * 1,
                                             height:
-                                                screenUtil.screenHeight * .85,
+                                                screenUtil.screenHeight * .80,
                                             padding: EdgeInsets.only(
                                                 right: 10, left: 10, top: 10),
                                             child: Image.asset(Assets.images.storypages.path,
@@ -237,68 +296,8 @@ class _StoryPageState extends State<StoryPage> {
                                               width:
                                                   screenUtil.screenWidth * .9,
                                             )),
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15))),
-                                          margin: EdgeInsets.all(15),
-                                          child: Visibility(
-                                            visible: visiblety,
-                                            child: Container(
-                                              margin: EdgeInsets.all(5),
-                                              width:
-                                                  screenUtil.screenWidth * .5,
-                                              height:
-                                                  screenUtil.screenHeight * .1,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  border: Border.all(
-                                                      color:
-                                                          AppTheme.primaryColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(15))),
-                                              child: Row(children: [
-                                                Expanded(
-                                                    flex: 6,
-                                                    child: Slider(
-                                                      value: valueslider,
-                                                      max: 100,
-                                                      min: 0,
-                                                      onChanged:
-                                                          (double value) {
-                                                        setState(() {
-                                                          valueslider = value;
-                                                        });
-                                                      },
-                                                    )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Row(
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(
-                                                            Icons.play_arrow,
-                                                            color: AppTheme
-                                                                .primaryColor,
-                                                          ),
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {},
-                                                          icon: Icon(Icons.stop,
-                                                              color: AppTheme
-                                                                  .primaryColor),
-                                                        ),
-                                                      ],
-                                                    ))
-                                              ]),
-                                            ),
-                                          ),
-                                        ),
                                         Positioned(
-                                          height: screenUtil.screenHeight * 1.8,
+                                          height: screenUtil.screenHeight * 1.75,
                                           width: screenUtil.screenWidth * .8,
                                           child: Center(
                                             child: Container(
@@ -313,7 +312,7 @@ class _StoryPageState extends State<StoryPage> {
                                                     MainAxisAlignment
                                                         .spaceAround,
                                                 children: [
-                                                  InkWell(
+                                                  index+1 ==state.SliedModel.length?Container():        InkWell(
                                                     onTap: () {
 
 
@@ -325,37 +324,23 @@ class _StoryPageState extends State<StoryPage> {
 
                                                       print(rendom);
                                                       print(
-                                                     index ==state.SliedModel.length?
-                                                          Navigator.push(
-                                                              context,
-                                                              CustomPageRoute(  child:   HomePage())):
+
 
 
                                                           '333333333333333333333333333333333333333333');
 
-                                                        pageControler.nextPage(
-                                                            duration: Duration(
-                                                                seconds: 1),
-                                                            curve: Curves
-                                                                .bounceInOut);
 
-                                                        // showImagesDialog(
-                                                        //     context,
-                                                        //     '${carectersobj.sadListCarecters[Carecters_id]['image']}', '! يرجى تسجيل الصوت أولاً'
-                                                        //         '');
-                                                        //
-                                                      // db.insert(
-                                                      //     data: accuracyModel(
-                                                      //         media_id: state
-                                                      //             .SliedModel[
-                                                      //                 currentIndexPage]
-                                                      //             .id,
-                                                      //         user_id:
-                                                      //             'almomyz@gami',
-                                                      //         accuracy_percentage:
-                                                      //             rendom),
-                                                      //     tableName:
-                                                      //         'accuracy');
+
+                                                    star ==0?    showImagesDialog(
+                                                            context,
+                                                            '${carectersobj.sadListCarecters[Carecters_id]['image']}', '! يرجى تسجيل الصوت أولاً'
+                                                                ''):pageControler.nextPage(
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        curve: Curves
+                                                            .fastOutSlowIn);
+                                                    star=0;
+
                                                     },
                                                     child: Image.asset(
                                                       color: AppTheme.primarySwatch.shade800,
@@ -366,6 +351,8 @@ class _StoryPageState extends State<StoryPage> {
                                                           .path,
                                                     ),
                                                   ),
+
+
                                                   Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -383,17 +370,17 @@ class _StoryPageState extends State<StoryPage> {
                                                             .toString(),
                                                         style: AppTheme
                                                             .textTheme
-                                                            .headline3,
+                                                            .headline1,
                                                       ),
                                                       SizedBox(
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                          '${state.SliedModel.length}/${index + 1}',
+                                                          '${state.SliedModel.length}/${state.SliedModel[index].page_no-1 + 1}',
                                                           style: TextStyle(
                                                               color: AppTheme
                                                                   .primaryColor,
-                                                              fontSize: 14))
+                                                              fontSize: 12))
                                                     ],
                                                   ),
                                                   InkWell(
@@ -407,7 +394,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                         seconds:
                                                                             1),
                                                                 curve: Curves
-                                                                    .bounceInOut);
+                                                                    .fastOutSlowIn);
                                                       });
                                                     },
                                                     child: Image.asset(
@@ -626,8 +613,10 @@ class _StoryPageState extends State<StoryPage> {
 
     }));
     star=  await  checkText(text_orglin,text,1);
-    star !=0?
-    db.addAccuracy(accuracyModel(media_id:'', readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))):showImagesDialog(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى');
+    print(star);
+    star !=0? {db.addAccuracy(accuracyModel(media_id:'', readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))),
+    showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت'),
+    }:showImagesDialog(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى');
 
   }
 
@@ -658,6 +647,8 @@ class _StoryPageState extends State<StoryPage> {
     if (similarityPercentageInt > 94) return 3;
     if (similarityPercentageInt > 88) return 2;
     if (similarityPercentageInt > 79) return 1;
+
+
     return 0;
   }
 

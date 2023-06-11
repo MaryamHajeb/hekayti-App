@@ -22,120 +22,130 @@ class _StoryCardLockState extends State<StoryCardLock> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    return Wrap(
+    return Stack(
+
 
       children: [
-          Center(
-            child: Container(
-            width: screenUtil.screenWidth *.25,
-            height: screenUtil.screenHeight *.6,
+
+        Opacity(
+          opacity: .7,
+          child: Wrap(
+
+            children: [
+                Center(
+                  child: Container(
+                  width: screenUtil.screenWidth *.25,
+                  height: screenUtil.screenHeight *.6,
 
 
-            decoration:
-            BoxDecoration(
+                  decoration:
+                  BoxDecoration(
 
 
-              image: DecorationImage(image: AssetImage(Assets.images.storyBG.path,),fit: BoxFit.contain,)
+                    image: DecorationImage(image: AssetImage(Assets.images.storyBG.path,),fit: BoxFit.contain,)
 
-            ),
-            child: Opacity(
-              opacity: .4,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
 
-                  children: [
+                      children: [
 
-                   widget.starts == 1 ? Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
+                       widget.starts == 1 ? Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
 
 
 
-                  Image.asset(Assets.images.start.path,width: 40,height: 40,),
-                       Padding(
-                         padding: const EdgeInsets.only(bottom: 20.0),
-                         child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                      Image.asset(Assets.images.start.path,width: 40,height: 40,),
+                           Padding(
+                             padding: const EdgeInsets.only(bottom: 20.0),
+                             child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                           ),
+                           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                         ],
+                       ):widget.starts ==2?
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+
+
+
+                          Image.asset(Assets.images.start.path,width: 40,height: 40),
+                           Padding(
+                             padding: const EdgeInsets.only(bottom: 20.0),
+                             child:Image.asset(Assets.images.start.path,width: 40,height: 40),
+                           ),
+                           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                         ],
+                       ): widget.starts ==0 ? Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+
+
+
+                           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                           Padding(
+                             padding: const EdgeInsets.only(bottom: 20.0),
+                             child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                           ),
+                           Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                         ],
+                       ):
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+
+
+
+                           Image.asset(Assets.images.start.path,width: 40,height: 40),
+                           Padding(
+                             padding: const EdgeInsets.only(bottom: 20.0),
+                             child:Image.asset(Assets.images.start.path,width: 40,height: 40),
+                           ),
+                          Image.asset(Assets.images.start.path,width: 40,height: 40),
+
+                         ],
                        ),
-                       Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
-
-                     ],
-                   ):widget.starts ==2?
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
 
 
 
-                      Image.asset(Assets.images.start.path,width: 40,height: 40),
-                       Padding(
-                         padding: const EdgeInsets.only(bottom: 20.0),
-                         child:Image.asset(Assets.images.start.path,width: 40,height: 40),
-                       ),
-                       Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
-
-                     ],
-                   ): widget.starts ==0 ? Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
+                        Container(
+                          height: screenUtil.screenHeight * .3,
+                          width: screenUtil.screenWidth *.14,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                              Image.asset(Assets.images.storypages.path,height: 150,fit: BoxFit.cover,),
 
 
+                            ]),
+                            // child: Image.memory(
+                            //
+                            //   converToBase64(widget.photo.toString()
+                            //   ),
+                            //   fit: BoxFit.cover,
+                            //   ),
+                          ),
+                        ),
+                     SizedBox(height: 10,),
+                     Text(widget.name,style: AppTheme.textTheme.headline5,)
 
-                       Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
-                       Padding(
-                         padding: const EdgeInsets.only(bottom: 20.0),
-                         child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
-                       ),
-                       Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
-
-                     ],
-                   ):
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-
-
-
-                       Image.asset(Assets.images.start.path,width: 40,height: 40),
-                       Padding(
-                         padding: const EdgeInsets.only(bottom: 20.0),
-                         child:Image.asset(Assets.images.start.path,width: 40,height: 40),
-                       ),
-                      Image.asset(Assets.images.start.path,width: 40,height: 40),
-
-                     ],
-                   ),
-
-
-
-                    Container(
-                      height: screenUtil.screenHeight * .3,
-                      width: screenUtil.screenWidth *.14,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                          Image.asset(Assets.images.storypages.path,height: 150,fit: BoxFit.cover,),
-                          Icon(Icons.lock,color: Colors.yellow,size: 50,),
-
-                        ]),
-                        // child: Image.memory(
-                        //
-                        //   converToBase64(widget.photo.toString()
-                        //   ),
-                        //   fit: BoxFit.cover,
-                        //   ),
-                      ),
-                    ),
-                 SizedBox(height: 10,),
-                 Text(widget.name,style: AppTheme.textTheme.headline5,)
-
-              ]),
-            ),
-            ),
+                  ]),
+                  ),
+                ),
+              ],
           ),
-        ],
+        ),
+        Center(child: Icon(Icons.lock,color:
+        Color(0xFF4B3A29),size: 50,)),
+
+      ],
     );
   }
 }

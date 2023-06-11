@@ -1,6 +1,7 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
@@ -19,6 +20,7 @@ import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
+import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
@@ -45,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   List<StoryModel> listStoryWithSearch = [];
   Carecters carectersobj =Carecters();
   int collected_stars=0;
+  int all_stars=0;
   int stars=0;
   bool bgm=false;
   bool islistToStory=true;
@@ -106,14 +109,14 @@ class _HomePageState extends State<HomePage> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             SizedBox(height: 30,),
-                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: .6,),
+                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: collected_stars / all_stars,),
                             Row(
                               children: [
                                 SizedBox(width: 30,),
 
                             Image.asset('assets/images/start.png',width: 30,height: 30,),
                             SizedBox(width: 20,),
-                            Text('2/24',style: AppTheme.textTheme.headline3,),
+                            Text('$collected_stars/$all_stars',style: AppTheme.textTheme.headline3,),
 
                               ],
                             )
@@ -276,6 +279,8 @@ class _HomePageState extends State<HomePage> {
 
     listStoryWithSearch = listStory;
     Carecters_id=  getCachedDate('Carecters',String);
+    collected_stars= getCachedDate('collected_stars',String);
+    all_stars=getCachedDate('all_stars',String);
 
 initlist();
 
@@ -296,5 +301,10 @@ initlist();
 
 
   }
+
+
+
+
+
 
 }
