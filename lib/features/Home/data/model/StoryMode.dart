@@ -1,10 +1,11 @@
 class StoryModel {
-  dynamic id, name,cover_photo,author,level,required_stars,stars,story_order,updated_at;
+  dynamic id, name,cover_photo,author,level,required_stars,stars,story_order,updated_at,download;
 
   StoryModel({
 
    required  this.id,
     required this.cover_photo,
+    required this.download,
      this.story_order,
     required this.updated_at,
     required this.author,
@@ -28,6 +29,7 @@ class StoryModel {
         required_stars: story['required_stars'],
         name: story['name'],
         updated_at: story['updated_at'],
+        download: story['download'],
         stars: story['stars'],
         story_order: story['story_order']
 
@@ -49,6 +51,7 @@ class StoryModel {
       cover_photo: '',
       stars: '',
       story_order: '',
+      download: '',
 
 
     );
@@ -72,6 +75,7 @@ class StoryModel {
     'name': name,
     'stars': stars,
     'story_order': story_order,
+    'download': download,
     'updated_at': updated_at,
   };
 }

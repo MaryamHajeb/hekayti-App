@@ -356,13 +356,9 @@ return '0';
 
   downloadStoriesCover( )async{
     var dbClient = await  db;
-    List<String> dd=[
-      '1_1_sc.jpg',
-      '1_2_sc.jpg',
-      '1_3_sc.jpg',
-      '1_4_sc.jpg',
-      ];
+
     final status= await Permission.storage.request();
+    final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
     final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
     if ((await dir.exists())) {
@@ -373,9 +369,9 @@ return '0';
     }
 
     if(status.isGranted) {
-      dd.forEach((element) {
-        print(element+'dkkdk');
-        fileDownload(element,dir.path );
+      result.forEach((element) {
+        print(element['cover_photo']);
+        fileDownload(element['cover_photo'],dir.path );
 
      });
 

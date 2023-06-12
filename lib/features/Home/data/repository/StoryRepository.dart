@@ -89,6 +89,7 @@ class StoryRepository extends Repository{
       dd.add(
 
           StoryModel(
+            download: true,
               cover_photo: element['cover_photo'],
               author: element['author'],
               level: element['level'],

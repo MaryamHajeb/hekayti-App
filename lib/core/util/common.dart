@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:confetti/confetti.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -204,6 +205,59 @@ void showImagesDialog(BuildContext context, String image,String text) {
                   ],
                 )
               ],
+            ),
+          ),
+        );
+      });
+}
+showConfetti(context2,controler,image) {
+  showDialog(
+      context: context2,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 50,
+
+          insetAnimationDuration: Duration(seconds: 30),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            height: 250,
+            width: 350,
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppTheme.primaryColor,width: 4),
+                borderRadius: BorderRadius.circular(20)),
+            child: Center(
+              child: Container(
+                child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('!!!!! مبروك ',style: TextStyle(fontSize: 22,fontFamily: AppTheme.fontFamily,color: AppTheme.primaryColor)),
+                        Text('لقد اتممت ',style: AppTheme.textTheme.headline3,),
+                        Text(' القصه بنجاح',style: AppTheme.textTheme.headline3,),
+                      ],
+                    ),
+
+                    ConfettiWidget(
+                      confettiController: controler,
+                      shouldLoop: true,
+
+                     numberOfParticles: 20,
+
+                      colors: [AppTheme.primaryColor,AppTheme.primarySwatch.shade500,Color(0xFFFFAA3B)],
+
+                    ),
+                    Image.asset(image,width: 190,height: 190,fit: BoxFit.contain),
+                  ],
+                ),
+              ),
             ),
           ),
         );

@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:confetti/confetti.dart';
 import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:string_similarity/string_similarity.dart';
@@ -83,6 +84,9 @@ class _StoryPageState extends State<StoryPage> {
   bool recognizeFinished = false;
   String text = '';
   bool   lisen =true;
+  int lengthSrory=0;
+  final controller =ConfettiController();
+
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -120,6 +124,8 @@ class _StoryPageState extends State<StoryPage> {
 
                 if (state is SliedILoaded) {
                   //TODO::Show Slied here
+
+                  lengthSrory=   state.SliedModel.length;
 
                   SliedWidget =
 
@@ -211,7 +217,7 @@ class _StoryPageState extends State<StoryPage> {
 
 
                             PageView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+
                               itemCount: state.SliedModel.length,
                               reverse: true,
                               controller: pageControler,
@@ -314,22 +320,6 @@ class _StoryPageState extends State<StoryPage> {
                                                 children: [
                                                   index+1 ==state.SliedModel.length?Container():        InkWell(
                                                     onTap: () {
-
-
-                                                      index = index + 1;
-                                                      rendom =
-                                                          Random().nextInt(100);
-                                                      print(
-                                                          '333333333333333333333333333333333333333333');
-
-                                                      print(rendom);
-                                                      print(
-
-
-
-                                                          '333333333333333333333333333333333333333333');
-
-
 
                                                     star ==0?    showImagesDialog(
                                                             context,
@@ -441,37 +431,6 @@ class _StoryPageState extends State<StoryPage> {
        lisen=  getCachedDate('Listen_to_story',bool)  ?? '';
   }
 
-//  Future<String> saveAcurrcy(
-  //     dynamic media_id, user_id, accuracy_percentage) async {
-  //   try {
-  //     await db.insert(
-  //         data: accuracyModel(
-  //           accuracy_stars: ,
-  //             media_id: media_id,
-  //             user_id: user_id,
-  //             accuracy_percentage: accuracy_percentage),
-  //         tableName: 'accuracy');
-  //     print('---------------------------------------------------------');
-  //
-  //     print('---------------------------------------------------------');
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  //   return db.toString();
-  // }
-  //
-  // getaccurac() async {
-  //   List dd = await db.getAllstory('accuracy', '1');
-  //   print('--------------------------------------------');
-  //   print(dd.toString());
-  //   print('--------------------------------------------');
-  //
-  //   for (int i = 0; i < dd.length; i++) {
-  //     accuracyModel user = accuracyModel.fromJson(dd[i]);
-  //     print(
-  //         'ID: ${user.id} - username: ${user.media_id} - city: ${user.accuracy_percentage}');
-  //   }
-  // }
 
   _init() async {
     try {
@@ -614,7 +573,15 @@ class _StoryPageState extends State<StoryPage> {
     }));
     star=  await  checkText(text_orglin,text,1);
     print(star);
+
+
+
     star !=0? {db.addAccuracy(accuracyModel(media_id:'', readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))),
+      currentIndexPage==lengthSrory? {
+        controller.play(),
+        showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}')
+      }:
+
     showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت'),
     }:showImagesDialog(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى');
 

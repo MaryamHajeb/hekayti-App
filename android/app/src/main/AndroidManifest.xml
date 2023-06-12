@@ -8,7 +8,7 @@
 
 
     <application
-        android:label="hikayati_app"
+        android:label="حكايتي"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"

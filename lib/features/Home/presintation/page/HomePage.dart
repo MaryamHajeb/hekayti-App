@@ -208,7 +208,8 @@ class _HomePageState extends State<HomePage> {
 
                               print(state.storyModel[index]?.stars);
                               print('sttttt');
-                              return int.parse(state.storyModel[index]?.stars) ==0 ?
+                              return
+                              state.storyModel[index]!.download ==false ?
                               InkWell(
                                   onTap: () {
                                     showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
@@ -216,7 +217,22 @@ class _HomePageState extends State<HomePage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),
                                     child: StoryCardNotDownloded(
-                                      progress: progress,
+                                       progress: progress,
+                                      name: state.storyModel[index]?.name,
+                                      starts: int.parse(state.storyModel[index]?.stars),
+                                      photo: state.storyModel[index]!.cover_photo
+                                          .toString(),
+                                    ),
+                                  ))
+                                :state.storyModel[index]!.required_stars>= collected_stars ?
+                              InkWell(
+                                  onTap: () {
+                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: StoryCardLock(
+
                                       name: state.storyModel[index]?.name,
                                       starts: int.parse(state.storyModel[index]?.stars),
                                       photo: state.storyModel[index]!.cover_photo
@@ -331,4 +347,6 @@ initlist();
     IsolateNameServer.removePortNameMapping('downloader_send_port');
     super.dispose();
   }
+
+
 }
