@@ -42,7 +42,11 @@ class RegistrationRepository extends Repository {
                 'user_name': getCachedDate('nameChlied',String),
 
               });
+          localDataProvider.cacheData(key: 'User_id', data: String);
 
+          db.uploadAccuracy(localDataProvider.getCachedData(key: 'User_id', retrievedDataType: String));
+          db.uploadCompletion(localDataProvider.getCachedData(key: 'User_id', retrievedDataType: String));
+          
           return remoteData;
         });
   }

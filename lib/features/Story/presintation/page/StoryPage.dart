@@ -85,6 +85,7 @@ class _StoryPageState extends State<StoryPage> {
   String text = '';
   bool   lisen =true;
   int lengthSrory=0;
+ String  media_id='';
   final controller =ConfettiController();
 
   @override
@@ -222,6 +223,9 @@ class _StoryPageState extends State<StoryPage> {
                               reverse: true,
                               controller: pageControler,
                               itemBuilder: (context, index) {
+                                media_id=state.SliedModel[index].id.toString();
+                               print(media_id);
+                               print('media_id');
                                 return
                                   state.SliedModel[index].page_no ==1? InkWell(
                                     onTap: () {
@@ -483,6 +487,7 @@ class _StoryPageState extends State<StoryPage> {
 
   _start() async {
     try {
+
       await _init();
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
@@ -495,13 +500,16 @@ class _StoryPageState extends State<StoryPage> {
       const tick = const Duration(seconds: 10);
       new Timer.periodic(tick, (Timer t) async {
 
-        visiblety=!visiblety;
+
+
         if (_currentStatus != RecordingStatus.Unset) {
           t.cancel();
+
           _stop();
         }
       else if (_currentStatus == RecordingStatus.Unset) {
           t.cancel();
+
         } });
       var current = await _recorder!.current(channel: 0);
 
@@ -571,12 +579,13 @@ class _StoryPageState extends State<StoryPage> {
       recognizing = false;
 
     }));
-    star=  await  checkText(text_orglin,text,1);
+    star=  await  checkText(text_orglin,text,getCachedDate('level', String));
     print(star);
+    print('star');
 
 
 
-    star !=0? {db.addAccuracy(accuracyModel(media_id:'', readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))),
+    star !=0? {db.addAccuracy(accuracyModel(media_id:media_id, readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))),
       currentIndexPage==lengthSrory? {
         controller.play(),
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}')

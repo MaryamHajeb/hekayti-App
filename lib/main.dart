@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'core/util/common.dart';
 import 'core/util/database_helper.dart';
+import 'dataProviders/network/data_source_url.dart';
+import 'dataProviders/remote_data_provider.dart';
 import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/date/model/userMode.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
@@ -23,6 +25,8 @@ import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/Splach_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 import 'package:flame_audio/flame_audio.dart';
+
+import 'injection_container.dart';
 DatabaseHelper db = new DatabaseHelper();
 String carecters='';
 String level='';
@@ -151,8 +155,13 @@ class _MyAppState extends State<MyApp> {
 //
 // }, tableName: 'completion');
 //
-
-
+//
+//   var dd=  RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.login, body: {
+//      'email':'abdu22@gmail.com',
+//      'password':'123456',
+//
+//   }, retrievedDataType: String);
+// print(dd);
   // FlameAudio.bgm.play('bgm.mp3',volume: 100);
 //   ReceivePort _port = ReceivePort();
 //   db.downloadStoriesCover();

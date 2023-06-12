@@ -4,6 +4,7 @@ import 'dart:isolate';
 import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:intl/intl.dart';
 import 'dart:typed_data';
@@ -21,6 +22,7 @@ import '../../features/Home/data/model/WebStoryMode.dart';
 import '../../features/Home/data/repository/StoryRepository.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../gen/assets.gen.dart';
+import '../../injection_container.dart';
 
 
 class DatabaseHelper{
@@ -441,7 +443,7 @@ return '0';
       if(await localdata!=null) {
         // print(element.updated_at);
         // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
-        if (int.parse(data.accuracy_stars) >
+        if (data.accuracy_stars >
             localdata[0]['accuracy_stars']) {
           update(data:
           accuracyModel(
@@ -454,18 +456,16 @@ return '0';
               where: 'id=${localdata[0]['id']}'
 
           );
-          var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
-              url: DataSourceURL.update_Accuracy,
-              retrievedDataType: String,
-              returnType:String,
-              body: {
-                'user_id': '1',
-                'updated_at': 'updated_at',
-                'readed_text':'readed_text',
-                'media_id': '1',
-                'accuracy_stars':'2'
-              }
-          );
+          var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+
+            'user_id': getCachedDate('User_id', String),
+            'updated_at': data.updated_at,
+            'readed_text':data.readed_text,
+            'media_id': data.media_id,
+            'accuracy_stars':data.accuracy_stars
+
+          }, retrievedDataType: String);
+
         }
       }
 
@@ -475,21 +475,18 @@ return '0';
         accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),
         );
 
-        var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
-            url: DataSourceURL.upload_accuracy,
-            retrievedDataType: String,
-            returnType:String,
-            body: {
-                         'user_id': '1',
-                        'updated_at': 'updated_at',
-                        'readed_text':'readed_text',
-                        'media_id': '1',
-                        'accuracy_stars':'2'
-            }
-        );
+        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+
+          'user_id': getCachedDate('User_id', String),
+          'updated_at': data.updated_at,
+          'readed_text':data.readed_text,
+          'media_id': data.media_id,
+          'accuracy_stars':data.accuracy_stars
+
+        }, retrievedDataType: String);
 
 
-    }
+      }
 
   }
 
@@ -501,18 +498,17 @@ return '0';
      List<dynamic> res2=[];
 
      res.forEach((element) {
-       res2.add(
-           {
-             'user_id': user_id,
-             'updated_at': element['updated_at'],
-             'readed_text': 'jjjj',
-             'media_id': element['media_id'],
-             'accuracy_stars': element['accuracy_stars']
-           }
-       );
+       RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+
+              'user_id': element['user_id'],
+               'updated_at': element['updated_at'],
+               'readed_text': element['readed_text'],
+               'media_id': element['media_id'],
+               'accuracy_stars': element['accuracy_stars']
+       }, retrievedDataType: String);
+
 
      });
-
 
 
 
@@ -592,18 +588,16 @@ return res2;
 
               );
               //check internet
-              var remoteData_compleyion = await dd?.remoteDataProvider.sendData(
-                  url: DataSourceURL.update_Accuracy,
-                  retrievedDataType: String,
-                  returnType:String,
-                  body: {
-                    'user_id': '1',
-                    'stars':data['stars'],
-                    'percentage':data['percentage'],
-                    'story_id':data['story_id'],
-                    'updated_at':data['updated_at'],
-                  }
-              );
+              var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+
+                'user_id': '1',
+                'stars':data['stars'],
+                'percentage':data['percentage'],
+                'story_id':data['story_id'],
+                'updated_at':data['updated_at']
+
+              }, retrievedDataType: String);
+
 
 
 
@@ -617,18 +611,16 @@ return res2;
           'updated_at':data['updated_at'],
         }
         );
-        var remoteData_accruacy = await dd?.remoteDataProvider.sendData(
-            url: DataSourceURL.upload_accuracy,
-            retrievedDataType: String,
-            returnType:String,
-            body: {
-              'user_id': '1',
-              'stars':data['stars'],
-              'percentage':data['percentage'],
-              'story_id':data['story_id'],
-              'updated_at':data['updated_at'],
-            }
-        );
+        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+
+          'user_id': '1',
+          'stars':data['stars'],
+          'percentage':data['percentage'],
+          'story_id':data['story_id'],
+          'updated_at':data['updated_at']
+
+        }, retrievedDataType: String);
+
 
       }
 
@@ -659,16 +651,29 @@ return res2;
     List<dynamic> res=     await dbClient!.rawQuery(sql);
     List<dynamic> res2=[];
 
+
     res.forEach((element) {
-      res2.add(
-          {
-            'user_id': user_id,
-            'updated_at': element['updated_at'],
-            'percentage': element['percentage'],
-            'story_id': element['story_id'],
-            'stars': element['stars']
-          }
-      );
+
+      RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.upload_completion, body: {
+
+              'user_id': user_id,
+              'updated_at': element['updated_at'],
+              'percentage': element['percentage'],
+              'story_id': element['story_id'],
+              'stars': element['stars']
+
+      }, retrievedDataType: String);
+
+
+      // res2.add(
+      //     {
+      //       'user_id': user_id,
+      //       'updated_at': element['updated_at'],
+      //       'percentage': element['percentage'],
+      //       'story_id': element['story_id'],
+      //       'stars': element['stars']
+      //     }
+      // );
 
     });
 

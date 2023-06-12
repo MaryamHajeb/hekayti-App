@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             SizedBox(height: 30,),
-                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: (collected_stars / all_stars),),
+                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: (collected_stars / all_stars) ?? 0,),
                             Row(
                               children: [
                                 SizedBox(width: 30,),
