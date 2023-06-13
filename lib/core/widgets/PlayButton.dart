@@ -79,7 +79,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.initialIsPlaying);
+
     return ConstrainedBox(
 
       constraints: BoxConstraints(minWidth: 50, minHeight: 50,),

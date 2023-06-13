@@ -223,11 +223,11 @@ return '0';
 
    }
 
-// Future<int> saveUserModel( UserModel UserModel) async{
-//     var dbClient = await  db;
-//     int result = await dbClient!.insert("$UserModelTable", UserModel.toJson());
-//     return result;
-// }
+Future<int> deleteTable(table_name) async{
+    var dbClient = await  db;
+    int result = await dbClient!.rawDelete('DELETE FROM $table_name');
+    return result;
+}
 
 
   // Future<List> getAllUserModels() async{

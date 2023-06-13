@@ -53,7 +53,12 @@ TextEditingController  nameChiled=TextEditingController();
                     if(value.toString().isEmpty){
                       return'يرجئ منك ادخال اسم الطفل ';
 
-                    }else{
+                    }
+                    else if (!RegExp(r"^[a-zA-Z]+$")
+                        .hasMatch(value)) {
+                      return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
+                    }
+                    else{
                       saveNameChlied();
                     }
                     return null;

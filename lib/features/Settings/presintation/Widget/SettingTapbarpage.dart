@@ -202,8 +202,14 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         SharedPreferences prefs;
                         prefs = await SharedPreferences.getInstance();
                         prefs.setBool('onbording', false);
-
-                        Navigator.push(
+                        db.deleteTable('stories');
+                        db.deleteTable('stories_media');
+                        db.deleteTable('completion');
+                        db.deleteTable('accuracy');
+                        CachedDate('nameChlied','');
+                        CachedDate('Carecters',0);
+                        CachedDate('level',1);
+                        Navigator.pushReplacement(
                             context,
                             CustomPageRoute(  child:   MyApp()));
 

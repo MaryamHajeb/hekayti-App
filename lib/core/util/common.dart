@@ -156,7 +156,7 @@ void showImagesDialog(BuildContext context, String image,String text) {
         );
       });
 }
- showImagesDialogWithCancleButten(BuildContext context2, String image,String text) {
+ showImagesDialogWithCancleButten(BuildContext context2, String image,String text,No_methoed,Ok_methoed) {
   showDialog(
       context: context2,
       builder: (BuildContext context) {
@@ -195,15 +195,80 @@ void showImagesDialog(BuildContext context, String image,String text) {
                   children: [
                     CustemButten2(ontap: (){
 
-                      Navigator.pop(context);
-                      Navigator.pop(context2);
+                       Ok_methoed();
 
                     }, text: 'نعم',),
                     CustemButten(ontap: (){
-                      Navigator.pop(context);
+                      No_methoed();
                     }, text: 'لا',),
                   ],
                 )
+              ],
+            ),
+          ),
+        );
+      });
+}
+ showImagesDialogWithDoWill(BuildContext context2, String image,String text,String readed_text,org_text) {
+  showDialog(
+      context: context2,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 50,
+
+          insetAnimationDuration: Duration(seconds: 30),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            height: 250,
+            width: 350,
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppTheme.primaryColor,width: 4),
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                SizedBox(height: 5,),
+                Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      SizedBox(width: 10,),
+
+                      Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+
+
+                    ]),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Text(org_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+                    Icon(Icons.check_circle_rounded,color: Colors.green,size: 30),
+
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Text(readed_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+                    Icon(Icons.cancel,color: Colors.red,size: 30),
+
+                  ],
+                ),
+
+                SizedBox(height: 15,),
+                CustemButten2(ontap: (){
+
+                  Navigator.pop(context);
+
+                }, text: 'نعم',)
               ],
             ),
           ),
@@ -281,52 +346,6 @@ showSnackBar({required BuildContext context,required title,Color bkColor=Colors.
   });
 
 }
-
-void commonDialog(BuildContext context, String image,String text) {
-  showDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          elevation: 20,
-          insetAnimationDuration: Duration(seconds: 10),
-          shape: RoundedRectangleBorder(
-
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Container(
-            width: 350,
-            height: 200,
-            decoration: BoxDecoration(
-                border: Border.all(color: AppTheme.primaryColor,width: 3),
-                borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(text,style: AppTheme.textTheme.headline3,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                    ElevatedButton(onPressed: (){}, child: Text('yes')),
-                    SizedBox(width: 30,),
-                    ElevatedButton(onPressed: (){}, child: Text('yes')),
-
-                  ],),
-                  Image.asset(image),
-                ],)
-
-              ],
-            ),
-          ),
-        );
-      });
-}
-
 
 
 Either<UserModel, bool> checkUserLoggedIn() {

@@ -1,8 +1,8 @@
 import 'dart:isolate';
 import 'dart:ui';
-
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
@@ -57,13 +57,17 @@ class _HomePageState extends State<HomePage> {
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
   int progress=0;
-
+   double star_progrees = 0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
     return WillPopScope(
       onWillPop: ()async{
-        final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره');
+        final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره',(){
+          Navigator.pop(context);
+        },(){
+          SystemNavigator.pop();
+        });
 
         if(value!=null){
           return Future.value(value);
@@ -114,12 +118,12 @@ class _HomePageState extends State<HomePage> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             SizedBox(height: 30,),
-                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: (collected_stars / all_stars) ?? 0,),
+                            LinearProgressIndicator(backgroundColor: Colors.transparent,color: Colors.transparent,valueColor: AlwaysStoppedAnimation(AppTheme.primarySwatch.shade600),minHeight: 38,value: star_progrees ,),
                             Row(
                               children: [
                                 SizedBox(width: 30,),
 
-                            Image.asset('assets/images/start.png',width: 30,height: 30,),
+                            Image.asset(Assets.images.start.path,width: 30,height: 30,),
                             SizedBox(width: 20,),
                             Text('$collected_stars/$all_stars',style: AppTheme.textTheme.headline3,),
 
@@ -172,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 10),
                 BlocProvider(
-                  create: (context) => sl<StoryBloc>(),
+                  create: (context) =>sl<StoryBloc>(),
                   child: BlocConsumer<StoryBloc, StoryState>(
                     listener: (_context, state) {
                       if (state is StoryError) {
@@ -256,11 +260,9 @@ class _HomePageState extends State<HomePage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),
                                     child: StoryCard(
-                                      name:
-                                      state.storyModel[index]!.name,
+                                      name: state.storyModel[index]!.name,
                                       starts: int.parse(state.storyModel[index]?.stars),
-                                      photo: state.storyModel[index]!.cover_photo
-                                          .toString(),
+                                      photo: state.storyModel[index]!.cover_photo.toString(),
                                     ),
                                   ));
                             },
@@ -299,16 +301,16 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     listStoryWithSearch = listStory;
+
     Carecters_id=  getCachedDate('Carecters',String);
     collected_stars= getCachedDate('collected_stars',String);
     all_stars=getCachedDate('all_stars',String);
-
+     if(collected_stars==0 || all_stars == 0){
+     star_progrees = 0;
+     }else{
+       star_progrees = collected_stars / all_stars;
+     }
 initlist();
-
-
-
-
-
 
 
 

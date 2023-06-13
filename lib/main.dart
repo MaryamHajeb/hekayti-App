@@ -109,11 +109,11 @@ class _MyAppState extends State<MyApp> {
 //
 //
 //
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '1'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '2'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '3'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '4'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'text', updated_at: 'updated_at', page_no: '5'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'سار احمد الى المدرسه', updated_at: 'updated_at', page_no: '1'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'اسامه حاضر', updated_at: 'updated_at', page_no: '2'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'هشام يشتغل ', updated_at: 'updated_at', page_no: '3'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'الحرازي ماشاء الله عليه كمل العمل حقه', updated_at: 'updated_at', page_no: '4'), tableName: 'stories_media');
+// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'محمد راقد', updated_at: 'updated_at', page_no: '5'), tableName: 'stories_media');
 //
 // db.insert(data: accuracyModel(media_id: '1', readed_text: 'سار احمد الى المدرسه اليوم', accuracy_stars:'3', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '2', readed_text: '1سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
 //   'percentage':'80'
 //
 // }, tableName: 'completion');
-//
+
 //
 //   var dd=  RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.login, body: {
 //      'email':'abdu22@gmail.com',

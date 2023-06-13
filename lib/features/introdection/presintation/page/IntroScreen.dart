@@ -110,7 +110,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                     //
                                                     pageController.previousPage(
                                                         duration: Duration(seconds: 1),
-                                                        curve: Curves.bounceInOut);
+                                                        curve: Curves.fastOutSlowIn);
                                                   },
                                                   child: Image.asset(
                                                       color: AppTheme.primarySwatch.shade400,
@@ -172,7 +172,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                             duration: Duration(
                                                               seconds: 1,
                                                             ),
-                                                            curve: Curves.linear);
+                                                            curve: Curves.fastOutSlowIn);
 
                                                       }
 

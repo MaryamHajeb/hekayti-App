@@ -93,7 +93,13 @@ class _StoryPageState extends State<StoryPage> {
     screenUtil.init(context);
     return WillPopScope(
       onWillPop: ()async{
- final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره');
+ final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره',(){
+   Navigator.pop(context);
+ },(){
+   Navigator.push(
+       context,
+       CustomPageRoute(  child:   HomePage()));
+ });
 
         if(value!=null){
           return Future.value(value);
@@ -154,39 +160,41 @@ class _StoryPageState extends State<StoryPage> {
                                 CustemIcon2(
                                     icon: Icon(Icons.home,
                                         color: AppTheme.primaryColor),
-                                    ontap: () {
-                                      showImagesDialogWithCancleButten(
+                                    ontap: () {showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره',(){
+                                      Navigator.pop(context);
+                                    },(){
+                                      Navigator.push(
                                           context,
-                                          '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
-                                          ' هل حقا تريد المغادرة  ؟');
+                                          CustomPageRoute(  child:   HomePage()));
+                                    });
                                     }),
-                                Column(
+                                  state.SliedModel[currentIndexPage].page_no ==1 ?       Container():Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     lisen ==true ?
 
                                     isSpack == false
                                         ? CustemIcon2(
-                                            icon: Icon(
-                                                Icons.headset_mic_outlined,
-                                                color: AppTheme.primaryColor),
-                                            ontap: () {
-                                              setState(() {
-                                                isSpack = true;
+                                        icon: Icon(
+                                            Icons.headset_mic_outlined,
+                                            color: AppTheme.primaryColor),
+                                        ontap: () {
+                                          setState(() {
+                                            isSpack = true;
 
-                                                //   player.play(
-                                                //     AssetSource('music.mp3'));
-                                              });
-                                            })
+                                            //   player.play(
+                                            //     AssetSource('music.mp3'));
+                                          });
+                                        })
                                         : CustemIcon(
-                                            icon: Icon(
-                                              Icons.headset_mic_outlined,
-                                            ),
-                                            ontap: () async {
-                                              isSpack = !isSpack;
-                                              setState(() {});
-                                            }): Center(),
+                                        icon: Icon(
+                                          Icons.headset_mic_outlined,
+                                        ),
+                                        ontap: () async {
+                                          isSpack = !isSpack;
+                                          setState(() {});
+                                        }): Center(),
                                     SizedBox(
                                       height: 30,
                                     ),
@@ -225,6 +233,12 @@ class _StoryPageState extends State<StoryPage> {
                               reverse: true,
                               controller: pageControler,
                               itemBuilder: (context, index) {
+
+                                text_orglin=state.SliedModel[index].text;
+                                currentIndexPage=index;
+                                print(currentIndexPage);
+                                print('currentIndexPage');
+                                print(state.SliedModel[index].page_no);
                                 media_id=state.SliedModel[index].id.toString();
                                print(media_id);
                                print('media_id');
@@ -251,12 +265,15 @@ class _StoryPageState extends State<StoryPage> {
                                               screenUtil.screenHeight * .80,
                                               padding: EdgeInsets.only(
                                                   right: 10, left: 10, top: 10),
-                                              child: Image.asset(Assets.images.storypages.path,
-                                                fit: BoxFit.cover,
-                                                height:
-                                                screenUtil.screenHeight * .9,
-                                                width:
-                                                screenUtil.screenWidth * .9,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(5),
+                                                child: Image.asset(Assets.images.storypages.path,
+                                                  fit: BoxFit.cover,
+                                                  height:
+                                                  screenUtil.screenHeight * .9,
+                                                  width:
+                                                  screenUtil.screenWidth * .9,
+                                                ),
                                               )),
 
                                           Positioned(
@@ -264,6 +281,12 @@ class _StoryPageState extends State<StoryPage> {
                                             width: screenUtil.screenWidth * .8,
                                             child: Center(
                                               child: CustemButten(ontap: (){
+                                                  setState(() {
+                                                    currentIndexPage=index;
+
+                                                  });
+
+
                                                 pageControler.nextPage(
                                                     duration: Duration(
                                                         seconds: 1),
@@ -595,7 +618,7 @@ setState(() {
       }:
 
     showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت'),
-    }:showImagesDialog(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى');
+    }:showImagesDialogWithDoWill(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى',text,text_orglin);
 
   }
 
