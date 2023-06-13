@@ -197,6 +197,8 @@ class _StoryPageState extends State<StoryPage> {
                                           setState(() {
                                             visiblety = !visiblety;
 
+                                            print(visiblety);
+
                                             visiblety ? _start():  _currentStatus != RecordingStatus.Unset ? _stop() : null;
 
                                           });
@@ -478,7 +480,6 @@ class _StoryPageState extends State<StoryPage> {
       filePath = result!.path;
       _current = result;
       print('LLLLLLLLLLLL');
-
       _currentStatus = RecordingStatus.Unset;
       print(_currentStatus);
       recognize();
@@ -504,7 +505,9 @@ class _StoryPageState extends State<StoryPage> {
 
         if (_currentStatus != RecordingStatus.Unset) {
           t.cancel();
-
+setState(() {
+  visiblety = !visiblety;
+});
           _stop();
         }
       else if (_currentStatus == RecordingStatus.Unset) {

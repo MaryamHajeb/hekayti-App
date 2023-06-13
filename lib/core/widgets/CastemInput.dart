@@ -27,7 +27,7 @@ class _CustemInputState extends State<CustemInput> {
     return Center(
       child: SizedBox(
         width:widget.size,
-        height: 80,
+        height: 70,
         child: TextFormField(
 
           validator:widget.valdution,
@@ -38,7 +38,7 @@ class _CustemInputState extends State<CustemInput> {
           controller: widget.controler,
           decoration: InputDecoration(
               contentPadding:
-              EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             fillColor: AppTheme.primarySwatch.shade200,
 
             errorStyle: TextStyle(color: AppTheme.primarySwatch,fontFamily: AppTheme.fontFamily,fontSize: 10,),

@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/util/common.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:intl/intl.dart';
 import 'dart:typed_data';
@@ -400,11 +401,10 @@ return '0';
   // ACY FROM REMOTE DATABASE INSERTED OR UPDATE
   checkAccuracyFound(List<accuracyModel> data)async{
 
+
     data.forEach((element) async{
       dynamic localdata=await foundRecord('media_id',element.media_id,'accuracy');
       if(await localdata!=null){
-        // print(element.updated_at);
-        // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
         if( checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
           update(data:
           accuracyModel(
@@ -415,27 +415,16 @@ return '0';
               updated_at: element.updated_at),
               tableName: 'accuracy',
               where: 'id=${localdata[0]['id']}'
-
           );
-
-
         }
-
       }else{
         insert(tableName: 'accuracy',data:
-
         accuracyModel(media_id: element.media_id, readed_text: element.readed_text, accuracy_stars: element.accuracy_stars, updated_at: element.updated_at),
-
-
-
         );
-
       }
-
-
     });
-
   }
+
 
   //UPDATE AND INSERT ACCURACY FROM LOCALY
   addAccuracy(accuracyModel data)async{
@@ -456,7 +445,7 @@ return '0';
               where: 'id=${localdata[0]['id']}'
 
           );
-          var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+          var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
             'user_id': getCachedDate('User_id', String),
             'updated_at': data.updated_at,
@@ -472,10 +461,10 @@ return '0';
       else{
         insert(tableName: 'accuracy',data:
 
-        accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),
+         accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),
         );
 
-        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateAccuracy, body: {
 
           'user_id': getCachedDate('User_id', String),
           'updated_at': data.updated_at,
@@ -494,76 +483,63 @@ return '0';
   uploadAccuracy(String user_id)async{
     Database? dbClient = await  db;
     var sql = "SELECT * FROM accuracy";
+    var result;
      List<dynamic> res=     await dbClient!.rawQuery(sql);
-     List<dynamic> res2=[];
 
      res.forEach((element) {
-       RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+      result=    RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
-              'user_id': element['user_id'],
-               'updated_at': element['updated_at'],
-               'readed_text': element['readed_text'],
-               'media_id': element['media_id'],
-               'accuracy_stars': element['accuracy_stars']
+              'user_id': user_id,
+               'updated_at': element['updated_at'].toString(),
+               'readed_text': element['readed_text'].toString(),
+               'media_id': element['media_id'].toString(),
+               'accuracy_stars': element['accuracy_stars'].toString()
        }, retrievedDataType: String);
-
+print(result);
 
      });
 
 
 
-print(res2);
+print(res);
 
-return res2;
+
   }
 
 
 
 
-  checkCompletionFound(List<dynamic> data)async{
+  checkCompletionFound(List<CompletionModel> data)async{
 
     data.forEach((element) async{
       dynamic localdata=await foundRecord('story_id',element.story_id,'completion');
 
       if(await localdata!=null){
-
-        if(checkUpdate(element['updated_at'].toString(),localdata[0]['updated_at'].toString())!=0){
+        if(checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
           update(data:
-            {
-              'id': localdata[0]['id'],
-              'stars':element['stars'],
-              'percentage':element['percentage'],
-              'story_id':element['story_id'],
-              'updated_at':element['updated_at'],
-            }
+          {
+            'id': localdata[0]['id'],
+            'stars':element.stars,
+            'percentage':element.percentage,
+            'story_id':element.story_id,
+            'updated_at':element.updated_at,
+          }
               ,
               tableName: 'completion',
               where: 'id=${localdata[0]['id']}'
 
           );
-
-
         }
-
       }else{
         insert(tableName: 'completion',data:{
-          'stars':element['stars'],
-          'percentage':element['percentage'],
-          'story_id':element['story_id'],
-          'updated_at':element['updated_at'],
+          'stars':element.stars,
+          'percentage':element.percentage,
+          'story_id':element.story_id,
+          'updated_at':element.updated_at,
         }
-
-
-
-
-
         );
-
       }
-
-
     });
-
   }
 
 
@@ -588,7 +564,7 @@ return res2;
 
               );
               //check internet
-              var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+              var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
                 'user_id': '1',
                 'stars':data['stars'],
@@ -611,7 +587,7 @@ return res2;
           'updated_at':data['updated_at'],
         }
         );
-        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.update_Accuracy, body: {
+        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
           'user_id': '1',
           'stars':data['stars'],
@@ -649,40 +625,30 @@ return res2;
     Database? dbClient = await  db;
     var sql = "SELECT * FROM completion";
     List<dynamic> res=     await dbClient!.rawQuery(sql);
-    List<dynamic> res2=[];
+
 
 
     res.forEach((element) {
 
-      RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.upload_completion, body: {
+   var result=   RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion, body: {
 
               'user_id': user_id,
-              'updated_at': element['updated_at'],
-              'percentage': element['percentage'],
-              'story_id': element['story_id'],
-              'stars': element['stars']
+              'updated_at': element['updated_at'].toString(),
+              'percentage': element['percentage'].toString(),
+              'story_id': element['story_id'].toString(),
+              'stars': element['stars'].toString()
 
       }, retrievedDataType: String);
 
-
-      // res2.add(
-      //     {
-      //       'user_id': user_id,
-      //       'updated_at': element['updated_at'],
-      //       'percentage': element['percentage'],
-      //       'story_id': element['story_id'],
-      //       'stars': element['stars']
-      //     }
-      // );
+print(result);
 
     });
 
 
 
 
-    print(res2);
 
-    return res2;
+
   }
 
 

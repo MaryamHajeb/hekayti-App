@@ -11,13 +11,9 @@ class accuracyModel {
 
   factory accuracyModel.fromJson(Map<String, dynamic> accuracy) {
     return accuracyModel(
-
-
-
         id: accuracy['id'],
         media_id: accuracy['media_id'],
         readed_text: accuracy['readed_text'],
-
         accuracy_stars: accuracy['accuracy_stars'],
         updated_at: accuracy['updated_at'],
     );

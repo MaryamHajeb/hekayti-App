@@ -15,7 +15,7 @@ class UserModel {
     return UserModel(
 
       user_name: user['user_name'],
-      email: user['email'],
+      email : user['email'],
       level: user['level'],
       character: user['character'],
       id: user['id'],

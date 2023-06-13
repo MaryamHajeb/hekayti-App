@@ -4,14 +4,14 @@ import 'dart:math' show pi;
 import 'package:hikayati_app/core/app_theme.dart';
 
 class PlayButton extends StatefulWidget {
-  final bool initialIsPlaying;
+   bool initialIsPlaying;
   final Icon playIcon;
   final Icon pauseIcon;
   final VoidCallback onPressed;
 
   PlayButton({
     required this.onPressed,
-    this.initialIsPlaying = false,
+   required this.initialIsPlaying,
     this.playIcon = const Icon(Icons.play_arrow),
     this.pauseIcon = const Icon(Icons.pause),
   }) : assert(onPressed != null);
@@ -24,7 +24,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   static const _kToggleDuration = Duration(milliseconds: 200);
   static const _kRotationDuration = Duration(seconds: 1);
 
-  late bool isPlaying;
+
 
   // rotation and scale animations
   late AnimationController _rotationController;
@@ -39,7 +39,9 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    isPlaying = widget.initialIsPlaying;
+    print(widget.initialIsPlaying);
+    print('widget.initialIsPlaying');
+
     _rotationController =
     AnimationController(vsync: this, duration: _kRotationDuration)
       ..addListener(() => setState(_updateRotation))
@@ -53,7 +55,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   }
 
   void _onToggle() {
-    setState(() => isPlaying = !isPlaying);
+    setState(() => widget.initialIsPlaying = !widget.initialIsPlaying);
 
     if (_scaleController.isCompleted) {
       _scaleController.reverse();
@@ -77,6 +79,7 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.initialIsPlaying);
     return ConstrainedBox(
 
       constraints: BoxConstraints(minWidth: 50, minHeight: 50,),
@@ -92,15 +95,15 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
             constraints: BoxConstraints.expand(),
             child: AnimatedSwitcher(
-              child: _buildIcon(isPlaying),
+              child: _buildIcon(widget.initialIsPlaying),
               duration: _kToggleDuration,
             ),
             decoration: BoxDecoration(
-              border: Border.all(color: isPlaying?Colors.white:AppTheme.primaryColor,width: 2),
+              border: Border.all(color: widget.initialIsPlaying?Colors.white:AppTheme.primaryColor,width: 2),
               shape: BoxShape.rectangle
 
               ,borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: isPlaying?AppTheme.primaryColor:Colors.white,
+              color: widget.initialIsPlaying?AppTheme.primaryColor:Colors.white,
             ),
           ),
         ],

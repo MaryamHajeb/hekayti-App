@@ -49,7 +49,9 @@ TextEditingController CofemPassword = TextEditingController();
             setState(() {
               requestPending = false;
             });
-            showImagesDialog(context,"${carectersobj.showCarecters[Carecters_id ?? 0]['image'] ?? 0}",'تم انشاء حساب بنجاح يمكنك الان تسجيل دخولك ');
+            Navigator.push(
+                context,
+                CustomPageRoute(  child:   HomePage()));
 
           } else if (state is RegisterError) {
             setState(() {
@@ -135,7 +137,7 @@ TextEditingController CofemPassword = TextEditingController();
                                               },controler:email ,text: 'البريد الإلكتروني',type: TextInputType.text,),
 
                                           ],),
-                                        SizedBox(height: 0,),
+
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,7 +159,7 @@ TextEditingController CofemPassword = TextEditingController();
 
 
                                           ],),
-                                        SizedBox(height: 0,),
+
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -183,11 +185,21 @@ TextEditingController CofemPassword = TextEditingController();
 
 
                                           ],),
-                                        SizedBox(height: 10,),
+
+                                        CustemButten(ontap: (){
+                                          if(_signupFormKey.currentState!.validate() ){
+                                            BlocProvider.of<RegistrationBloc>(_context).add(
+                                              Signup(
+                                                email: email.text.toString(),
+                                                password: password.text,
+                                              ),
+                                            );}
+                                        },text: 'إنشاء',),
+
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 15)),
+                                            Text('هل لديك حساب مسبق ؟',style: TextStyle(fontFamily: AppTheme.fontFamily,fontSize: 12)),
                                             SizedBox(width: 10,),
                                             InkWell(
 
@@ -197,7 +209,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                       CustomPageRoute(  child:   LoginPage()));
 
                                                 },
-                                                child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 15))),
+                                                child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 13))),
 
                                           ],
                                         ),
@@ -216,16 +228,7 @@ TextEditingController CofemPassword = TextEditingController();
                                 ],
                               ),
                             ),
-                            CustemButten(ontap: (){
-                                     if(_signupFormKey.currentState!.validate() ){
-                              BlocProvider.of<RegistrationBloc>(_context).add(
-                                Signup(
-                                  email: email.text.toString(),
-                                  password: password.text,
-                                ),
-                              );}
-                            },text: 'إنشاء',),
-                            SizedBox(height: 30,),
+                            SizedBox(height: 10,),
 
                           ]),
                         ),
