@@ -274,7 +274,12 @@ Future<int> deleteTable(table_name) async{
   //
 
 
-  checkStoryFound(List<StoryModel> data)async{
+  checkStoryFound()async{
+    final data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllStory, body: {
+
+    }, retrievedDataType: StoryModel.init(),
+        returnType: List
+    );
 
     data.forEach((element) async{
     dynamic localdata=await foundRecord('id',element.id,'stories');
@@ -317,14 +322,17 @@ Future<int> deleteTable(table_name) async{
 
   }
 
-  checkMediaFound(List<StoryMediaModel> data)async{
+  checkMediaFound()async{
+    final data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllmedia, body: {
+
+    }, retrievedDataType: StoryMediaModel.init(),
+        returnType: List
+    );
 
     data.forEach((element) async{
     dynamic localdata=await foundRecord('id',element.id,'stories_media');
 
-  if(await localdata!=null){
-    // print(element.updated_at);
-    // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
+if(await localdata!=null){
      if(      checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
 
 
@@ -364,12 +372,7 @@ Future<int> deleteTable(table_name) async{
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
     final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
-    if ((await dir.exists())) {
-      print( dir.path);;
-    } else {
-      dir.create();
-      print( dir.path);
-    }
+    dirFound(dir);
 
     if(status.isGranted) {
       result.forEach((element) {
@@ -388,14 +391,53 @@ Future<int> deleteTable(table_name) async{
 
 
   }
+  downloadMedia(String storyId )async{
+    var dbClient = await  db;
 
+    final status= await Permission.storage.request();
+    final status2= await Permission.manageExternalStorage.request();
+    List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
+    final dir = Directory((await getExternalStorageDirectory())!.path + '/photo');
+    final dir2 = Directory((await getExternalStorageDirectory())!.path + '/sound');
+    dirFound(dir);
+    dirFound(dir2);
+
+    if(status.isGranted) {
+      result.forEach((element) {
+        //print(element['cover_photo']);
+        fileDownload(element['photo'],dir.path );
+        fileDownload(element['sound'],dir2.path );
+
+
+     });
+
+    }
+    // result.forEach((element){
+    //   fileDownload(element['cover_photo'].toString(),path);
+    // });
+
+
+
+
+
+  }
   fileDownload(String fileName,String path)async{
 
        FlutterDownloader.enqueue(savedDir: path,url:DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName);
 
   }
+  dirFound(dir)async{
+
+     if ((await dir.exists())) {
+     print( dir.path);
+     } else {
+     dir.create();
+     print( dir.path);
+     }
 
 
+
+   }
 
   //GET DATA ACCUR
   // ACY FROM REMOTE DATABASE INSERTED OR UPDATE
@@ -445,6 +487,8 @@ Future<int> deleteTable(table_name) async{
               where: 'id=${localdata[0]['id']}'
 
           );
+
+
           var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
             'user_id': getCachedDate('User_id', String),
@@ -507,8 +551,6 @@ print(res);
   }
 
 
-
-
   checkCompletionFound(List<CompletionModel> data)async{
 
     data.forEach((element) async{
@@ -564,7 +606,7 @@ print(res);
 
               );
               //check internet
-              var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
+              var remoteData_completion = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateCompletion, body: {
 
                 'user_id': '1',
                 'stars':data['stars'],
@@ -587,7 +629,7 @@ print(res);
           'updated_at':data['updated_at'],
         }
         );
-        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
+        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion, body: {
 
           'user_id': '1',
           'stars':data['stars'],
@@ -666,6 +708,58 @@ print(result);
       return null;
     }
   }
+
+
+initApp(String level)async{
+  Database? dbClient = await  db;
+  checkStoryFound();
+  checkMediaFound();
+  downloadStoriesCover();
+  var sql = "SELECT story_id FROM stories where level =$level  && story_order==1 ";
+  dynamic storyId = await dbClient!.rawQuery(sql);
+  downloadMedia(storyId.toString());
+}
+syncApp(String level)async{
+     Database? dbClient = await  db;
+     checkStoryFound();
+     checkMediaFound();
+     //if signed in
+      //completion list is not empty =>syncCompletion
+      //updateUser
+
+
+   }
+   syncCompletion(List<dynamic> list) async{
+     Database? dbClient = await  db;
+
+     var remoteData_completion=[];
+     list.forEach((element) async{
+       var sql = "SELECT * FROM completion where id=$element['id']";
+       List<dynamic> data=await dbClient!.rawQuery(sql) as List;
+       element['status']=='update'?
+       {
+         remoteData_completion = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateCompletion, body: {
+         'user_id': '1',
+         'stars':element['stars'],
+         'percentage':element['percentage'],
+         'story_id':element['story_id'],
+         'updated_at':element['updated_at']
+
+       }, retrievedDataType: String)}
+           :{remoteData_completion =  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion,
+       body: {
+       'user_id': '1',
+       'stars':element['stars'],
+       'percentage':element['percentage'],
+       'story_id':element['story_id'],
+       'updated_at':element['updated_at'],
+       },
+       retrievedDataType: String
+       )};
+     });
+   }
+
+
 
  int checkUpdate(String update_at_remote,String update_at_local){
 

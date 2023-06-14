@@ -39,8 +39,8 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    print(widget.initialIsPlaying);
-    print('widget.initialIsPlaying');
+    print(true);
+    print('true');
 
     _rotationController =
     AnimationController(vsync: this, duration: _kRotationDuration)
@@ -55,7 +55,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   }
 
   void _onToggle() {
-    setState(() => widget.initialIsPlaying = !widget.initialIsPlaying);
 
     if (_scaleController.isCompleted) {
       _scaleController.reverse();
@@ -95,15 +94,15 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
             constraints: BoxConstraints.expand(),
             child: AnimatedSwitcher(
-              child: _buildIcon(widget.initialIsPlaying),
+              child: _buildIcon(true),
               duration: _kToggleDuration,
             ),
             decoration: BoxDecoration(
-              border: Border.all(color: widget.initialIsPlaying?Colors.white:AppTheme.primaryColor,width: 2),
+              border: Border.all(color: true?Colors.white:AppTheme.primaryColor,width: 2),
               shape: BoxShape.rectangle
 
               ,borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: widget.initialIsPlaying?AppTheme.primaryColor:Colors.white,
+              color: true?AppTheme.primaryColor:Colors.white,
             ),
           ),
         ],

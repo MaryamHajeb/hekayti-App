@@ -194,14 +194,19 @@ class _HomePageState extends State<HomePage> {
 
                       if (state is StoryILoaded) {
                         //TODO::Show Story here
+                        listStory.clear();
+                        state.storyModel.forEach((element) {
+                          listStory.add(element!);
+                        });
+
 
                         StoryWidget =  Container(
                           height: screenUtil.screenHeight * .8,
                           width: double.infinity,
-                          child: state.storyModel.length > 0
+                          child: listStoryWithSearch.length > 0
                               ? GridView.builder(
                             shrinkWrap: true,
-                            itemCount: state.storyModel.length,
+                            itemCount: listStoryWithSearch.length,
                             gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
@@ -210,10 +215,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                             itemBuilder: (context, index) {
 
-                              print(state.storyModel[index]?.stars);
+                              print(listStoryWithSearch[index].stars);
                               print('sttttt');
                               return
-                              state.storyModel[index]!.download ==false ?
+                                listStoryWithSearch[index]!.download ==false ?
                               InkWell(
                                   onTap: () {
                                     showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
@@ -222,13 +227,13 @@ class _HomePageState extends State<HomePage> {
                                     padding: const EdgeInsets.only(top:15.0),
                                     child: StoryCardNotDownloded(
                                        progress: progress,
-                                      name: state.storyModel[index]?.name,
-                                      starts: int.parse(state.storyModel[index]?.stars),
-                                      photo: state.storyModel[index]!.cover_photo
+                                      name: listStoryWithSearch[index]?.name,
+                                      starts: int.parse(listStoryWithSearch[index]?.stars),
+                                      photo: listStoryWithSearch[index]!.cover_photo
                                           .toString(),
                                     ),
                                   ))
-                                :state.storyModel[index]!.required_stars>= collected_stars ?
+                                :listStoryWithSearch[index]!.required_stars>= collected_stars ?
                               InkWell(
                                   onTap: () {
                                     showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
@@ -237,9 +242,9 @@ class _HomePageState extends State<HomePage> {
                                     padding: const EdgeInsets.only(top:15.0),
                                     child: StoryCardLock(
 
-                                      name: state.storyModel[index]?.name,
-                                      starts: int.parse(state.storyModel[index]?.stars),
-                                      photo: state.storyModel[index]!.cover_photo
+                                      name: listStoryWithSearch[index]?.name,
+                                      starts: int.parse(listStoryWithSearch[index]?.stars),
+                                      photo: listStoryWithSearch[index]!.cover_photo
                                           .toString(),
                                     ),
                                   )):
@@ -251,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                         context,
                                         CustomPageRoute(
-                                            child: StoryPage(id:state.storyModel[index]?.id ,))
+                                            child: StoryPage(id:listStoryWithSearch[index]?.id ,))
 
                                     );
 
@@ -260,9 +265,9 @@ class _HomePageState extends State<HomePage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),
                                     child: StoryCard(
-                                      name: state.storyModel[index]!.name,
-                                      starts: int.parse(state.storyModel[index]?.stars),
-                                      photo: state.storyModel[index]!.cover_photo.toString(),
+                                      name: listStoryWithSearch[index]!.name,
+                                      starts: int.parse(listStoryWithSearch[index]?.stars),
+                                      photo: listStoryWithSearch[index]!.cover_photo.toString(),
                                     ),
                                   ));
                             },
@@ -285,13 +290,29 @@ class _HomePageState extends State<HomePage> {
 
   onScearch(String searchWord) {
 
+    print('22222222222222222222222222222222222222222222222222');
+  print(searchWord);
+  print('searchWord');
 
-    setState(() {
-      listStoryWithSearch = listStoryWithSearch
-          .where((element) => element.name.contains(searchWord))
-          .toList();
+  setState(() {
+    print('listStory');
+    listStory.forEach((element) {
+      print(element.name);
+    });
+    print('listStoryWithSearch');
+    listStoryWithSearch.forEach((element) {
+      print(element.name);
     });
 
+      listStoryWithSearch = listStory.where((element) => element.name.toLowerCase().contains(searchWord.toLowerCase()))
+          .toList();
+
+      print('listStoryWithSearch after filter');
+      listStoryWithSearch.forEach((element) {
+        print(element.name);
+      });
+    });
+    print('22222222222222222222222222222222222222222222222222');
 
   }
 

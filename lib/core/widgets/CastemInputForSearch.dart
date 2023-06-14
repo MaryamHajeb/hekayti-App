@@ -31,7 +31,7 @@ class _CastemInputForSearchState extends State<CastemInputForSearch> {
           width:widget.size,
           height: 80,
           child: TextFormField(
-
+          onChanged: widget.onching,
             validator:widget.valdution,
             keyboardType: widget.type,
             style: AppTheme.textTheme.headline2,

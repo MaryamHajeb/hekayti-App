@@ -59,7 +59,7 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
-  bool visiblety = false;
+  bool visiblety = true;
   Widget SliedWidget = Center();
   int star=0;
   ScreenUtil screenUtil = ScreenUtil();
@@ -198,19 +198,37 @@ class _StoryPageState extends State<StoryPage> {
                                     SizedBox(
                                       height: 30,
                                     ),
+                                   visiblety ==false?
+
                                     SizedBox(
                                         height: 50,
                                         width: 50,
-                                        child: PlayButton(onPressed: () {
+                                        child:
+                                        PlayButton(onPressed: () {
                                           setState(() {
+
+                                            _currentStatus != RecordingStatus.Unset ? _stop() : null;
+
                                             visiblety = !visiblety;
 
-                                            print(visiblety);
 
-                                            visiblety ? _start():  _currentStatus != RecordingStatus.Unset ? _stop() : null;
+
 
                                           });
-                                        },initialIsPlaying:      visiblety,pauseIcon: Icon(Icons.stop,color: Colors.white),playIcon: Icon(Icons.mic,color: AppTheme.primaryColor),)),
+                                        },initialIsPlaying:      true,pauseIcon: Icon(Icons.stop,color: Colors.white),playIcon: Icon(Icons.mic,color: AppTheme.primaryColor),))
+                                       :CustemIcon2(
+                                       icon: Icon(
+                                         Icons.mic,color: AppTheme.primaryColor,
+                                       ),
+                                       ontap: () async {
+                                         setState(() {
+                                           visiblety ? _start():null;
+                                           visiblety=!visiblety;
+                                         });
+
+                                       })
+
+                                   ,
                                   ],
                                 )
                               ],
@@ -521,7 +539,7 @@ class _StoryPageState extends State<StoryPage> {
 
 
 
-      const tick = const Duration(seconds: 10);
+      const tick = const Duration(seconds: 25);
       new Timer.periodic(tick, (Timer t) async {
 
 

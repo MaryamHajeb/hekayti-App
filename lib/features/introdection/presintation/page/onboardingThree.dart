@@ -54,7 +54,7 @@ TextEditingController  nameChiled=TextEditingController();
                       return'يرجئ منك ادخال اسم الطفل ';
 
                     }
-                    else if (!RegExp(r"^[a-zA-Z]+$")
+                    else if (!RegExp(r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
                         .hasMatch(value)) {
                       return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
                     }
