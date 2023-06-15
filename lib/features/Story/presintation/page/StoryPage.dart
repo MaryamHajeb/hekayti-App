@@ -36,6 +36,7 @@ import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
+import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
@@ -82,14 +83,17 @@ class _StoryPageState extends State<StoryPage> {
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   bool recognizing = false;
   bool recognizeFinished = false;
+  bool isProcces = false;
   String text = '';
   bool   lisen =true;
+  var contects;
   int lengthSrory=0;
  String  media_id='';
   final controller =ConfettiController();
 
   @override
   Widget build(BuildContext context) {
+    contects=context;
     screenUtil.init(context);
     return WillPopScope(
       onWillPop: ()async{
@@ -108,7 +112,8 @@ class _StoryPageState extends State<StoryPage> {
           return Future.value(false);
         }
       },
-      child: Scaffold(
+      child:
+      Scaffold(
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: BlocProvider(
@@ -179,13 +184,24 @@ class _StoryPageState extends State<StoryPage> {
                                         icon: Icon(
                                             Icons.headset_mic_outlined,
                                             color: AppTheme.primaryColor),
-                                        ontap: () {
-                                          setState(() {
-                                            isSpack = true;
+                                        ontap: () async{
+                                          final status= await Permission.storage.request();
 
-                                            //   player.play(
-                                            //     AssetSource('music.mp3'));
-                                          });
+                                          if(status.isGranted) {
+                                              setState(() {
+                                                isSpack = true;
+                                                player.play(DeviceFileSource(
+                                                   DataSourceURL.urlimageaudiolocal.toString()+'test.pm3'
+                                                       //,state.SliedModel[index].sound
+                                                ));
+                                                //   player.play(
+                                                //     AssetSource('music.mp3'));
+                                              });
+                                            }
+                                            else{
+
+                                            }
+
                                         })
                                         : CustemIcon(
                                         icon: Icon(
@@ -193,6 +209,7 @@ class _StoryPageState extends State<StoryPage> {
                                         ),
                                         ontap: () async {
                                           isSpack = !isSpack;
+                                          player.pause();
                                           setState(() {});
                                         }): Center(),
                                     SizedBox(
@@ -221,11 +238,17 @@ class _StoryPageState extends State<StoryPage> {
                                          Icons.mic,color: AppTheme.primaryColor,
                                        ),
                                        ontap: () async {
-                                         setState(() {
-                                           visiblety ? _start():null;
-                                           visiblety=!visiblety;
-                                         });
-
+                                         {
+                                           if (await networkInfo.isConnected) {
+                                             setState(() {
+                                               visiblety ? _start() : null;
+                                               visiblety = !visiblety;
+                                             });
+                                           }
+                                           else {
+                                             noInternt(context);
+                                           }
+                                         }
                                        })
 
                                    ,
@@ -245,214 +268,260 @@ class _StoryPageState extends State<StoryPage> {
                             child:
 
 
-                            PageView.builder(
+                            Stack(
+                              children: [
+                                PageView.builder(
+                                  itemCount: state.SliedModel.length,
+                                  reverse: true,
+                                  controller: pageControler,
+                                  itemBuilder: (context, index) {
+                                    text_orglin=state.SliedModel[index].text;
+                                    currentIndexPage=index;
+                                    print(currentIndexPage);
+                                    print('currentIndexPagegraide');
+                                    print(state.SliedModel[index].page_no);
 
-                              itemCount: state.SliedModel.length,
-                              reverse: true,
-                              controller: pageControler,
-                              itemBuilder: (context, index) {
-
-                                text_orglin=state.SliedModel[index].text;
-                                currentIndexPage=index;
-                                print(currentIndexPage);
-                                print('currentIndexPage');
-                                print(state.SliedModel[index].page_no);
-                                media_id=state.SliedModel[index].id.toString();
-                               print(media_id);
-                               print('media_id');
-                                return
-                                  state.SliedModel[index].page_no ==1? InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        currentIndexPage = index;
-                                        text_orglin=state.SliedModel[index].text;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15))),
-                                      child: Stack(
-                                        alignment: AlignmentDirectional.topCenter,
-                                        children: [
-                                          Container(
-                                              width: screenUtil.screenWidth * 1,
-                                              height:
-                                              screenUtil.screenHeight * .80,
-                                              padding: EdgeInsets.only(
-                                                  right: 10, left: 10, top: 10),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(5),
-                                                child: Image.asset(Assets.images.storypages.path,
-                                                  fit: BoxFit.cover,
-                                                  height:
-                                                  screenUtil.screenHeight * .9,
-                                                  width:
-                                                  screenUtil.screenWidth * .9,
-                                                ),
-                                              )),
-
-                                          Positioned(
-                                            height: screenUtil.screenHeight * 1.75,
-                                            width: screenUtil.screenWidth * .8,
-                                            child: Center(
-                                              child: CustemButten(ontap: (){
-                                                  setState(() {
-                                                    currentIndexPage=index;
-
-                                                  });
-
-
-                                                pageControler.nextPage(
-                                                    duration: Duration(
-                                                        seconds: 1),
-                                                    curve: Curves
-                                                        .fastOutSlowIn);
-
-
-                                              },text: 'ابدأ',),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ):
-
-                                  InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      currentIndexPage = index;
-                                      text_orglin=state.SliedModel[index].text;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    child: Stack(
-                                      alignment: AlignmentDirectional.topCenter,
-                                      children: [
-                                        Container(
-                                            width: screenUtil.screenWidth * 1,
-                                            height:
+                                    media_id=state.SliedModel[index].id.toString();
+                                   // print(media_id);
+                                   // print('media_id');
+                                    return
+                                      state.SliedModel[index].page_no ==1? Container(
+                                        margin: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        child: Stack(
+                                          alignment: AlignmentDirectional.topCenter,
+                                          children: [
+                                            Container(
+                                                width: screenUtil.screenWidth * 1,
+                                                height:
                                                 screenUtil.screenHeight * .80,
-                                            padding: EdgeInsets.only(
-                                                right: 10, left: 10, top: 10),
-                                            child: Image.asset(Assets.images.storypages.path,
-                                              fit: BoxFit.cover,
-                                              height:
-                                                  screenUtil.screenHeight * .9,
-                                              width:
-                                                  screenUtil.screenWidth * .9,
-                                            )),
-                                        Positioned(
-                                          height: screenUtil.screenHeight * 1.75,
-                                          width: screenUtil.screenWidth * .8,
-                                          child: Center(
-                                            child: Container(
-                                              width:
-                                                  screenUtil.screenWidth * .9,
-                                              height:
-                                                  screenUtil.screenHeight * 1,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  index+1 ==state.SliedModel.length?Container():        InkWell(
-                                                    onTap: () {
+                                                padding: EdgeInsets.only(
+                                                    right: 10, left: 10, top: 10),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  child: Image.file( io.File(DataSourceURL.urlimagephotolocal+'${state.SliedModel[index].photo}'),
+                                                    fit: BoxFit.cover,
+                                                    height:
+                                                    screenUtil.screenHeight * .9,
+                                                    width:
+                                                    screenUtil.screenWidth * .9,
+                                                  ),
+                                                )),
 
-                                                    star ==0?    showImagesDialog(
-                                                            context,
-                                                            '${carectersobj.sadListCarecters[Carecters_id]['image']}', '! يرجى تسجيل الصوت أولاً'
-                                                                ''):pageControler.nextPage(
+                                            Positioned(
+                                              height: screenUtil.screenHeight * 1.75,
+                                              width: screenUtil.screenWidth * .8,
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: (){
+
+                                                  },
+                                                  child: CustemButten(ontap: (){
+
+
+                                                  setState(() {
+
+                                                    currentIndexPage=index+1;
+                                                    state.SliedModel[index].page_no;
+
+                                                    print(currentIndexPage);
+                                                    print('currentIndexPage');
+                                                    print(state.SliedModel[index].page_no);
+
+                                                    pageControler.nextPage(
                                                         duration: Duration(
                                                             seconds: 1),
                                                         curve: Curves
                                                             .fastOutSlowIn);
-                                                    star=0;
 
-                                                    },
-                                                    child: Image.asset(
-                                                      color: AppTheme.primarySwatch.shade800,
-                                                      width: 30,
-                                                      height: 30,
-                                                      fit: BoxFit.fill,
-                                                      Assets.images.rightArrow
-                                                          .path,
-                                                    ),
-                                                  ),
+                                                  });
 
 
-                                                  Column(
+
+
+
+                                                  },text: 'ابدأ',),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ):
+
+                                      InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          currentIndexPage = index;
+                                          text_orglin=state.SliedModel[index].text;
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        child: Stack(
+                                          alignment: AlignmentDirectional.topCenter,
+                                          children: [
+
+                                            Container(
+                                                width: screenUtil.screenWidth * 1,
+                                                height:
+                                                    screenUtil.screenHeight * .80,
+                                                padding: EdgeInsets.only(
+                                                    right: 10, left: 10, top: 10),
+                                                child: Image.file(
+                                                io.File(DataSourceURL.urlimagephotolocal+'${state.SliedModel[index].photo}')
+                                                ,
+                                                  fit: BoxFit.cover,
+                                                  height:
+                                                      screenUtil.screenHeight * .9,
+                                                  width:
+                                                      screenUtil.screenWidth * .9,
+                                                )),
+                                            Positioned(
+                                              height: screenUtil.screenHeight * 1.75,
+                                              width: screenUtil.screenWidth * .8,
+                                              child: Center(
+                                                child: Container(
+                                                  width:
+                                                      screenUtil.screenWidth * .9,
+                                                  height:
+                                                      screenUtil.screenHeight * 1,
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                            .spaceAround,
                                                     children: [
-                                                      SizedBox(
-                                                        height: 5,
+                                                      index+1 ==state.SliedModel.length?Container():        InkWell(
+                                                        onTap: () {
+
+                                                        star ==0?
+                                                        showImagesDialog(
+                                                                context,
+                                                                '${carectersobj.sadListCarecters[Carecters_id]['image']}', '! يرجى تسجيل الصوت أولاً'
+                                                                    '',(){Navigator.pop(context);}):pageControler.nextPage(
+                                                            duration: Duration(
+                                                                seconds: 1),
+                                                            curve: Curves
+                                                                .fastOutSlowIn);
+                                                        star=0;
+
+                                                        },
+                                                        child: Image.asset(
+                                                          color: AppTheme.primarySwatch.shade800,
+                                                          width: 30,
+                                                          height: 30,
+                                                          fit: BoxFit.fill,
+                                                          Assets.images.rightArrow
+                                                              .path,
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        state.SliedModel[index]
-                                                            .text
-                                                            .toString(),
-                                                        style: AppTheme
-                                                            .textTheme
-                                                            .headline1,
+
+
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            state.SliedModel[index]
+                                                                .text
+                                                                .toString(),
+                                                            style: AppTheme
+                                                                .textTheme
+                                                                .headline1,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                              '${state.SliedModel.length}/${state.SliedModel[index].page_no-1 + 1}',
+                                                              style: TextStyle(
+                                                                  color: AppTheme
+                                                                      .primaryColor,
+                                                                  fontSize: 12))
+                                                        ],
                                                       ),
-                                                      SizedBox(
-                                                        height: 5,
+                                                      InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            currentIndexPage=index-1;
+                                                            pageControler
+                                                                .previousPage(
+                                                                    duration:
+                                                                        Duration(
+                                                                            seconds:
+                                                                                1),
+                                                                    curve: Curves
+                                                                        .fastOutSlowIn);
+                                                          });
+                                                        },
+                                                        child: Image.asset(
+                                                          color: AppTheme.primarySwatch.shade400,
+                                                          Assets.images.leftArrow
+                                                              .path,
+                                                          width: 30,
+                                                          height: 30,
+                                                          fit: BoxFit.fill,
+                                                        ),
                                                       ),
-                                                      Text(
-                                                          '${state.SliedModel.length}/${state.SliedModel[index].page_no-1 + 1}',
-                                                          style: TextStyle(
-                                                              color: AppTheme
-                                                                  .primaryColor,
-                                                              fontSize: 12))
                                                     ],
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        index = index + 1;
-                                                        pageControler
-                                                            .previousPage(
-                                                                duration:
-                                                                    Duration(
-                                                                        seconds:
-                                                                            1),
-                                                                curve: Curves
-                                                                    .fastOutSlowIn);
-                                                      });
-                                                    },
-                                                    child: Image.asset(
-                                                      color: AppTheme.primarySwatch.shade400,
-                                                      Assets.images.leftArrow
-                                                          .path,
-                                                      width: 30,
-                                                      height: 30,
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                            )
+
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                isProcces ?    Dialog(
+                                  elevation: 50,
+
+                                  insetAnimationDuration: Duration(seconds: 30),
+                                  shape: RoundedRectangleBorder(
+
+                                    borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                );
-                              },
+                                  child: Container(
+                                    height: 120,
+                                    width: 70,
+                                    margin: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: AppTheme.primaryColor,width: 4),
+                                        borderRadius: BorderRadius.circular(20)),
+                                    child:Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                      CircularProgressIndicator(),
+                                     SizedBox(width: 10,),
+                                      Text('جاري عمليه المطابقه ......',style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+
+
+                                    ],)
+
+
+
+                                  ),
+                                ):Container()
+
+                              ],
                             ),
                           ),
                         ),
@@ -523,6 +592,7 @@ class _StoryPageState extends State<StoryPage> {
       print('LLLLLLLLLLLL');
       _currentStatus = RecordingStatus.Unset;
       print(_currentStatus);
+      isProcces=true;
       recognize();
     });
   }
@@ -530,12 +600,16 @@ class _StoryPageState extends State<StoryPage> {
   _start() async {
     try {
 
+
       await _init();
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
       setState(() {
+
         _current = recording;
       });
+
+
 
 
 
@@ -548,6 +622,7 @@ class _StoryPageState extends State<StoryPage> {
           t.cancel();
 setState(() {
   visiblety = !visiblety;
+  isProcces=true;
 });
           _stop();
         }
@@ -621,6 +696,7 @@ setState(() {
     }).whenComplete(() => setState(() {
       recognizeFinished = true;
       recognizing = false;
+      isProcces=false;
 
     }));
     star=  await  checkText(text_orglin,text,getCachedDate('level', String));
@@ -635,8 +711,8 @@ setState(() {
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}')
       }:
 
-    showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت'),
-    }:showImagesDialogWithDoWill(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى',text,text_orglin);
+    showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت',(){Navigator.pop(context);}),
+    }:showImagesDialogWithDoNotWill(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى', text.length > 20? text.replaceRange(20, text.length, '....') :  text,text_orglin);
 
   }
 

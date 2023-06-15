@@ -16,4 +16,9 @@ class DataSourceURL {
      static String cover = 'stories_covers/';
      static String photo = 'slides_photos/';
      static String sound = 'slides_sounds/';
+     static String baseurlimagelocal = '/storage/emulated/0/Android/data/com.example.android.app/files/';
+     static String urlimageCoverlocal = '/storage/emulated/0/Android/data/com.example.android.app/files/cover/';
+     static String urlimagephotolocal = '/storage/emulated/0/Android/data/com.example.android.app/files/photo/';
+     static String urlimageaudiolocal = '/storage/emulated/0/Android/data/com.example.android.app/files/audio/';
+
 }

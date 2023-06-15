@@ -372,7 +372,7 @@ if(await localdata!=null){
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
     final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
-    dirFound(dir);
+     await  dirFound(dir);
 
     if(status.isGranted) {
       result.forEach((element) {
@@ -423,7 +423,12 @@ if(await localdata!=null){
   }
   fileDownload(String fileName,String path)async{
 
-       FlutterDownloader.enqueue(savedDir: path,url:DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName);
+       FlutterDownloader.enqueue(savedDir: path,url:
+
+       'https://th.bing.com/th/id/R.e49147d584a5ecd1d9e243e085f5df12?rik=xTotM2pLKFI%2bhQ&pid=ImgRaw&r=0',
+       //DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName
+   fileName:'flutter.png'
+       );
 
   }
   dirFound(dir)async{

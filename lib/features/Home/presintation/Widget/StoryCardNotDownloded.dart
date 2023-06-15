@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -7,6 +8,7 @@ import 'package:hikayati_app/core/app_theme.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
+import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
 
@@ -120,7 +122,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                       width: screenUtil.screenWidth *.14,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(Assets.images.storypages.path,fit: BoxFit.cover,),
+                        child: Image.file( File(DataSourceURL.urlimageCoverlocal+'${widget.photo}')  ,fit: BoxFit.cover,),
                         // child: Image.memory(
                         //
                         //   converToBase64(widget.photo.toString()

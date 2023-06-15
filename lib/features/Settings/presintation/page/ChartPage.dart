@@ -4,9 +4,11 @@ import 'package:flutter_charts/flutter_charts.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
 
+import '../../../../core/util/ScreenUtil.dart';
 import '../../../../injection_container.dart';
 import '../../date/model/ChartModel.dart';
 import '../Widget/ChartCard.dart';
+import '../Widget/ReportTapbarPage.dart';
 import '../managerChart/Chart_bloc.dart';
 import '../managerChart/Chart_event.dart';
 import '../managerChart/Chart_state.dart';
@@ -20,12 +22,14 @@ class ChartPage extends StatefulWidget {
 
 class _ChartPageState extends State<ChartPage> {
   _ChartPageState();
-
+  ScreenUtil screenUtil=ScreenUtil();
+bool visiblety=false;
   Widget ChartWidget=Center();
 
   /// Builds the widget that is the home page state.
   @override
   Widget build(BuildContext context) {
+    screenUtil.init(context);
     return  BlocProvider(
       create: (context) => sl<ChartBloc>(),
       child: BlocConsumer<ChartBloc, ChartState>(
@@ -56,9 +60,32 @@ class _ChartPageState extends State<ChartPage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
 
-                          Expanded(
-                            // #### Core chart
-                            child: chartToRun(state.chartModel), // verticalBarChart, lineChart
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: [
+                                    IconButton(onPressed: (){
+                                     setState(() {
+                                       visiblety=true;
+                                     });
+                                    }, icon: Icon(Icons.arrow_back_outlined,size: 30,color: AppTheme.primaryColor,),)
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 9,
+                                child: Container(
+                                  width: screenUtil.screenWidth *.48,
+                                  height: screenUtil.screenHeight *.7,
+
+                                  child: chartToRun(state.chartModel),
+                                ),
+                              ),
+                            ],
                           ),
 
                         ],

@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                                 listStoryWithSearch[index]!.download ==false ?
                               InkWell(
                                   onTap: () {
-                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);});
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),
@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                                 :listStoryWithSearch[index]!.required_stars>= collected_stars ?
                               InkWell(
                                   onTap: () {
-                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه');
+                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);});
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(top:15.0),

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
+import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 
 class StoryCardLock extends StatefulWidget {
@@ -121,7 +124,20 @@ class _StoryCardLockState extends State<StoryCardLock> {
                             child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                              Image.asset(Assets.images.storypages.path,height: 150,fit: BoxFit.cover,),
+                                  Container(
+                                    height: screenUtil.screenHeight * .3,
+                                    width: screenUtil.screenWidth *.14,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.file( File(DataSourceURL.urlimageCoverlocal+'${widget.photo}')  ,fit: BoxFit.cover,),
+                                      // child: Image.memory(
+                                      //
+                                      //   converToBase64(widget.photo.toString()
+                                      //   ),
+                                      //   fit: BoxFit.cover,
+                                      //   ),
+                                    ),
+                                  ),
 
 
                             ]),

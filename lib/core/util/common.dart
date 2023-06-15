@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:confetti/confetti.dart';
 import 'package:dartz/dartz.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../dataProviders/local_data_provider.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
@@ -104,16 +106,18 @@ CachedDate(String key,dynamic  dataCached) {
 
 }
 
-converToBase64(String text){
+Future<String> getPathForimage(String path,String name)async{
 
-  Uint8List image = base64Decode(text);
-  return image;
+
+    String dir = (await getExternalStorageDirectory())!.path+'/$path/$name';
+
+    return dir.toString();
 }
 
 
 
 
-void showImagesDialog(BuildContext context, String image,String text) {
+void showImagesDialog(BuildContext context, String image,String text,ontap) {
   showDialog(
     barrierColor: AppTheme.primarySwatch.shade400,
       context: context,
@@ -148,7 +152,7 @@ void showImagesDialog(BuildContext context, String image,String text) {
                     ]),
                 SizedBox(height: 15,),
                 CustemButten(ontap: (){
-                  Navigator.pop(context);
+                  ontap();
                 }, text: 'نعم',)
               ],
             ),
@@ -209,72 +213,79 @@ void showImagesDialog(BuildContext context, String image,String text) {
         );
       });
 }
- showImagesDialogWithDoWill(BuildContext context2, String image,String text,String readed_text,org_text) {
+ showImagesDialogWithDoNotWill(BuildContext context2, String image,String text,String readed_text,org_text) {
   showDialog(
       context: context2,
       builder: (BuildContext context) {
-        return Dialog(
-          elevation: 50,
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Dialog(
+            elevation: 50,
 
-          insetAnimationDuration: Duration(seconds: 30),
-          shape: RoundedRectangleBorder(
+            insetAnimationDuration: Duration(seconds: 30),
+            shape: RoundedRectangleBorder(
 
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Container(
-            height: 250,
-            width: 350,
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                border: Border.all(color: AppTheme.primaryColor,width: 4),
-                borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              children: [
-                SizedBox(height: 5,),
-                Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              height: 250,
+              width: 350,
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppTheme.primaryColor,width: 4),
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+                  SizedBox(height: 5,),
+                  Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                        SizedBox(width: 10,),
+
+                        Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+
+
+                      ]),
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
-                      Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
-                      SizedBox(width: 10,),
+                      Icon(Icons.check_circle_rounded,color: Colors.green,size: 30),
 
-                      Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+                      Text(org_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
 
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
 
-                    ]),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.cancel,color: Colors.red,size: 30),
 
-                  children: [
-                    Text(org_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
-                    Icon(Icons.check_circle_rounded,color: Colors.green,size: 30),
+                      Text(readed_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
 
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
 
-                  children: [
-                    Text(readed_text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
-                    Icon(Icons.cancel,color: Colors.red,size: 30),
+                  SizedBox(height: 15,),
+                  CustemButten2(ontap: (){
 
-                  ],
-                ),
+                    Navigator.pop(context);
 
-                SizedBox(height: 15,),
-                CustemButten2(ontap: (){
-
-                  Navigator.pop(context);
-
-                }, text: 'نعم',)
-              ],
+                  }, text: 'نعم',)
+                ],
+              ),
             ),
           ),
         );
       });
 }
+
+
 showConfetti(context2,controler,image) {
   showDialog(
       context: context2,
@@ -324,6 +335,42 @@ showConfetti(context2,controler,image) {
                 ),
               ),
             ),
+          ),
+        );
+      });
+}
+noInternt(context2) {
+  showDialog(
+      context: context2,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 50,
+
+          insetAnimationDuration: Duration(seconds: 30),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+              height: 120,
+              width: 70,
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppTheme.primaryColor,width: 4),
+                  borderRadius: BorderRadius.circular(20)),
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.signal_wifi_connected_no_internet_4_sharp,color: AppTheme.primaryColor,),
+                  SizedBox(width: 10,),
+                  Text('تاكد من وجود انترنت',style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+
+
+                ],)
+
+
+
           ),
         );
       });

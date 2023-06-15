@@ -16,6 +16,7 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../main.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Regestrion/presintation/page/SignupPage.dart';
+import '../../../Regestrion/presintation/page/ResetPasswordPage.dart';
 
 class SettingTapbarpage extends StatefulWidget {
   const SettingTapbarpage({Key? key}) : super(key: key);
@@ -71,12 +72,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(
             height: 20,
           ),
-          Text('الشخصيات :',
+          Text('الـشخـصـيـات  :',
               style: AppTheme.textTheme.headline3,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right),
           SizedBox(
-            height: 20,
+            height: 30,
           ),
           Container(
             height: screenUtil.screenHeight * .4,
@@ -103,7 +104,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(
             height: 20,
           ),
-          Text('مستوى القصص :',
+          Text('مـسـتـوى الـقـصـص   :',
               style: AppTheme.textTheme.headline3,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right),
@@ -180,16 +181,23 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                       child: Column(
                         children: [
                           Row(children: [
-                            Text('الايميل :',style: AppTheme.textTheme.headline3),
+                            Text('البريد الاكتروني :',style: AppTheme.textTheme.headline3),
                             SizedBox(width: 20,),
                             Text('${userModel?.email.toString()}',style: TextStyle(color: Colors.grey,fontFamily: AppTheme.fontFamily,fontSize: 14),
                             )
                           ]),
                           SizedBox(height: 20,),
                           Row(children: [
-                            Text('كلمه المررو :',style: AppTheme.textTheme.headline3),
+                            Text('كـلـمـه  الــمـررو  :',style: AppTheme.textTheme.headline3),
                             SizedBox(width: 20,),
-                            Text('اعاده تعيين',style: AppTheme.textTheme.headline4,),
+                            InkWell(
+                                onTap: (){
+                                  Navigator.push(
+                                      context,
+                                      CustomPageRoute(  child:   ResetPasswordPage()));
+
+                                },
+                                child: Text('اعاده تعيين',style: AppTheme.textTheme.headline4,)),
 
                           ]),
                         ],
@@ -277,7 +285,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                     showImagesDialog(
                         context,
                         '${carectersobj.FaceCarecters[itemSelected]['image']}',
-                        'تم حفظ بيناتك بنجاح');
+                        'تم حفظ بيناتك بنجاح',(){Navigator.pop(context);});
                   } catch (e) {}
                 },
               ),

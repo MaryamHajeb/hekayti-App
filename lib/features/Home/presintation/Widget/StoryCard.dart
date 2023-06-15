@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
+import 'package:hikayati_app/injection_container.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
@@ -9,6 +14,7 @@ class StoryCard extends StatefulWidget {
   final name;
   String photo;
   int starts=0;
+
    StoryCard({Key? key,required this.name,required this.photo, required this.starts}) : super(key: key);
 
   @override
@@ -17,7 +23,7 @@ class StoryCard extends StatefulWidget {
 
 class _StoryCardState extends State<StoryCard> {
   ScreenUtil screenUtil = ScreenUtil();
-
+String pathImage='';
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -112,7 +118,7 @@ class _StoryCardState extends State<StoryCard> {
                     width: screenUtil.screenWidth *.14,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(Assets.images.storypages.path,fit: BoxFit.cover,),
+                      child: Image.file( File(DataSourceURL.urlimageCoverlocal+'${widget.photo}')  ,fit: BoxFit.cover,),
                       // child: Image.memory(
                       //
                       //   converToBase64(widget.photo.toString()
@@ -130,4 +136,14 @@ class _StoryCardState extends State<StoryCard> {
         ],
     );
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
+
+
 }

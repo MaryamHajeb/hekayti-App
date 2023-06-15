@@ -6,6 +6,7 @@ import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.da
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
 
@@ -14,6 +15,7 @@ import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
+import '../../../../main.dart';
 import '../manager/registration_bloc.dart';
 
 
@@ -33,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
 TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
 TextEditingController CofemPassword = TextEditingController();
+  Carecters carectersobj = Carecters();
+  int  Carecters_id=0;
+
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Scaffold(body:
@@ -170,27 +175,37 @@ TextEditingController CofemPassword = TextEditingController();
                                         ],),
                                     ),
                                   ),
-                                  CustemButten(ontap: (){
+                                  CustemButten(ontap: ()async{
 
                                     if (_loginFormKey.currentState!.validate()) {
-                                      print('ok');
-                                      BlocProvider.of<RegistrationBloc>(_context).add(
-                                        Login(
-                                          email: email.text.toString(),
-                                          password: password.text,
-                                        ),
-                                      );
-                                      print('-----------------------------------------------');
+                                      if (await networkInfo.isConnected) {
+                                        showImagesDialog(context,'${carectersobj.confusedListCarecters[Carecters_id]['image']}','هل انت متاكد ؟'
+                                            'سوف تفقد جميع بياناتك الحاليه',(){
+                                          print('ok');
+                                          BlocProvider.of<RegistrationBloc>(
+                                              _context).add(
+                                            Login(
+                                              email: email.text.toString(),
+                                              password: password.text,
+                                            ),
+                                          );
+                                          print(
+                                              '-----------------------------------------------');
 
-                                        print(email.text);
-                                        print('-----------------------------------------------');
-                                      setState(() {
-                                        requestPending = true;
-                                      });
-                                    } else {
-                                      print('error');
+                                          print(email.text);
+                                          print(
+                                              '-----------------------------------------------');
+                                          setState(() {
+                                            requestPending = true;
+                                          });
+
+                                        });
+
+                                      }
+
+                                    }   else{
+                                      noInternt(context);
                                     }
-
 
                                   },text: 'تسجيل'),
 
@@ -236,5 +251,11 @@ TextEditingController CofemPassword = TextEditingController();
     ),
 
       );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Carecters_id=  getCachedDate('Carecters',String);
   }
 }
