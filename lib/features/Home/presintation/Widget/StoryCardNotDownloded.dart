@@ -161,6 +161,8 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
   void initState() {
     // TODO: implement initState
     super.initState();
+       FlutterDownloader.registerCallback(downloadCallback, step: 1);
+
     IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
       String id = data[0];
@@ -170,5 +172,18 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
       setState((){ });
 
     });
+  }
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+    }
+
+static  void downloadCallback(String id, int status, int progress) {
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    print(progress);
+    print('progress');
+    print(status);
+
+    send!.send([id, status, progress]);
   }
 }

@@ -377,6 +377,41 @@ noInternt(context2) {
 }
 
 
+initApp() {
+  return Center(
+    child: Dialog(
+      elevation: 50,
+
+      insetAnimationDuration: Duration(seconds: 30),
+      shape: RoundedRectangleBorder(
+
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Container(
+          height: 120,
+          width: 70,
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              border: Border.all(color: AppTheme.primaryColor,width: 4),
+              borderRadius: BorderRadius.circular(20)),
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(color: AppTheme.primaryColor,),
+              SizedBox(width: 10,),
+              Text('جاري تحميل القصص التطبيق ',style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+
+            ],)
+
+
+
+      ),
+    ),
+  );
+}
+
+
 
 showSnackBar({required BuildContext context,required title,Color bkColor=Colors.red,Function ?callBackFunction}){
   final snackBar = SnackBar(

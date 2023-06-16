@@ -36,14 +36,19 @@ class SliedRepository extends Repository{
         checkConnection: networkInfo.isConnected,
 
         remoteFunction: () async {
-          List<dynamic> reslet = await db.getAllSliedForStory(tableName, story_id);
           List<StoryMediaModel> list=[] ;
+
+          List<dynamic> reslet = await db.getAllSliedForStory(tableName, story_id);
+          await Future.delayed(Duration(seconds: 1));
+
           reslet.forEach((element) {
             StoryMediaModel story = StoryMediaModel.fromJson(element);
+
             list.add(story);
           });
 
-
+         print(list.length);
+         print("list.length");
           return  list;
         },
 

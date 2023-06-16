@@ -3,7 +3,7 @@ class CompletionModel {
 
   CompletionModel({
 
-     required  this.id,
+       this.id,
      required this.updated_at,
      required  this.percentage,
      required this.story_id,

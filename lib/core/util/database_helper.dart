@@ -89,7 +89,7 @@ CREATE TABLE "stories_media" (
 	"photo"	TEXT,
 	"sound"	TEXT,
 	"text"	TEXT,
-	"text_no_dec"	TEXT,
+	"text_no_desc"	TEXT,
 	"updated_at"	TEXT,
 	FOREIGN KEY("story_id") REFERENCES "stories"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
@@ -180,18 +180,21 @@ Future<int> update({required  data,required String tableName,required String whe
 
  Future<String> getStoryStars(level,id)async{
   Database? dbClient = await  db;
-  List<dynamic?> result2 = await dbClient!.rawQuery("SELECT stars FROM completion WHERE story_id =$id ");
-
-  if(result2[0]['stars']!=null){
-
+  List<dynamic> result2 = await dbClient!.rawQuery("SELECT stars FROM completion WHERE story_id =$id ");
+   print(result2);
+   print('result2');
+  if(result2.isNotEmpty ?? true){
     return result2[0]['stars'].toString();
 
   }
+  if(result2.isEmpty ?? true)
+{
+  return '';
+}
 
 
 
-
-return '0';
+return '';
 
 }
 
@@ -218,7 +221,8 @@ return '0';
    Future<List> getAllSliedForStory(String  table,where_arg) async{
      Database? dbClient = await  db;
 
-     List<dynamic> result = await dbClient!.query(table,where: 'story_id = $where_arg');
+     List<dynamic> result = await dbClient!.query(table,where:  'story_id=$where_arg');
+     print(result);
      return await result.toList();
 
    }
@@ -275,7 +279,8 @@ Future<int> deleteTable(table_name) async{
 
 
   checkStoryFound()async{
-    final data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllStory, body: {
+
+    List<StoryModel> data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllStory, body: {
 
     }, retrievedDataType: StoryModel.init(),
         returnType: List
@@ -289,18 +294,18 @@ Future<int> deleteTable(table_name) async{
     // print('kkkkkkkkkkkkkkkkkkkkkkkkkk');
      if(checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
 
-
-       update(data:
-
-       WebStoryModel(
-           id: element.id,
-           cover_photo: element.cover_photo,
-           updated_at: element.updated_at,
-           author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, story_order: '0'),
-           tableName: 'stories',
-           where: 'id=${element.id}'
-
-       );
+        print('record  exits');
+       // update(data:
+       //
+       // WebStoryModel(
+       //     id: element.id,
+       //     cover_photo: element.cover_photo,
+       //     updated_at: element.updated_at,
+       //     author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, story_order: '0'),
+       //     tableName: 'stories',
+       //     where: 'id=${element.id}'
+       //
+       // );
 
 
      }
@@ -312,8 +317,7 @@ Future<int> deleteTable(table_name) async{
 
         cover_photo: element.cover_photo,
         updated_at: element.updated_at,
-
-        story_order: '', author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, id: element.id));
+        story_order: element.story_order, author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, id: element.id));
 
    }
 
@@ -323,7 +327,7 @@ Future<int> deleteTable(table_name) async{
   }
 
   checkMediaFound()async{
-    final data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllmedia, body: {
+    List<StoryMediaModel> data=  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.getAllmedia, body: {
 
     }, retrievedDataType: StoryMediaModel.init(),
         returnType: List
@@ -335,13 +339,7 @@ Future<int> deleteTable(table_name) async{
 if(await localdata!=null){
      if(      checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
 
-
-       update(data:
-                  StoryMediaModel(id:element.id,story_id: element.id, photo: element.photo, sound: element.sound, text: element.text, updated_at: element.updated_at, page_no: element.page_no),
-           tableName: 'stories_media',
-           where: 'id=${element.id}'
-
-       );
+       print('record exits');
 
 
      }
@@ -349,7 +347,8 @@ if(await localdata!=null){
   }else{
     insert(tableName: 'stories_media',data:
 
-    StoryMediaModel(story_id: element.id, photo: element.photo, sound: element.sound, text: element.text, updated_at: element.updated_at, page_no: element.page_no),
+    StoryMediaModel(story_id: element.story_id, text_no_desc: element.text_no_desc,photo: element.photo, sound: element.sound, text: element.text, updated_at: element.updated_at, page_no: element.page_no),
+
 
 
 
@@ -367,19 +366,23 @@ if(await localdata!=null){
 
   downloadStoriesCover( )async{
     var dbClient = await  db;
-
     final status= await Permission.storage.request();
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
+    print(result.length);
+    print('cover');
     final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
      await  dirFound(dir);
 
     if(status.isGranted) {
-      result.forEach((element) {
+      result.forEach((element)async {
         print(element['cover_photo']);
-        fileDownload(element['cover_photo'],dir.path );
+
+        fileDownload(element['cover_photo'],dir.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
+        await Future.delayed(Duration(seconds: 1));
 
      });
+      //fileDownload(result[0]['cover_photo'],dir.path );
 
     }
     // result.forEach((element){
@@ -393,44 +396,44 @@ if(await localdata!=null){
   }
   downloadMedia(String storyId )async{
     var dbClient = await  db;
-
+print('downloadMedia');
     final status= await Permission.storage.request();
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
     final dir = Directory((await getExternalStorageDirectory())!.path + '/photo');
     final dir2 = Directory((await getExternalStorageDirectory())!.path + '/sound');
-    dirFound(dir);
-    dirFound(dir2);
+    await dirFound(dir);
+    await dirFound(dir2);
 
     if(status.isGranted) {
       result.forEach((element) {
         //print(element['cover_photo']);
-        fileDownload(element['photo'],dir.path );
-        fileDownload(element['sound'],dir2.path );
+        fileDownload(element['photo'],dir.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
+        fileDownload(element['sound'],dir2.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
 
 
      });
 
     }
-    // result.forEach((element){
-    //   fileDownload(element['cover_photo'].toString(),path);
-    // });
 
 
 
 
 
   }
-  fileDownload(String fileName,String path)async{
+  fileDownload(String fileName,String path,String url)async{
+     try {
+       FlutterDownloader.enqueue(savedDir: path, url:
 
-       FlutterDownloader.enqueue(savedDir: path,url:
+       url + fileName,
+         timeout: 10000,
 
-       'https://th.bing.com/th/id/R.e49147d584a5ecd1d9e243e085f5df12?rik=xTotM2pLKFI%2bhQ&pid=ImgRaw&r=0',
-       //DataSourceURL.baseDownloadUrl +DataSourceURL.cover+fileName
-   fileName:'flutter.png'
        );
-
+     }catch(e){
+       print(e.toString());
+     }
   }
+
   dirFound(dir)async{
 
      if ((await dir.exists())) {
@@ -554,7 +557,20 @@ print(res);
 
 
   }
+     getPercentage(String id)async{
+        int stars=0;
+        int percentage =0;
+       Database? dbClient = await  db;
 
+       List<dynamic> star = await dbClient!.query('select accuracies.accuracy_stars from stories_media join accuracies on stories_media.id=accuracies.media_id  where stories_media.story_id = $id ');
+       star.forEach((element) {
+         stars +=int.parse(element['accuracy_stars']);
+       });
+
+       percentage=(stars/star.length).toInt() *100;
+
+       return percentage;
+     }
 
   checkCompletionFound(List<CompletionModel> data)async{
 
@@ -590,20 +606,20 @@ print(res);
   }
 
 
-  addCompletion(dynamic data)async{
+  addCompletion(CompletionModel data)async{
 
-      dynamic localdata=await foundRecord('story_id',data['story_id'],'completion');
+      dynamic localdata=await foundRecord('story_id',data.story_id,'completion');
 
       if(await localdata!=null){
-        if (int.parse(data['stars']) >
+        if (int.parse(data.stars) >
             int.parse(localdata[0]['stars'])){
               update(data:
               {
                 'id': localdata[0]['id'],
-                'stars':data['stars'],
-                'percentage':data['percentage'],
-                'story_id':data['story_id'],
-                'updated_at':data['updated_at'],
+                'stars':data.stars,
+                'percentage':data.percentage,
+                'story_id':data.story_id,
+                'updated_at':data.updated_at,
               }
                   ,
                   tableName: 'completion',
@@ -614,10 +630,10 @@ print(res);
               var remoteData_completion = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateCompletion, body: {
 
                 'user_id': '1',
-                'stars':data['stars'],
-                'percentage':data['percentage'],
-                'story_id':data['story_id'],
-                'updated_at':data['updated_at']
+                'stars':data.stars,
+                'percentage':data.percentage,
+                'story_id':data.story_id,
+                'updated_at':data.updated_at,
 
               }, retrievedDataType: String);
 
@@ -628,19 +644,20 @@ print(res);
 
       }else{
         insert(tableName: 'completion',data:{
-          'stars':data['stars'],
-          'percentage':data['percentage'],
-          'story_id':data['story_id'],
-          'updated_at':data['updated_at'],
+
+          'stars':data.stars,
+          'percentage':data.percentage,
+          'story_id':data.story_id,
+          'updated_at':data.updated_at,
         }
         );
         var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion, body: {
 
           'user_id': '1',
-          'stars':data['stars'],
-          'percentage':data['percentage'],
-          'story_id':data['story_id'],
-          'updated_at':data['updated_at']
+          'stars':data.stars,
+          'percentage':data.percentage,
+          'story_id':data.story_id,
+          'updated_at':data.updated_at,
 
         }, retrievedDataType: String);
 
@@ -651,18 +668,6 @@ print(res);
 
 
     }
-   calc_StoryStars(String id)async{
-     Database? dbClient = await  db;
-     var sql = "SELECT accuracy.accuracy_stars FROM stories_media JOIN  accuracy on accuracy.media_id ==stories_media.id  WHERE stories_media.story_id =$id";
-     int Stars=0;
-     List<dynamic> res=     await dbClient!.rawQuery(sql);
-     res.forEach((element) {
-       Stars+=int.parse(element[0]['accuracy_stars']);
-     });
-     int percentage=((Stars/(res.length*3))*100).toInt() ;
-     int story_stars=percentage~/33;
-
-   }
 
 
 
@@ -716,13 +721,17 @@ print(result);
 
 
 initApp(String level)async{
+  final status= await Permission.storage.request();
   Database? dbClient = await  db;
-  checkStoryFound();
-  checkMediaFound();
-  downloadStoriesCover();
-  var sql = "SELECT story_id FROM stories where level =$level  && story_order==1 ";
-  dynamic storyId = await dbClient!.rawQuery(sql);
-  downloadMedia(storyId.toString());
+
+  await checkStoryFound();
+  await checkMediaFound();
+  await downloadStoriesCover();
+  print(level);
+  List<dynamic> storyId = await dbClient!.rawQuery('SELECT * FROM stories where level = 1  AND story_order = 1 ');
+  print(storyId);
+  print('storyId====================================================================================');
+  await downloadMedia(storyId[0]['id'].toString());
 }
 syncApp(String level)async{
      Database? dbClient = await  db;
@@ -779,5 +788,7 @@ syncApp(String level)async{
  return comparison;
 
   }
+
+
 
 }

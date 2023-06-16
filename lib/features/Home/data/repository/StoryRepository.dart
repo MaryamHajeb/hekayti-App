@@ -68,13 +68,15 @@ class StoryRepository extends Repository{
  Future<List<StoryModel>> getStars()async{
 
    List<dynamic> reslet = await db.getAllstory('stories','1');
+   print(reslet.length);
+   print('reslet.length');
     List<StoryModel> dd=[];
     int collected_stars =0;
     int all_stars =reslet.length *3;
 
     reslet.forEach((element) async{
       String? start='';
-      start  =await db.getStoryStars('1',element['id']);
+      start  =await db.getStoryStars('1',element['id']) ?? '';
       if(start=='')
       {
         start='0';

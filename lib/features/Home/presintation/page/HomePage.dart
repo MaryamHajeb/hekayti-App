@@ -218,24 +218,11 @@ class _HomePageState extends State<HomePage> {
                               print(listStoryWithSearch[index].stars);
                               print('sttttt');
                               return
-                                listStoryWithSearch[index]!.download ==false ?
+
+                                listStoryWithSearch[index]!.required_stars > collected_stars   ?
                               InkWell(
                                   onTap: () {
-                                    showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);});
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top:15.0),
-                                    child: StoryCardNotDownloded(
-                                       progress: progress,
-                                      name: listStoryWithSearch[index]?.name,
-                                      starts: int.parse(listStoryWithSearch[index]?.stars),
-                                      photo: listStoryWithSearch[index]!.cover_photo
-                                          .toString(),
-                                    ),
-                                  ))
-                                :listStoryWithSearch[index]!.required_stars>= collected_stars ?
-                              InkWell(
-                                  onTap: () {
+
                                     showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);});
                                   },
                                   child: Padding(
@@ -247,11 +234,26 @@ class _HomePageState extends State<HomePage> {
                                       photo: listStoryWithSearch[index]!.cover_photo
                                           .toString(),
                                     ),
-                                  )):
+                                  )): listStoryWithSearch[index]!.download ==false ?
+                                InkWell(
+                                    onTap: () {
+                                      //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top:15.0),
+                                      child: StoryCardNotDownloded(
+                                        progress: progress,
+                                        name: listStoryWithSearch[index]?.name,
+                                        starts: int.parse(listStoryWithSearch[index]?.stars),
+                                        photo: listStoryWithSearch[index]!.cover_photo
+                                            .toString(),
+                                      ),
+                                    )):
 
                               InkWell(
                                   onTap: () {
-                                    // showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                   //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
 
                                     Navigator.push(
                                         context,

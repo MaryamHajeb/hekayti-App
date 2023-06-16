@@ -1,6 +1,10 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -11,6 +15,7 @@ import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../main.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import 'onboardingFive.dart';
 import 'onboardingFour.dart';
@@ -38,7 +43,10 @@ class _IntroScreenState extends State<IntroScreen> {
   ScreenUtil _screenUtil = ScreenUtil();
   int currentIndexPage = 0;
   int carectersnum=10;
-
+ String levelnum ='';
+  ReceivePort _port = ReceivePort();
+int progress=0;
+  bool  isLoading =false;
 
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
@@ -68,141 +76,158 @@ class _IntroScreenState extends State<IntroScreen> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: onboardingList.length,
               itemBuilder: (context, index) {
-                return Center(
-                  child: Column(
-                      children: [
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: Center(
+                return Stack(
+                  children: [
+                    isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp()):
 
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Container(
+                    Center(
+                      child: Column(
+                          children: [
 
-                                  height:  _screenUtil.screenHeight * .95,
-                                  width:_screenUtil.screenWidth *.85,
+                            Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Center(
 
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
                                     child: Container(
-                                      margin: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              width: 4, color: AppTheme.primarySwatch.shade500),
-                                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                                      child: Column(children: [
-                                        Expanded(
-                                          flex: 10,
-                                            child: onboardingList[index]),
 
-                                        Directionality(
-                                          textDirection: TextDirection.ltr,
-                                          child: Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    //
-                                                    pageController.previousPage(
-                                                        duration: Duration(seconds: 1),
-                                                        curve: Curves.fastOutSlowIn);
-                                                  },
-                                                  child: Image.asset(
-                                                      color: AppTheme.primarySwatch.shade400,
-                                                    Assets.images.leftArrow.path,
-                                                    width: 30,
-                                                    height: 30,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
+                                      height:  _screenUtil.screenHeight * .95,
+                                      width:_screenUtil.screenWidth *.85,
 
-                                                DotsIndicator(
-                                                  dotsCount: onboardingList.length,
-                                                  position: index.toDouble(),
-                                                  decorator: DotsDecorator(
-                                                    size: const Size.square(9.0),
-                                                    color: AppTheme.primaryColor,
-                                                    activeColor: AppTheme.primaryColor,
-                                                    activeSize: const Size(30.0, 9.0),
-                                                    activeShape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(5.0)),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () async{
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15.0),
+                                        ),
+                                        child: Container(
+                                          margin: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  width: 4, color: AppTheme.primarySwatch.shade500),
+                                              borderRadius: BorderRadius.all(Radius.circular(15))),
+                                          child: Column(children: [
+                                            Expanded(
+                                              flex: 10,
+                                                child: onboardingList[index]),
 
-                                                    if (_formKey.currentState!.validate()){
-                                                      // If the form is valid, display a snackbar. In the real world,
-
-
-
-
-
-                                                        print(index);
-                                                        if(index==2){
-                                                          CachedDate('Carecters',0);
-                                                          CachedDate('collected_stars',0);
-                                                          CachedDate('all_stars',0);
-                                                          CachedDate('Listen_to_story',true);
-
-
-                                                        }if(index==2){
-                                                          CachedDate('level',0);
-                                                        }
-
-
-                                                        SharedPreferences prefs;
-                                                        index==5 ?
-                                                        {
-                                                          prefs = await SharedPreferences.getInstance(),
-                                                         prefs.setBool('onbording', true),
-
-                                                        Navigator.push(
-                                                              context,
-                                                              CustomPageRoute(
-                                                                  child: HomePage()))
-                                                        }
-                                                           :
-                                                        pageController.nextPage(
-                                                            duration: Duration(
-                                                              seconds: 1,
-                                                            ),
+                                            Directionality(
+                                              textDirection: TextDirection.ltr,
+                                              child: Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        //
+                                                        pageController.previousPage(
+                                                            duration: Duration(seconds: 1),
                                                             curve: Curves.fastOutSlowIn);
+                                                      },
+                                                      child: Image.asset(
+                                                          color: AppTheme.primarySwatch.shade400,
+                                                        Assets.images.leftArrow.path,
+                                                        width: 30,
+                                                        height: 30,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
 
-                                                      }
+                                                    DotsIndicator(
+                                                      dotsCount: onboardingList.length,
+                                                      position: index.toDouble(),
+                                                      decorator: DotsDecorator(
+                                                        size: const Size.square(9.0),
+                                                        color: AppTheme.primaryColor,
+                                                        activeColor: AppTheme.primaryColor,
+                                                        activeSize: const Size(30.0, 9.0),
+                                                        activeShape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(5.0)),
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () async{
 
-                                                      // you'd often call a server or save the information in a database.
+                                                        if (_formKey.currentState!.validate()){
+                                                          // If the form is valid, display a snackbar. In the real world,
 
-                                                  },
-                                                  child: Image.asset(
-                                                    color: AppTheme.primarySwatch.shade800,
 
-                                                    Assets.images.rightArrow.path,
-                                                    width: 30,
-                                                    height: 30,
-                                                    fit: BoxFit.fill,
-                                                  ),
+
+
+
+                                                            print(index);
+                                                            if(index==2){
+                                                              CachedDate('Carecters',0);
+                                                              CachedDate('collected_stars',0);
+                                                              CachedDate('all_stars',0);
+                                                              CachedDate('Listen_to_story',true);
+
+
+                                                            }if(index==2){
+                                                              CachedDate('level',0);
+                                                            }
+
+
+                                                            SharedPreferences prefs;
+                                                            index==5 ?
+                                                            {
+                                                              prefs = await SharedPreferences.getInstance(),
+                                                            prefs.setBool('onbording', true),
+
+                                                            setState(() {
+                                                            isLoading=true;
+                                                            }),
+
+                                                          await db.initApp(levelnum),
+                                                            await Future.delayed(Duration(seconds: 5)),
+                                                            setState(() {
+                                                                isLoading=false;
+                                                              }),
+
+                                                              Navigator.push(
+                                                                  context,
+                                                                  CustomPageRoute(
+                                                                      child: HomePage()))
+                                                            }
+                                                               :
+                                                            pageController.nextPage(
+                                                                duration: Duration(
+                                                                  seconds: 1,
+                                                                ),
+                                                                curve: Curves.fastOutSlowIn);
+
+                                                          }
+
+                                                          // you'd often call a server or save the information in a database.
+
+                                                      },
+                                                      child: Image.asset(
+                                                        color: AppTheme.primarySwatch.shade800,
+
+                                                        Assets.images.rightArrow.path,
+                                                        width: 30,
+                                                        height: 30,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+
+                                                  ],
                                                 ),
+                                              ),
+                                            )
+                                          ], ),
 
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ], ),
-
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              )),
+                                  )),
 
-                        ),
+                            ),
 
-                  ]),
+                      ]),
+                    ),
+                  ],
                 );
               },
             ),
@@ -212,5 +237,28 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+       FlutterDownloader.registerCallback(downloadCallback, step: 1);
 
+    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = DownloadTaskStatus(data[1]);
+      progress = data[2];
+      print(progress);
+      setState((){ });
+
+    });
+  }
+static  void downloadCallback(String id, int status, int progress) {
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    print(progress);
+    print('progress');
+    print(status);
+
+    send!.send([id, status, progress]);
+  }
 }

@@ -46,7 +46,7 @@ void main() async{
   final prefs = await SharedPreferences.getInstance();
   islogin=await prefs.getBool('onbording')??false;
  carecters= await  prefs.getString('Carecters') ?? '';
-
+//  await db.intDB();
 
 
 
@@ -104,6 +104,7 @@ class _MyAppState extends State<MyApp> {
 //internet();
 //
     ReceivePort _port = ReceivePort();
+
 //
 //
 //
@@ -126,23 +127,24 @@ class _MyAppState extends State<MyApp> {
 // db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
 //
-//
-// db.insert(data: {
-//   'id':1,
-//   'stars':'0',
-//   'story_id':'2',
-//   'updated_at':'2:22',
-//   'percentage':'80'
-//
-// }, tableName: 'completion');
-// db.insert(data: {
-//   'id':2,
-//   'stars':'1',
-//   'story_id':'3',
-//   'updated_at':'2:22',
-//   'percentage':'80'
-//
-// }, tableName: 'completion');
+
+db.insert(data: {
+  'id':1,
+  'stars':'2',
+  'story_id':'1',
+  'updated_at':'2:22',
+  'percentage':'80'
+
+}, tableName: 'completion');
+db.insert(data: {
+  'id':2,
+  'stars':'3',
+  'story_id':'2',
+  'updated_at':'2:22',
+  'percentage':'100'
+
+}, tableName: 'completion');
+
 // db.insert(data: {
 //   'id':3,
 //   'stars':'2',
@@ -159,7 +161,7 @@ class _MyAppState extends State<MyApp> {
 //   'percentage':'80'
 //
 // }, tableName: 'completion');
-
+//
 
   // var dd=  RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.login, body: {
   //    'email':'abdu22@gmail.com',
@@ -212,6 +214,11 @@ class _MyAppState extends State<MyApp> {
 //     await networkInfo.isConnected ?print('internt'):print('notinternt');
 //   }
 
+  CachedDate('level','1');
 
-  }}
+ // db.initApp('1');
+
+}
+
+}
 

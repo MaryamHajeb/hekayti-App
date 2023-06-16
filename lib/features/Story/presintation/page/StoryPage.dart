@@ -46,6 +46,7 @@ import '../../../Home/presintation/page/HomePage.dart';
 import '../manager/Slied_bloc.dart';
 import '../manager/Slied_event.dart';
 import '../manager/Slied_state.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
 
 class StoryPage extends StatefulWidget {
   final id;
@@ -73,7 +74,7 @@ class _StoryPageState extends State<StoryPage> {
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
-  List starts = [1, 2, 0, 3, 2, 3];
+  int stars =0;
   String pathaudio = '';
   double valueslider = 0;
   Carecters carectersobj = Carecters();
@@ -89,6 +90,7 @@ class _StoryPageState extends State<StoryPage> {
   var contects;
   int lengthSrory=0;
  String  media_id='';
+  int pres=0;
   final controller =ConfettiController();
 
   @override
@@ -173,7 +175,7 @@ class _StoryPageState extends State<StoryPage> {
                                           CustomPageRoute(  child:   HomePage()));
                                     });
                                     }),
-                                  state.SliedModel[currentIndexPage].page_no ==1 ?       Container():Column(
+                                  state.SliedModel[currentIndexPage].page_no ==0 ?       Container():Column(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
@@ -189,10 +191,10 @@ class _StoryPageState extends State<StoryPage> {
 
                                           if(status.isGranted) {
                                               setState(() {
+                                                print(  DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound);
                                                 isSpack = true;
                                                 player.play(DeviceFileSource(
-                                                   DataSourceURL.urlimageaudiolocal.toString()+'test.pm3'
-                                                       //,state.SliedModel[index].sound
+                                                   DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound
                                                 ));
                                                 //   player.play(
                                                 //     AssetSource('music.mp3'));
@@ -275,7 +277,7 @@ class _StoryPageState extends State<StoryPage> {
                                   reverse: true,
                                   controller: pageControler,
                                   itemBuilder: (context, index) {
-                                    text_orglin=state.SliedModel[index].text;
+                                    text_orglin=state.SliedModel[index].text_no_desc.toString();
                                     currentIndexPage=index;
                                     print(currentIndexPage);
                                     print('currentIndexPagegraide');
@@ -285,7 +287,7 @@ class _StoryPageState extends State<StoryPage> {
                                    // print(media_id);
                                    // print('media_id');
                                     return
-                                      state.SliedModel[index].page_no ==1? Container(
+                                      state.SliedModel[index].page_no ==0? Container(
                                         margin: EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                             color: Colors.white,
@@ -686,7 +688,7 @@ setState(() {
     // print(widget.filePath);
     final audio = await _getAudioContent(filePath!);
 
-    await speechToText.recognize(config, audio).then((value) {
+    await speechToText.recognize(config, audio).then((value) async{
       setState(() {
         text = value.results
             .map((e) => e.alternatives.first.transcript)
@@ -699,16 +701,25 @@ setState(() {
       isProcces=false;
 
     }));
-    star=  await  checkText(text_orglin,text,getCachedDate('level', String));
+    star=  await  checkText(text_orglin,text,int.parse(getCachedDate('level', String)));
     print(star);
     print('star');
 
 
 
-    star !=0? {db.addAccuracy(accuracyModel(media_id:media_id, readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()))),
-      currentIndexPage==lengthSrory? {
+    star !=0? {
+           db.addAccuracy(accuracyModel(media_id:media_id, readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc())
+          
+      )),
+      currentIndexPage+1==lengthSrory? {
+
         controller.play(),
-        showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}')
+        showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}'),
+          pres=     await db.getPercentage(widget.id),
+        stars=(pres/33).toInt(),
+    db.addCompletion(
+      CompletionModel(updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), percentage: pres, story_id: widget.id, stars: stars)
+    ),
       }:
 
     showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت',(){Navigator.pop(context);}),

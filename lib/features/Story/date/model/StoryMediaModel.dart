@@ -1,5 +1,5 @@
 class StoryMediaModel {
-  dynamic id, page_no,story_id,photo,sound,text,updated_at;
+  dynamic id, page_no,story_id,photo,sound,text,updated_at,text_no_desc;
 
   StoryMediaModel({
      this.id,
@@ -7,6 +7,7 @@ class StoryMediaModel {
     required this.photo,
     required this.sound,
     required this.text,
+    required this.text_no_desc,
     required this.updated_at,
     required this.page_no,});
 
@@ -21,6 +22,7 @@ class StoryMediaModel {
         photo: meadia['photo'],
         sound: meadia['sound'],
         text: meadia['text'],
+        text_no_desc: meadia['text_no_desc'],
         page_no: meadia['page_no']
 
     );
@@ -37,6 +39,7 @@ class StoryMediaModel {
       text: '',
       updated_at: '',
       sound: '',
+      text_no_desc: '',
       photo: '',
       story_id: '',
 
@@ -59,6 +62,7 @@ class StoryMediaModel {
     'sound': sound,
     'photo': photo,
     'updated_at': updated_at,
+    'text_no_desc': text_no_desc,
     'story_id': story_id,
     'page_no': page_no};
 }
