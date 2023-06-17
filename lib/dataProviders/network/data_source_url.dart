@@ -7,6 +7,7 @@ class DataSourceURL {
      static String getAllaccuracy='accuracy';
      static String uploadAccuracy='uploadAccuracy';
      static String updateAccuracy='updateAccuracy';
+     static String updateuser='updateUser';
      static String getAllcompletion='completion';
      static String uploadCompletion='uploadCompletion';
      static String updateCompletion='updateCompletion';

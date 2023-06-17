@@ -90,7 +90,9 @@ class _StoryPageState extends State<StoryPage> {
   var contects;
   int lengthSrory=0;
  String  media_id='';
+ String  story_id='';
   int pres=0;
+  int reuslt =0;
   final controller =ConfettiController();
 
   @override
@@ -101,10 +103,19 @@ class _StoryPageState extends State<StoryPage> {
       onWillPop: ()async{
  final value =await  showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره',(){
    Navigator.pop(context);
- },(){
-   Navigator.push(
-       context,
-       CustomPageRoute(  child:   HomePage()));
+ },()async{
+
+   CompletionModel? copm=await   db.CompletionExits(story_id);
+   print(copm);
+    if(copm!=null){
+      db.addCompletion(
+          copm
+      );
+    }
+   print('copm');
+   Navigator.push(context, CustomPageRoute(  child:   HomePage()));
+
+
  });
 
         if(value!=null){
@@ -140,7 +151,6 @@ class _StoryPageState extends State<StoryPage> {
                   //TODO::Show Slied here
 
                   lengthSrory=   state.SliedModel.length;
-
                   SliedWidget =
 
 
@@ -169,7 +179,15 @@ class _StoryPageState extends State<StoryPage> {
                                         color: AppTheme.primaryColor),
                                     ontap: () {showImagesDialogWithCancleButten(context, '${carectersobj.confusedListCarecters[Carecters_id]['image']}', 'هل حقا تريد المغادره',(){
                                       Navigator.pop(context);
-                                    },(){
+                                    },()async{
+
+                                      CompletionModel? copm=await   db.CompletionExits(story_id);
+                                      print(copm);
+                                      if(copm!=null){
+                                        db.addCompletion(
+                                            copm
+                                        );
+                                      }
                                       Navigator.push(
                                           context,
                                           CustomPageRoute(  child:   HomePage()));
@@ -190,13 +208,15 @@ class _StoryPageState extends State<StoryPage> {
                                           final status= await Permission.storage.request();
 
                                           if(status.isGranted) {
-                                              setState(() {
+                                              setState(() async{
                                                 print(  DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound);
                                                 isSpack = true;
-                                                player.play(DeviceFileSource(
+                                               await player.play(DeviceFileSource(
                                                    DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound
                                                 ));
-                                                //   player.play(
+
+
+                                                 //   player.play(
                                                 //     AssetSource('music.mp3'));
                                               });
                                             }
@@ -248,7 +268,7 @@ class _StoryPageState extends State<StoryPage> {
                                              });
                                            }
                                            else {
-                                             noInternt(context);
+                                             noInternt(context,'تاكد من وجود انترنت');
                                            }
                                          }
                                        })
@@ -277,6 +297,8 @@ class _StoryPageState extends State<StoryPage> {
                                   reverse: true,
                                   controller: pageControler,
                                   itemBuilder: (context, index) {
+                                    story_id=state.SliedModel[index].story_id.toString();
+
                                     text_orglin=state.SliedModel[index].text_no_desc.toString();
                                     currentIndexPage=index;
                                     print(currentIndexPage);
@@ -545,7 +567,7 @@ class _StoryPageState extends State<StoryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id = getCachedDate('Carecters', String);
+    Carecters_id = int.parse(getCachedDate('Carecters', String).toString());
        lisen=  getCachedDate('Listen_to_story',bool)  ?? '';
   }
 
@@ -584,7 +606,6 @@ class _StoryPageState extends State<StoryPage> {
       print(e);
     }
   }
-
   _stop() async {
     var result = await _recorder!.stop();
 
@@ -598,7 +619,6 @@ class _StoryPageState extends State<StoryPage> {
       recognize();
     });
   }
-
   _start() async {
     try {
 
@@ -647,17 +667,12 @@ setState(() {
       print(e);
     }
   }
-
-
-
-
   RecognitionConfig _getConfig() => RecognitionConfig(
       encoding: AudioEncoding.LINEAR16,
       model: RecognitionModel.basic,
       enableAutomaticPunctuation: true,
       sampleRateHertz: 16000,
       languageCode: 'ar-SA');
-
   Future<void> _copyFileFromAssets(String name) async {
     var data = await rootBundle.load(name);
     // final directory = await getApplicationDocumentsDirectory();
@@ -666,7 +681,6 @@ setState(() {
     await io.File(path).writeAsBytes(
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
-
   Future<List<int>> _getAudioContent(String name) async {
     // final directory = await getApplicationDocumentsDirectory();
     final path = name;
@@ -693,6 +707,9 @@ setState(() {
         text = value.results
             .map((e) => e.alternatives.first.transcript)
             .join('\n');
+       text= text.replaceAll('.', '');
+       text= text.replaceAll('?', '');
+       text= text.replaceAll('!', '');
         print(text);
       });
     }).whenComplete(() => setState(() {
@@ -708,14 +725,17 @@ setState(() {
 
 
     star !=0? {
-           db.addAccuracy(accuracyModel(media_id:media_id, readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc())
-          
+
+      reuslt=  await db.addAccuracy(accuracyModel(media_id:media_id, readed_text: text, accuracy_stars: star, updated_at:intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()),
+
       )),
+      print(reuslt),
+      print('result'),
       currentIndexPage+1==lengthSrory? {
 
         controller.play(),
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}'),
-          pres=     await db.getPercentage(widget.id),
+          pres=     await db.getPercentage(widget.id.toString()),
         stars=(pres/33).toInt(),
     db.addCompletion(
       CompletionModel(updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), percentage: pres, story_id: widget.id, stars: stars)
@@ -726,7 +746,6 @@ setState(() {
     }:showImagesDialogWithDoNotWill(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى', text.length > 20? text.replaceRange(20, text.length, '....') :  text,text_orglin);
 
   }
-
   int checkText(String originalText, String readText, int level) {
 
     if (level == 3) {
@@ -758,5 +777,7 @@ setState(() {
 
     return 0;
   }
+
+
 
 }

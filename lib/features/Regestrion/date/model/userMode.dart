@@ -1,5 +1,5 @@
 class UserModel {
-  dynamic id, user_name, email, level,character;
+  dynamic id, user_name, email, level,character,update_at,password;
 
   UserModel(
       {
@@ -7,6 +7,8 @@ class UserModel {
       required this.email,
       required this.level,
       required this.character,
+      required this.update_at,
+      required this.password,
       required this.id
 
       });
@@ -18,7 +20,9 @@ class UserModel {
       email : user['email'],
       level: user['level'],
       character: user['character'],
+      update_at: user['update_at'],
       id: user['id'],
+      password: user['password'],
     );
   }
 
@@ -31,9 +35,11 @@ class UserModel {
 
       user_name: '',
       email: '',
+      update_at: '',
       character: '',
       id: '',
       level: '',
+      password: '',
     );
   }
 
@@ -51,5 +57,7 @@ class UserModel {
         'email': email,
         'level': level,
         'character': character,
+        'update_at': update_at,
+        'password': password,
       };
 }

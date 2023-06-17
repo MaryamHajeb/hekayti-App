@@ -45,9 +45,9 @@ class RegistrationRepository extends Repository {
 
               });
 
-
-          localDataProvider.cacheData(key: 'User_id', data: remoteData.toString());
-           String user_id =await localDataProvider.getCachedData(key: 'User_id', retrievedDataType: String);
+          localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name: getCachedDate('nameChlied',String), email: email, level: getCachedDate('level',String), character: getCachedDate('Carecters', String), update_at:  DateTime.now().millisecondsSinceEpoch.toString(), password: password, id: remoteData.toString()));
+          //localDataProvider.cacheData(key: 'User_id', data: remoteData.toString());
+           String user_id =await localDataProvider.getCachedData(key: 'UserInformation', retrievedDataType: UserModel);
              print('localDataProvider');
              print(user_id);
 

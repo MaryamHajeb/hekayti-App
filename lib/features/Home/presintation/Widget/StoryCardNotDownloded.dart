@@ -17,7 +17,8 @@ class StoryCardNotDownloded extends StatefulWidget {
   String photo;
   final starts;
   int progress;
-   StoryCardNotDownloded({Key? key,required this.name,required this.photo,required this.starts,required this.progress}) : super(key: key);
+  String id;
+   StoryCardNotDownloded({Key ? key,required this.name,required this.photo,required this.starts,required this.progress,required this.id}) : super(key: key);
 
   @override
   State<StoryCardNotDownloded> createState() => _StoryCardNotDownlodedState();
@@ -137,9 +138,11 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                    crossAxisAlignment: CrossAxisAlignment.center,
                    children: [
                      SizedBox(width: 30,),
-                     widget.progress ==0 ? IconButton(onPressed: (){
+                     progress ==0 ? IconButton(onPressed: (){
                       setState(() {
-                         db.downloadStoriesCover();
+                        print(widget.id);
+                        print('widget.id');
+                         db.downloadMedia(widget.id);
                          print(progress);
                        });
 
@@ -167,9 +170,14 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
     _port.listen((dynamic data) {
       String id = data[0];
       DownloadTaskStatus status = DownloadTaskStatus(data[1]);
-      progress = data[2];
-      print(progress);
-      setState((){ });
+      setState((){
+
+        progress = data[2];
+        print(progress);
+        print('progress============================================================');
+
+
+      });
 
     });
   }

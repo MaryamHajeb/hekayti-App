@@ -33,6 +33,8 @@ DatabaseHelper db = new DatabaseHelper();
 String carecters='';
 String level='';
 bool islogin=false;
+int idfrochart=0;
+List<dynamic> listCopmletion=[];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   FlameAudio.bgm.initialize();
@@ -104,6 +106,8 @@ class _MyAppState extends State<MyApp> {
 //internet();
 //
     ReceivePort _port = ReceivePort();
+  CachedDate('Carecters', '0');
+  CachedDate('listCopmletion', []);
 
 //
 //
@@ -127,23 +131,24 @@ class _MyAppState extends State<MyApp> {
 // db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
 // db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
 //
+//
+// db.insert(data: {
+//   'id':1,
+//   'stars':'2',
+//   'story_id':'1',
+//   'updated_at':'2:22',
+//   'percentage':'80'
+//
+// }, tableName: 'completion');
+// db.insert(data: {
+//   'id':2,
+//   'stars':'3',
+//   'story_id':'2',
+//   'updated_at':'2:22',
+//   'percentage':'100'
 
-db.insert(data: {
-  'id':1,
-  'stars':'2',
-  'story_id':'1',
-  'updated_at':'2:22',
-  'percentage':'80'
-
-}, tableName: 'completion');
-db.insert(data: {
-  'id':2,
-  'stars':'3',
-  'story_id':'2',
-  'updated_at':'2:22',
-  'percentage':'100'
-
-}, tableName: 'completion');
+//
+// }, tableName: 'completion');
 
 // db.insert(data: {
 //   'id':3,

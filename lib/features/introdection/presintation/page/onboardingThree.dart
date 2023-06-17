@@ -92,10 +92,11 @@ TextEditingController  nameChiled=TextEditingController();
  initname();
   }
 
+
 initname()async{
-  String   t= await getCachedDate('nameChlied',String ?? '') ;
+  String?   t= await getCachedDate('nameChlied',String ?? '') ;
   setState(() {
-    nameChiled.text=t;
+    nameChiled.text=t!;
 
   });
 

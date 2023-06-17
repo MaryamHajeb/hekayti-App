@@ -68,8 +68,8 @@ class _SettingPageState extends State<SettingPage> {
 
                               tabs: [
 
-                                Tab(text:  'الأعدادات',),
-                                Tab(text:  'تقارير التقدم',),
+                                Tab(text:  'الإعــدادات',),
+                                Tab(text:  'تـقـارير الـتـقـدم',),
 
                               ]),
                         ),

@@ -11,6 +11,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
@@ -41,12 +42,15 @@ class _IntroScreenState extends State<IntroScreen> {
     onboardingSix(),
   ];
   ScreenUtil _screenUtil = ScreenUtil();
+  Carecters carectersobj =Carecters();
+
   int currentIndexPage = 0;
   int carectersnum=10;
  String levelnum ='';
   ReceivePort _port = ReceivePort();
 int progress=0;
   bool  isLoading =false;
+  int?  Carecters_id=0;
 
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
@@ -78,7 +82,7 @@ int progress=0;
               itemBuilder: (context, index) {
                 return Stack(
                   children: [
-                    isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp()):
+                    isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp('جاري تحميل القصص  ')):
 
                     Center(
                       child: Column(
@@ -158,6 +162,7 @@ int progress=0;
 
                                                             print(index);
                                                             if(index==2){
+
                                                               CachedDate('Carecters',0);
                                                               CachedDate('collected_stars',0);
                                                               CachedDate('all_stars',0);
@@ -172,24 +177,42 @@ int progress=0;
                                                             SharedPreferences prefs;
                                                             index==5 ?
                                                             {
-                                                              prefs = await SharedPreferences.getInstance(),
-                                                            prefs.setBool('onbording', true),
+                                                              if(await networkInfo
+                                                                  .isConnected)
+                                                                {
 
-                                                            setState(() {
-                                                            isLoading=true;
-                                                            }),
+                                                                  prefs =
+                                                                  await SharedPreferences
+                                                                      .getInstance(),
+                                                                  prefs.setBool(
+                                                                      'onbording',
+                                                                      true),
+                                                                  setState(() {
+                                                                    isLoading =
+                                                                    true;
+                                                                  }),
 
-                                                          await db.initApp(levelnum),
-                                                            await Future.delayed(Duration(seconds: 5)),
-                                                            setState(() {
-                                                                isLoading=false;
-                                                              }),
 
-                                                              Navigator.push(
-                                                                  context,
-                                                                  CustomPageRoute(
-                                                                      child: HomePage()))
+                                                                   db.initApp(levelnum,'1'),
+
+                                                                  await Future
+                                                                      .delayed(
+                                                                      Duration(seconds: 20)),
+                                                                  setState(() {
+                                                                    isLoading =
+                                                                    false;
+                                                                  }),
+
+                                                                  Navigator
+                                                                      .push(
+                                                                      context,
+                                                                      CustomPageRoute(
+                                                                          child: HomePage()))
+                                                                }else{
+                                                                showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id!]['image']}','تاكد من وجود انترنت اول مره من اجل تحميل القصص',(){ Navigator.pop(context);})
+                                                              }
                                                             }
+
                                                                :
                                                             pageController.nextPage(
                                                                 duration: Duration(
@@ -241,6 +264,9 @@ int progress=0;
   void initState() {
     // TODO: implement initState
     super.initState();
+    Carecters_id= int.parse( getCachedDate('Carecters',String ));
+    levelnum= getCachedDate('level',String );
+
        FlutterDownloader.registerCallback(downloadCallback, step: 1);
 
     IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');

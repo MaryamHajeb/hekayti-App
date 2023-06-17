@@ -24,14 +24,17 @@ import '../../features/Home/data/repository/StoryRepository.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../gen/assets.gen.dart';
 import '../../injection_container.dart';
+import '../../main.dart';
 
 
 class DatabaseHelper{
    Database? _db ;
    var path;
+   List<dynamic> listCopmletion=    CachedDate('listCopmletion', []);
 
 String TableName='meadia';
     StoryRepository? dd;
+   UserModel? userModel;
 
   Future<Database?> get db async{
     if(_db != null){
@@ -337,7 +340,7 @@ Future<int> deleteTable(table_name) async{
     dynamic localdata=await foundRecord('id',element.id,'stories_media');
 
 if(await localdata!=null){
-     if(      checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
+     if(checkUpdate(element.updated_at.toString(),localdata[0]['updated_at'].toString())!=0){
 
        print('record exits');
 
@@ -365,32 +368,36 @@ if(await localdata!=null){
 
 
   downloadStoriesCover( )async{
-    var dbClient = await  db;
-    final status= await Permission.storage.request();
-    final status2= await Permission.manageExternalStorage.request();
-    List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories');
-    print(result.length);
-    print('cover');
-    final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
-     await  dirFound(dir);
+try {
+  var dbClient = await db;
+  final status = await Permission.storage.request();
+  final status2 = await Permission.manageExternalStorage.request();
+  List<dynamic> result = await dbClient!.rawQuery(
+      'SELECT cover_photo from stories');
+  print(result.length);
+  print('cover');
+  final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
+  await dirFound(dir);
 
-    if(status.isGranted) {
-      result.forEach((element)async {
-        print(element['cover_photo']);
+  if (status.isGranted || status.isGranted) {
+    result.forEach((element) async {
+      print(element['cover_photo']);
 
-        fileDownload(element['cover_photo'],dir.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
-        await Future.delayed(Duration(seconds: 1));
+      fileDownload(element['cover_photo'], dir.path,
+          DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
+      await Future.delayed(Duration(seconds: 1));
+    });
+    //fileDownload(result[0]['cover_photo'],dir.path );
 
-     });
-      //fileDownload(result[0]['cover_photo'],dir.path );
-
-    }
-    // result.forEach((element){
-    //   fileDownload(element['cover_photo'].toString(),path);
-    // });
+  }
+  // result.forEach((element){
+  //   fileDownload(element['cover_photo'].toString(),path);
+  // });
 
 
-
+}catch(e){
+  print(e.toString());
+}
 
 
   }
@@ -450,7 +457,7 @@ print('downloadMedia');
   //GET DATA ACCUR
   // ACY FROM REMOTE DATABASE INSERTED OR UPDATE
   checkAccuracyFound(List<accuracyModel> data)async{
-
+         int ruslt=0;
 
     data.forEach((element) async{
       dynamic localdata=await foundRecord('media_id',element.media_id,'accuracy');
@@ -468,8 +475,7 @@ print('downloadMedia');
           );
         }
       }else{
-        insert(tableName: 'accuracy',data:
-        accuracyModel(media_id: element.media_id, readed_text: element.readed_text, accuracy_stars: element.accuracy_stars, updated_at: element.updated_at),
+        ruslt=await insert(tableName: 'accuracy',data: accuracyModel(media_id: element.media_id, readed_text: element.readed_text, accuracy_stars: element.accuracy_stars, updated_at: element.updated_at),
         );
       }
     });
@@ -478,6 +484,7 @@ print('downloadMedia');
 
   //UPDATE AND INSERT ACCURACY FROM LOCALY
   addAccuracy(accuracyModel data)async{
+        int ruslt=0;
       dynamic localdata=await foundRecord('media_id',data.media_id,'accuracy');
       if(await localdata!=null) {
         // print(element.updated_at);
@@ -511,24 +518,23 @@ print('downloadMedia');
       }
 
       else{
-        insert(tableName: 'accuracy',data:
+        ruslt=await  insert(tableName: 'accuracy',data:
+         accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),);
 
-         accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),
-        );
+        if(await networkInfo.isConnected &&userModel!= null ) {
+          var remoteData_accruacy = await RemoteDataProvider(client: sl())
+              .sendData(url: DataSourceURL.updateAccuracy, body: {
 
-        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateAccuracy, body: {
-
-          'user_id': getCachedDate('User_id', String),
-          'updated_at': data.updated_at,
-          'readed_text':data.readed_text,
-          'media_id': data.media_id,
-          'accuracy_stars':data.accuracy_stars
-
-        }, retrievedDataType: String);
-
+            'user_id': getCachedDate('User_id', int),
+            'updated_at': data.updated_at,
+            'readed_text': data.readed_text,
+            'media_id': data.media_id,
+            'accuracy_stars': data.accuracy_stars
+          }, retrievedDataType: String);
+        }
 
       }
-
+return ruslt;
   }
 
   //UPLODE DATA FROM LOCALY IF THE USER WORK THE STORY BUT NOT LOGIN
@@ -538,15 +544,18 @@ print('downloadMedia');
     var result;
      List<dynamic> res=     await dbClient!.rawQuery(sql);
 
-     res.forEach((element) {
-      result=    RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
+     res.forEach((element) async{
+       if(await networkInfo.isConnected &&userModel!= null ) {
+         result = await RemoteDataProvider(client: sl()).sendData(
+             url: DataSourceURL.uploadAccuracy, body: {
 
-              'user_id': user_id,
-               'updated_at': element['updated_at'].toString(),
-               'readed_text': element['readed_text'].toString(),
-               'media_id': element['media_id'].toString(),
-               'accuracy_stars': element['accuracy_stars'].toString()
-       }, retrievedDataType: String);
+           'user_id': user_id,
+           'updated_at': element['updated_at'].toString(),
+           'readed_text': element['readed_text'].toString(),
+           'media_id': element['media_id'].toString(),
+           'accuracy_stars': element['accuracy_stars'].toString()
+         }, retrievedDataType: String);
+       }
 print(result);
 
      });
@@ -562,9 +571,9 @@ print(res);
         int percentage =0;
        Database? dbClient = await  db;
 
-       List<dynamic> star = await dbClient!.query('select accuracies.accuracy_stars from stories_media join accuracies on stories_media.id=accuracies.media_id  where stories_media.story_id = $id ');
+       List<dynamic> star = await dbClient!.rawQuery('select accuracy.accuracy_stars from stories_media join accuracy on stories_media.id=accuracy.media_id  where stories_media.story_id = $id ');
        star.forEach((element) {
-         stars +=int.parse(element['accuracy_stars']);
+         stars +=int.parse(element['accuracy_stars'].toString());
        });
 
        percentage=(stars/star.length).toInt() *100;
@@ -607,7 +616,6 @@ print(res);
 
 
   addCompletion(CompletionModel data)async{
-
       dynamic localdata=await foundRecord('story_id',data.story_id,'completion');
 
       if(await localdata!=null){
@@ -626,41 +634,60 @@ print(res);
                   where: 'id=${localdata[0]['id']}'
 
               );
-              //check internet
-              var remoteData_completion = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateCompletion, body: {
+              checkUserLoggedIn().fold((l) {
+                userModel = l;
+              }, (r) {
+                userModel = null;
+              });
 
-                'user_id': '1',
-                'stars':data.stars,
-                'percentage':data.percentage,
-                'story_id':data.story_id,
-                'updated_at':data.updated_at,
+              if(await networkInfo.isConnected &&userModel!= null ) {
+                var remoteData_completion = await RemoteDataProvider(
+                    client: sl()).sendData(
+                    url: DataSourceURL.updateCompletion, body: {
 
-              }, retrievedDataType: String);
+                  'user_id': '1',
+                  'stars': data.stars,
+                  'percentage': data.percentage,
+                  'story_id': data.story_id,
+                  'updated_at': data.updated_at,
 
+                }, retrievedDataType: String);
+              }
+              else{
+                listCopmletion.add({
+                  'id':data.id,
+                   'status':'update',                 
+                });
+                
+                
+              }
 
 
 
         }
 
       }else{
-        insert(tableName: 'completion',data:{
-
-          'stars':data.stars,
-          'percentage':data.percentage,
-          'story_id':data.story_id,
-          'updated_at':data.updated_at,
-        }
+        insert(tableName: 'completion',data:CompletionModel(updated_at: data.updated_at, percentage: data.percentage, story_id: data.story_id, stars: data.stars)
         );
-        var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion, body: {
 
-          'user_id': '1',
-          'stars':data.stars,
-          'percentage':data.percentage,
-          'story_id':data.story_id,
-          'updated_at':data.updated_at,
+        if(await networkInfo.isConnected &&userModel!= null ) {
+          var remoteData_accruacy = await RemoteDataProvider(client: sl())
+              .sendData(url: DataSourceURL.uploadCompletion, body: {
 
-        }, retrievedDataType: String);
+            'user_id': '1',
+            'stars': data.stars,
+            'percentage': data.percentage,
+            'story_id': data.story_id,
+            'updated_at': data.updated_at,
 
+          }, retrievedDataType: String);
+        }else{
+          listCopmletion.add({
+            'id':data.id,
+            'status':'insert',
+          });
+          
+        }
 
       }
 
@@ -680,19 +707,20 @@ print(res);
 
 
 
-    res.forEach((element) {
+    res.forEach((element) async{
 
-   var result=   RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion, body: {
+      if(await networkInfo.isConnected &&userModel!= null ) {
+        var result = RemoteDataProvider(client: sl()).sendData(
+            url: DataSourceURL.uploadCompletion, body: {
 
-              'user_id': user_id,
-              'updated_at': element['updated_at'].toString(),
-              'percentage': element['percentage'].toString(),
-              'story_id': element['story_id'].toString(),
-              'stars': element['stars'].toString()
+          'user_id': user_id,
+          'updated_at': element['updated_at'].toString(),
+          'percentage': element['percentage'].toString(),
+          'story_id': element['story_id'].toString(),
+          'stars': element['stars'].toString()
+        }, retrievedDataType: String);
+      }
 
-      }, retrievedDataType: String);
-
-print(result);
 
     });
 
@@ -720,7 +748,7 @@ print(result);
   }
 
 
-initApp(String level)async{
+initApp(String level, String id)async{
   final status= await Permission.storage.request();
   Database? dbClient = await  db;
 
@@ -728,38 +756,58 @@ initApp(String level)async{
   await checkMediaFound();
   await downloadStoriesCover();
   print(level);
-  List<dynamic> storyId = await dbClient!.rawQuery('SELECT * FROM stories where level = 1  AND story_order = 1 ');
+  List<dynamic> storyId = await dbClient!.rawQuery('SELECT id FROM stories where level = $level  AND story_order = $id ');
   print(storyId);
   print('storyId====================================================================================');
   await downloadMedia(storyId[0]['id'].toString());
 }
-syncApp(String level)async{
+syncApp(String level,)async{
      Database? dbClient = await  db;
      checkStoryFound();
      checkMediaFound();
-     //if signed in
+     await downloadStoriesCover();
+     if(userModel!=null){
+       if(listCopmletion.isNotEmpty==true){
+
+         syncCompletion(listCopmletion,userModel!.id);
+
+         
+
+       }
+     }
       //completion list is not empty =>syncCompletion
       //updateUser
 
 
    }
-   syncCompletion(List<dynamic> list) async{
+
+
+   syncCompletion(List<dynamic> list,user_id) async{
      Database? dbClient = await  db;
 
      var remoteData_completion=[];
      list.forEach((element) async{
        var sql = "SELECT * FROM completion where id=$element['id']";
        List<dynamic> data=await dbClient!.rawQuery(sql) as List;
+
        element['status']=='update'?
        {
-         remoteData_completion = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateCompletion, body: {
-         'user_id': '1',
-         'stars':element['stars'],
-         'percentage':element['percentage'],
-         'story_id':element['story_id'],
-         'updated_at':element['updated_at']
+       if(await networkInfo.isConnected &&userModel!= null ) {
 
-       }, retrievedDataType: String)}
+         remoteData_completion =
+         await RemoteDataProvider(client: sl()).sendData(
+             url: DataSourceURL.updateCompletion, body: {
+           'user_id': user_id,
+           'stars': element['stars'],
+           'percentage': element['percentage'],
+           'story_id': element['story_id'],
+           'updated_at': element['updated_at']
+         }, retrievedDataType: String)
+       }
+       }
+
+
+
            :{remoteData_completion =  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion,
        body: {
        'user_id': '1',
@@ -780,8 +828,17 @@ syncApp(String level)async{
     // print(update_at_remote);
     // print('update_at_remote-----------------');
     // print(update_at_local);
+   update_at_remote =update_at_remote.replaceAll('T', ' ');
+   update_at_local =update_at_local.replaceAll('T', ' ');
+   update_at_local =update_at_local.replaceRange(update_at_local.indexOf('.'),update_at_local.length-1,'');
+   update_at_remote =update_at_remote.replaceRange(update_at_remote.indexOf('.'),update_at_remote.length-1,'');
+
+
     DateTime dateTime1 = DateFormat('yyyy-MM-dd HH:mm:ss').parse(update_at_remote);
     DateTime dateTime2 = DateFormat('yyyy-MM-dd HH:mm:ss').parse(update_at_local);
+
+    // print(dateTime1);
+    // print(dateTime2);
     int comparison = dateTime1.compareTo(dateTime2);
 
 
@@ -789,6 +846,37 @@ syncApp(String level)async{
 
   }
 
+
+     CompletionExits(String story_id)async{
+     Database? dbClient = await  db;
+     CompletionModel? data;
+     List<dynamic> reslut=await   dbClient!.rawQuery('select * from Completion where story_id = $story_id');
+      if(reslut!=null ){
+         reslut.forEach((element) {
+         data=  CompletionModel(updated_at: element['updated_at'], percentage: element['percentage'], story_id: element['story_id'], stars: element['stars']);
+         });
+
+
+      }
+      else{
+        data=null;
+      }
+     return data;
+}
+
+updateUserDate(UserModel user)async{
+   RemoteDataProvider(client: sl()).sendData(
+      url: DataSourceURL.updateuser, body: {
+    'id': user.id,
+    'email': user.email,
+    'level': user.level,
+    'character': user.character,
+    'password': user.password,
+    'user_name': user.user_name,
+    'update_at': user.update_at,
+  }, retrievedDataType: String);
+
+}
 
 
 }

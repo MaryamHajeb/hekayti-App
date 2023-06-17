@@ -204,7 +204,7 @@ TextEditingController CofemPassword = TextEditingController();
                                       }
 
                                     }   else{
-                                      noInternt(context);
+                                      noInternt(context,'تاكد من وجود انترنت');
                                     }
 
                                   },text: 'تسجيل'),

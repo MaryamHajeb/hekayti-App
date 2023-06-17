@@ -339,7 +339,7 @@ showConfetti(context2,controler,image) {
         );
       });
 }
-noInternt(context2) {
+noInternt(context2,String text) {
   showDialog(
       context: context2,
       builder: (BuildContext context) {
@@ -364,7 +364,7 @@ noInternt(context2) {
                 children: [
                   Icon(Icons.signal_wifi_connected_no_internet_4_sharp,color: AppTheme.primaryColor,),
                   SizedBox(width: 10,),
-                  Text('تاكد من وجود انترنت',style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+                  Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.fade,textAlign: TextAlign.center,),
 
 
                 ],)
@@ -377,7 +377,7 @@ noInternt(context2) {
 }
 
 
-initApp() {
+initApp(String text) {
   return Center(
     child: Dialog(
       elevation: 50,
@@ -400,7 +400,7 @@ initApp() {
             children: [
               CircularProgressIndicator(color: AppTheme.primaryColor,),
               SizedBox(width: 10,),
-              Text('جاري تحميل القصص التطبيق ',style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
+              Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,),
 
             ],)
 

@@ -171,12 +171,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(
             height: 20,
           ),
-          userModel == null
+          userModel != null
               ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      width: screenUtil.screenWidth* .3,
+                      width: screenUtil.screenWidth* .4,
                       height: screenUtil.screenHeight *.2,
                       child: Column(
                         children: [
@@ -316,8 +316,8 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   }
 
   initCarecters() async {
-    int? carectersnum = await getCachedDate('Carecters', String) ?? '';
-    int? levels = await getCachedDate('level', String) ?? '';
+    int? carectersnum = await int.parse(getCachedDate('Carecters', String).toString());
+    int? levels = await int.parse(getCachedDate('level', String).toString()) ;
     String? t = await getCachedDate('nameChlied', String) ?? '';
     bool lisent = await getCachedDate('Listen_to_story', bool) ?? '';
     checkUserLoggedIn().fold((l) {
@@ -334,14 +334,21 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     });
   }
 
-  saveNewSttings() {
+  saveNewSttings() async{
     int carecters =
         int.parse(carecterslist.listcarecters[itemSelected]['id'].toString());
     int level =
-        int.parse(carecterslist.Levels[itemSelectedlevel]['id'].toString());
+        int.parse(carecterslist.Levels[itemSelectedlevel]['num'].toString());
     CachedDate('Carecters', carecters);
     CachedDate('nameChlied', nameChiled.text);
     CachedDate('level', level);
     CachedDate('Listen_to_story', chackboxStata);
+     if(userModel!=null&& await networkInfo.isConnected){
+
+       db.updateUserDate(UserModel(user_name: nameChiled.text, email: userModel!.email.toString(), level: level.toString(), character: carecters.toString(), update_at:  DateTime.now().millisecondsSinceEpoch.toString(), password: userModel!.password, id: userModel!.id.toString()));
+     }
+
+
+
   }
 }

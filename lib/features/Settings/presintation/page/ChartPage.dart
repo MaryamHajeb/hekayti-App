@@ -41,7 +41,7 @@ bool visiblety=false;
         builder: (_context, state) {
           if (state is ChartInitial) {
             BlocProvider.of<ChartBloc>(_context)
-                .add(GetAllChart(id: '1'));
+                .add(GetAllChart(id: '2'));
           }
 
           if (state is ChartLoading) {

@@ -31,7 +31,7 @@ class StoryRepository extends Repository{
   });
 
 
-  Future<Either<Failure, dynamic>> getAllStory() async {
+  Future<Either<Failure, dynamic>> getAllStory(String level,) async {
     return  sendRequest(
 
         checkConnection: networkInfo.isConnected,
@@ -42,14 +42,14 @@ class StoryRepository extends Repository{
 
 
 
-          return  await getStars();
+          return  await getStars(level);
 
 
         },
 
         getCacheDataFunction: () async{
 
-          return  await getStars();
+          return  await getStars(level);
         }
 
 
@@ -65,7 +65,7 @@ class StoryRepository extends Repository{
 
 
 
- Future<List<StoryModel>> getStars()async{
+ Future<List<StoryModel>> getStars(level)async{
 
    List<dynamic> reslet = await db.getAllstory('stories','1');
    print(reslet.length);

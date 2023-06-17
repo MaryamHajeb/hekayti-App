@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../injection_container.dart';
+import '../../../../main.dart';
 import '../managerReport/Report_bloc.dart';
 import '../managerReport/Report_event.dart';
 import '../managerReport/Report_state.dart';
@@ -61,6 +62,8 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
                   height: screenUtil.screenHeight * .7 ,
                   width: double.infinity,
                   child: ListView.builder(itemCount: state.reportModel.length,itemBuilder: (context, index) {
+                    idfrochart =state.reportModel[index].id;
+
                     return ReportCard(cover_photo: state.reportModel[index].cover_photo
                       ,name: state.reportModel[index].name,
                       percentage: state.reportModel[index].percentage,

@@ -6,8 +6,8 @@ abstract class StoryEvent extends Equatable {
 
 class GetAllStory extends StoryEvent {
 
-
-  GetAllStory();
+String level;
+  GetAllStory(this.level);
 
 
   @override
