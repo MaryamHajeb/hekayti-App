@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,6 +59,7 @@ class _HomePageState extends State<HomePage> {
   final prefs = SharedPreferences.getInstance();
   int  Carecters_id=0;
   int progress=0;
+  var path;
    double star_progrees = 0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -233,10 +235,10 @@ class _HomePageState extends State<HomePage> {
 
                                     name: listStoryWithSearch[index]?.name,
                                     starts: int.parse(listStoryWithSearch[index]?.stars),
-                                    photo: listStoryWithSearch[index]!.cover_photo
+                                    photo: path +'/'+ listStoryWithSearch[index]!.cover_photo
                                         .toString(),
                                   ),
-                                )): listStoryWithSearch[index]!.download ==false ?
+                                )): listStoryWithSearch[index]!.download ==0 ?
                             InkWell(
                                 onTap: () {
                                   showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',(){ Navigator.pop(context);});
@@ -249,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                                     progress: progress,
                                     name: listStoryWithSearch[index]?.name,
                                     starts: int.parse(listStoryWithSearch[index]?.stars),
-                                    photo: listStoryWithSearch[index]!.cover_photo
+                                    photo: path +'/'+ listStoryWithSearch[index]!.cover_photo
                                         .toString(),
                                   ),
                                 )):
@@ -272,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                   child: StoryCard(
                                     name: listStoryWithSearch[index]!.name,
                                     starts: int.parse(listStoryWithSearch[index]?.stars),
-                                    photo: listStoryWithSearch[index]!.cover_photo.toString(),
+                                    photo: path +'/'+ listStoryWithSearch[index]!.cover_photo.toString(),
                                   ),
                                 ));
                         },
@@ -330,7 +332,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
       // if(networkInfo.isConnected)
       //
-
+initpath();
     listStoryWithSearch = listStory;
     Carecters_id=  int.parse(getCachedDate('Carecters',String).toString());
     collected_stars= getCachedDate('collected_stars',String);
@@ -342,7 +344,7 @@ class _HomePageState extends State<HomePage> {
      }else{
        star_progrees = collected_stars / all_stars;
      }
-        db.syncApp(level.toString());
+     //   db.syncApp(level.toString());
 
 
     FlutterDownloader.registerCallback(downloadCallback, step: 1);
@@ -376,6 +378,9 @@ class _HomePageState extends State<HomePage> {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
     super.dispose();
   }
-
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
+  }
 
 }

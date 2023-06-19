@@ -1,3 +1,5 @@
+import 'package:downloads_path_provider/downloads_path_provider.dart';
+
 class DataSourceURL {
 
      static String baseUrl = 'http://192.168.43.202:80/api/';
@@ -21,5 +23,7 @@ class DataSourceURL {
      static String urlimageCoverlocal = '/storage/emulated/0/Android/data/com.example.android.app/files/cover/';
      static String urlimagephotolocal = '/storage/emulated/0/Android/data/com.example.android.app/files/photo/';
      static String urlimageaudiolocal = '/storage/emulated/0/Android/data/com.example.android.app/files/sound/';
+
+
 
 }

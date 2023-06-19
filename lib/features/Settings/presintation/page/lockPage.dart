@@ -1,10 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
-
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemButten.dart';
@@ -26,9 +23,9 @@ TextEditingController result =TextEditingController();
 
 final _formKey = GlobalKey<FormState>();
 
-int num1 = Random().nextInt(100);
-int num2 = Random().nextInt(100);
-int num3 = Random().nextInt(100);
+int num1 = Random().nextInt(50);
+int num2 = Random().nextInt(50);
+int num3 = Random().nextInt(50);
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -118,9 +115,9 @@ int num3 = Random().nextInt(100);
                                                 if (value.toString().isEmpty) {
                                                   return 'يرجئ منك كتابه الحل';
                                                 }
-                                                // if(int.parse(value.toString())!= num1+num2+num3){
-                                                //   return 'يرجئ منك كتابه الحل بشكل صحيح';
-                                                // }
+                                                if(int.parse(value.toString())!= num1+num2+num3){
+                                                  return 'يرجئ منك كتابه الحل بشكل صحيح';
+                                                }
 
                                                 return null;
                                               },

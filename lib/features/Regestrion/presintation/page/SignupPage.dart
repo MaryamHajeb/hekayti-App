@@ -151,7 +151,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
                                                 if (value!.length < 6) {
-                                                  return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
+                                                  return 'كلمة المرور تتكون من 6 حروف وارفام على الاقل';
                                                 }
                                                 return null;
                                               },controler:password ,text: 'كلمة المرور',type: TextInputType.text,),
@@ -173,10 +173,10 @@ TextEditingController CofemPassword = TextEditingController();
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
                                                 if (value!.length < 6) {
-                                                  return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
+                                                  return 'كلمة المرور تتكون من 6 حروف وارفام على الاقل';
                                                 }
                                                 if(password.text !=CofemPassword.text){
-                                                  return 'تاكبد كلمه المرور لاتطابق كمله المرور  ';
+                                                  return 'تاكبد كلمة المرور لاتطابق كمله المرور  ';
 
                                                 }
                                                 return null;

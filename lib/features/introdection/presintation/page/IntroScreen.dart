@@ -170,7 +170,7 @@ int progress=0;
 
 
                                                             }if(index==2){
-                                                              CachedDate('level',0);
+                                                              CachedDate('level',1);
                                                             }
 
 
@@ -192,8 +192,9 @@ int progress=0;
                                                                     true;
                                                                   }),
 
-
-                                                                   db.initApp(levelnum,'1'),
+                                                                     print(getCachedDate('level',String )),
+                                                                     print('getCachedDate'),
+                                                                   db.initApp(getCachedDate('level',String).toString(),'1'),
 
                                                                   await Future
                                                                       .delayed(
@@ -265,10 +266,9 @@ int progress=0;
     // TODO: implement initState
     super.initState();
     Carecters_id= int.parse( getCachedDate('Carecters',String ));
-    levelnum= getCachedDate('level',String );
+   // levelnum= getCachedDate('level',String );
 
-       FlutterDownloader.registerCallback(downloadCallback, step: 1);
-
+    FlutterDownloader.registerCallback(downloadCallback, step: 1);
     IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
       String id = data[0];

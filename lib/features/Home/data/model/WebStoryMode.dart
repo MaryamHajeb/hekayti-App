@@ -1,5 +1,5 @@
 class WebStoryModel{
-  dynamic id, name,cover_photo,author,level,required_stars,updated_at,story_order;
+  dynamic id, name,cover_photo,author,level,required_stars,updated_at,story_order,download;
 
   WebStoryModel({
 
@@ -9,6 +9,7 @@ class WebStoryModel{
     required this.updated_at,
     required this.author,
     required this.level,
+    required this.download,
     required this.required_stars,
     required this.name,
 
@@ -29,6 +30,7 @@ class WebStoryModel{
         name: story['name'],
         updated_at: story['updated_at'],
       story_order: story['story_order'],
+      download: story['download'],
 
     );
   }
@@ -44,6 +46,7 @@ class WebStoryModel{
       updated_at: '',
       required_stars: '',
       level: '',
+      download: '',
       author: '',
       cover_photo: '',
       story_order: '',
@@ -69,6 +72,7 @@ class WebStoryModel{
     'author': author,
     'cover_photo': cover_photo,
     'name': name,
+    'download': download,
     'updated_at': updated_at,
     'story_order': story_order,
 

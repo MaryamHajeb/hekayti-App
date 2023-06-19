@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:confetti/confetti.dart';
 import 'package:dartz/dartz.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hikayati_app/core/app_theme.dart';
@@ -447,4 +448,12 @@ Either<UserModel, bool> checkUserLoggedIn() {
     print("checkLoggedIn catch");
     return Right(false);
   }
+
+
+
+
+}
+ Future<String> getpath()async{
+  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+  return downloadsDirectory.path.toString();
 }

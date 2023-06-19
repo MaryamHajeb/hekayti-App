@@ -67,7 +67,7 @@ class StoryRepository extends Repository{
 
  Future<List<StoryModel>> getStars(level)async{
 
-   List<dynamic> reslet = await db.getAllstory('stories','1');
+   List<dynamic> reslet = await db.getAllstory('stories',level);
    print(reslet.length);
    print('reslet.length');
     List<StoryModel> dd=[];
@@ -91,7 +91,8 @@ class StoryRepository extends Repository{
       dd.add(
 
           StoryModel(
-            download: true,
+
+              download: element['download'],
               cover_photo: element['cover_photo'],
               author: element['author'],
               level: element['level'],

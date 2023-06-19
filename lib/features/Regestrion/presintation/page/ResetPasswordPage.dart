@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
+import '../../../../core/util/Encrypt.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemInput.dart';
@@ -13,7 +15,7 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../manager/registration_bloc.dart';
-
+import 'package:intl/intl.dart' as intl;
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -28,10 +30,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Carecters carectersobj =Carecters();
   int  Carecters_id=0;
   ScreenUtil screenUtil=ScreenUtil();
-TextEditingController email = TextEditingController();
-TextEditingController password = TextEditingController();
+TextEditingController userpassword = TextEditingController();
+TextEditingController newpassword = TextEditingController();
 TextEditingController CofemPassword = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
+
+  UserModel? userModel;
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -94,7 +98,7 @@ TextEditingController CofemPassword = TextEditingController();
                           child: Column(children: [
                             SizedBox(height: 20,),
 
-                            Text('اعاده تعيين كلمه المرور ',style:AppTheme.textTheme.headline1 ),
+                            Text('اعاده تعيين كلمة المرور ',style:AppTheme.textTheme.headline1 ),
                             SizedBox(height: 20,),
 
                             Form(
@@ -120,21 +124,25 @@ TextEditingController CofemPassword = TextEditingController();
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text('كلمه المرور الحاليه',style: AppTheme.textTheme.headline3,),
+                                            Text('كلمة المرور الحالية',style: AppTheme.textTheme.headline3,),
 
                                             CustemInput(
                                               size: 250,
                                               valdution: (value){
                                                 if (value!.isEmpty) {
                                                   return 'الرجاء تعبئة الحقل';
-                                                } else if (!RegExp(
-                                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                }
+                                                if (Encryption.instance.checkIsCorrect(userpassword.text, userModel!.password)!=0 ) {
+                                                  return 'كلمة المرور غير صحيحة';
+                                                }
+                                                else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                                     .hasMatch(value)) {
                                                   return "عذراً الإيميل الذي ادخلته غير صحيح";
                                                 }
 
+
                                                 return null;
-                                              },controler:email ,text: 'كلمه المرور الحاليه',type: TextInputType.text,),
+                                              },controler:userpassword ,text: 'كلمة المرور الحاليه',type: TextInputType.text,),
 
                                           ],),
                                         SizedBox(height: 10,),
@@ -151,10 +159,10 @@ TextEditingController CofemPassword = TextEditingController();
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
                                                 if (value!.length < 8) {
-                                                  return 'كلمه المرور الجديدة تتكون من 8 حروف وارفام على الاقل';
+                                                  return 'كلمة المرور الجديدة تتكون من 8 حروف وارفام على الاقل';
                                                 }
                                                 return null;
-                                              },controler:password ,text: '  كلمة المرور الجديدة',type: TextInputType.text,),
+                                              },controler:newpassword ,text: '  كلمة المرور الجديدة',type: TextInputType.text,),
 
 
 
@@ -175,10 +183,10 @@ TextEditingController CofemPassword = TextEditingController();
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
                                                 if (value!.length < 6) {
-                                                  return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
+                                                  return 'كلمة المرور تتكون من 6 حروف وارفام على الاقل';
                                                 }
-                                                if(password.text !=CofemPassword.text){
-                                                  return 'تاكبد كلمه المرور لاتطابق كمله المرور  ';
+                                                if(newpassword.text !=CofemPassword.text){
+                                                  return 'تاكبد كلمة المرور لاتطابق كمله المرور';
 
                                                 }
                                                 return null;
@@ -190,13 +198,10 @@ TextEditingController CofemPassword = TextEditingController();
                                         SizedBox(height: 10,),
 
                                         CustemButten(ontap: (){
-                                          if(_signupFormKey.currentState!.validate() ){
-                                            BlocProvider.of<RegistrationBloc>(_context).add(
-                                              Signup(
-                                                email: email.text.toString(),
-                                                password: password.text,
-                                              ),
-                                            );}
+                                          if(_signupFormKey.currentState!.validate()){
+                                            CachedDate('UserInformation',UserModel(user_name: userModel!.user_name, email: userModel!.email, level: userModel!.level, character: userModel!.character, update_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), password: newpassword.text, id: userModel!.id));
+
+                                          }
                                         },text: 'تعديل',),
 
 
@@ -232,10 +237,17 @@ TextEditingController CofemPassword = TextEditingController();
       );
   }
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Carecters_id=  getCachedDate('Carecters',String);
+    checkUserLoggedIn().fold((l) {
+      userModel = l;
+    }, (r) {
+      userModel = null;
+    });
+
   }
 }

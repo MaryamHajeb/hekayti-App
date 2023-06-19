@@ -129,6 +129,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
+                            CachedDate('level', carecterslist.Levels[index]['num']);
                           });
                         },
                         isSelected: itemSelectedlevel == index ? true : false,

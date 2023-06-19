@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
@@ -28,6 +29,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
   ScreenUtil screenUtil = ScreenUtil();
   ReceivePort _port = ReceivePort();
   int  progress =0;
+  var path;
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -123,7 +125,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                       width: screenUtil.screenWidth *.14,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.file( File(DataSourceURL.urlimageCoverlocal+'${widget.photo}')  ,fit: BoxFit.cover,),
+                        child: Image.file( File('${widget.photo}')  ,fit: BoxFit.cover,),
                         // child: Image.memory(
                         //
                         //   converToBase64(widget.photo.toString()
@@ -142,7 +144,10 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                       setState(() {
                         print(widget.id);
                         print('widget.id');
-                         db.downloadMedia(widget.id);
+                        setState(() {
+                          db.downloadMedia(widget.id);
+
+                        });
                          print(progress);
                        });
 
@@ -164,6 +169,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initpath();
        FlutterDownloader.registerCallback(downloadCallback, step: 1);
 
     IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
@@ -194,4 +200,9 @@ static  void downloadCallback(String id, int status, int progress) {
 
     send!.send([id, status, progress]);
   }
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
+  }
+
 }

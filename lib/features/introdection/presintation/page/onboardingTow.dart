@@ -20,9 +20,9 @@ class _onboardingTowState extends State<onboardingTow> {
   ScreenUtil screenUtil = ScreenUtil();
 
   TextEditingController result = TextEditingController();
-  int num1 = Random().nextInt(100);
-  int num2 = Random().nextInt(100);
-  int num3 = Random().nextInt(100);
+  int num1 = Random().nextInt(50);
+  int num2 = Random().nextInt(50);
+  int num3 = Random().nextInt(50);
   final _loginFormKey = GlobalKey<FormState>();
 
   @override
@@ -77,9 +77,9 @@ class _onboardingTowState extends State<onboardingTow> {
                         if (value.toString().isEmpty) {
                           return 'يرجئ منك كتابه الحل';
                         }
-                        // if(int.parse(value.toString())!= num1+num2+num3){
-                        //   return 'يرجئ منك كتابه الحل بشكل صحيح';
-                        // }
+                        if(int.parse(value.toString())!= num1+num2+num3){
+                          return 'يرجئ منك كتابه الحل بشكل صحيح';
+                        }
 
                         return null;
                       },

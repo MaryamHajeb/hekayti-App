@@ -7,6 +7,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:string_similarity/string_similarity.dart';
@@ -65,12 +66,14 @@ class _StoryPageState extends State<StoryPage> {
   Widget SliedWidget = Center();
   int star=0;
   ScreenUtil screenUtil = ScreenUtil();
-  bool isSpack = false;
+  bool isSpack = true;
+   var path;
   bool islisnt = false;
   final player = AudioPlayer();
   int Carecters_id = 0;
   int currentIndexPage = 0;
   String text_orglin='';
+  var pathiamge;
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
@@ -144,7 +147,7 @@ class _StoryPageState extends State<StoryPage> {
                 }
 
                 if (state is SliedLoading) {
-                  SliedWidget = CircularProgressIndicator();
+                  SliedWidget = Center(child: initApp('جاري تحميل محتوى القصه'));
                 }
 
                 if (state is SliedILoaded) {
@@ -197,22 +200,21 @@ class _StoryPageState extends State<StoryPage> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
-                                    lisen ==true ?
 
-                                    isSpack == false
+
+                                    isSpack
                                         ? CustemIcon2(
                                         icon: Icon(
                                             Icons.headset_mic_outlined,
                                             color: AppTheme.primaryColor),
                                         ontap: () async{
                                           final status= await Permission.storage.request();
-
                                           if(status.isGranted) {
                                               setState(() async{
-                                                print(  DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound);
-                                                isSpack = true;
+                                                isSpack = !isSpack;
+                                                print(path+'/'+state.SliedModel[currentIndexPage].sound);
                                                await player.play(DeviceFileSource(
-                                                   DataSourceURL.urlimageaudiolocal+state.SliedModel[currentIndexPage].sound
+                                                   path+'/'+state.SliedModel[currentIndexPage].sound
                                                 ));
 
 
@@ -230,10 +232,13 @@ class _StoryPageState extends State<StoryPage> {
                                           Icons.headset_mic_outlined,
                                         ),
                                         ontap: () async {
-                                          isSpack = !isSpack;
-                                          player.pause();
-                                          setState(() {});
-                                        }): Center(),
+
+                                          setState(() {
+
+                                            player.pause();
+                                            isSpack = !isSpack;
+                                          });
+                                        }),
                                     SizedBox(
                                       height: 30,
                                     ),
@@ -326,7 +331,7 @@ class _StoryPageState extends State<StoryPage> {
                                                     right: 10, left: 10, top: 10),
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(5),
-                                                  child: Image.file( io.File(DataSourceURL.urlimagephotolocal+'${state.SliedModel[index].photo}'),
+                                                child: Image.file( io.File('$path/${state.SliedModel[index].photo}'),
                                                     fit: BoxFit.cover,
                                                     height:
                                                     screenUtil.screenHeight * .9,
@@ -399,7 +404,7 @@ class _StoryPageState extends State<StoryPage> {
                                                 padding: EdgeInsets.only(
                                                     right: 10, left: 10, top: 10),
                                                 child: Image.file(
-                                                io.File(DataSourceURL.urlimagephotolocal+'${state.SliedModel[index].photo}')
+                                                io.File('$path/${state.SliedModel[index].photo}')
                                                 ,
                                                   fit: BoxFit.cover,
                                                   height:
@@ -569,8 +574,12 @@ class _StoryPageState extends State<StoryPage> {
     super.initState();
     Carecters_id = int.parse(getCachedDate('Carecters', String).toString());
        lisen=  getCachedDate('Listen_to_story',bool)  ?? '';
+    initpath();
   }
-
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
+  }
 
   _init() async {
     try {
@@ -718,7 +727,7 @@ setState(() {
       isProcces=false;
 
     }));
-    star=  await  checkText(text_orglin,text,int.parse(getCachedDate('level', String)));
+    star=  await  checkText(text_orglin,text,int.parse(getCachedDate('level', String).toString()));
     print(star);
     print('star');
 

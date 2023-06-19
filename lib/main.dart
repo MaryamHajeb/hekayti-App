@@ -9,6 +9,7 @@ import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dar
 import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
+import 'package:hikayati_app/core/util/Encrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'core/util/common.dart';
@@ -49,8 +50,6 @@ void main() async{
   islogin=await prefs.getBool('onbording')??false;
  carecters= await  prefs.getString('Carecters') ?? '';
 //  await db.intDB();
-
-
 
 
 
@@ -179,7 +178,7 @@ class _MyAppState extends State<MyApp> {
 
 
   // print(dd);
-  // FlameAudio.bgm.play('bgm.mp3',volume: 100);
+   FlameAudio.bgm.play('bgm.mp3',volume: 100);
 //  ReceivePort _port = ReceivePort();
 //    db.downloadStoriesCover();
 //   FlutterDownloader.registerCallback(downloadCallback, step: 1);
@@ -219,11 +218,21 @@ class _MyAppState extends State<MyApp> {
 //     await networkInfo.isConnected ?print('internt'):print('notinternt');
 //   }
 
-  CachedDate('level','1');
+ // CachedDate('level','1');
 
  // db.initApp('1');
 
+
+
+
 }
+
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    FlameAudio.bgm.pause();
+  }
 
 }
 

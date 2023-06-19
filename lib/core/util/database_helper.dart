@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
@@ -77,7 +78,7 @@ String TableName='meadia';
 	"story_order"	INTEGER,
 	"required_stars"	INTEGER,
 	"updated_at"	TEXT,
-	"download"	BLOB DEFAULT 'false',
+	"download"	INTEGER ,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )  
        '''
@@ -315,13 +316,11 @@ Future<int> deleteTable(table_name) async{
 
   }else{
     insert(tableName: 'stories',data:
-
     WebStoryModel(
-
+        download: 0,
         cover_photo: element.cover_photo,
         updated_at: element.updated_at,
         story_order: element.story_order, author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, id: element.id));
-
    }
 
 
@@ -367,23 +366,24 @@ if(await localdata!=null){
 
 
 
-  downloadStoriesCover( )async{
+  downloadStoriesCover()async{
 try {
   var dbClient = await db;
   final status = await Permission.storage.request();
   final status2 = await Permission.manageExternalStorage.request();
-  List<dynamic> result = await dbClient!.rawQuery(
-      'SELECT cover_photo from stories');
+  List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories  ');
   print(result.length);
   print('cover');
-  final dir = Directory((await getExternalStorageDirectory())!.path + '/cover');
-  await dirFound(dir);
+  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+  print(downloadsDirectory.path);
+  print('============================================================');
+ // await dirFound(downloadsDirectory.path);
 
-  if (status.isGranted || status.isGranted) {
+  if (status.isGranted || status2.isGranted) {
     result.forEach((element) async {
       print(element['cover_photo']);
 
-      fileDownload(element['cover_photo'], dir.path,
+      fileDownload(element['cover_photo'], downloadsDirectory.path,
           DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
       await Future.delayed(Duration(seconds: 1));
     });
@@ -401,26 +401,27 @@ try {
 
 
   }
+
   downloadMedia(String storyId )async{
     var dbClient = await  db;
 print('downloadMedia');
     final status= await Permission.storage.request();
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
-    final dir = Directory((await getExternalStorageDirectory())!.path + '/photo');
-    final dir2 = Directory((await getExternalStorageDirectory())!.path + '/sound');
-    await dirFound(dir);
-    await dirFound(dir2);
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    //await dirFound(downloadsDirectory.path);
+
 
     if(status.isGranted) {
+      int update = await dbClient!.rawUpdate('UPDATE stories SET download = ? WHERE id = ?', ['1',storyId ]);
       result.forEach((element) {
         //print(element['cover_photo']);
-        fileDownload(element['photo'],dir.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
-        fileDownload(element['sound'],dir2.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
+        fileDownload(element['photo'],downloadsDirectory.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
+        fileDownload(element['sound'],downloadsDirectory.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
 
 
      });
-
+      print('object==============================================================');
     }
 
 
@@ -435,6 +436,7 @@ print('downloadMedia');
        url + fileName,
          timeout: 10000,
 
+        saveInPublicStorage: true
        );
      }catch(e){
        print(e.toString());
@@ -745,11 +747,14 @@ print(res);
     else{
       return null;
     }
+
+
   }
 
 
 initApp(String level, String id)async{
-  final status= await Permission.storage.request();
+  final status= await Permission.storage.request();;
+  final status2= await Permission.manageExternalStorage.request();
   Database? dbClient = await  db;
 
   await checkStoryFound();
@@ -760,18 +765,26 @@ initApp(String level, String id)async{
   print(storyId);
   print('storyId====================================================================================');
   await downloadMedia(storyId[0]['id'].toString());
-}
+
+  }
+
 syncApp(String level,)async{
-     Database? dbClient = await  db;
-     checkStoryFound();
+  checkUserLoggedIn().fold((l) {
+    userModel = l;
+  }, (r) {
+    userModel = null;
+  }) ;
+    checkStoryFound();
      checkMediaFound();
      await downloadStoriesCover();
+
+
      if(userModel!=null){
+       updateUserDate(userModel!);
        if(listCopmletion.isNotEmpty==true){
 
          syncCompletion(listCopmletion,userModel!.id);
 
-         
 
        }
      }
@@ -847,7 +860,7 @@ syncApp(String level,)async{
   }
 
 
-     CompletionExits(String story_id)async{
+ CompletionExits(String story_id)async{
      Database? dbClient = await  db;
      CompletionModel? data;
      List<dynamic> reslut=await   dbClient!.rawQuery('select * from Completion where story_id = $story_id');
@@ -877,6 +890,7 @@ updateUserDate(UserModel user)async{
   }, retrievedDataType: String);
 
 }
+
 
 
 }

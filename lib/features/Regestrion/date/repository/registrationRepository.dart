@@ -9,6 +9,7 @@ import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 
 import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
+import '../../../../core/util/Encrypt.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../model/CompletionModel.dart';
 import '../model/userMode.dart';
@@ -37,7 +38,7 @@ class RegistrationRepository extends Repository {
               retrievedDataType: int,
               returnType: int,
               body: {
-                'password': password,
+                'password':Encryption.instance.encrypt(password) ,
                 'email': email,
                 'character': '${getCachedDate('Carecters', String)}',
                 'level': '${getCachedDate('level',String)}',
@@ -67,7 +68,7 @@ class RegistrationRepository extends Repository {
               url: DataSourceURL.login,
               retrievedDataType: UserModel.init(),
               body: {
-                'password': password,
+                'password': Encryption.instance.encrypt(password),
                 'email': email,
               });
 

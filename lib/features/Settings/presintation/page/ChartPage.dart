@@ -41,7 +41,7 @@ bool visiblety=false;
         builder: (_context, state) {
           if (state is ChartInitial) {
             BlocProvider.of<ChartBloc>(_context)
-                .add(GetAllChart(id: '2'));
+                .add(GetAllChart(id: '1'));
           }
 
           if (state is ChartLoading) {
@@ -119,7 +119,13 @@ bool visiblety=false;
     );
   }
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
+
+  }
 }
 
 Widget chartToRun(List<ChartModel> chartModel) {
@@ -179,3 +185,4 @@ Widget chartToRun(List<ChartModel> chartModel) {
   );
   return verticalBarChart;
 }
+

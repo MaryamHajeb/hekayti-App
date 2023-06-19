@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
@@ -24,6 +25,7 @@ class StoryCard extends StatefulWidget {
 class _StoryCardState extends State<StoryCard> {
   ScreenUtil screenUtil = ScreenUtil();
 String pathImage='';
+ var path;
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -118,7 +120,7 @@ String pathImage='';
                     width: screenUtil.screenWidth *.14,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.file( File(DataSourceURL.urlimageCoverlocal+'${widget.photo}')  ,fit: BoxFit.cover,),
+                      child: Image.file( File('${widget.photo}')  ,fit: BoxFit.cover,),
                       // child: Image.memory(
                       //
                       //   converToBase64(widget.photo.toString()
@@ -142,8 +144,11 @@ String pathImage='';
     // TODO: implement initState
     super.initState();
 
-
+    initpath();
   }
-
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
+  }
 
 }

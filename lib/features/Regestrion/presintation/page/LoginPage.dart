@@ -162,7 +162,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                     return 'الرجاء تعبئة الحقل';
                                                   }
                                                   if (value!.length < 6) {
-                                                    return 'كلمه المرور تتكون من 6 حروف وارفام على الاقل';
+                                                    return 'كلمة المرور تتكون من 6 حروف وارفام على الاقل';
                                                   }
                                                   return null;
                                                 },controler:password ,icon: Icon(Icons.key,color: AppTheme.primaryColor,size: 20),text: 'كلمة المرور',type: TextInputType.text,),
