@@ -256,6 +256,6 @@ TextEditingController CofemPassword = TextEditingController();
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id=  getCachedDate('Carecters',String);
+    Carecters_id=  int.parse(getCachedDate('Carecters',String).toString());
   }
 }

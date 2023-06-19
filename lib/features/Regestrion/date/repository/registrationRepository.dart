@@ -51,7 +51,7 @@ class RegistrationRepository extends Repository {
            String user_id =await localDataProvider.getCachedData(key: 'UserInformation', retrievedDataType: UserModel);
              print('localDataProvider');
              print(user_id);
-
+         db.initApp(getCachedDate('level', String).toString(), '1');
          db.uploadAccuracy(user_id);
          db.uploadCompletion(user_id);
           //
@@ -68,7 +68,7 @@ class RegistrationRepository extends Repository {
               url: DataSourceURL.login,
               retrievedDataType: UserModel.init(),
               body: {
-                'password': Encryption.instance.encrypt(password),
+                'password': Encryption.instance.encrypt(password).toString(),
                 'email': email,
               });
 
@@ -86,6 +86,7 @@ class RegistrationRepository extends Repository {
                 'user_id':userModel.id.toString()
               });
 
+          db.initApp(getCachedDate('level', int).toString(), '1');
 
           db.checkAccuracyFound(data);
 
@@ -99,7 +100,7 @@ class RegistrationRepository extends Repository {
 
           db.checkCompletionFound(data2);
 
-          
+
           return remoteData;
         });
    // db.checkAccuracyFound(data);

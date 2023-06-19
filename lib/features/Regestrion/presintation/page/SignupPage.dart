@@ -26,7 +26,6 @@ class _SignupPageState extends State<SignupPage> {
   @override
   bool requestPending = false;
   Carecters carectersobj =Carecters();
-  int  Carecters_id=0;
   ScreenUtil screenUtil=ScreenUtil();
 TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
@@ -49,6 +48,7 @@ TextEditingController CofemPassword = TextEditingController();
             setState(() {
               requestPending = false;
             });
+
             Navigator.push(
                 context,
                 CustomPageRoute(  child:   HomePage()));
@@ -246,10 +246,5 @@ TextEditingController CofemPassword = TextEditingController();
       );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Carecters_id=  getCachedDate('Carecters',String);
-  }
+
 }
