@@ -129,8 +129,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
-                            CachedDate('level', carecterslist.Levels[index]['num']);
                           });
+                          CachedDate('level', carecterslist.Levels[index]['num']);
+
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
                         color: carecterslist.Levels[index]['color'],
@@ -318,7 +319,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
   initCarecters() async {
     int? carectersnum = await int.parse(getCachedDate('Carecters', String).toString());
-    int? levels = await int.parse(getCachedDate('level', String).toString()) ;
+    int? levels = await int.parse(getCachedDate('level', String).toString());
+    print(levels);
+    print('levels');
     String? t = await getCachedDate('nameChlied', String) ?? '';
     bool lisent = await getCachedDate('Listen_to_story', bool) ?? '';
     checkUserLoggedIn().fold((l) {
@@ -330,7 +333,8 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     setState(() {
       nameChiled.text = t ?? '';
       itemSelected = carectersnum ?? 10;
-      itemSelectedlevel = levels!;
+      itemSelectedlevel = levels!-1;
+      print(itemSelectedlevel);
       chackboxStata = lisent;
     });
   }

@@ -240,9 +240,18 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 )): listStoryWithSearch[index]!.download ==0 ?
                             InkWell(
-                                onTap: () {
-                                  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',(){ Navigator.pop(context);});
+                                onTap: () async{
+                                  if(await networkInfo.isConnected){
+                                    showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'اظغط على زر التنزيل من اجل تحميل هذة القصه',(){ Navigator.pop(context);});
 
+                                  }
+                                  else {
+                                    showImagesDialog(context, '${carectersobj
+                                        .FaceCarecters[Carecters_id]['image']}',
+                                        'تاكد من وجود انترنت من اجل تنزيل هذه القصه ', () {
+                                          Navigator.pop(context);
+                                        });
+                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(top:15.0),

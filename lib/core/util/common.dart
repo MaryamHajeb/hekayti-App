@@ -308,30 +308,41 @@ showConfetti(context2,controler,image) {
                 borderRadius: BorderRadius.circular(20)),
             child: Center(
               child: Container(
-                child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: [
-                    Column(
+                    Row(
+                         crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('!!!!! مبروك ',style: TextStyle(fontSize: 22,fontFamily: AppTheme.fontFamily,color: AppTheme.primaryColor)),
-                        Text('لقد اتممت ',style: AppTheme.textTheme.headline3,),
-                        Text(' القصه بنجاح',style: AppTheme.textTheme.headline3,),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('!!!!! مبروك ',style: TextStyle(fontSize: 22,fontFamily: AppTheme.fontFamily,color: AppTheme.primaryColor)),
+                            Text('لقد اتممت ',style: AppTheme.textTheme.headline3,),
+                            Text(' القصه بنجاح',style: AppTheme.textTheme.headline3,),
+                          ],
+                        ),
+
+                        ConfettiWidget(
+                          confettiController: controler,
+                          shouldLoop: true,
+
+                         numberOfParticles: 20,
+
+                          colors: [AppTheme.primaryColor,AppTheme.primarySwatch.shade500,Color(0xFFFFAA3B)],
+
+                        ),
+                        Image.asset(image,width: 190,height: 190,fit: BoxFit.contain),
                       ],
                     ),
+                    CustemButten2(ontap: (){
 
-                    ConfettiWidget(
-                      confettiController: controler,
-                      shouldLoop: true,
+                      Navigator.push(context, CustomPageRoute(  child:   HomePage()));
 
-                     numberOfParticles: 20,
 
-                      colors: [AppTheme.primaryColor,AppTheme.primarySwatch.shade500,Color(0xFFFFAA3B)],
+                    }, text: 'نعم',)
 
-                    ),
-                    Image.asset(image,width: 190,height: 190,fit: BoxFit.contain),
                   ],
                 ),
               ),

@@ -153,7 +153,13 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
 
 
                        }, icon: Icon(Icons.download,size: 30,color: AppTheme.primaryColor,)):CircularProgressIndicator(),
-                     Text(widget.name,style: AppTheme.textTheme.headline5,),
+                     Expanded(
+
+                       child: Text(widget.name,style: AppTheme.textTheme.headline5,
+                         maxLines: 2,
+                         overflow: TextOverflow.ellipsis,
+                       ),
+                     ),
                    ],
                  )
 

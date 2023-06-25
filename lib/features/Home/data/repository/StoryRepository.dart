@@ -81,7 +81,8 @@ class StoryRepository extends Repository{
       {
         start='0';
       }
-
+      print(start);
+      print('start++++++++++++++++++++++++++++++++++++');
       collected_stars+=int.parse(start);
 
 

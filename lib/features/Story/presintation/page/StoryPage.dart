@@ -362,7 +362,7 @@ class _StoryPageState extends State<StoryPage> {
 
                                                     pageControler.nextPage(
                                                         duration: Duration(
-                                                            seconds: 1),
+                                                            milliseconds: 500),
                                                         curve: Curves
                                                             .fastOutSlowIn);
 
@@ -743,9 +743,12 @@ setState(() {
       currentIndexPage+1==lengthSrory? {
 
         controller.play(),
+
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}'),
           pres=     await db.getPercentage(widget.id.toString()),
-        stars=(pres/33).toInt(),
+        stars=pres~/33,
+        print(stars),
+        print('stars'),
     db.addCompletion(
       CompletionModel(updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), percentage: pres, story_id: widget.id, stars: stars)
     ),

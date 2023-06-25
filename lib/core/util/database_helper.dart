@@ -31,7 +31,7 @@ import '../../main.dart';
 class DatabaseHelper{
    Database? _db ;
    var path;
-   List<dynamic> listCopmletion=    CachedDate('listCopmletion', []);
+   List listCopmletion=    CachedDate('listCopmletion', []);
 
 String TableName='meadia';
     StoryRepository? dd;
@@ -621,8 +621,8 @@ print(res);
       dynamic localdata=await foundRecord('story_id',data.story_id,'completion');
 
       if(await localdata!=null){
-        if (int.parse(data.stars) >
-            int.parse(localdata[0]['stars'])){
+        if (int.parse(data.stars.toString()) >
+            int.parse(localdata[0]['stars'].toString())){
               update(data:
               {
                 'id': localdata[0]['id'],
@@ -684,10 +684,10 @@ print(res);
 
           }, retrievedDataType: String);
         }else{
-          listCopmletion.add({
+          listCopmletion.add([{
             'id':data.id,
             'status':'insert',
-          });
+          }]);
           
         }
 
