@@ -126,7 +126,7 @@ int progress=0;
                                                       onTap: () {
                                                         //
                                                         pageController.previousPage(
-                                                            duration: Duration(seconds: 1),
+                                                            duration: Duration(milliseconds: 1000),
                                                             curve: Curves.fastOutSlowIn);
                                                       },
                                                       child: Image.asset(

@@ -178,8 +178,8 @@ class _MyAppState extends State<MyApp> {
 
 
   // print(dd);
-   //FlameAudio.bgm.play('bgm.mp3',volume: 100);
-   // db.initApp('2', '1');
+  // FlameAudio.bgm.play('bgm.mp3',volume: 100);
+ //  db.initApp('2', '1');
 //  ReceivePort _port = ReceivePort();
 //    db.downloadStoriesCover();
 //   FlutterDownloader.registerCallback(downloadCallback, step: 1);

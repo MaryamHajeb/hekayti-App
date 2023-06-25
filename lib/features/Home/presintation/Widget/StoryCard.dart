@@ -96,7 +96,7 @@ String pathImage='';
 
                    ],
                  ):
-                 widget.starts==3?
+
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
@@ -111,7 +111,7 @@ String pathImage='';
                     Image.asset(Assets.images.start.path,width: 40,height: 40),
 
                    ],
-                 ):Center(child: Text('kkkkkkkkkk')),
+                 ),
 
 
 

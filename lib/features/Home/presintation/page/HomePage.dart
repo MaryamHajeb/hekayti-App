@@ -153,6 +153,7 @@ class _HomePageState extends State<HomePage> {
 
                                         Image.asset(Assets.images.start.path,width: 30,height: 30,),
                                         SizedBox(width: 20,),
+
                                         Text('${ getCachedDate('collected_stars',String)}/${getCachedDate('all_stars',String)}',style: AppTheme.textTheme.headline3,),
 
                                       ],

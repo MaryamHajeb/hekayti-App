@@ -590,7 +590,9 @@ class _StoryPageState extends State<StoryPage> {
         io.Directory? appDocDirectory = await getExternalStorageDirectory();
 
         // can add extension like ".mp4" ".wav" ".m4a" ".aac"
-        customPath = appDocDirectory!.path + customPath + DateTime.now().millisecondsSinceEpoch.toString();
+
+        customPath = appDocDirectory!.path + customPath ;
+       await dirFound(customPath);
 
         // .wav <---> AudioFormat.WAV
         // .mp4 .m4a .aac <---> AudioFormat.AAC
@@ -615,6 +617,16 @@ class _StoryPageState extends State<StoryPage> {
       print(e);
     }
   }
+
+
+  dirFound(dir)async{
+
+    if ((await dir.exists())) {
+      dir.delete();
+    } else {
+      print( dir.path);
+    }}
+
   _stop() async {
     var result = await _recorder!.stop();
 
