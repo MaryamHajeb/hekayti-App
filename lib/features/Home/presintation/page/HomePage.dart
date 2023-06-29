@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
   int  Carecters_id=0;
   int progress=0;
   var path;
+  ReceivePort _port = ReceivePort();
    double star_progrees = 0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -228,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                                 onTap: () {
 
-                                  showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);});
+                                  showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id]['image']}' , 'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',(){Navigator.pop(context);}  );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(top:15.0),
@@ -359,16 +360,31 @@ initpath();
 
     FlutterDownloader.registerCallback(downloadCallback, step: 1);
 
-  }
+    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = DownloadTaskStatus(data[1]);
+      setState((){
+
+        progress = data[2];
+        print(progress);
+        print('progress============================================================');
+
+
+      });
+    });
+
+    }
+
 
   static  void downloadCallback(String id, int status, int progress) {
     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-
-
+    print(progress);
+    print('progress');
+    print(status);
 
     send!.send([id, status, progress]);
   }
-
 
 
 
@@ -392,5 +408,6 @@ initpath();
     final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
     path=  downloadsDirectory.path;
   }
+
 
 }

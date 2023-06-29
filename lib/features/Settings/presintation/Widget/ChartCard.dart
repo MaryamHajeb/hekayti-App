@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_theme.dart';
@@ -19,7 +22,6 @@ class ChartCard extends StatefulWidget {
 class _ChartCardState extends State<ChartCard> {
   @override
   ScreenUtil screenUtil=ScreenUtil();
-
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -74,7 +76,16 @@ width: screenUtil.screenWidth *.38,
                 child: Row(
               children: [
 
-                Expanded(flex: 2,child: Center(child: Image.asset(Assets.images.story1.path))),
+                Expanded(flex: 2,child: Center(child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        bottomRight:
+                        Radius.circular(10),
+                        topRight:
+                        Radius.circular(10),
+
+
+                    ),
+                    child: Image.file( File('${widget.photo}')  ,fit: BoxFit.fill,height: 150,width: 150,)))),
                   Expanded(
                     flex: 5,
                     child: Column(
@@ -146,4 +157,7 @@ width: screenUtil.screenWidth *.38,
       ),
     );
   }
+
+
+
 }

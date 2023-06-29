@@ -52,7 +52,8 @@ String pathImage='';
 
                 children: [
 
-                 widget.starts == 1 ? Row(
+                 widget.starts == 1 ?
+                 Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
 
@@ -81,7 +82,8 @@ String pathImage='';
                      Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
 
                    ],
-                 ): widget.starts ==0 ? Row(
+                 ): widget.starts ==0 ?
+                 Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
 
@@ -96,7 +98,6 @@ String pathImage='';
 
                    ],
                  ):
-
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [

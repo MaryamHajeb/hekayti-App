@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../dataProviders/local_data_provider.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
+import '../../gen/assets.gen.dart';
 import '../../injection_container.dart';
 import '../widgets/CustemButten.dart';
 import '../widgets/CustemButten2.dart';
@@ -152,6 +153,112 @@ void showImagesDialog(BuildContext context, String image,String text,ontap) {
 
                     ]),
                 SizedBox(height: 15,),
+                CustemButten(ontap: (){
+                  ontap();
+                }, text: 'نعم',)
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+void showImagesDialogWithStar(BuildContext context, String image,String text,ontap,int stars) {
+  showDialog(
+      barrierColor: AppTheme.primarySwatch.shade400,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0,
+
+          insetAnimationDuration: Duration(seconds: 30),
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            height: 250,
+            width: 340,
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppTheme.primaryColor,width: 4),
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              children: [
+                SizedBox(height: 5,),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(flex:2,child: Image.asset(image,height: 100,width: 100,)),
+                      SizedBox(width: 10,),
+                      Expanded(flex: 3,child: Text(text,style: AppTheme.textTheme.headline3,overflow: TextOverflow.clip,textAlign: TextAlign.center,)),
+
+
+                    ]),
+
+                stars == 1 ?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+
+
+                    Image.asset(Assets.images.start.path,width: 40,height: 40,),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                    ),
+                    Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                  ],
+                ):stars ==2?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+
+
+                    Image.asset(Assets.images.start.path,width: 40,height: 40),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child:Image.asset(Assets.images.start.path,width: 40,height: 40),
+                    ),
+                    Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                  ],
+                ): stars ==0 ?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+
+
+                    Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+                    ),
+                    Image.asset(Assets.images.emptyStar.path,width: 40,height: 40),
+
+                  ],
+                ):
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+
+
+                    Image.asset(Assets.images.start.path,width: 40,height: 40),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child:Image.asset(Assets.images.start.path,width: 40,height: 40),
+                    ),
+                    Image.asset(Assets.images.start.path,width: 40,height: 40),
+
+                  ],
+                ),
+
                 CustemButten(ontap: (){
                   ontap();
                 }, text: 'نعم',)

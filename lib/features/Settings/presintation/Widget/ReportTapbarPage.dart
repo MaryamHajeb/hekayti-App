@@ -1,3 +1,4 @@
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,7 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
   TextEditingController nameChiled =TextEditingController();
   ScreenUtil screenUtil=ScreenUtil();
  Widget ReportWidget=Center();
+  var path;
   @override
 
   Widget build(BuildContext context) {
@@ -64,7 +66,8 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
                   child: ListView.builder(itemCount: state.reportModel.length,itemBuilder: (context, index) {
                     idfrochart =state.reportModel[index].id;
 
-                    return ReportCard(cover_photo: state.reportModel[index].cover_photo
+                    return ReportCard(
+                      cover_photo:path+'/'+ state.reportModel[index].cover_photo
                       ,name: state.reportModel[index].name,
                       percentage: state.reportModel[index].percentage,
                       stars: state.reportModel[index].stars,
@@ -80,5 +83,18 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
         },
       ),
     );
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initpath();
+
+  }
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
   }
 }

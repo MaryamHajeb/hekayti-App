@@ -140,14 +140,15 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                    crossAxisAlignment: CrossAxisAlignment.center,
                    children: [
                      SizedBox(width: 30,),
-                     progress ==0 ? IconButton(onPressed: (){
+                    progress ==0 ? IconButton(onPressed: ()async{
+                     await db.downloadMedia(widget.id);
                       setState(() {
                         print(widget.id);
                         print('widget.id');
-                        setState(() {
-                          db.downloadMedia(widget.id);
 
-                        });
+
+
+
                          print(progress);
                        });
 

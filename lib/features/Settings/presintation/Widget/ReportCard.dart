@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_theme.dart';
@@ -37,7 +39,14 @@ width: screenUtil.screenWidth *.6,
           child: Row(
 
         children: [
-            Expanded(flex: 1,child: Center(child: Image.asset(Assets.images.story1.path))),
+            Expanded(flex: 1,child: Center(child: ClipRRect(
+                borderRadius: BorderRadius.only(
+
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10)
+
+                ),
+                child: Image.file( File('${widget.cover_photo}')  ,fit: BoxFit.fill,height: 150,width: 150,)))),
           Expanded(flex: 3,child: Center(child: Text(widget.name,style:AppTheme.textTheme.headline3 ,textDirection: TextDirection.rtl,textAlign: TextAlign.right))),
 
          widget.stars ==0?

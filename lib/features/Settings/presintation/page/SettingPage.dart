@@ -7,6 +7,7 @@ import 'package:hikayati_app/features/Settings/presintation/page/ChartPage.dart'
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../injection_container.dart';
+import '../../../../main.dart';
 import '../../../Story/presintation/manager/Slied_bloc.dart';
 import '../../../Story/presintation/manager/Slied_event.dart';
 import '../../../Story/presintation/manager/Slied_state.dart';
@@ -83,7 +84,7 @@ class _SettingPageState extends State<SettingPage> {
                               children: [
                                 Visibility(
                                     visible: visible,
-                                    replacement:Expanded(child: ChartPage()) ,
+                                    replacement:Expanded(child: ChartPage(id: idfrochart)) ,
                                     child: InkWell(
                                         onTap: (){
                                           setState(() {

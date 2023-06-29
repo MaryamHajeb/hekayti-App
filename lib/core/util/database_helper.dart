@@ -437,25 +437,13 @@ print('downloadMedia');
        url + fileName,
          timeout: 10000,
 
-        saveInPublicStorage: true
+        saveInPublicStorage: true,showNotification: false,
        );
      }catch(e){
        print(e.toString());
      }
   }
 
-  dirFound(dir)async{
-
-     if ((await dir.exists())) {
-     print( dir.path);
-     } else {
-     dir.create();
-     print( dir.path);
-     }
-
-
-
-   }
 
   //GET DATA ACCUR
   // ACY FROM REMOTE DATABASE INSERTED OR UPDATE

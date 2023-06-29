@@ -1,3 +1,4 @@
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_charts/flutter_charts.dart';
@@ -13,7 +14,8 @@ import '../managerChart/Chart_bloc.dart';
 import '../managerChart/Chart_event.dart';
 import '../managerChart/Chart_state.dart';
 class ChartPage extends StatefulWidget {
-  const ChartPage({Key? key,}) : super(key: key);
+  final id;
+   ChartPage({Key? key, required this.id,}) : super(key: key);
 
 
   @override
@@ -25,6 +27,8 @@ class _ChartPageState extends State<ChartPage> {
   ScreenUtil screenUtil=ScreenUtil();
 bool visiblety=false;
   Widget ChartWidget=Center();
+  var path;
+
 
   /// Builds the widget that is the home page state.
   @override
@@ -40,8 +44,9 @@ bool visiblety=false;
         },
         builder: (_context, state) {
           if (state is ChartInitial) {
+            print('the id chart is ');
             BlocProvider.of<ChartBloc>(_context)
-                .add(GetAllChart(id: '1'));
+                .add(GetAllChart(id: widget.id.toString()));
           }
 
           if (state is ChartLoading) {
@@ -95,7 +100,8 @@ bool visiblety=false;
                     ListView.builder(itemCount: state.chartModel.length,itemBuilder: (context, index) {
                       return ChartCard(
                         text: state.chartModel[index].text,
-                        photo: state.chartModel[index].photo,
+                        photo: path +'/'+ state.chartModel[index]!.photo
+                            .toString(),
                         accuracy_stars: state.chartModel[index].accuracy_stars,
                         text_readd: state.chartModel[index].readed_text,
                         page_no: state.chartModel[index].page_no.toString(),
@@ -123,8 +129,12 @@ bool visiblety=false;
   void initState() {
     // TODO: implement initState
     super.initState();
+    initpath();
 
-
+  }
+  initpath()async{
+    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    path=  downloadsDirectory.path;
   }
 }
 

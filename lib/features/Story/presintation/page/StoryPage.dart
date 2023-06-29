@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
+import
+'dart:convert';
 import 'dart:ffi';
 import 'dart:io' as io;
 import 'dart:io';
@@ -68,7 +69,6 @@ class _StoryPageState extends State<StoryPage> {
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = true;
    var path;
-  bool islisnt = false;
   final player = AudioPlayer();
   int Carecters_id = 0;
   int currentIndexPage = 0;
@@ -200,7 +200,7 @@ class _StoryPageState extends State<StoryPage> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
-
+                                    lisen?
 
                                     isSpack
                                         ? CustemIcon2(
@@ -210,18 +210,18 @@ class _StoryPageState extends State<StoryPage> {
                                         ontap: () async{
                                           final status= await Permission.storage.request();
                                           if(status.isGranted) {
-                                              setState(() async{
+                                              setState(() {
                                                 isSpack = !isSpack;
                                                 print(path+'/'+state.SliedModel[currentIndexPage].sound);
-                                               await player.play(DeviceFileSource(
-                                                   path+'/'+state.SliedModel[currentIndexPage].sound
-                                                ));
-
-
                                                  //   player.play(
                                                 //     AssetSource('music.mp3'));
                                               });
-                                            }
+                                              await player.play(DeviceFileSource(
+                                                  path+'/'+state.SliedModel[currentIndexPage].sound
+                                              ));
+
+
+                                          }
                                             else{
 
                                             }
@@ -235,10 +235,9 @@ class _StoryPageState extends State<StoryPage> {
 
                                           setState(() {
 
-                                            player.pause();
-                                            isSpack = !isSpack;
+
                                           });
-                                        }),
+                                        }):Container(),
                                     SizedBox(
                                       height: 30,
                                     ),
@@ -573,7 +572,7 @@ class _StoryPageState extends State<StoryPage> {
     // TODO: implement initState
     super.initState();
     Carecters_id = int.parse(getCachedDate('Carecters', String).toString());
-       lisen=  getCachedDate('Listen_to_story',bool)  ?? '';
+    lisen=  getCachedDate('Listen_to_story',bool)  ?? '';
     initpath();
   }
   initpath()async{
@@ -592,40 +591,57 @@ class _StoryPageState extends State<StoryPage> {
         // can add extension like ".mp4" ".wav" ".m4a" ".aac"
 
         customPath = appDocDirectory!.path + customPath ;
-       await dirFound(customPath);
 
+        await  dirFound(customPath+'.wav');
         // .wav <---> AudioFormat.WAV
         // .mp4 .m4a .aac <---> AudioFormat.AAC
         // AudioFormat is optional, if given value, will overwrite path extension when there is conflicts.
-        _recorder =
-            FlutterAudioRecorder3(customPath, audioFormat: AudioFormat.WAV);
 
-        await _recorder!.initialized;
-        // after initialization
-        var current = await _recorder!.current(channel: 0);
-        // should be "Initialized", if all working fine
-        setState(() {
-          _current = current;
-          _currentStatus = current!.status!;
-          print(_currentStatus);
-        });
+
+        _recorder =
+             FlutterAudioRecorder3(customPath, audioFormat: AudioFormat.WAV,);
+
+         await _recorder!.initialized;
+         // after initialization
+         var current = await _recorder!.current(channel: 0);
+         // should be "Initialized", if all working fine
+         setState(() {
+           _current = current;
+           _currentStatus = current!.status!;
+           print(_currentStatus);
+         });
+
       } else {
+
+
+
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: new Text("You must accept permissions")));
+            SnackBar(content: new Text("يرجئ منك السماح بتحميل الملفات")));
+
+
       }
+
+
     } catch (e) {
       print(e);
     }
   }
 
 
-  dirFound(dir)async{
+ Future<bool>  dirFound(savePath)async{
 
-    if ((await dir.exists())) {
-      dir.delete();
+    if (await io.File(savePath).exists()) {
+      print('file is exite');
+      io.File(savePath).delete();
+      print('file is deleted');
+
+      return true;
     } else {
-      print( dir.path);
-    }}
+      print('file is not exite');
+
+      return true;
+    }
+  }
 
   _stop() async {
     var result = await _recorder!.stop();
@@ -639,6 +655,13 @@ class _StoryPageState extends State<StoryPage> {
       isProcces=true;
       recognize();
     });
+
+    // String customPath = '/audio';
+    // io.Directory? appDocDirectory = await getExternalStorageDirectory();
+    // customPath = appDocDirectory!.path + customPath ;
+    //
+    // await dirFound(customPath+'.wav');
+
   }
   _start() async {
     try {
@@ -757,16 +780,17 @@ setState(() {
         controller.play(),
 
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}'),
-          pres=     await db.getPercentage(widget.id.toString()),
-        stars=pres~/33,
+          pres=  await db.getPercentage(widget.id.toString()),
+        stars=(pres/33 /2).toInt(),
+
+        print('stars completion '),
         print(stars),
-        print('stars'),
     db.addCompletion(
       CompletionModel(updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), percentage: pres, story_id: widget.id, stars: stars)
     ),
       }:
 
-    showImagesDialog(context,'${carectersobj.happyListCarecters[Carecters_id]['image']}','احسنت',(){Navigator.pop(context);}),
+      showImagesDialogWithStar(context,'${carectersobj.singListCarecters[Carecters_id]['image']}','احسنت',(){Navigator.pop(context);},star),
     }:showImagesDialogWithDoNotWill(context,'${carectersobj.sadListCarecters[Carecters_id]['image']}','حاول مرة اخرى', text.length > 20? text.replaceRange(20, text.length, '....') :  text,text_orglin);
 
   }
@@ -802,6 +826,21 @@ setState(() {
     return 0;
   }
 
+  @override
+  void didChangeDependencies() {
+    player.onPlayerComplete.listen((event) {
+      setState(() {
+        isSpack = !isSpack;
+      });
 
+    });
+  }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    player.dispose();
+
+  }
 }
