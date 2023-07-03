@@ -21,7 +21,6 @@ import 'features/Home/presintation/page/HomePage.dart';
 import 'features/Regestrion/date/model/userMode.dart';
 import 'features/Regestrion/presintation/page/SignupPage.dart';
 import 'features/Home/data/model/StoryMode.dart';
-import 'features/Settings/presintation/page/ChartPage.dart';
 import 'features/Settings/presintation/page/lockPage.dart';
 import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/Splach_screen.dart';

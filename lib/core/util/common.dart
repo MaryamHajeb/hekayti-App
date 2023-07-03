@@ -54,6 +54,7 @@ void showImagesDialog(BuildContext context, String image,String text,ontap) {
   showDialog(
     barrierColor: AppTheme.primarySwatch.shade400,
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0,
@@ -98,6 +99,7 @@ void showImagesDialogWithStar(BuildContext context, String image,String text,ont
   showDialog(
       barrierColor: AppTheme.primarySwatch.shade400,
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0,
@@ -202,6 +204,7 @@ void showImagesDialogWithStar(BuildContext context, String image,String text,ont
  showImagesDialogWithCancleButten(BuildContext context2, String image,String text,No_methoed,Ok_methoed) {
   showDialog(
       context: context2,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
@@ -255,6 +258,7 @@ void showImagesDialogWithStar(BuildContext context, String image,String text,ont
  showImagesDialogWithDoNotWill(BuildContext context2, String image,String text,String readed_text,org_text) {
   showDialog(
       context: context2,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -328,6 +332,7 @@ void showImagesDialogWithStar(BuildContext context, String image,String text,ont
 showConfetti(context2,controler,image) {
   showDialog(
       context: context2,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
@@ -392,6 +397,7 @@ showConfetti(context2,controler,image) {
 noInternt(context2,String text) {
   showDialog(
       context: context2,
+
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
@@ -430,6 +436,7 @@ noInternt(context2,String text) {
 initApp(String text) {
   return Center(
     child: Dialog(
+
       elevation: 50,
 
       insetAnimationDuration: Duration(seconds: 30),
