@@ -428,13 +428,22 @@ class _StoryPageState extends State<StoryPage> {
                                                             .spaceAround,
                                                     children: [
                                                       index+1 ==state.SliedModel.length?Container():        InkWell(
-                                                        onTap: () {
+                                                        onTap: ()async {
+                                                        int isfound=await           db.checkSlidFound(state.SliedModel[index].id);
+                                                        print(isfound);
+                                                        print('isfound');
 
+                                                        isfound==0?
                                                         star ==0?
                                                         showImagesDialog(
                                                                 context,
                                                                 '${carectersobj.sadListCarecters[Carecters_id]['image']}', '! يرجى تسجيل الصوت أولاً'
-                                                                    '',(){Navigator.pop(context);}):pageControler.nextPage(
+                                                                    '',(){Navigator.pop(context);}):
+                                                        pageControler.nextPage(
+                                                            duration: Duration(
+                                                                seconds: 1),
+                                                            curve: Curves
+                                                                .fastOutSlowIn):pageControler.nextPage(
                                                             duration: Duration(
                                                                 seconds: 1),
                                                             curve: Curves

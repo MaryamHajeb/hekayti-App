@@ -67,6 +67,7 @@ class _ReportTapbarPageState extends State<ReportTapbarPage> {
                     idfrochart =state.reportModel[index].id;
 
                     return ReportCard(
+                      id: state.reportModel[index].id,
                       cover_photo:path+'/'+ state.reportModel[index].cover_photo
                       ,name: state.reportModel[index].name,
                       percentage: state.reportModel[index].percentage,

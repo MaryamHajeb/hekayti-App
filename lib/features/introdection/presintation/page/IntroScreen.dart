@@ -275,16 +275,24 @@ int progress=0;
       DownloadTaskStatus status = DownloadTaskStatus(data[1]);
       progress = data[2];
       print(progress);
-      setState((){ });
+      print(status);
+      print('hirrrrrrrrr');
 
     });
   }
 static  void downloadCallback(String id, int status, int progress) {
     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    print(progress);
-    print('progress');
-    print(status);
+    // print(progress);
+    // print('progress');
+    // print(status);
 
     send!.send([id, status, progress]);
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+
   }
 }

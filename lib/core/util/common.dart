@@ -20,69 +20,6 @@ import '../widgets/CustemButten2.dart';
 import '../widgets/CustomPageRoute.dart';
 import '../widgets/primaryText.dart';
 
-// CachedNetworkImage cachedNetworkImage({required String image,width=null,height=null,onFailed}) {
-//   return CachedNetworkImage(
-//       fit: BoxFit.cover,
-//       // imageUrl: DataSourceURL.baseUrl + imagePath + image,
-//       imageUrl: DataSourceURL.baseImagesUrl + image,
-//       //
-//       placeholder: (context, url) => Center(
-//           child: Image.asset(
-//             "assets/images/foodloading.gif",
-//             fit: BoxFit.cover,
-//             height:height ?? double.infinity,
-//             width: width ?? double.infinity,
-//           )),
-//       errorWidget: (context, url, error) {
-//         if(onFailed!=null)  onFailed();
-//         return Center(
-//             child: Image.asset(
-//               "assets/images/background2.jpg",
-//               fit: BoxFit.cover,
-//               height: height ?? double.infinity,
-//               width: width ?? double.infinity,
-//             ));
-//       });
-// }
-
-// Either<CustomerModel, bool> checkCustomerLoggedIn() {
-//   try {
-//     final customer =
-//         LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
-//             .getCachedData(
-//                 key: 'CUSTOMER_USER',
-//                 retrievedDataType: CustomerModel.init(),
-//                 returnType: List<CustomerModel>);
-//     if (customer != null) {
-//       return Left(customer);
-//     }
-//     return Right(false);
-//   } catch (e) {
-//     print("checkLoggedIn catch");
-//     return Right(false);
-//   }
-// }
-//
-//
-// Either<String, bool> checkOnboarding() {
-//   try {
-//     final onboarding = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
-//         .getCachedData(
-//             key: 'onbordingShowen',
-//             retrievedDataType: String,
-//             returnType: String);
-//     if (onboarding != null) {
-//       return Left(onboarding);
-//     }
-//     return Right(false);
-//   } catch (e) {
-//     print("checkLoggedIn catch");
-//     return Right(false);
-//   }
-// }
-//
-//
-//
 dynamic  getCachedDate(String key,dynamic type) {
 
        final data = LocalDataProvider(
@@ -108,13 +45,7 @@ CachedDate(String key,dynamic  dataCached) {
 
 }
 
-Future<String> getPathForimage(String path,String name)async{
 
-
-    String dir = (await getExternalStorageDirectory())!.path+'/$path/$name';
-
-    return dir.toString();
-}
 
 
 

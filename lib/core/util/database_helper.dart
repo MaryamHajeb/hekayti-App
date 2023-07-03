@@ -205,15 +205,24 @@ return '';
 
 
 
-  Future<List> getAllstoryfromdb(tableName) async{
+   checkSlidFound(id) async{
 
     Database? dbClient = await  db;
   var sql = '''
-  SELECT story_id from complation WHERE level =1  
+  SELECT id from accuracy WHERE media_id =$id 
     ''';
 
-  List<dynamic> result = await dbClient!.rawQuery(sql);
-  return await result.toList();
+  var result = await dbClient!.rawQuery(sql);
+    print(result);
+    print('ggggggggggggggggggggggg');
+
+    if(result.isEmpty==true){
+    return 0;
+  }
+  else{
+    return result[0]['id'];
+  }
+
   }
 
 
@@ -435,9 +444,10 @@ print('downloadMedia');
        FlutterDownloader.enqueue(savedDir: path, url:
 
        url + fileName,
-         timeout: 10000,
+         timeout: 15000,
 
-        saveInPublicStorage: true,showNotification: false,
+        saveInPublicStorage: false,
+         showNotification: false,
        );
      }catch(e){
        print(e.toString());
@@ -673,10 +683,10 @@ print(res);
 
           }, retrievedDataType: String);
         }else{
-          listCopmletion.add([{
+          listCopmletion.add({
             'id':data.id,
             'status':'insert',
-          }]);
+          });
           
         }
 

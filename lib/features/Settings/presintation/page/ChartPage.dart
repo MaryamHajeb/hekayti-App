@@ -98,15 +98,17 @@ bool visiblety=false;
                     ),
                     Expanded(child:
                     ListView.builder(itemCount: state.chartModel.length,itemBuilder: (context, index) {
-                      return ChartCard(
-                        text: state.chartModel[index].text,
-                        photo: path +'/'+ state.chartModel[index]!.photo
-                            .toString(),
-                        accuracy_stars: state.chartModel[index].accuracy_stars,
-                        text_readd: state.chartModel[index].readed_text,
-                        page_no: state.chartModel[index].page_no.toString(),
+                      return InkWell(
+                        child: ChartCard(
+                          text: state.chartModel[index].text,
+                          photo: path +'/'+ state.chartModel[index]!.photo
+                              .toString(),
+                          accuracy_stars: state.chartModel[index].accuracy_stars,
+                          text_readd: state.chartModel[index].readed_text,
+                          page_no: state.chartModel[index].page_no.toString(),
 
 
+                        ),
                       );
                     },),),
 

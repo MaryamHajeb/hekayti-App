@@ -311,16 +311,12 @@ class _HomePageState extends State<HomePage> {
 
   onScearch(String searchWord) {
 
-    print('22222222222222222222222222222222222222222222222222');
-  print(searchWord);
-  print('searchWord');
 
   setState(() {
-    print('listStory');
     listStory.forEach((element) {
       print(element.name);
     });
-    print('listStoryWithSearch');
+
     listStoryWithSearch.forEach((element) {
       print(element.name);
     });
@@ -328,12 +324,10 @@ class _HomePageState extends State<HomePage> {
       listStoryWithSearch = listStory.where((element) => element.name.toLowerCase().contains(searchWord.toLowerCase()))
           .toList();
 
-      print('listStoryWithSearch after filter');
       listStoryWithSearch.forEach((element) {
         print(element.name);
       });
     });
-    print('22222222222222222222222222222222222222222222222222');
 
   }
 
@@ -358,33 +352,33 @@ initpath();
      //   db.syncApp(level.toString());
 
 
-    FlutterDownloader.registerCallback(downloadCallback, step: 1);
+    //FlutterDownloader.registerCallback(downloadCallback, step: 1);
 
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = DownloadTaskStatus(data[1]);
-      setState((){
-
-        progress = data[2];
-        print(progress);
-        print('progress============================================================');
-
-
-      });
-    });
+    // IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    // _port.listen((dynamic data) {
+    //   String id = data[0];
+    //   DownloadTaskStatus status = DownloadTaskStatus(data[1]);
+    //   setState((){
+    //
+    //     progress = data[2];
+    //     print(progress);
+    //     print('progress============================================================');
+    //
+    //
+    //   });
+    // });
 
     }
 
-
-  static  void downloadCallback(String id, int status, int progress) {
-    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    print(progress);
-    print('progress');
-    print(status);
-
-    send!.send([id, status, progress]);
-  }
+  //
+  // static  void downloadCallback(String id, int status, int progress) {
+  //   final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+  //   print(progress);
+  //   print('progress');
+  //   print(status);
+  //
+  //   send!.send([id, status, progress]);
+  // }
 
 
 
@@ -400,10 +394,10 @@ initpath();
 
 
 
-  void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
-  }
+  // void dispose() {
+  //   IsolateNameServer.removePortNameMapping('downloader_send_port');
+  //   super.dispose();
+  // }
   initpath()async{
     final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
     path=  downloadsDirectory.path;

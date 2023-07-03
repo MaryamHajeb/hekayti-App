@@ -32,9 +32,9 @@ import 'injection_container.dart';
 DatabaseHelper db = new DatabaseHelper();
  NetworkInfo networkInfo =NetworkInfoImpl(sl());
 String carecters='';
-String level='';
 bool islogin=false;
 int idfrochart=0;
+bool isChart=true;
 List<dynamic> listCopmletion=[];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

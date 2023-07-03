@@ -6,12 +6,15 @@ import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
+import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
+import '../../../Regestrion/presintation/page/LoginPage.dart';
 
 class StoryCardNotDownloded extends StatefulWidget {
   final name;
@@ -30,6 +33,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
   ReceivePort _port = ReceivePort();
   int  progress =0;
   var path;
+  DownloadTaskStatus? statusProgrress;
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -140,20 +144,18 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                    crossAxisAlignment: CrossAxisAlignment.center,
                    children: [
                      SizedBox(width: 30,),
-                    progress ==0 ? IconButton(onPressed: ()async{
-                     await db.downloadMedia(widget.id);
+                     statusProgrress==DownloadTaskStatus.running ?Center(child: CircularProgressIndicator()): IconButton(onPressed: (){
                       setState(() {
                         print(widget.id);
                         print('widget.id');
 
-
-
+                          db.downloadMedia(widget.id);
 
                          print(progress);
                        });
 
 
-                       }, icon: Icon(Icons.download,size: 30,color: AppTheme.primaryColor,)):CircularProgressIndicator(),
+                       }, icon: Icon(Icons.download,size: 30,color: AppTheme.primaryColor,)),
                      Expanded(
 
                        child: Text(widget.name,style: AppTheme.textTheme.headline5,
@@ -183,12 +185,14 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
     _port.listen((dynamic data) {
       String id = data[0];
       DownloadTaskStatus status = DownloadTaskStatus(data[1]);
+
       setState((){
-
-        progress = data[2];
+        statusProgrress =status;
         print(progress);
-        print('progress============================================================');
+        print(statusProgrress);
 
+        print(status);
+        print('hirrrrrrrrr');
 
       });
 
@@ -204,7 +208,6 @@ static  void downloadCallback(String id, int status, int progress) {
     print(progress);
     print('progress');
     print(status);
-
     send!.send([id, status, progress]);
   }
   initpath()async{
@@ -212,4 +215,16 @@ static  void downloadCallback(String id, int status, int progress) {
     path=  downloadsDirectory.path;
   }
 
+  @override
+  void didChangeDependencies() {
+    if(statusProgrress==DownloadTaskStatus.complete){
+       print('complet down');
+      Navigator.push(
+          context,
+          CustomPageRoute(  child:   HomePage())
+      );
+
+    }
+
+  }
 }

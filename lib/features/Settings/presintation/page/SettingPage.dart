@@ -83,17 +83,15 @@ class _SettingPageState extends State<SettingPage> {
                             Column(
                               children: [
                                 Visibility(
-                                    visible: visible,
+                                    visible: isChart,
                                     replacement:Expanded(child: ChartPage(id: idfrochart)) ,
                                     child: InkWell(
-                                        onTap: (){
-                                          setState(() {
-                                            visible=false;
-
-                                          });
-                                        },
-                                        child: ReportTapbarPage())),
-
+                                    onTap: (){
+                                      setState(() {
+                                        isChart=false;
+                                      });
+                                    },
+                                    child: ReportTapbarPage())),
                               ],
                             )
 

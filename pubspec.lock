@@ -349,10 +349,10 @@ packages:
     dependency: "direct main"
     description:
       name: downloads_path_provider
-      sha256: b5dcf0e2874c23026b4a2e6c21af63222dd8b7a29ed537b464362242ecb0b5d1
+      sha256: "95214b7799f9b3d8c7152a4abf3542ccd1c8e4ba2598c50a0d4d88884c705e87"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.0.2"
   edit_distance:
     dependency: "direct main"
     description:
