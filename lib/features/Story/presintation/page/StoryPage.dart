@@ -8,7 +8,6 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:string_similarity/string_similarity.dart';
@@ -585,8 +584,9 @@ class _StoryPageState extends State<StoryPage> {
     initpath();
   }
   initpath()async{
-    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-    path=  downloadsDirectory.path;
+    var externalDirectoryPath = await getExternalStorageDirectory();
+    path=  externalDirectoryPath!.path.toString();
+
   }
 
   _init() async {
@@ -790,8 +790,9 @@ setState(() {
 
         showConfetti(context, controller, '${carectersobj.singListCarecters[Carecters_id]['image']}'),
           pres=  await db.getPercentage(widget.id.toString()),
+        print(pres),
+        print('persintage'),
         stars=(pres/33 /2).toInt(),
-
         print('stars completion '),
         print(stars),
     db.addCompletion(

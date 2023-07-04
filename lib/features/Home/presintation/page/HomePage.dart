@@ -1,6 +1,5 @@
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +11,7 @@ import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dar
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
 import 'package:hikayati_app/main.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/Carecters.dart';
@@ -334,10 +334,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-      // if(networkInfo.isConnected)
-      //
 
+    super.initState();
+
+
+    // if(networkInfo.isConnected)
+
+    initpath();
     listStoryWithSearch = listStory;
     Carecters_id=  int.parse(getCachedDate('Carecters',String).toString());
     collected_stars= getCachedDate('collected_stars',String);
@@ -350,7 +353,6 @@ class _HomePageState extends State<HomePage> {
        star_progrees = collected_stars / all_stars;
      }
 
-     path=initpath();
      //   db.syncApp(level.toString());
 
 
@@ -402,5 +404,11 @@ class _HomePageState extends State<HomePage> {
   // }
 
 
+  initpath()async{
+    var externalDirectoryPath = await getExternalStorageDirectory();
+    path=  externalDirectoryPath!.path.toString();
+
+    print(path);
+  }
 
 }

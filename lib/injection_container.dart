@@ -92,9 +92,8 @@ void _initSliedFeature() {
   );
 }
 void _initChartFeature() {
-//bloc
+  //bloc
   sl.registerFactory(() => ChartBloc(repository: sl()));
-
   //repositories
   sl.registerLazySingleton<ChartRepository>(
     () => ChartRepository(

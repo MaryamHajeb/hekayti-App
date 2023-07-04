@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:confetti/confetti.dart';
 import 'package:dartz/dartz.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hikayati_app/core/app_theme.dart';
@@ -48,11 +47,11 @@ CachedDate(String key,dynamic  dataCached) {
 
 
 
-initpath()async{
-  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-          String path=  downloadsDirectory.path;
-          print('path is $path');
-          return path;
+initpathcomm()async{
+  var externalDirectoryPath = await getExternalStorageDirectory();
+   externalDirectoryPath!.path.toString();
+
+
 }
 
 void showImagesDialog(BuildContext context, String image,String text,ontap) {
@@ -514,7 +513,8 @@ Either<UserModel, bool> checkUserLoggedIn() {
 
 
 }
+
  Future<String> getpath()async{
-  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-  return downloadsDirectory.path.toString();
+   var externalDirectoryPath = await getExternalStorageDirectory();
+   return  externalDirectoryPath!.path.toString();
 }

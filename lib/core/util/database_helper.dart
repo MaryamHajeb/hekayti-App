@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
@@ -384,8 +383,8 @@ try {
   List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories  ');
   print(result.length);
   print('cover');
-  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-  print(downloadsDirectory.path);
+  var externalDirectoryPath = await getExternalStorageDirectory();
+  path=  externalDirectoryPath!.path.toString();
   print('============================================================');
  // await dirFound(downloadsDirectory.path);
 
@@ -393,7 +392,7 @@ try {
     result.forEach((element) async {
       print(element['cover_photo']);
 
-      fileDownload(element['cover_photo'], downloadsDirectory.path,
+      fileDownload(element['cover_photo'], externalDirectoryPath.path,
           DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
       await Future.delayed(Duration(seconds: 1));
     });
@@ -418,7 +417,8 @@ print('downloadMedia');
     final status= await Permission.storage.request();
     final status2= await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
-    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+    var externalDirectoryPath = await getExternalStorageDirectory();
+    path=  externalDirectoryPath!.path.toString();
     //await dirFound(downloadsDirectory.path);
 
 
@@ -426,8 +426,8 @@ print('downloadMedia');
       int update = await dbClient!.rawUpdate('UPDATE stories SET download = ? WHERE id = ?', ['1',storyId ]);
       result.forEach((element) {
         //print(element['cover_photo']);
-        fileDownload(element['photo'],downloadsDirectory.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
-        fileDownload(element['sound'],downloadsDirectory.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
+        fileDownload(element['photo'],externalDirectoryPath.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
+        fileDownload(element['sound'],externalDirectoryPath.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
 
 
      });

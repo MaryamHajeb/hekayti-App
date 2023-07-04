@@ -2,11 +2,11 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
@@ -211,8 +211,8 @@ static  void downloadCallback(String id, int status, int progress) {
     send!.send([id, status, progress]);
   }
   initpath()async{
-    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-    path=  downloadsDirectory.path;
+    var externalDirectoryPath = await getExternalStorageDirectory();
+    path=  externalDirectoryPath!.path.toString();
   }
 
   @override
