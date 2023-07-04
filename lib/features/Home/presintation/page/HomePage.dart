@@ -337,7 +337,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
       // if(networkInfo.isConnected)
       //
-initpath();
+
     listStoryWithSearch = listStory;
     Carecters_id=  int.parse(getCachedDate('Carecters',String).toString());
     collected_stars= getCachedDate('collected_stars',String);
@@ -349,6 +349,8 @@ initpath();
      }else{
        star_progrees = collected_stars / all_stars;
      }
+
+     path=initpath();
      //   db.syncApp(level.toString());
 
 
@@ -398,10 +400,7 @@ initpath();
   //   IsolateNameServer.removePortNameMapping('downloader_send_port');
   //   super.dispose();
   // }
-  initpath()async{
-    final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
-    path=  downloadsDirectory.path;
-  }
+
 
 
 }

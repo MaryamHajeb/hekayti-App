@@ -48,7 +48,12 @@ CachedDate(String key,dynamic  dataCached) {
 
 
 
-
+initpath()async{
+  final downloadsDirectory = await DownloadsPathProvider.downloadsDirectory;
+          String path=  downloadsDirectory.path;
+          print('path is $path');
+          return path;
+}
 
 void showImagesDialog(BuildContext context, String image,String text,ontap) {
   showDialog(
