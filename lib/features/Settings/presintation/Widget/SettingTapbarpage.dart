@@ -58,6 +58,10 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                   if (value.toString().isEmpty) {
                     return 'يرجئ منك ادخال اسم الطفل ';
                   }
+                  else if (!RegExp(r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
+                      .hasMatch(value)) {
+                    return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
+                  }
                   return null;
                 },
                 controler: nameChiled,
@@ -130,7 +134,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                           setState(() {
                             itemSelectedlevel = index;
                           });
-                          CachedDate('level', carecterslist.Levels[index]['num']);
 
                         },
                         isSelected: itemSelectedlevel == index ? true : false,

@@ -441,12 +441,11 @@ print('downloadMedia');
   }
   fileDownload(String fileName,String path,String url)async{
      try {
-       FlutterDownloader.enqueue(savedDir: path, url:
+       FlutterDownloader.enqueue(savedDir: path,
 
-       url + fileName,
+         url: url + fileName,
          timeout: 15000,
-
-        saveInPublicStorage: false,
+        saveInPublicStorage: true,
          showNotification: false,
        );
      }catch(e){

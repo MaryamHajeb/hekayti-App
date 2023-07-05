@@ -144,7 +144,7 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
                    crossAxisAlignment: CrossAxisAlignment.center,
                    children: [
                      SizedBox(width: 30,),
-                     statusProgrress==DownloadTaskStatus.running ?Center(child: CircularProgressIndicator()): IconButton(onPressed: (){
+                     statusProgrress==DownloadTaskStatus(2) ?Center(child: CircularProgressIndicator()): IconButton(onPressed: (){
                       setState(() {
                         print(widget.id);
                         print('widget.id');
@@ -179,9 +179,9 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
     // TODO: implement initState
     super.initState();
     initpath();
-       FlutterDownloader.registerCallback(downloadCallback, step: 1);
+       FlutterDownloader.registerCallback(downloadCallback,step: 10);
 
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port2');
     _port.listen((dynamic data) {
       String id = data[0];
       DownloadTaskStatus status = DownloadTaskStatus(data[1]);
@@ -199,12 +199,12 @@ class _StoryCardNotDownlodedState extends State<StoryCardNotDownloded> {
     });
   }
   void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    IsolateNameServer.removePortNameMapping('downloader_send_port2');
     super.dispose();
     }
 
 static  void downloadCallback(String id, int status, int progress) {
-    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port2')!;
     print(progress);
     print('progress');
     print(status);

@@ -484,7 +484,7 @@ class _StoryPageState extends State<StoryPage> {
                                                             height: 5,
                                                           ),
                                                           Text(
-                                                              '${state.SliedModel.length}/${state.SliedModel[index].page_no-1 + 1}',
+                                                              '${state.SliedModel.length-1}/${state.SliedModel[index].page_no}',
                                                               style: TextStyle(
                                                                   color: AppTheme
                                                                       .primaryColor,
