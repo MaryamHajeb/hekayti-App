@@ -4,6 +4,7 @@ import 'dart:isolate';
 import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
@@ -413,9 +414,12 @@ try {
 
   downloadMedia(String storyId )async{
     var dbClient = await  db;
+    double progrees=0;
 print('downloadMedia');
     final status= await Permission.storage.request();
-    final status2= await Permission.manageExternalStorage.request();
+
+
+
     List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
     var externalDirectoryPath = await getExternalStorageDirectory();
     path=  externalDirectoryPath!.path.toString();
@@ -441,13 +445,20 @@ print('downloadMedia');
   }
   fileDownload(String fileName,String path,String url)async{
      try {
-       FlutterDownloader.enqueue(savedDir: path,
+       //You can download a single file
+       FileDownloader.downloadFile(
+           url: url+fileName,
+             name: fileName,
+           onDownloadCompleted: (String path) {
+             print('FILE DOWNLOADED TO PATH: $path');
+           },
+           onProgress: ( String? path,double progress){
+             print('FILE fileName HAS PROGRESS $progress');
+           },
 
-         url: url + fileName,
-         timeout: 15000,
-        saveInPublicStorage: true,
-         showNotification: false,
-       );
+           onDownloadError: (String error) {
+             print('DOWNLOAD ERROR: $error');
+           });
      }catch(e){
        print(e.toString());
      }

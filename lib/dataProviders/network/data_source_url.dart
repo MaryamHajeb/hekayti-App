@@ -1,7 +1,7 @@
 
 class DataSourceURL {
 
-     static String baseUrl = 'http://192.168.43.202:80/api/';
+     static String baseUrl = 'http://192.168.43.112:80/api/';
      static String baseDownloadUrl = 'https://hikayatyapp.000webhostapp.com/upload/';
      static String getAllStory='stories';
      static String getAllmedia='media';
