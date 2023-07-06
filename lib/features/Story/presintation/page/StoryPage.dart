@@ -6,6 +6,7 @@ import 'dart:io' as io;
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:edit_distance/edit_distance.dart';
@@ -584,8 +585,8 @@ class _StoryPageState extends State<StoryPage> {
     initpath();
   }
   initpath()async{
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
+    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
+    path=  externalDirectoryPath.toString();
 
   }
 

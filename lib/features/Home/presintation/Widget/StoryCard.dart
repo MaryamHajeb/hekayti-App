@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
@@ -24,7 +25,7 @@ class StoryCard extends StatefulWidget {
 class _StoryCardState extends State<StoryCard> {
   ScreenUtil screenUtil = ScreenUtil();
 String pathImage='';
- var path;
+
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -144,11 +145,7 @@ String pathImage='';
     // TODO: implement initState
     super.initState();
 
-    initpath();
   }
-  initpath()async{
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
-  }
+
 
 }

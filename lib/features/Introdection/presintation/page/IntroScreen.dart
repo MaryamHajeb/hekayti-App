@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -268,25 +267,6 @@ int progress=0;
     Carecters_id= int.parse( getCachedDate('Carecters',String ));
    // levelnum= getCachedDate('level',String );
 
-    FlutterDownloader.registerCallback(downloadCallback, step: 1);
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = DownloadTaskStatus(data[1]);
-      progress = data[2];
-      print(progress);
-      print(status);
-      print('hirrrrrrrrr');
-
-    });
-  }
-static  void downloadCallback(String id, int status, int progress) {
-    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    // print(progress);
-    // print('progress');
-    // print(status);
-
-    send!.send([id, status, progress]);
   }
 
   @override

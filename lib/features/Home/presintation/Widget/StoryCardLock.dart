@@ -21,7 +21,6 @@ class StoryCardLock extends StatefulWidget {
 
 class _StoryCardLockState extends State<StoryCardLock> {
   ScreenUtil screenUtil = ScreenUtil();
-var path;
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -171,10 +170,7 @@ var path;
     // TODO: implement initState
     super.initState();
 
-  initpath();
+
   }
-  initpath()async{
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
-  }
+
 }

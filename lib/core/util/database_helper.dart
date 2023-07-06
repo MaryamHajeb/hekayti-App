@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
@@ -384,16 +383,17 @@ try {
   List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories  ');
   print(result.length);
   print('cover');
-  var externalDirectoryPath = await getExternalStorageDirectory();
-  path=  externalDirectoryPath!.path.toString();
+  var externalDirectoryPath = await AndroidPathProvider.downloadsPath;;
+  path=  externalDirectoryPath.toString();
   print('============================================================');
+  print(externalDirectoryPath.toString());
  // await dirFound(downloadsDirectory.path);
 
   if (status.isGranted || status2.isGranted) {
     result.forEach((element) async {
       print(element['cover_photo']);
 
-      fileDownload(element['cover_photo'], externalDirectoryPath.path,
+      fileDownload(element['cover_photo'], externalDirectoryPath.toString(),
           DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
       await Future.delayed(Duration(seconds: 1));
     });
@@ -448,7 +448,6 @@ print('downloadMedia');
        //You can download a single file
        FileDownloader.downloadFile(
            url: url+fileName,
-             name: fileName,
            onDownloadCompleted: (String path) {
              print('FILE DOWNLOADED TO PATH: $path');
            },

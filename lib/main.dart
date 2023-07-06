@@ -2,7 +2,6 @@ import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/data/model/WebStoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
@@ -41,10 +40,7 @@ void main() async{
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
   );
-  await FlutterDownloader.initialize(
-      debug: true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl: true // option: set to false to disable working with http links (default: false)
-  );
+
   final prefs = await SharedPreferences.getInstance();
   islogin=await prefs.getBool('onbording')??false;
  carecters= await  prefs.getString('Carecters') ?? '';

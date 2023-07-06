@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
@@ -33,7 +33,6 @@ import '../../../Story/date/model/StoryMediaModel.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
 import '../Widget/StoryCardLock.dart';
-import '../Widget/StoryCardNotDownloded.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -62,6 +61,7 @@ class _HomePageState extends State<HomePage> {
   int progress=0;
   var statusProgrress;
   var path;
+  bool isloading=false;
   ReceivePort _port = ReceivePort();
    double star_progrees = 0;
   Widget build(BuildContext context) {
@@ -363,14 +363,11 @@ class _HomePageState extends State<HomePage> {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       SizedBox(width: 30,),
-                                                      statusProgrress==DownloadTaskStatus.running ?Center(child: CircularProgressIndicator()): IconButton(onPressed: (){
-                                                        setState(() {
+                                                      isloading ?Center(child: CircularProgressIndicator()): IconButton(onPressed: ()async{
+                                                        setState(() =>isloading =true);
+                                                          await db.downloadMedia(state.storyModel[index]!.id.toString());
 
-                                                          db.downloadMedia(state.storyModel[index]!.id.toString());
-
-                                                          print(progress);
-                                                        });
-
+                                                          setState(() =>isloading =false);
 
                                                       }, icon: Icon(Icons.download,size: 30,color: AppTheme.primaryColor,)),
                                                       Expanded(
@@ -390,7 +387,6 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 )):
-
                             InkWell(
                                 onTap: () {
                                   //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
@@ -478,24 +474,6 @@ class _HomePageState extends State<HomePage> {
      }
 
      //   db.syncApp(level.toString());
-
-    FlutterDownloader.registerCallback(downloadCallback, step: 1);
-
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = DownloadTaskStatus(data[1]);
-
-      setState((){
-        statusProgrress =status;
-        print(progress);
-        print(statusProgrress);
-        print(status);
-        print('hirrrrrrrrr');
-
-      });
-
-    });
   }
 
   void dispose() {
@@ -526,8 +504,8 @@ class _HomePageState extends State<HomePage> {
 
 
   initpath()async{
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
+    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
+    path=  externalDirectoryPath.toString();
 
     print(path);
   }

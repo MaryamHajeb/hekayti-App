@@ -37,7 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   shimmer: ^2.0.0
   introduction_screen: ^3.0.2
-  carousel_slider: ^4.2.1
   shared_preferences: ^2.0.15
   bloc: 7.2.0
   flutter_bloc:
@@ -45,17 +44,13 @@ dependencies:
   wave:
   http:
   dartz:
-  get: 4.6.2
   get_it: ^7.2.0
   data_connection_checker:
-  cached_network_image: ^2.3.2+1
   flutter_spinkit:
   sqflite: ^2.2.6
-  path_provider: ^2.0.15
   permission_handler: ^10.2.0
   audioplayers: ^4.0.1
   flutter_charts: ^0.5.1
-  flutter_downloader: ^1.10.4
   flame_audio: ^2.0.2
   google_speech: ^2.1.2
   flutter_audio_recorder3: ^0.0.5
@@ -66,6 +61,7 @@ dependencies:
   confetti: ^0.7.0
   encrypt: ^5.0.1
   flutter_file_downloader: ^1.1.2
+
 
 
 

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:get/get.dart';
 import 'package:hikayati_app/dataProviders/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

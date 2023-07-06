@@ -1,3 +1,4 @@
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_charts/flutter_charts.dart';
@@ -281,8 +282,8 @@ class _SettingPageState extends State<SettingPage> {
     initpath();
   }
   initpath()async{
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
+    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
+    path=  externalDirectoryPath.toString();
   }
 
 
