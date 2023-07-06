@@ -378,6 +378,7 @@ if(await localdata!=null){
   downloadStoriesCover()async{
 try {
   var dbClient = await db;
+  List<String> imageList=[];
   final status = await Permission.storage.request();
   final status2 = await Permission.manageExternalStorage.request();
   List<dynamic> result = await dbClient!.rawQuery('SELECT cover_photo from stories  ');
@@ -392,14 +393,18 @@ try {
   if (status.isGranted || status2.isGranted) {
     result.forEach((element) async {
       print(element['cover_photo']);
+      imageList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.cover+element['cover_photo']);
 
-      fileDownload(element['cover_photo'], externalDirectoryPath.toString(),
-          DataSourceURL.baseDownloadUrl + DataSourceURL.cover);
       await Future.delayed(Duration(seconds: 1));
     });
     //fileDownload(result[0]['cover_photo'],dir.path );
+    fileDownload(imageList);
 
   }
+
+  print(imageList);
+  print('imageList');
+
   // result.forEach((element){
   //   fileDownload(element['cover_photo'].toString(),path);
   // });
@@ -414,7 +419,8 @@ try {
 
   downloadMedia(String storyId )async{
     var dbClient = await  db;
-    double progrees=0;
+    List<String> imageList=[];
+    List<String> audioList=[];
 print('downloadMedia');
     final status= await Permission.storage.request();
 
@@ -429,12 +435,16 @@ print('downloadMedia');
     if(status.isGranted) {
       int update = await dbClient!.rawUpdate('UPDATE stories SET download = ? WHERE id = ?', ['1',storyId ]);
       result.forEach((element) {
-        //print(element['cover_photo']);
-        fileDownload(element['photo'],externalDirectoryPath.path ,DataSourceURL.baseDownloadUrl + DataSourceURL.photo);
-        fileDownload(element['sound'],externalDirectoryPath.path,DataSourceURL.baseDownloadUrl + DataSourceURL.sound );
+        print(element['cover_photo']);
+        imageList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.photo+ element['photo']);
+        audioList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.sound+ element['sound']);
 
 
      });
+
+      fileDownload(imageList);
+      fileDownload(audioList );
+
       print('object==============================================================');
     }
 
@@ -443,20 +453,17 @@ print('downloadMedia');
 
 
   }
-  fileDownload(String fileName,String path,String url)async{
+  fileDownload(List<String> urls,)async{
      try {
        //You can download a single file
-       FileDownloader.downloadFile(
-           url: url+fileName,
-           onDownloadCompleted: (String path) {
-             print('FILE DOWNLOADED TO PATH: $path');
-           },
-           onProgress: ( String? path,double progress){
-             print('FILE fileName HAS PROGRESS $progress');
-           },
-
-           onDownloadError: (String error) {
-             print('DOWNLOAD ERROR: $error');
+       final List<File?> result = await FileDownloader.downloadFiles(
+            urls: urls,
+           isParallel: true,   //if this is set to true, your download list will request to be downloaded all at once
+           //if your downloading queue fits them all, they are all will start downloading
+           //if it's set to false, it will download every file individually
+           //default is true
+           onAllDownloaded: () {
+             //This callback will be fired when all files are done
            });
      }catch(e){
        print(e.toString());

@@ -25,7 +25,6 @@ import 'features/introdection/presintation/page/IntroScreen.dart';
 import 'features/introdection/presintation/page/Splach_screen.dart';
 import 'features/introdection/presintation/page/onboardingOne.dart';
 import 'package:flame_audio/flame_audio.dart';
-
 import 'injection_container.dart';
 DatabaseHelper db = new DatabaseHelper();
  NetworkInfo networkInfo =NetworkInfoImpl(sl());
@@ -102,6 +101,8 @@ class _MyAppState extends State<MyApp> {
     ReceivePort _port = ReceivePort();
   CachedDate('Carecters', '0');
   CachedDate('listCopmletion', []);
+
+
 
 //
 //

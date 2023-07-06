@@ -61,6 +61,9 @@ dependencies:
   confetti: ^0.7.0
   encrypt: ^5.0.1
   flutter_file_downloader: ^1.1.2
+  lottie: ^2.3.2
+
+
 
 
 
@@ -100,6 +103,7 @@ flutter:
       - assets/images/
       - assets/
       - assets/audio/
+      - assets/json/
       - assets/images/carecters/abdu/
       - assets/images/carecters/hana/
       - assets/images/carecters/hasham/

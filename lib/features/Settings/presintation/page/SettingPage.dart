@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_charts/flutter_charts.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
@@ -116,7 +117,8 @@ class _SettingPageState extends State<SettingPage> {
                                           }
 
                                           if (state is ChartLoading) {
-                                            ChartWidget = CircularProgressIndicator();
+                                            ChartWidget = Center(child:
+                                            Lottie.asset("assets/json/loading.json",width: 250,));
                                           }
 
                                           if (state is ChartILoaded) {
@@ -206,7 +208,8 @@ class _SettingPageState extends State<SettingPage> {
                                           }
 
                                           if (state is ReportLoading) {
-                                            ReportWidget = CircularProgressIndicator();
+                                            ReportWidget = Center(child:
+                                            Lottie.asset("assets/json/loading.json",width: 250,));
                                           }
 
                                           if (state is ReportILoaded) {
