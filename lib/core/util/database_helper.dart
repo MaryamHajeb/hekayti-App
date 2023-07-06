@@ -692,10 +692,10 @@ print(res);
 
           }, retrievedDataType: String);
         }else{
-          listCopmletion.add({
-            'id':data.id,
-            'status':'insert',
-          });
+          // listCopmletion.add({
+          //   'id':data.id,
+          //   'status':'insert',
+          // });
           
         }
 

@@ -793,10 +793,11 @@ setState(() {
           pres=  await db.getPercentage(widget.id.toString()),
         print(pres),
         print('persintage'),
-        stars=(pres/33 /2).toInt(),
+        stars=(pres/33 ).toInt(),
         print('stars completion '),
         print(stars),
     db.addCompletion(
+
       CompletionModel(updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()), percentage: pres, story_id: widget.id, stars: stars)
     ),
       }:
