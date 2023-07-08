@@ -213,8 +213,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                       onPressed: ()async {
 
                         SharedPreferences prefs;
-                        prefs = await SharedPreferences.getInstance();
-                        prefs.setBool('onbording', false);
+                        // prefs = await SharedPreferences.getInstance();
+                        // prefs.setBool('onbording', false);
+                        CachedDate('onbording','true');
                         db.deleteTable('stories');
                         db.deleteTable('stories_media');
                         db.deleteTable('completion');
@@ -222,10 +223,10 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         CachedDate('nameChlied','');
                         CachedDate('Carecters',0);
                         CachedDate('level',1);
+                        CachedDate('UserInformation',[]);
                         Navigator.pushReplacement(
                             context,
                             CustomPageRoute(  child:   MyApp()));
-
                       },
                       child: Text('تسجيل الخروج',style: AppTheme.textTheme.bodyText1),
                       style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade500) ),
