@@ -179,27 +179,31 @@ TextEditingController CofemPassword = TextEditingController();
 
                                     if (_loginFormKey.currentState!.validate()) {
                                       if (await networkInfo.isConnected) {
-                                        showImagesDialog(context,'${carectersobj.confusedListCarecters[Carecters_id]['image']}','هل انت متاكد ؟'
-                                            'سوف تفقد جميع بياناتك الحاليه',(){
-                                          print('ok');
-                                          BlocProvider.of<RegistrationBloc>(
-                                              _context).add(
-                                            Login(
-                                              email: email.text.toString(),
-                                              password: password.text,
-                                            ),
-                                          );
-                                          print(
-                                              '-----------------------------------------------');
+                                        showImagesDialogWithCancleButten(context,'${carectersobj.confusedListCarecters[Carecters_id]['image']}','هل انت متاكد ؟'
+                                            'سوف تفقد جميع بياناتك الحاليه'
+                                        ,(){
+                                            Navigator.pop(context);
+                                            },(){
+                                              print('ok');
+                                              BlocProvider.of<RegistrationBloc>(
+                                                  _context).add(
+                                                Login(
+                                                  email: email.text.toString(),
+                                                  password: password.text,
+                                                ),
+                                              );
+                                              print(
+                                                  '-----------------------------------------------');
 
-                                          print(email.text);
-                                          print(
-                                              '-----------------------------------------------');
-                                          setState(() {
-                                            requestPending = true;
-                                          });
+                                              print(email.text);
+                                              print(
+                                                  '-----------------------------------------------');
+                                              setState(() {
+                                                requestPending = true;
+                                              });
 
-                                        });
+                                            }
+                                        );
 
                                       }
 

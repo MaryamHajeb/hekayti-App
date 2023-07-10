@@ -593,8 +593,13 @@ print(res);
          stars +=int.parse(element['accuracy_stars'].toString());
        });
 
-       percentage=(stars/star.length).toInt() *100;
+   print(stars);
 
+   print('all stars is ');
+        print(star.length);
+       percentage=((stars/star.length).toInt() *100 /2).toInt();
+print(percentage);
+print('percentage in fun');
        return percentage;
      }
 

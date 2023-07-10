@@ -842,8 +842,7 @@ class _StoryPageState extends State<StoryPage> {
           recognizing = false;
           isProcces = false;
         }));
-    star = await checkText(text_orglin, text,
-        int.parse(getCachedDate('level', String).toString()));
+    star = await checkText(text_orglin, text, int.parse(getCachedDate('level', String).toString()));
     print(star);
     print('star');
 
@@ -864,6 +863,8 @@ class _StoryPageState extends State<StoryPage> {
                     showConfetti(context, controller,
                         '${carectersobj.singListCarecters[Carecters_id]['image']}'),
                     pres = await db.getPercentage(widget.id.toString()),
+                     await Future.delayed(Duration(seconds: 1)),
+
                     print(pres),
                     print('persintage'),
                     stars = (pres / 33).toInt(),
@@ -887,16 +888,15 @@ class _StoryPageState extends State<StoryPage> {
             context,
             '${carectersobj.sadListCarecters[Carecters_id]['image']}',
             'حاول مرة اخرى',
-            text.length > 20
-                ? text.replaceRange(20, text.length, '....')
+            text.length > 25
+                ? text.replaceRange(25, text.length, '....')
                 : text,
             text_orglin);
   }
 
   int checkText(String originalText, String readText, int level) {
     if (level == 3) {
-      final int similarityPercentageInt =
-          (StringSimilarity.compareTwoStrings(originalText, readText) * 100)
+      final int similarityPercentageInt = (StringSimilarity.compareTwoStrings(originalText, readText) * 100)
               .toInt();
 
       if (similarityPercentageInt > 97) return 3;
