@@ -51,10 +51,12 @@ class RegistrationRepository extends Repository {
            UserModel user_id =await localDataProvider.getCachedData(key: 'UserInformation', retrievedDataType: UserModel.init());
              print('localDataProvider');
              print(user_id);
-         db.initApp(getCachedDate('level', String).toString(), '1');
-         db.uploadAccuracy(user_id.id);
-         db.uploadCompletion(user_id.id);
-          //
+             print('user_id');
+          //await   db.initApp(getCachedDate('level', String).toString(), '1');
+          await  db.uploadAccuracy(user_id.id);
+          await    db.uploadCompletion(user_id.id);
+          await Future.delayed(Duration(seconds: 1));
+
           return remoteData;
         });
   }
@@ -94,12 +96,14 @@ class RegistrationRepository extends Repository {
               url: DataSourceURL.getAllcompletion,
               retrievedDataType: CompletionModel.init(),
               returnType:List,
+
               body: {
                 'user_id':userModel.id.toString()
               });
 
           db.checkCompletionFound(data2);
 
+          await Future.delayed(Duration(seconds: 1));
 
           return remoteData;
         });

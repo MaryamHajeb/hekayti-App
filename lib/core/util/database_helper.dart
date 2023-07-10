@@ -562,20 +562,23 @@ return ruslt;
      List<dynamic> res=     await dbClient!.rawQuery(sql);
 
      res.forEach((element) async{
-       if(await networkInfo.isConnected &&userModel!= null ) {
+       if(await networkInfo.isConnected ) {
          result = await RemoteDataProvider(client: sl()).sendData(
              url: DataSourceURL.uploadAccuracy, body: {
-
            'user_id': user_id,
            'updated_at': element['updated_at'].toString(),
            'readed_text': element['readed_text'].toString(),
            'media_id': element['media_id'].toString(),
            'accuracy_stars': element['accuracy_stars'].toString()
-         }, retrievedDataType: String);
+         }, retrievedDataType: String,
+         returnType: String,
+         );
        }
+
 print(result);
 
      });
+    await Future.delayed(Duration(seconds: 1));
 
 
 
@@ -731,7 +734,7 @@ print('percentage in fun');
 
     res.forEach((element) async{
 
-      if(await networkInfo.isConnected &&userModel!= null ) {
+      if(await networkInfo.isConnected) {
         var result = RemoteDataProvider(client: sl()).sendData(
             url: DataSourceURL.uploadCompletion, body: {
 
@@ -740,7 +743,8 @@ print('percentage in fun');
           'percentage': element['percentage'].toString(),
           'story_id': element['story_id'].toString(),
           'stars': element['stars'].toString()
-        }, retrievedDataType: String);
+        }, retrievedDataType: String,returnType: String
+        );
       }
 
 
