@@ -324,8 +324,6 @@ class _SettingPageState extends State<SettingPage> {
       xUserLabels:  num.toList(),
       dataRowsLegends:  [
         '$nameStory',
-
-
       ],
 
       yUserLabels: ['1','2','3'],

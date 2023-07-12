@@ -28,6 +28,8 @@ class RegistrationRepository extends Repository {
     required this.networkInfo,
   });
   late  UserModel userModel;
+  late List<CompletionModel> completionModel;
+  late List<accuracyModel>  AccuracyModel;
   Future<Either<Failure, dynamic>> signup(
       {required String  password, email}) async {
     return await sendRequest(
@@ -63,6 +65,9 @@ class RegistrationRepository extends Repository {
 
   Future<Either<Failure, dynamic>> login(
       {required String password,required String email}) async {
+
+    await   db.initApp(getCachedDate('level', int).toString(), '1');
+
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
@@ -78,9 +83,9 @@ class RegistrationRepository extends Repository {
 
 
           userModel = remoteData;
-          localDataProvider.cacheData(key: 'UserInformation', data: userModel.id);
+          localDataProvider.cacheData(key: 'UserInformation', data: userModel);
 
-          final data = await remoteDataProvider.sendData(
+          List<accuracyModel> accuracyModeldata = await remoteDataProvider.sendData(
               url: DataSourceURL.getAllaccuracy,
               retrievedDataType: accuracyModel.init(),
               returnType:List,
@@ -88,11 +93,10 @@ class RegistrationRepository extends Repository {
                 'user_id':userModel.id.toString()
               });
 
-          db.initApp(getCachedDate('level', int).toString(), '1');
+          db.checkAccuracyFound(accuracyModeldata);
+          await Future.delayed(Duration(seconds: 1));
 
-          db.checkAccuracyFound(data);
-
-          final data2 = await remoteDataProvider.sendData(
+          List<CompletionModel> completionData = await remoteDataProvider.sendData(
               url: DataSourceURL.getAllcompletion,
               retrievedDataType: CompletionModel.init(),
               returnType:List,
@@ -100,9 +104,10 @@ class RegistrationRepository extends Repository {
               body: {
                 'user_id':userModel.id.toString()
               });
+         // completionModel=completionData;
 
-          db.checkCompletionFound(data2);
 
+          db.checkCompletionFound(completionData);
           await Future.delayed(Duration(seconds: 1));
 
           return remoteData;

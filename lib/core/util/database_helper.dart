@@ -628,12 +628,16 @@ print('percentage in fun');
           );
         }
       }else{
-        insert(tableName: 'completion',data:{
-          'stars':element.stars,
-          'percentage':element.percentage,
-          'story_id':element.story_id,
-          'updated_at':element.updated_at,
-        }
+        insert(tableName: 'completion',data:CompletionModel(
+
+            story_id: element.story_id,
+            stars: element.stars,
+            percentage: element.percentage,
+            updated_at: element.updated_at,
+            id: element.id,
+
+
+        )
         );
       }
     });
