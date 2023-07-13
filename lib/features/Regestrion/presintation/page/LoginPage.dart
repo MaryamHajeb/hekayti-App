@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
+import 'package:hikayati_app/features/introdection/presintation/page/IntroScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
@@ -54,11 +55,16 @@ TextEditingController CofemPassword = TextEditingController();
 
 
            var prefs = await SharedPreferences.getInstance();
-          prefs.setBool('onbording', true);
+             bool? isbording=await prefs.getBool('onbording');
+            isbording==null ?                      Navigator.push(context, CustomPageRoute(  child:   IntroScreen(index: 2,)))
 
+
+          :
             showSnackBar(context: context,title: state.successMessage,bkColor: Colors.green,callBackFunction: (){
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
             });
+
+
           } else if (state is RegisterError) {
             setState(() {
               requestPending = false;

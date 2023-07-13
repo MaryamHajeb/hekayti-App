@@ -66,7 +66,7 @@ class RegistrationRepository extends Repository {
   Future<Either<Failure, dynamic>> login(
       {required String password,required String email}) async {
 
-    await   db.initApp(getCachedDate('level', int).toString(), '1');
+
 
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
