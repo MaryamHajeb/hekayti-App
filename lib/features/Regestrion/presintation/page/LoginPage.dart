@@ -56,10 +56,7 @@ TextEditingController CofemPassword = TextEditingController();
 
            var prefs = await SharedPreferences.getInstance();
              bool? isbording=await prefs.getBool('onbording');
-            isbording==null ?                      Navigator.push(context, CustomPageRoute(  child:   IntroScreen(index: 2,)))
-
-
-          :
+            isbording==null ?   Navigator.push(context, CustomPageRoute(  child:   HomePage())) :
             showSnackBar(context: context,title: state.successMessage,bkColor: Colors.green,callBackFunction: (){
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
             });
@@ -190,6 +187,8 @@ TextEditingController CofemPassword = TextEditingController();
                                         ,(){
                                             Navigator.pop(context);
                                             },(){
+                                              Navigator.pop(context);
+
                                               print('ok');
                                               BlocProvider.of<RegistrationBloc>(
                                                   _context).add(
@@ -200,7 +199,7 @@ TextEditingController CofemPassword = TextEditingController();
                                               );
                                               print(
                                                   '-----------------------------------------------');
-
+                                                initApp('جاري تحكميل القصص....');
                                               print(email.text);
                                               print(
                                                   '-----------------------------------------------');
@@ -266,6 +265,6 @@ TextEditingController CofemPassword = TextEditingController();
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id=  int.parse(getCachedDate('Carecters',String).toString());
+
   }
 }

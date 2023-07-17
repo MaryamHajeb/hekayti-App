@@ -54,7 +54,7 @@ class RegistrationRepository extends Repository {
              print('localDataProvider');
              print(user_id);
              print('user_id');
-          //await   db.initApp(getCachedDate('level', String).toString(), '1');
+          await   db.initApp(getCachedDate('level', String).toString(), '1');
           await  db.uploadAccuracy(user_id.id);
           await    db.uploadCompletion(user_id.id);
           await Future.delayed(Duration(seconds: 1));
@@ -83,6 +83,9 @@ class RegistrationRepository extends Repository {
 
 
           userModel = remoteData;
+
+          await   db.initApp(userModel.level.toString(), '1');
+
           localDataProvider.cacheData(key: 'UserInformation', data: userModel);
 
           List<accuracyModel> accuracyModeldata = await remoteDataProvider.sendData(
@@ -94,7 +97,6 @@ class RegistrationRepository extends Repository {
               });
 
           db.checkAccuracyFound(accuracyModeldata);
-          await Future.delayed(Duration(seconds: 1));
 
           List<CompletionModel> completionData = await remoteDataProvider.sendData(
               url: DataSourceURL.getAllcompletion,

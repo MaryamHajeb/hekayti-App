@@ -99,9 +99,8 @@ class _MyAppState extends State<MyApp> {
 //internet();
 //
     ReceivePort _port = ReceivePort();
-  CachedDate('Carecters', '0');
-  CachedDate('listCopmletion', []);
 
+  CachedDate('UserInformation',UserModel(user_name: null, email: null, level: null, character: null, update_at: DateTime.now().toString(), password: null, id: null));
 
 
 //

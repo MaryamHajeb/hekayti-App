@@ -45,6 +45,7 @@ import '../../../../main.dart';
 import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';
 import '../../../Home/presintation/page/HomePage.dart';
+import '../../../Regestrion/date/model/userMode.dart';
 import '../manager/Slied_bloc.dart';
 import '../manager/Slied_event.dart';
 import '../manager/Slied_state.dart';
@@ -64,13 +65,14 @@ class StoryPage extends StatefulWidget {
 
 class _StoryPageState extends State<StoryPage> {
   bool visiblety = true;
+  UserModel?  userModel ;
   Widget SliedWidget = Center();
   int star = 0;
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = true;
   var path;
   final player = AudioPlayer();
-  int Carecters_id = 0;
+
   int currentIndexPage = 0;
   String text_orglin = '';
   var pathiamge;
@@ -106,7 +108,7 @@ class _StoryPageState extends State<StoryPage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
+            '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
             'هل حقا تريد المغادره', () {
           Navigator.pop(context);
         }, () async {
@@ -192,7 +194,7 @@ class _StoryPageState extends State<StoryPage> {
                                     ontap: () {
                                       showImagesDialogWithCancleButten(
                                           context,
-                                          '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
+                                          '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
                                           'هل حقا تريد المغادره', () {
                                         Navigator.pop(context);
                                       }, () async {
@@ -508,7 +510,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                           ? star == 0
                                                                               ? showImagesDialog(
                                                                                   context,
-                                                                                  '${carectersobj.sadListCarecters[Carecters_id]['image']}',
+                                                                                  '${carectersobj.sadListCarecters[int.parse(userModel!.character)]['image']}',
                                                                                   '! يرجى تسجيل الصوت أولاً'
                                                                                       '', () {
                                                                                   Navigator.pop(context);
@@ -668,8 +670,10 @@ class _StoryPageState extends State<StoryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id = int.parse(getCachedDate('Carecters', String).toString());
     lisen = getCachedDate('Listen_to_story', bool) ?? '';
+
+    userModel =getCachedDate('UserInformation', UserModel.init());
+
     initpath();
   }
 
@@ -861,7 +865,7 @@ class _StoryPageState extends State<StoryPage> {
                 ? {
                     controller.play(),
                     showConfetti(context, controller,
-                        '${carectersobj.singListCarecters[Carecters_id]['image']}'),
+                        '${carectersobj.singListCarecters[int.parse(userModel!.character)]['image']}'),
                     pres = await db.getPercentage(widget.id.toString()),
                      await Future.delayed(Duration(seconds: 1)),
 
@@ -879,14 +883,14 @@ class _StoryPageState extends State<StoryPage> {
                   }
                 : showImagesDialogWithStar(
                     context,
-                    '${carectersobj.singListCarecters[Carecters_id]['image']}',
+                    '${carectersobj.singListCarecters[int.parse(userModel!.character)]['image']}',
                     'احسنت', () {
                     Navigator.pop(context);
                   }, star),
           }
         : showImagesDialogWithDoNotWill(
             context,
-            '${carectersobj.sadListCarecters[Carecters_id]['image']}',
+            '${carectersobj.sadListCarecters[int.parse(userModel!.character)]['image']}',
             'حاول مرة اخرى',
             text.length > 25
                 ? text.replaceRange(25, text.length, '....')

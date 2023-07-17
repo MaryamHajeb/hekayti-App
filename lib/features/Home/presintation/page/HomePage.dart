@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
@@ -50,14 +51,13 @@ class _HomePageState extends State<HomePage> {
   List<StoryModel> listStory2 = [];
   List<StoryModel> listStoryWithSearch = [];
   Carecters carectersobj = Carecters();
-  int collected_stars = 0;
-  int level = 0;
+  int? collected_stars = 0;
   int all_stars = 0;
   int stars = 0;
   bool bgm = false;
   bool islistToStory = true;
+  UserModel? userModel;
   final prefs = SharedPreferences.getInstance();
-  int Carecters_id = 0;
   int progress = 0;
   var statusProgrress;
   var path;
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[Carecters_id]['image']}',
+            '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
             'هل حقا تريد المغادره', () {
           Navigator.pop(context);
         }, () {
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (_context, state) {
                     if (state is StoryInitial) {
                       BlocProvider.of<StoryBloc>(_context)
-                          .add(GetAllStory(level.toString()));
+                          .add(GetAllStory(userModel!.level.toString()));
                     }
 
                     if (state is StoryLoading) {
@@ -115,6 +115,8 @@ class _HomePageState extends State<HomePage> {
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
+                      collected_stars = getCachedDate('collected_stars', String);
+                      all_stars = getCachedDate('all_stars', String);
                       listStory.clear();
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
@@ -131,17 +133,14 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: CustemIcon2(
-                                      icon: Image.asset(
-                                          '${carectersobj.showCarecters[Carecters_id]['image'] ?? 0}',
-                                          fit: BoxFit.cover),
-                                      ontap: () {
-                                        Navigator.push(context,
-                                            CustomPageRoute(child: lockPage()));
-                                      },
-                                    ),
+                                  CustemIcon2(
+                                    icon: Image.asset(
+                                        '${carectersobj.showCarecters[int.parse(userModel!.character)]['image'] ?? 0}',
+                                        fit: BoxFit.cover),
+                                    ontap: () {
+                                      Navigator.push(context,
+                                          CustomPageRoute(child: lockPage()));
+                                    },
                                   ),
                                   Container(
                                       decoration: BoxDecoration(
@@ -259,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                                                   onTap: () {
                                                     showImagesDialog(
                                                         context,
-                                                        '${carectersobj.showCarecters[Carecters_id]['image']}',
+                                                        '${carectersobj.showCarecters[int.parse(userModel!.character)]['image']}',
                                                         'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',
                                                         () {
                                                       Navigator.pop(context);
@@ -294,7 +293,7 @@ class _HomePageState extends State<HomePage> {
                                                             .isConnected) {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[Carecters_id]['image']}',
+                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character)]['image']}',
                                                               'اظغط على زر التنزيل من اجل تحميل هذة القصه',
                                                               () {
                                                             Navigator.pop(
@@ -303,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                                                         } else {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[Carecters_id]['image']}',
+                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character)]['image']}',
                                                               'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',
                                                               () {
                                                             Navigator.pop(
@@ -436,7 +435,6 @@ class _HomePageState extends State<HomePage> {
                                                                             isloading
                                                                                 ? Center(child: CircularProgressIndicator())
                                                                                 : IconButton(
-                                                                              
                                                                                     onPressed: () async {
                                                                                       setState(() => isloading = true);
                                                                                       await Future.delayed(Duration(seconds: 10));
@@ -444,8 +442,7 @@ class _HomePageState extends State<HomePage> {
                                                                                       await db.downloadMedia(state.storyModel[index]!.id.toString());
                                                                                       setState(() => isloading = false);
 
-                                                                                      BlocProvider.of<StoryBloc>(_context)
-                                                                                          .add(GetAllStory(level.toString()));
+                                                                                      BlocProvider.of<StoryBloc>(_context).add(GetAllStory(userModel!.level.toString()));
                                                                                     },
                                                                                     icon: Icon(
                                                                                       Icons.download,
@@ -556,35 +553,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     // if(networkInfo.isConnected)
+    userModel = getCachedDate('UserInformation', UserModel.init());
 
     initpath();
     listStoryWithSearch = listStory;
-    Carecters_id = int.parse(getCachedDate('Carecters', String).toString());
-    collected_stars = getCachedDate('collected_stars', String);
-    level = int.parse(getCachedDate('level', String).toString());
-    all_stars = getCachedDate('all_stars', String);
 
     if (collected_stars == 0 || all_stars == 0) {
       star_progrees = 0;
     } else {
-      star_progrees = collected_stars / all_stars;
+      star_progrees = (collected_stars! / all_stars)!;
     }
 
     //   db.syncApp(level.toString());
-  }
-
-  void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
-  }
-
-  static void downloadCallback(String id, int status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    // print(progress);
-    // print('progress');
-    // print(status);
-    send!.send([id, status, progress]);
   }
 
   insertStory(state) {
