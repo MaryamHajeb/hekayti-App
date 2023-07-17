@@ -25,8 +25,9 @@ import 'onboardingThree.dart';
 import 'onboardingTow.dart';
 
 class IntroScreen extends StatefulWidget {
-  IntroScreen({Key? key}) : super(key: key);
+  int index;
 
+  IntroScreen({Key? key,required this.index}) : super(key: key);
   @override
   State<IntroScreen> createState() => _IntroScreenState();
 }
@@ -34,11 +35,11 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   List<Widget> onboardingList = [
     onboardingOne(),
+    onboardingSix(),
     onboardingTow(),
     onboardingThree(),
     onboardingFour(),
     onboardingFive(),
-    onboardingSix(),
   ];
   ScreenUtil _screenUtil = ScreenUtil();
   Carecters carectersobj =Carecters();
@@ -58,6 +59,7 @@ int progress=0;
   @override
 
   Widget build(BuildContext context) {
+
     _screenUtil.init(context);
     return Scaffold(
       body: Form(
@@ -76,9 +78,18 @@ int progress=0;
             child: PageView.builder(
               controller: pageController,
               allowImplicitScrolling: false,
-              physics: NeverScrollableScrollPhysics(),
+            //  physics: NeverScrollableScrollPhysics(),
               itemCount: onboardingList.length,
               itemBuilder: (context, index) {
+                if(widget.index!=0){
+                index=widget.index;
+                currentIndexPage=widget.index;
+                print(index);
+                widget.index=0;
+                print(index);
+
+
+                }
                 return Stack(
                   children: [
                     isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp('جاري تحميل القصص  ')):
@@ -160,7 +171,7 @@ int progress=0;
 
 
                                                             print(index);
-                                                            if(index==2){
+                                                            if(index==3){
 
                                                               CachedDate('Carecters',0);
                                                               CachedDate('collected_stars',0);

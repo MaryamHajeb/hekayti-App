@@ -54,7 +54,7 @@ class _Splach_screenState extends State<Splach_screen>
 
     Timer(Duration(seconds: 4), () {
       setState(() {
-        Navigator.pushReplacement(context, PageTransition( islogin ?    HomePage():IntroScreen()));
+        Navigator.pushReplacement(context, PageTransition( islogin ?    HomePage():IntroScreen(index: 0,)));
       });
     });
   }
