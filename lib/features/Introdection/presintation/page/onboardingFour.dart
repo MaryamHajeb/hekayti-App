@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
@@ -45,7 +47,9 @@ ScreenUtil screenUtil=ScreenUtil();
                 });
 
                  int dd=int.parse(carecterslist.listcarecters[itemSelected]['id'].toString());
-                CachedDate('Carecters',itemSelected);
+                 UserModel? usermodel =getCachedDate('UserInformation', UserModel.init());
+
+                CachedDate('UserInformation',UserModel(user_name: usermodel?.user_name, email: usermodel?.email, level: usermodel?.level, character: itemSelected.toString(), update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
 
               }, isSelected: itemSelected==index?  true : false ,);
 

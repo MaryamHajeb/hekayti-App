@@ -88,7 +88,7 @@ class _onboardingSixState extends State<onboardingSix> {
     // TODO: implement initState
     super.initState();
 
-    Carecters_id= int.parse( getCachedDate('Carecters',String)) ?? 0;
+
 
   }
 }

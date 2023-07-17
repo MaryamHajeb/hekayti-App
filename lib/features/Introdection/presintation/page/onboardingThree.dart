@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/dataProviders/local_data_provider.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
@@ -81,7 +82,8 @@ TextEditingController  nameChiled=TextEditingController();
   }
 
   saveNameChlied()async{
-    CachedDate('nameChlied',nameChiled.text);
+    UserModel? usermodel =getCachedDate('UserInformation', UserModel.init());
+    CachedDate('UserInformation',UserModel(user_name: nameChiled.text, email: usermodel?.email, level: usermodel?.level, character: usermodel?.character, update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
 
   }
 
@@ -94,11 +96,12 @@ TextEditingController  nameChiled=TextEditingController();
 
 
 initname()async{
-  String?   t= await getCachedDate('nameChlied',String ?? '') ;
-  setState(() {
-    nameChiled.text=t!;
-
-  });
+  // String?   t= await getCachedDate('nameChlied',String ?? '') ;
+  //
+  // setState(() {
+  //   nameChiled.text=t!;
+  //
+  // });
 
 }
 

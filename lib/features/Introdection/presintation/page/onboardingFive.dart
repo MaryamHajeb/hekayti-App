@@ -9,6 +9,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemLevel.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../Regestrion/date/model/userMode.dart';
 
 class onboardingFive extends StatefulWidget {
   const onboardingFive({Key? key}) : super(key: key);
@@ -57,7 +58,10 @@ class _onboardingFiveState extends State<onboardingFive> {
                         });
 
                         int dd=int.parse(carecters.Levels[index]['num'].toString());
-                        CachedDate('level',dd);
+                        UserModel? usermodel =getCachedDate('UserInformation', UserModel.init());
+
+                        CachedDate('UserInformation',UserModel(user_name: usermodel?.user_name, email: usermodel?.email, level: itemSelected.toString(), character: usermodel?.character, update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
+
 
 
                       },

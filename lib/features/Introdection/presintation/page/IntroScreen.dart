@@ -16,6 +16,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
+import '../../../Regestrion/date/model/userMode.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import 'onboardingFive.dart';
 import 'onboardingFour.dart';
@@ -51,7 +52,7 @@ class _IntroScreenState extends State<IntroScreen> {
 int progress=0;
   bool  isLoading =false;
   int?  Carecters_id=0;
-
+  UserModel? userModel;
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
 
@@ -173,20 +174,22 @@ int progress=0;
                                                             print(index);
                                                             if(index==3){
 
-                                                              CachedDate('Carecters',0);
-                                                              CachedDate('collected_stars',0);
-                                                              CachedDate('all_stars',0);
-                                                              CachedDate('Listen_to_story',true);
+                                                              // CachedDate('Carecters',0);
+                                                              // CachedDate('collected_stars',0);
+                                                              // CachedDate('all_stars',0);
+                                                               CachedDate('Listen_to_story',true);
 
 
                                                             }if(index==2){
-                                                              CachedDate('level',1);
+
                                                             }
 
 
                                                             SharedPreferences prefs;
                                                             index==5 ?
                                                             {
+                                                               userModel = getCachedDate('UserInformation',UserModel.init() ),
+
                                                               if(await networkInfo
                                                                   .isConnected)
                                                                 {
@@ -202,9 +205,8 @@ int progress=0;
                                                                     true;
                                                                   }),
 
-                                                                     print(getCachedDate('level',String )),
-                                                                     print('getCachedDate'),
-                                                                   db.initApp(getCachedDate('level',String).toString(),'1'),
+
+                                                                   db.initApp(userModel!.level.toString(),'1'),
 
                                                                   await Future
                                                                       .delayed(
@@ -275,8 +277,7 @@ int progress=0;
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id= int.parse( getCachedDate('Carecters',String ));
-   // levelnum= getCachedDate('level',String );
+
 
   }
 
