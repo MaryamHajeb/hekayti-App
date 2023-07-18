@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   CustemIcon2(
                                     icon: Image.asset(
-                                        '${carectersobj.showCarecters[int.parse(userModel!.character)]['image'] ?? 0}',
+                                        '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image'] ?? 0}',
                                         fit: BoxFit.cover),
                                     ontap: () {
                                       Navigator.push(context,
@@ -438,7 +438,6 @@ class _HomePageState extends State<HomePage> {
                                                                                     onPressed: () async {
                                                                                       setState(() => isloading = true);
                                                                                       await Future.delayed(Duration(seconds: 10));
-
                                                                                       await db.downloadMedia(state.storyModel[index]!.id.toString());
                                                                                       setState(() => isloading = false);
 

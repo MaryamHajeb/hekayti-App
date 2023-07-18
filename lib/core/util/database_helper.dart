@@ -34,7 +34,8 @@ class DatabaseHelper{
 
 String TableName='meadia';
     StoryRepository? dd;
-   UserModel? userModel;
+   UserModel? userModel=    getCachedDate('UserInformation', UserModel.init());
+
 
   Future<Database?> get db async{
     if(_db != null){
@@ -538,7 +539,7 @@ print('downloadMedia');
         ruslt=await  insert(tableName: 'accuracy',data:
          accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),);
 
-        if(await networkInfo.isConnected &&userModel!= null ) {
+        if(await networkInfo.isConnected &&userModel!.id!= null ) {
           var remoteData_accruacy = await RemoteDataProvider(client: sl())
               .sendData(url: DataSourceURL.updateAccuracy, body: {
 
@@ -663,13 +664,9 @@ print('percentage in fun');
                   where: 'id=${localdata[0]['id']}'
 
               );
-              checkUserLoggedIn().fold((l) {
-                userModel = l;
-              }, (r) {
-                userModel = null;
-              });
 
-              if(await networkInfo.isConnected &&userModel!= null ) {
+
+              if(await networkInfo.isConnected &&userModel!.id!= null ) {
                 var remoteData_completion = await RemoteDataProvider(
                     client: sl()).sendData(
                     url: DataSourceURL.updateCompletion, body: {
@@ -685,10 +682,10 @@ print('percentage in fun');
               else{
                 listCopmletion.add({
                   'id':data.id,
-                   'status':'update',                 
+                   'status':'update',
                 });
-                
-                
+
+
               }
 
 
@@ -715,7 +712,7 @@ print('percentage in fun');
           //   'id':data.id,
           //   'status':'insert',
           // });
-          
+
         }
 
       }
@@ -797,22 +794,15 @@ initApp(String level, String id)async{
   }
 
 syncApp(String level,)async{
-  checkUserLoggedIn().fold((l) {
-    userModel = l;
-  }, (r) {
-    userModel = null;
-  }) ;
+
     checkStoryFound();
      checkMediaFound();
      await downloadStoriesCover();
 
-
-     if(userModel!=null){
+     if(userModel!.id!=null){
        updateUserDate(userModel!);
        if(listCopmletion.isNotEmpty==true){
-
          syncCompletion(listCopmletion,userModel!.id);
-
 
        }
      }
@@ -833,7 +823,7 @@ syncApp(String level,)async{
 
        element['status']=='update'?
        {
-       if(await networkInfo.isConnected &&userModel!= null ) {
+       if(await networkInfo.isConnected &&userModel!.id!= null ) {
 
          remoteData_completion =
          await RemoteDataProvider(client: sl()).sendData(

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
+import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../Regestrion/date/model/userMode.dart';
 
 class onboardingOne extends StatefulWidget {
   const onboardingOne({Key? key}) : super(key: key);
@@ -47,5 +49,12 @@ ScreenUtil screenUtil=ScreenUtil();
 
         ],
       );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    CachedDate('UserInformation',UserModel(user_name: null, email: null, level: 1, character: '0', update_at: DateTime.now().toString(), password: null, id: null));
+
   }
 }

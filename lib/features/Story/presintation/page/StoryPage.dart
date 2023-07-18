@@ -65,7 +65,7 @@ class StoryPage extends StatefulWidget {
 
 class _StoryPageState extends State<StoryPage> {
   bool visiblety = true;
-  UserModel?  userModel ;
+  UserModel? userModel;
   Widget SliedWidget = Center();
   int star = 0;
   ScreenUtil screenUtil = ScreenUtil();
@@ -146,22 +146,21 @@ class _StoryPageState extends State<StoryPage> {
                 }
 
                 if (state is SliedLoading) {
-                  SliedWidget =
-                      Container(
-                        height: double.infinity,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/backgraond.png',
-                                ),
-                                fit: BoxFit.fill)
-                        ),
-                        child: Center(child:
-                        Lottie.asset("assets/json/loading.json",width: 250,)
-
-                        ),
-                      );
+                  SliedWidget = Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/backgraond.png',
+                            ),
+                            fit: BoxFit.fill)),
+                    child: Center(
+                        child: Lottie.asset(
+                      "assets/json/loading.json",
+                      width: 250,
+                    )),
+                  );
                 }
 
                 if (state is SliedILoaded) {
@@ -666,17 +665,6 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    lisen = getCachedDate('Listen_to_story', bool) ?? '';
-
-    userModel =getCachedDate('UserInformation', UserModel.init());
-
-    initpath();
-  }
-
   initpath() async {
     var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
     path = externalDirectoryPath.toString();
@@ -846,7 +834,7 @@ class _StoryPageState extends State<StoryPage> {
           recognizing = false;
           isProcces = false;
         }));
-    star = await checkText(text_orglin, text, int.parse(getCachedDate('level', String).toString()));
+    star = await checkText(text_orglin, text, int.parse(userModel!.level.toString()));
     print(star);
     print('star');
 
@@ -867,8 +855,7 @@ class _StoryPageState extends State<StoryPage> {
                     showConfetti(context, controller,
                         '${carectersobj.singListCarecters[int.parse(userModel!.character)]['image']}'),
                     pres = await db.getPercentage(widget.id.toString()),
-                     await Future.delayed(Duration(seconds: 1)),
-
+                    await Future.delayed(Duration(seconds: 1)),
                     print(pres),
                     print('persintage'),
                     stars = (pres / 33).toInt(),
@@ -900,7 +887,8 @@ class _StoryPageState extends State<StoryPage> {
 
   int checkText(String originalText, String readText, int level) {
     if (level == 3) {
-      final int similarityPercentageInt = (StringSimilarity.compareTwoStrings(originalText, readText) * 100)
+      final int similarityPercentageInt =
+          (StringSimilarity.compareTwoStrings(originalText, readText) * 100)
               .toInt();
 
       if (similarityPercentageInt > 97) return 3;
@@ -947,6 +935,18 @@ class _StoryPageState extends State<StoryPage> {
         isSpack = !isSpack;
       });
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    lisen = getCachedDate('Listen_to_story', bool) ?? '';
+
+    userModel = getCachedDate('UserInformation', UserModel.init());
+
+
+    initpath();
   }
 
   @override

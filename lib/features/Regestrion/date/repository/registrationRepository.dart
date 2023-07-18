@@ -32,6 +32,7 @@ class RegistrationRepository extends Repository {
   late List<accuracyModel>  AccuracyModel;
   Future<Either<Failure, dynamic>> signup(
       {required String  password, email}) async {
+    userModel = getCachedDate('UserInformation', UserModel.init());
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
@@ -42,21 +43,17 @@ class RegistrationRepository extends Repository {
               body: {
                 'password':Encryption.instance.encrypt(password) ,
                 'email': email,
-                'character': '${getCachedDate('Carecters', String)}',
-                'level': '${getCachedDate('level',String)}',
-                'user_name': getCachedDate('nameChlied',String),
+                'character': userModel!.character.toString(),
+                'level': userModel.level.toString(),
+                'user_name': userModel.user_name,
 
               });
 
-          localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name: getCachedDate('nameChlied',String), email: email, level: getCachedDate('level',String), character: getCachedDate('Carecters', String), update_at:  DateTime.now().millisecondsSinceEpoch.toString(), password: password, id: remoteData.toString()));
-          //localDataProvider.cacheData(key: 'User_id', data: remoteData.toString());
-           UserModel user_id =await localDataProvider.getCachedData(key: 'UserInformation', retrievedDataType: UserModel.init());
-             print('localDataProvider');
-             print(user_id);
-             print('user_id');
-          await   db.initApp(getCachedDate('level', String).toString(), '1');
-          await  db.uploadAccuracy(user_id.id);
-          await    db.uploadCompletion(user_id.id);
+          localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name:userModel.user_name, email: email, level: userModel.level, character: userModel.character, update_at:  DateTime.now().toString(), password: Encryption.instance.encrypt(password), id: remoteData.toString()));
+           print(remoteData);
+         // await   db.initApp(userModel.level.toString(), '1');
+          await  db.uploadAccuracy(remoteData);
+          await    db.uploadCompletion(remoteData);
           await Future.delayed(Duration(seconds: 1));
 
           return remoteData;

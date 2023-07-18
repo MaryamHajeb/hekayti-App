@@ -297,6 +297,7 @@ class _SettingPageState extends State<SettingPage> {
 
     chartModel.forEach((element) {
       print(element.accuracy_stars);
+
       print('element.accuracy_stars');
       stars.add(double.parse(element.accuracy_stars.toString()));
 

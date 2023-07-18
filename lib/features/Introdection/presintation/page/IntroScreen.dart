@@ -39,8 +39,9 @@ class _IntroScreenState extends State<IntroScreen> {
     onboardingSix(),
     onboardingTow(),
     onboardingThree(),
-    onboardingFour(),
     onboardingFive(),
+    onboardingFour(),
+
   ];
   ScreenUtil _screenUtil = ScreenUtil();
   Carecters carectersobj =Carecters();
@@ -189,7 +190,7 @@ int progress=0;
                                                             index==5 ?
                                                             {
                                                                userModel = getCachedDate('UserInformation',UserModel.init() ),
-
+                                                                print(userModel!.level),
                                                               if(await networkInfo
                                                                   .isConnected)
                                                                 {

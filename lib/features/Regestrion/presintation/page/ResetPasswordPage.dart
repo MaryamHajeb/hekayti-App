@@ -28,7 +28,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   bool requestPending = false;
   Carecters carectersobj =Carecters();
-  int  Carecters_id=0;
   ScreenUtil screenUtil=ScreenUtil();
 TextEditingController userpassword = TextEditingController();
 TextEditingController newpassword = TextEditingController();
@@ -132,13 +131,11 @@ TextEditingController CofemPassword = TextEditingController();
                                                 if (value!.isEmpty) {
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
-                                                if (Encryption.instance.checkIsCorrect(userpassword.text, userModel!.password)!=0 ) {
+
+                                                if (Encryption.instance.checkIsCorrect(userpassword.text, userModel!.password.toString())!=0 ) {
                                                   return 'كلمة المرور غير صحيحة';
                                                 }
-                                                else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                    .hasMatch(value)) {
-                                                  return "عذراً الإيميل الذي ادخلته غير صحيح";
-                                                }
+
 
 
                                                 return null;
@@ -242,12 +239,7 @@ TextEditingController CofemPassword = TextEditingController();
   void initState() {
     // TODO: implement initState
     super.initState();
-    Carecters_id=  getCachedDate('Carecters',String);
-    checkUserLoggedIn().fold((l) {
-      userModel = l;
-    }, (r) {
-      userModel = null;
-    });
-
+    userModel = getCachedDate('UserInformation', UserModel.init());
+   print(userModel!.password);
   }
 }

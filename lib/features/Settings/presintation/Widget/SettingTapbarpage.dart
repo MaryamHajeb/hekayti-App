@@ -176,7 +176,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           SizedBox(
             height: 20,
           ),
-          userModel != null
+          userModel!.email != null
               ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -220,9 +220,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                         db.deleteTable('stories_media');
                         db.deleteTable('completion');
                         db.deleteTable('accuracy');
-                        CachedDate('nameChlied','');
-                        CachedDate('Carecters',0);
-                        CachedDate('level',1);
                         CachedDate('UserInformation',[]);
                         Navigator.pushReplacement(
                             context,
@@ -322,39 +319,34 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   }
 
   initCarecters() async {
-    int? carectersnum = await int.parse(getCachedDate('Carecters', String).toString());
-    int? levels = await int.parse(getCachedDate('level', String).toString());
-    print(levels);
-    print('levels');
-    String? t = await getCachedDate('nameChlied', String) ?? '';
+    userModel = getCachedDate('UserInformation', UserModel.init());
+
+
+
+
     bool lisent = await getCachedDate('Listen_to_story', bool) ?? '';
-    checkUserLoggedIn().fold((l) {
-      userModel = l;
-    }, (r) {
-      userModel = null;
-    });
+
+
 
     setState(() {
-      nameChiled.text = t ?? '';
-      itemSelected = carectersnum ?? 10;
-      itemSelectedlevel = levels!-1;
+      nameChiled.text = userModel!.user_name;
+      itemSelected = int.parse(userModel!.character.toString()) ;
+      itemSelectedlevel = int.parse(userModel!.level.toString())-1;
       print(itemSelectedlevel);
+      print('itemSelectedlevel');
+
       chackboxStata = lisent;
     });
   }
 
   saveNewSttings() async{
-    int carecters =
-        int.parse(carecterslist.listcarecters[itemSelected]['id'].toString());
-    int level =
-        int.parse(carecterslist.Levels[itemSelectedlevel]['num'].toString());
-    CachedDate('Carecters', carecters);
-    CachedDate('nameChlied', nameChiled.text);
-    CachedDate('level', level);
-    CachedDate('Listen_to_story', chackboxStata);
-     if(userModel!=null&& await networkInfo.isConnected){
 
-       db.updateUserDate(UserModel(user_name: nameChiled.text, email: userModel!.email.toString(), level: level.toString(), character: carecters.toString(), update_at:  DateTime.now().millisecondsSinceEpoch.toString(), password: userModel!.password, id: userModel!.id.toString()));
+    CachedDate('UserInformation',UserModel(user_name: nameChiled.text, email: userModel!.email, level: (itemSelectedlevel+1).toString(), character: itemSelected.toString(), update_at: DateTime.now().toString(), password: userModel!.password, id: userModel!.id));
+
+
+    CachedDate('Listen_to_story', chackboxStata);
+     if(userModel!.id!=null&& await networkInfo.isConnected){
+       db.updateUserDate(userModel!);
      }
 
 

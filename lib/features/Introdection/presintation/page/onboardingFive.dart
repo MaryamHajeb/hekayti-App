@@ -60,7 +60,7 @@ class _onboardingFiveState extends State<onboardingFive> {
                         int dd=int.parse(carecters.Levels[index]['num'].toString());
                         UserModel? usermodel =getCachedDate('UserInformation', UserModel.init());
 
-                        CachedDate('UserInformation',UserModel(user_name: usermodel?.user_name, email: usermodel?.email, level: itemSelected.toString(), character: usermodel?.character, update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
+                        CachedDate('UserInformation',UserModel(user_name: usermodel?.user_name, email: usermodel?.email, level: dd, character: usermodel?.character, update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
 
 
 
