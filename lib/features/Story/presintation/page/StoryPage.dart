@@ -108,7 +108,7 @@ class _StoryPageState extends State<StoryPage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
+            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
             'هل حقا تريد المغادره', () {
           Navigator.pop(context);
         }, () async {
@@ -193,7 +193,7 @@ class _StoryPageState extends State<StoryPage> {
                                     ontap: () {
                                       showImagesDialogWithCancleButten(
                                           context,
-                                          '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
+                                          '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
                                           'هل حقا تريد المغادره', () {
                                         Navigator.pop(context);
                                       }, () async {
@@ -509,7 +509,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                           ? star == 0
                                                                               ? showImagesDialog(
                                                                                   context,
-                                                                                  '${carectersobj.sadListCarecters[int.parse(userModel!.character)]['image']}',
+                                                                                  '${carectersobj.sadListCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                                                   '! يرجى تسجيل الصوت أولاً'
                                                                                       '', () {
                                                                                   Navigator.pop(context);
@@ -834,7 +834,8 @@ class _StoryPageState extends State<StoryPage> {
           recognizing = false;
           isProcces = false;
         }));
-    star = await checkText(text_orglin, text, int.parse(userModel!.level.toString()));
+    star = await checkText(
+        text_orglin, text, int.parse(userModel!.level.toString()));
     print(star);
     print('star');
 
@@ -845,7 +846,7 @@ class _StoryPageState extends State<StoryPage> {
               readed_text: text,
               accuracy_stars: star,
               updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ')
-                  .format(DateTime.now().toUtc()),
+                  .format(DateTime.now()),
             )),
             print(reuslt),
             print('result'),
@@ -853,7 +854,7 @@ class _StoryPageState extends State<StoryPage> {
                 ? {
                     controller.play(),
                     showConfetti(context, controller,
-                        '${carectersobj.singListCarecters[int.parse(userModel!.character)]['image']}'),
+                        '${carectersobj.singListCarecters[int.parse(userModel!.character.toString())]['image']}'),
                     pres = await db.getPercentage(widget.id.toString()),
                     await Future.delayed(Duration(seconds: 1)),
                     print(pres),
@@ -870,14 +871,14 @@ class _StoryPageState extends State<StoryPage> {
                   }
                 : showImagesDialogWithStar(
                     context,
-                    '${carectersobj.singListCarecters[int.parse(userModel!.character)]['image']}',
+                    '${carectersobj.singListCarecters[int.parse(userModel!.character.toString())]['image']}',
                     'احسنت', () {
                     Navigator.pop(context);
                   }, star),
           }
         : showImagesDialogWithDoNotWill(
             context,
-            '${carectersobj.sadListCarecters[int.parse(userModel!.character)]['image']}',
+            '${carectersobj.sadListCarecters[int.parse(userModel!.character.toString())]['image']}',
             'حاول مرة اخرى',
             text.length > 25
                 ? text.replaceRange(25, text.length, '....')
@@ -944,7 +945,6 @@ class _StoryPageState extends State<StoryPage> {
     lisen = getCachedDate('Listen_to_story', bool) ?? '';
 
     userModel = getCachedDate('UserInformation', UserModel.init());
-
 
     initpath();
   }

@@ -124,20 +124,15 @@ TextEditingController CofemPassword = TextEditingController();
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             Text('كلمة المرور الحالية',style: AppTheme.textTheme.headline3,),
-
                                             CustemInput(
                                               size: 250,
                                               valdution: (value){
                                                 if (value!.isEmpty) {
                                                   return 'الرجاء تعبئة الحقل';
                                                 }
-
                                                 if (Encryption.instance.checkIsCorrect(userpassword.text, userModel!.password.toString())!=0 ) {
                                                   return 'كلمة المرور غير صحيحة';
                                                 }
-
-
-
                                                 return null;
                                               },controler:userpassword ,text: 'كلمة المرور الحاليه',type: TextInputType.text,),
 

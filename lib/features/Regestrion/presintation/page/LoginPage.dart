@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   bool requestPending = false;
   final _loginFormKey = GlobalKey<FormState>();
-
+  bool isLodaing=false;
   ScreenUtil screenUtil=ScreenUtil();
 TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
@@ -43,6 +43,17 @@ TextEditingController CofemPassword = TextEditingController();
     screenUtil.init(context);
     return Scaffold(body:
 
+    isLodaing ?
+    Container(
+        height: screenUtil.screenHeight * 1,
+        width: screenUtil.screenWidth * 1,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/backgraond.png'),
+                fit: BoxFit.fill)),
+        child: initApp('جاري تحميل القصص....')
+
+    ):
 
     BlocProvider(
       create: (context) => sl<RegistrationBloc>(),
@@ -186,9 +197,11 @@ TextEditingController CofemPassword = TextEditingController();
                                             'سوف تفقد جميع بياناتك الحاليه'
                                         ,(){
                                             Navigator.pop(context);
-                                            },(){
+                                            },()async{
                                               Navigator.pop(context);
-
+                                              setState(() {
+                                                isLodaing=true;
+                                              });
                                               print('ok');
                                               BlocProvider.of<RegistrationBloc>(
                                                   _context).add(
@@ -197,16 +210,24 @@ TextEditingController CofemPassword = TextEditingController();
                                                   password: password.text,
                                                 ),
                                               );
+                                              await Future.delayed(Duration(seconds: 20));
+
+                                              setState(() {
+                                                isLodaing=false;
+                                              });
                                               print(
                                                   '-----------------------------------------------');
-                                                initApp('جاري تحكميل القصص....');
+
+
                                               print(email.text);
                                               print(
                                                   '-----------------------------------------------');
                                               setState(() {
                                                 requestPending = true;
                                               });
-
+                                              Navigator.push(
+                                                  context,
+                                                  CustomPageRoute(  child:   HomePage()));
                                             }
                                         );
 

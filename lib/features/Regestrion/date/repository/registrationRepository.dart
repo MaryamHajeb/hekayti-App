@@ -6,6 +6,7 @@ import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
@@ -63,7 +64,7 @@ class RegistrationRepository extends Repository {
   Future<Either<Failure, dynamic>> login(
       {required String password,required String email}) async {
 
-
+    var  prefs = await SharedPreferences.getInstance();
 
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
@@ -107,7 +108,9 @@ class RegistrationRepository extends Repository {
 
 
           db.checkCompletionFound(completionData);
-          await Future.delayed(Duration(seconds: 1));
+
+          prefs.setBool('onbording', true);
+          await Future.delayed(Duration(seconds: 20));
 
           return remoteData;
         });

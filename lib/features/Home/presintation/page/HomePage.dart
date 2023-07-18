@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[int.parse(userModel!.character)]['image']}',
+            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
             'هل حقا تريد المغادره', () {
           Navigator.pop(context);
         }, () {
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
 
                     if (state is StoryLoading) {
                       StoryWidget =
-                          Center(child: initApp('جاري تجهيز القصص  '));
+                          Center(child: initApp('جاري تجهيز القصص .....  '));
                     }
 
                     if (state is StoryILoaded) {
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                                                   onTap: () {
                                                     showImagesDialog(
                                                         context,
-                                                        '${carectersobj.showCarecters[int.parse(userModel!.character)]['image']}',
+                                                        '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                         'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',
                                                         () {
                                                       Navigator.pop(context);
@@ -293,7 +293,7 @@ class _HomePageState extends State<HomePage> {
                                                             .isConnected) {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character)]['image']}',
+                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                               'اظغط على زر التنزيل من اجل تحميل هذة القصه',
                                                               () {
                                                             Navigator.pop(
@@ -302,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                                                         } else {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character)]['image']}',
+                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                               'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',
                                                               () {
                                                             Navigator.pop(

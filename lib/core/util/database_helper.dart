@@ -30,7 +30,6 @@ import '../../main.dart';
 class DatabaseHelper{
    Database? _db ;
    var path;
-   List listCopmletion=    CachedDate('listCopmletion', []);
 
 String TableName='meadia';
     StoryRepository? dd;
@@ -502,6 +501,8 @@ print('downloadMedia');
 
   //UPDATE AND INSERT ACCURACY FROM LOCALY
   addAccuracy(accuracyModel data)async{
+    print(userModel!.id);
+    print('userModel!.id');
         int ruslt=0;
       dynamic localdata=await foundRecord('media_id',data.media_id,'accuracy');
       if(await localdata!=null) {
@@ -524,13 +525,15 @@ print('downloadMedia');
 
           var remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadAccuracy, body: {
 
-            'user_id': getCachedDate('User_id', String),
+            'user_id': userModel!.id,
             'updated_at': data.updated_at,
             'readed_text':data.readed_text,
             'media_id': data.media_id,
             'accuracy_stars':data.accuracy_stars
 
-          }, retrievedDataType: String);
+          }, retrievedDataType: String,
+          returnType: String
+          );
 
         }
       }
@@ -540,19 +543,21 @@ print('downloadMedia');
          accuracyModel(media_id: data.media_id, readed_text: data.readed_text, accuracy_stars: data.accuracy_stars, updated_at: data.updated_at),);
 
         if(await networkInfo.isConnected &&userModel!.id!= null ) {
-          var remoteData_accruacy = await RemoteDataProvider(client: sl())
-              .sendData(url: DataSourceURL.updateAccuracy, body: {
+          String remoteData_accruacy = await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.updateAccuracy, body: {
 
-            'user_id': getCachedDate('User_id', int),
+            'user_id': userModel!.id.toString(),
             'updated_at': data.updated_at,
             'readed_text': data.readed_text,
-            'media_id': data.media_id,
-            'accuracy_stars': data.accuracy_stars
-          }, retrievedDataType: String);
+            'media_id': data.media_id.toString(),
+            'accuracy_stars': data.accuracy_stars.toString()
+          }, retrievedDataType: String,
+          returnType: String
+          );
         }
 
       }
-return ruslt;
+
+    return ruslt;
   }
 
   //UPLODE DATA FROM LOCALY IF THE USER WORK THE STORY BUT NOT LOGIN
@@ -671,13 +676,15 @@ print('percentage in fun');
                     client: sl()).sendData(
                     url: DataSourceURL.updateCompletion, body: {
 
-                  'user_id': '1',
+                  'user_id': userModel!.id,
                   'stars': data.stars,
                   'percentage': data.percentage,
                   'story_id': data.story_id,
                   'updated_at': data.updated_at,
 
-                }, retrievedDataType: String);
+                }, retrievedDataType: String,
+                returnType: String
+                );
               }
               else{
                 listCopmletion.add({
@@ -696,17 +703,20 @@ print('percentage in fun');
         insert(tableName: 'completion',data:CompletionModel(updated_at: data.updated_at, percentage: data.percentage, story_id: data.story_id, stars: data.stars)
         );
 
-        if(await networkInfo.isConnected &&userModel!= null ) {
+        if(await networkInfo.isConnected &&userModel!.id!= null ) {
           var remoteData_accruacy = await RemoteDataProvider(client: sl())
               .sendData(url: DataSourceURL.uploadCompletion, body: {
 
-            'user_id': '1',
-            'stars': data.stars,
-            'percentage': data.percentage,
-            'story_id': data.story_id,
+            'user_id': userModel!.id.toString(),
+            'stars': data.stars.toString(),
+            'percentage': data.percentage.toString(),
+            'story_id': data.story_id.toString(),
             'updated_at': data.updated_at,
 
-          }, retrievedDataType: String);
+          }, retrievedDataType: String,
+            returnType: String
+
+          );
         }else{
           // listCopmletion.add({
           //   'id':data.id,

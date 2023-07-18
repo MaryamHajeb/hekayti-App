@@ -55,6 +55,7 @@ ScreenUtil screenUtil=ScreenUtil();
     // TODO: implement initState
     super.initState();
     CachedDate('UserInformation',UserModel(user_name: null, email: null, level: 1, character: '0', update_at: DateTime.now().toString(), password: null, id: null));
+    CachedDate('Listen_to_story',true);
 
   }
 }

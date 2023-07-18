@@ -169,21 +169,9 @@ int progress=0;
                                                           // If the form is valid, display a snackbar. In the real world,
 
 
+                                                           print(index);
 
 
-
-                                                            print(index);
-                                                            if(index==3){
-
-                                                              // CachedDate('Carecters',0);
-                                                              // CachedDate('collected_stars',0);
-                                                              // CachedDate('all_stars',0);
-                                                               CachedDate('Listen_to_story',true);
-
-
-                                                            }if(index==2){
-
-                                                            }
 
 
                                                             SharedPreferences prefs;

@@ -211,19 +211,24 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
                     ElevatedButton(
                       onPressed: ()async {
-
-                        SharedPreferences prefs;
-                        // prefs = await SharedPreferences.getInstance();
-                        // prefs.setBool('onbording', false);
-                        CachedDate('onbording','true');
-                        db.deleteTable('stories');
-                        db.deleteTable('stories_media');
-                        db.deleteTable('completion');
-                        db.deleteTable('accuracy');
-                        CachedDate('UserInformation',[]);
-                        Navigator.pushReplacement(
+                        showImagesDialogWithCancleButten(
                             context,
-                            CustomPageRoute(  child:   MyApp()));
+                            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
+                            'هل حقا تريد تسجيل الخروج', () {
+                          Navigator.pop(context);
+                        }, () async {
+
+                          CachedDate('onbording','true');
+                          db.deleteTable('stories');
+                          db.deleteTable('stories_media');
+                          db.deleteTable('completion');
+                          db.deleteTable('accuracy');
+                          CachedDate('UserInformation',[]);
+                          Navigator.pushReplacement(
+                              context,
+                              CustomPageRoute(  child:   MyApp()));
+                        });
+
                       },
                       child: Text('تسجيل الخروج',style: AppTheme.textTheme.bodyText1),
                       style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade500) ),
