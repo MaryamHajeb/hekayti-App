@@ -223,7 +223,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                           db.deleteTable('stories_media');
                           db.deleteTable('completion');
                           db.deleteTable('accuracy');
-                          CachedDate('UserInformation',[]);
                           Navigator.pushReplacement(
                               context,
                               CustomPageRoute(  child:   MyApp()));

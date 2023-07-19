@@ -29,12 +29,18 @@ class RegistrationRepository extends Repository {
     required this.networkInfo,
   });
   late  UserModel userModel;
+  SharedPreferences? prefs;
+  bool islogin=false;
   late List<CompletionModel> completionModel;
   late List<accuracyModel>  AccuracyModel;
   Future<Either<Failure, dynamic>> signup(
       {required String  password, email}) async {
     userModel = getCachedDate('UserInformation', UserModel.init());
+    final prefs = await SharedPreferences.getInstance();
+    islogin=await prefs.getBool('onbording')??false;
+
     return await sendRequest(
+
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
           final remoteData = await remoteDataProvider.sendData(
@@ -46,13 +52,17 @@ class RegistrationRepository extends Repository {
                 'email': email,
                 'character': userModel!.character.toString(),
                 'level': userModel.level.toString(),
-                'user_name': userModel.user_name,
+                'user_name': userModel.user_name??'M',
 
               });
+          print(remoteData);
 
           localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name:userModel.user_name, email: email, level: userModel.level, character: userModel.character, update_at:  DateTime.now().toString(), password: Encryption.instance.encrypt(password), id: remoteData.toString()));
-           print(remoteData);
-         // await   db.initApp(userModel.level.toString(), '1');
+         islogin? {
+         await db.initApp(userModel.level.toString(), '1'),
+         await Future.delayed(Duration(seconds : 19))
+        }:
+
           await  db.uploadAccuracy(remoteData);
           await    db.uploadCompletion(remoteData);
           await Future.delayed(Duration(seconds: 1));

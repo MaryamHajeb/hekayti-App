@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:hikayati_app/features/Introdection/presintation/page/IntroScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
@@ -30,6 +32,7 @@ class _SignupPageState extends State<SignupPage> {
 TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
 TextEditingController CofemPassword = TextEditingController();
+  bool islogin=false;
   final _signupFormKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ TextEditingController CofemPassword = TextEditingController();
     return Scaffold(body:   BlocProvider(
       create: (context) => sl<RegistrationBloc>(),
       child: BlocConsumer<RegistrationBloc, RegistrationState>(
-        listener: (_context, state) {
+        listener: (_context, state) async{
     if (state is RegistrationLoading) {
       setState(() {
         requestPending = false;
@@ -48,10 +51,17 @@ TextEditingController CofemPassword = TextEditingController();
             setState(() {
               requestPending = false;
             });
+            final prefs = await SharedPreferences.getInstance();
+            islogin=await prefs.getBool('onbording')??false;
 
+
+            islogin?  Navigator.push(
+                context,
+                CustomPageRoute(  child:   HomePage())):
             Navigator.push(
                 context,
-                CustomPageRoute(  child:   HomePage()));
+                CustomPageRoute(  child:   IntroScreen(index: 2,)));
+
 
           } else if (state is RegisterError) {
             setState(() {

@@ -42,8 +42,7 @@ void main() async{
 
   final prefs = await SharedPreferences.getInstance();
   islogin=await prefs.getBool('onbording')??false;
- carecters= await  prefs.getString('Carecters') ?? '';
-//  await db.intDB();
+
 
 
 
