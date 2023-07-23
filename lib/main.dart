@@ -28,11 +28,9 @@ import 'package:flame_audio/flame_audio.dart';
 import 'injection_container.dart';
 DatabaseHelper db = new DatabaseHelper();
  NetworkInfo networkInfo =NetworkInfoImpl(sl());
-String carecters='';
+
 bool islogin=false;
 int idfrochart=0;
-bool isChart=true;
-List<dynamic> listCopmletion=[];
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   FlameAudio.bgm.initialize();
@@ -87,7 +85,6 @@ class _MyAppState extends State<MyApp> {
       ),
       home:Splach_screen()
 
-      //islogin ? HomePage():IntroScreen(),
     );
   }
 
@@ -95,128 +92,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-//internet();
-//
-
-
-
-//
-//
-//
-//      var dd=db.insert(data:WebStoryModel(id: 1, cover_photo: '1_1_sc.jpg', story_order: 'story_order', updated_at: '2023-06-02T06:12:00.000000Z', author: 'author', level: '1', required_stars: '2', name: 'STORY1'), tableName: '"stories" ');
-//      var dd1=db.insert(data:WebStoryModel(id: 3, cover_photo: '1_2_sc.jpg', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '5', name: 'STORY2'), tableName: '"stories" ');
-//     var dd2=db.insert(data:WebStoryModel(id: 2, cover_photo: '1_3_sc.jpg', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '7', name: 'STORY3'), tableName: '"stories" ');
-//     var dd3=db.insert(data:WebStoryModel(id: 4, cover_photo: '1_4_sc.jpg', story_order: 'story_order', updated_at: '2023-06-04T06:10:04.000000Z', author: 'author', level: '1', required_stars: '4', name: 'STORY4'), tableName: '"stories" ');
-//
-//
-//
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'سار احمد الى المدرسه', updated_at: 'updated_at', page_no: '1'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'اسامه حاضر', updated_at: 'updated_at', page_no: '2'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'هشام يشتغل ', updated_at: 'updated_at', page_no: '3'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'الحرازي ماشاء الله عليه كمل العمل حقه', updated_at: 'updated_at', page_no: '4'), tableName: 'stories_media');
-// db.insert(data: StoryMediaModel(story_id: '1' , photo: 'photo', sound: 'sound', text: 'محمد راقد', updated_at: 'updated_at', page_no: '5'), tableName: 'stories_media');
-//
-// db.insert(data: accuracyModel(media_id: '1', readed_text: 'سار احمد الى المدرسه اليوم', accuracy_stars:'3', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '2', readed_text: '1سار احمد الى المدرسه اليوم', accuracy_stars:'2', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '3', readed_text: 'سار احمد الى المدرسه اليوم2', accuracy_stars:'3', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '4', readed_text: 'سار احمد الى المدرسه اليوم3', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
-// db.insert(data: accuracyModel(media_id: '5', readed_text: 'سار احمد الى المدرسه اليوم4', accuracy_stars:'1', updated_at: "2022"), tableName: 'accuracy');
-//
-//
-// db.insert(data: {
-//   'id':1,
-//   'stars':'2',
-//   'story_id':'1',
-//   'updated_at':'2:22',
-//   'percentage':'80'
-//
-// }, tableName: 'completion');
-// db.insert(data: {
-//   'id':2,
-//   'stars':'3',
-//   'story_id':'2',
-//   'updated_at':'2:22',
-//   'percentage':'100'
-
-//
-// }, tableName: 'completion');
-
-// db.insert(data: {
-//   'id':3,
-//   'stars':'2',
-//   'story_id':'1',
-//   'updated_at':'2:22',
-//   'percentage':'80'
-//
-// }, tableName: 'completion');
-// db.insert(data: {
-//   'id':4,
-//   'stars':'3',
-//   'story_id':'4',
-//   'updated_at':'2:22',
-//   'percentage':'80'
-//
-// }, tableName: 'completion');
-//
-
-  // var dd=  RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.login, body: {
-  //    'email':'abdu22@gmail.com',
-  //    'password':'123456',
-  //
-  // }, retrievedDataType: String);
-
-
-
-
-
-  // print(dd);
-  // FlameAudio.bgm.play('bgm.mp3',volume: 100);
- //  db.initApp('2', '1');
-//  ReceivePort _port = ReceivePort();
-//    db.downloadStoriesCover();
-//   FlutterDownloader.registerCallback(downloadCallback, step: 1);
-//
-//
-//
-//   IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-//   _port.listen((dynamic data) {
-//     String id = data[0];
-//     print(id);
-//     DownloadTaskStatus status = DownloadTaskStatus(data[1]);
-//     int progress = data[2];
-//     print(status);
-//     setState((){ });
-//   });
-//
-//
-//   }
-//
-// static  void downloadCallback(String id, int status, int progress) {
-//     final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-//     print(progress);
-//     print('progress');
-//     print(status);
-//
-//     send!.send([id, status, progress]);
-//   }
-//
-//   void dispose() {
-//     IsolateNameServer.removePortNameMapping('downloader_send_port');
-//     super.dispose();
-//     }
-//
-//
-//
-//   internet()async{
-//     await networkInfo.isConnected ?print('internt'):print('notinternt');
-//   }
-
- // CachedDate('level','1');
-
- // db.initApp('1');
-
-
-
 
 }
 

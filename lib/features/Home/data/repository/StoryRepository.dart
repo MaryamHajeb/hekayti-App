@@ -13,6 +13,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../../dataProviders/network/data_source_url.dart';
+import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';
 
 
@@ -20,7 +21,6 @@ class StoryRepository extends Repository{
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
-  DatabaseHelper db = new DatabaseHelper();
 
 
   StoryRepository({

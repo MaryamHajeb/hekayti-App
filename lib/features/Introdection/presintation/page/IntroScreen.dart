@@ -84,14 +84,19 @@ int progress=0;
               itemCount: onboardingList.length,
               itemBuilder: (context, index) {
                 if(widget.index!=0){
-                index=widget.index;
-                currentIndexPage=widget.index;
-                print(index);
-                widget.index=0;
-                print(index);
+                  pageController.animateToPage(widget.index,duration: Duration(seconds: 1,),curve: Curves.bounceInOut,);
+                  // pageController.position.hasContentDimensions;
+                  // pageController.jumpToPage(2);
 
+                    widget.index=0;
+                  print(index);
+
+
+                  print('index');
 
                 }
+                print(index);
+                print('index');
                 return Stack(
                   children: [
                     isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp('جاري تحميل القصص  ')):
@@ -99,6 +104,7 @@ int progress=0;
                     Center(
                       child: Column(
                           children: [
+
 
                             Directionality(
                               textDirection: TextDirection.rtl,
@@ -164,6 +170,7 @@ int progress=0;
                                                     ),
                                                     InkWell(
                                                       onTap: () async{
+
 
                                                         if (_formKey.currentState!.validate()){
                                                           // If the form is valid, display a snackbar. In the real world,

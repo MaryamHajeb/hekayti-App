@@ -48,21 +48,18 @@ class _HomePageState extends State<HomePage> {
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController search = TextEditingController();
   List<StoryModel> listStory = [];
-  List<StoryModel> listStory2 = [];
   List<StoryModel> listStoryWithSearch = [];
   Carecters carectersobj = Carecters();
   int? collected_stars = 0;
   int all_stars = 0;
   int stars = 0;
   bool bgm = false;
-  bool islistToStory = true;
   UserModel? userModel;
   final prefs = SharedPreferences.getInstance();
   int progress = 0;
   var statusProgrress;
   var path;
   bool isloading = false;
-  ReceivePort _port = ReceivePort();
   double star_progrees = 0;
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -293,9 +290,10 @@ class _HomePageState extends State<HomePage> {
                                                             .isConnected) {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character.toString())]['image']}',
+                                                              '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                               'اظغط على زر التنزيل من اجل تحميل هذة القصه',
                                                               () {
+
                                                             Navigator.pop(
                                                                 context);
                                                           });
@@ -415,12 +413,7 @@ class _HomePageState extends State<HomePage> {
                                                                               File('${path + '/' + state.storyModel[index]!.cover_photo}'),
                                                                               fit: BoxFit.cover,
                                                                             ),
-                                                                            // child: Image.memory(
-                                                                            //
-                                                                            //   converToBase64(widget.photo.toString()
-                                                                            //   ),
-                                                                            //   fit: BoxFit.cover,
-                                                                            //   ),
+
                                                                           ),
                                                                         ),
                                                                         Row(
@@ -432,12 +425,18 @@ class _HomePageState extends State<HomePage> {
                                                                             SizedBox(
                                                                               width: 30,
                                                                             ),
-                                                                            isloading
-                                                                                ? Center(child: CircularProgressIndicator())
-                                                                                : IconButton(
+                                                                            IconButton(
                                                                                     onPressed: () async {
                                                                                       setState(() => isloading = true);
+                                                                                    showDialog(context: context, builder: (context) {
+
+                                                                                    return
+                                                                                      initApp('جاري تحميل القصه');
+
+                                                                                    },);
+
                                                                                       await Future.delayed(Duration(seconds: 10));
+                                                                                      Navigator.pop(context);
                                                                                       await db.downloadMedia(state.storyModel[index]!.id.toString());
                                                                                       setState(() => isloading = false);
 
@@ -553,7 +552,8 @@ class _HomePageState extends State<HomePage> {
 
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
-
+    all_stars=int.parse(getCachedDate('all_stars', String).toString());
+    collected_stars=int.parse(getCachedDate('collected_stars', String).toString());
     initpath();
     listStoryWithSearch = listStory;
 
@@ -566,11 +566,6 @@ class _HomePageState extends State<HomePage> {
     //   db.syncApp(level.toString());
   }
 
-  insertStory(state) {
-    state.storyModel.forEach((element) async {
-      listStory.add(element!);
-    });
-  }
 
   initpath() async {
     var externalDirectoryPath = await AndroidPathProvider.downloadsPath;

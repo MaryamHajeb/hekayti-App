@@ -58,14 +58,11 @@ class RegistrationRepository extends Repository {
           print(remoteData);
 
           localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name:userModel.user_name, email: email, level: userModel.level, character: userModel.character, update_at:  DateTime.now().toString(), password: Encryption.instance.encrypt(password), id: remoteData.toString()));
-         islogin? {
-         await db.initApp(userModel.level.toString(), '1'),
-         await Future.delayed(Duration(seconds : 19))
-        }:
+
 
           await  db.uploadAccuracy(remoteData);
           await    db.uploadCompletion(remoteData);
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(Duration(seconds: 5));
 
           return remoteData;
         });
@@ -95,7 +92,8 @@ class RegistrationRepository extends Repository {
           await   db.initApp(userModel.level.toString(), '1');
 
           localDataProvider.cacheData(key: 'UserInformation', data: userModel);
-
+          db.deleteTable('completion');
+          db.deleteTable('accuracy');
           List<accuracyModel> accuracyModeldata = await remoteDataProvider.sendData(
               url: DataSourceURL.getAllaccuracy,
               retrievedDataType: accuracyModel.init(),

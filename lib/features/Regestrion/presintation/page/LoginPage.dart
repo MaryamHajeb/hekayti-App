@@ -38,6 +38,7 @@ TextEditingController password = TextEditingController();
 TextEditingController CofemPassword = TextEditingController();
   Carecters carectersobj = Carecters();
   int  Carecters_id=0;
+  bool? isbording;
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -65,12 +66,10 @@ TextEditingController CofemPassword = TextEditingController();
             });
 
 
-           var prefs = await SharedPreferences.getInstance();
-             bool? isbording=await prefs.getBool('onbording');
+
             isbording==null ?   Navigator.push(context, CustomPageRoute(  child:   HomePage())) :
             showSnackBar(context: context,title: state.successMessage,bkColor: Colors.green,callBackFunction: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
-            });
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));});
 
 
           } else if (state is RegisterError) {
@@ -96,9 +95,6 @@ TextEditingController CofemPassword = TextEditingController();
                     ),
                     height:  screenUtil.screenHeight * 1,
                     width:screenUtil.screenWidth *1,
-                    margin:  EdgeInsets.only(
-                      top: 0,
-                    ),
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -192,6 +188,7 @@ TextEditingController CofemPassword = TextEditingController();
                                   CustemButten(ontap: ()async{
 
                                     if (_loginFormKey.currentState!.validate()) {
+                                     if(islogin ==true){
                                       if (await networkInfo.isConnected) {
                                         showImagesDialogWithCancleButten(context,'${carectersobj.confusedListCarecters[Carecters_id]['image']}','هل انت متاكد ؟'
                                             'سوف تفقد جميع بياناتك الحاليه'
@@ -233,8 +230,43 @@ TextEditingController CofemPassword = TextEditingController();
 
                                       }
 
-                                    }   else{
-                                      noInternt(context,'تاكد من وجود انترنت');
+
+                                      else{
+                                        noInternt(context,'تاكد من وجود انترنت');
+
+                                      }
+                                    }else{
+                                       setState(() {
+                                         isLodaing=true;
+                                       });
+                                       print('ok');
+                                       BlocProvider.of<RegistrationBloc>(
+                                           _context).add(
+                                         Login(
+                                           email: email.text.toString(),
+                                           password: password.text,
+                                         ),
+                                       );
+                                       await Future.delayed(Duration(seconds: 20));
+
+                                       setState(() {
+                                         isLodaing=false;
+                                       });
+                                       print(
+                                           '-----------------------------------------------');
+
+
+                                       print(email.text);
+                                       print(
+                                           '-----------------------------------------------');
+                                       setState(() {
+                                         requestPending = true;
+                                       });
+                                       Navigator.push(
+                                           context,
+                                           CustomPageRoute(  child:   HomePage()));
+                                     }
+
                                     }
 
                                   },text: 'تسجيل'),
@@ -286,6 +318,11 @@ TextEditingController CofemPassword = TextEditingController();
   void initState() {
     // TODO: implement initState
     super.initState();
+getOnbording();
+  }
 
+  getOnbording()async{
+    var prefs = await SharedPreferences.getInstance();
+    isbording=await prefs.getBool('onbording');
   }
 }

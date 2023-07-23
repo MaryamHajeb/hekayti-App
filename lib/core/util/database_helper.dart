@@ -240,56 +240,11 @@ return '';
 
    }
 
-Future<int> deleteTable(table_name) async{
-    var dbClient = await  db;
-    int result = await dbClient!.rawDelete('DELETE FROM $table_name');
-    return result;
+Future<int> deleteTable(table_name) async {
+  var dbClient = await db;
+  int result = await dbClient!.rawDelete('DELETE FROM $table_name');
+  return result;
 }
-
-
-  // Future<List> getAllUserModels() async{
-  //   var dbClient = await  db;
-  //   var sql = "SELECT * FROM $UserModelTable";
-  //   List result = await dbClient!.rawQuery(sql);
-  //   return result.toList();
-  // }
-  //
-  // Future<int?> getCount() async{
-  //   var dbClient = await  db;
-  //   var sql = "SELECT COUNT(*) FROM $UserModelTable";
-  //
-  //   return  Sqflite.firstIntValue(await dbClient!.rawQuery(sql)) ;
-  // }
-
-  // Future<List<Map<String, Object?>>> getUserModel(int id) async{
-  //   var dbClient = await  db;
-  //   var sql = "SELECT * FROM $UserModelTable WHERE $columnId = $id";
-  //   var result = await dbClient!.rawQuery(sql);
-  //  return result;
-  // }
-
-
-  // Future<int> deleteUserModel(int id) async{
-  //   var dbClient = await  db;
-  //   return  await dbClient!.delete(
-  //       UserModelTable , where: "$columnId = ?" , whereArgs: [id]
-  //   );
-  // }
-  //
-  // Future<int> updateUserModel(UserModel UserModel) async{
-  //   var dbClient = await  db;
-  //   return  await dbClient!.update(
-  //  UserModelTable ,UserModel.toJson(), where: "$columnId = ?" , whereArgs: [UserModel.id]
-  //   );
-  // }
-  //
-  //
-  // Future<void> close() async{
-  //   var dbClient = await  db;
-  //   return  await dbClient!.close();
-  // }
-  //
-
 
   checkStoryFound()async{
 
@@ -687,10 +642,10 @@ print('percentage in fun');
                 );
               }
               else{
-                listCopmletion.add({
-                  'id':data.id,
-                   'status':'update',
-                });
+                // listCopmletion.add({
+                //   'id':data.id,
+                //    'status':'update',
+                // });
 
 
               }
@@ -805,16 +760,16 @@ initApp(String level, String id)async{
 
 syncApp(String level,)async{
 
-    checkStoryFound();
-     checkMediaFound();
-     await downloadStoriesCover();
+   await checkStoryFound();
+   await  checkMediaFound();
+   await downloadStoriesCover();
 
      if(userModel!.id!=null){
        updateUserDate(userModel!);
-       if(listCopmletion.isNotEmpty==true){
-         syncCompletion(listCopmletion,userModel!.id);
-
-       }
+       // if(listCopmletion.isNotEmpty==true){
+       //   syncCompletion(listCopmletion,userModel!.id);
+       //
+       // }
      }
       //completion list is not empty =>syncCompletion
       //updateUser
@@ -843,7 +798,9 @@ syncApp(String level,)async{
            'percentage': element['percentage'],
            'story_id': element['story_id'],
            'updated_at': element['updated_at']
-         }, retrievedDataType: String)
+         }, retrievedDataType: String,
+         returnType: String
+         )
        }
        }
 
@@ -851,13 +808,16 @@ syncApp(String level,)async{
 
            :{remoteData_completion =  await RemoteDataProvider(client: sl()).sendData(url: DataSourceURL.uploadCompletion,
        body: {
-       'user_id': '1',
+       'user_id': user_id,
        'stars':element['stars'],
        'percentage':element['percentage'],
        'story_id':element['story_id'],
        'updated_at':element['updated_at'],
        },
-       retrievedDataType: String
+       retrievedDataType: String,
+
+        returnType: String
+
        )};
      });
    }
@@ -915,7 +875,10 @@ updateUserDate(UserModel user)async{
     'password': user.password,
     'user_name': user.user_name,
     'update_at': user.update_at,
-  }, retrievedDataType: String);
+  }, retrievedDataType: String,
+     returnType: String
+
+   );
 
 }
 

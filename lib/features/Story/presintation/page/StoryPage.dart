@@ -834,8 +834,7 @@ class _StoryPageState extends State<StoryPage> {
           recognizing = false;
           isProcces = false;
         }));
-    star = await checkText(
-        text_orglin, text, int.parse(userModel!.level.toString()));
+    star = await checkText(text_orglin, text, int.parse(userModel!.level.toString()));
     print(star);
     print('star');
 
@@ -845,8 +844,7 @@ class _StoryPageState extends State<StoryPage> {
               media_id: media_id,
               readed_text: text,
               accuracy_stars: star,
-              updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ')
-                  .format(DateTime.now()),
+              updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now()),
             )),
             print(reuslt),
             print('result'),
@@ -943,7 +941,7 @@ class _StoryPageState extends State<StoryPage> {
     // TODO: implement initState
     super.initState();
     lisen = getCachedDate('Listen_to_story', bool) ?? '';
-
+    
     userModel = getCachedDate('UserInformation', UserModel.init());
 
     initpath();

@@ -83,7 +83,6 @@ class _SettingPageState extends State<SettingPage> {
                               dividerColor: Colors.brown,
                               indicatorColor: Colors.brown,
                               unselectedLabelColor: Colors.brown,
-
                               tabs: [
 
                                 Tab(text:  'الإعــدادات',),
@@ -255,11 +254,11 @@ class _SettingPageState extends State<SettingPage> {
                                               ],
                                             );
                                           }
-
                                           return ReportWidget;
                                         },
                                       ),
-                                    )),
+                                    )
+                                ),
                               ],
                             )
 
@@ -277,6 +276,7 @@ class _SettingPageState extends State<SettingPage> {
       ),
     ),
     );
+
   }
   @override
   void initState() {

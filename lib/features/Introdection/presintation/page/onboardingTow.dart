@@ -9,20 +9,19 @@ import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
 
-class onboardingTow extends StatefulWidget {
-  const onboardingTow({Key? key}) : super(key: key);
+class onboardingTow extends StatelessWidget {
+   onboardingTow({Key? key}) : super(key: key);
 
-  @override
-  State<onboardingTow> createState() => _onboardingTowState();
-}
-
-class _onboardingTowState extends State<onboardingTow> {
   ScreenUtil screenUtil = ScreenUtil();
 
   TextEditingController result = TextEditingController();
+
   int num1 = Random().nextInt(50);
+
   int num2 = Random().nextInt(50);
+
   int num3 = Random().nextInt(50);
+
   final _loginFormKey = GlobalKey<FormState>();
 
   @override

@@ -440,7 +440,7 @@ noInternt(context2,String text) {
 initApp(String text) {
   return Center(
     child: Dialog(
-
+shadowColor: AppTheme.primaryColor,
       elevation: 50,
 
       insetAnimationDuration: Duration(seconds: 30),
