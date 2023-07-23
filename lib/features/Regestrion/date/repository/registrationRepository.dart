@@ -12,6 +12,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/util/database_helper.dart';
 import '../../../../core/util/Encrypt.dart';
 import '../../../../dataProviders/error/failures.dart';
+import '../../../../main.dart';
 import '../model/CompletionModel.dart';
 import '../model/userMode.dart';
 
@@ -20,7 +21,6 @@ class RegistrationRepository extends Repository {
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
 
-  DatabaseHelper db = new DatabaseHelper();
 
 
   RegistrationRepository({

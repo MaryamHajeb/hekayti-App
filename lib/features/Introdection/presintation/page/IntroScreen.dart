@@ -46,13 +46,11 @@ class _IntroScreenState extends State<IntroScreen> {
   ScreenUtil _screenUtil = ScreenUtil();
   Carecters carectersobj =Carecters();
 
-  int currentIndexPage = 0;
-  int carectersnum=10;
- String levelnum ='';
-  ReceivePort _port = ReceivePort();
+
+
 int progress=0;
   bool  isLoading =false;
-  int?  Carecters_id=0;
+
   UserModel? userModel;
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
@@ -85,9 +83,6 @@ int progress=0;
               itemBuilder: (context, index) {
                 if(widget.index!=0){
                   pageController.animateToPage(widget.index,duration: Duration(seconds: 1,),curve: Curves.bounceInOut,);
-                  // pageController.position.hasContentDimensions;
-                  // pageController.jumpToPage(2);
-
                     widget.index=0;
                   print(index);
 
@@ -202,7 +197,7 @@ int progress=0;
                                                                   }),
 
 
-                                                                   db.initApp(userModel!.level.toString(),'1'),
+                                                                 await  db.initApp(userModel!.level.toString(),'1'),
 
                                                                   await Future
                                                                       .delayed(
@@ -218,7 +213,7 @@ int progress=0;
                                                                       CustomPageRoute(
                                                                           child: HomePage()))
                                                                 }else{
-                                                                showImagesDialog(context,'${carectersobj.showCarecters[Carecters_id!]['image']}','تاكد من وجود انترنت اول مره من اجل تحميل القصص',(){ Navigator.pop(context);})
+                                                                showImagesDialog(context,'${carectersobj.showCarecters[userModel!.character]['image']}','تاكد من وجود انترنت اول مره من اجل تحميل القصص',(){ Navigator.pop(context);})
                                                               }
                                                             }
 

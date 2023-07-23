@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
 import 'package:hikayati_app/features/introdection/presintation/page/IntroScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,9 +38,9 @@ TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
 TextEditingController CofemPassword = TextEditingController();
   Carecters carectersobj = Carecters();
-  int  Carecters_id=0;
-  bool? isbording;
 
+  bool? isbording;
+  UserModel? userModel;
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Scaffold(body:
@@ -190,7 +191,7 @@ TextEditingController CofemPassword = TextEditingController();
                                     if (_loginFormKey.currentState!.validate()) {
                                      if(islogin ==true){
                                       if (await networkInfo.isConnected) {
-                                        showImagesDialogWithCancleButten(context,'${carectersobj.confusedListCarecters[Carecters_id]['image']}','هل انت متاكد ؟'
+                                        showImagesDialogWithCancleButten(context,'${carectersobj.confusedListCarecters[userModel!.character]['image']}','هل انت متاكد ؟'
                                             'سوف تفقد جميع بياناتك الحاليه'
                                         ,(){
                                             Navigator.pop(context);
@@ -324,5 +325,7 @@ getOnbording();
   getOnbording()async{
     var prefs = await SharedPreferences.getInstance();
     isbording=await prefs.getBool('onbording');
+
+    userModel = getCachedDate('UserInformation', UserModel.init());
   }
 }
