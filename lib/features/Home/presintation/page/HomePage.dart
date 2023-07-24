@@ -114,6 +114,11 @@ class _HomePageState extends State<HomePage> {
                       //TODO::Show Story here
                       collected_stars = getCachedDate('collected_stars', String);
                       all_stars = getCachedDate('all_stars', String);
+                      if (collected_stars == 0 || all_stars == 0) {
+                        star_progrees = 0;
+                      } else {
+                        star_progrees = (collected_stars! / all_stars)!;
+                      }
                       listStory.clear();
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
@@ -552,16 +557,11 @@ class _HomePageState extends State<HomePage> {
 
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
-    all_stars=int.parse(getCachedDate('all_stars', String).toString());
-    collected_stars=int.parse(getCachedDate('collected_stars', String).toString());
+
     initpath();
     listStoryWithSearch = listStory;
 
-    if (collected_stars == 0 || all_stars == 0) {
-      star_progrees = 0;
-    } else {
-      star_progrees = (collected_stars! / all_stars)!;
-    }
+
 
     //   db.syncApp(level.toString());
   }

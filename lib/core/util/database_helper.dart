@@ -561,7 +561,7 @@ print(res);
 
    print('all stars is ');
         print(star.length);
-       percentage=((stars/star.length).toInt() *100 /2).toInt();
+       percentage=(stars/(star.length)*3).toInt()*100;
 print(percentage);
 print('percentage in fun');
        return percentage;
