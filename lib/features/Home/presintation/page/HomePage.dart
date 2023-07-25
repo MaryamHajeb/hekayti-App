@@ -101,6 +101,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   builder: (_context, state) {
                     if (state is StoryInitial) {
+                      db.syncApp(userModel!.level.toString());
                       BlocProvider.of<StoryBloc>(_context)
                           .add(GetAllStory(userModel!.level.toString()));
                     }
@@ -433,7 +434,9 @@ class _HomePageState extends State<HomePage> {
                                                                             IconButton(
                                                                                     onPressed: () async {
                                                                                       setState(() => isloading = true);
-                                                                                    showDialog(context: context, builder: (context) {
+                                                                                    showDialog(
+                                                                                      barrierDismissible: false,
+                                                                                      context: context, builder: (context) {
 
                                                                                     return
                                                                                       initApp('جاري تحميل القصه');
@@ -563,7 +566,6 @@ class _HomePageState extends State<HomePage> {
 
 
 
-    //   db.syncApp(level.toString());
   }
 
 

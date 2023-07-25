@@ -346,14 +346,27 @@ try {
  // await dirFound(downloadsDirectory.path);
 
   if (status.isGranted || status2.isGranted) {
+
+
     result.forEach((element) async {
       print(element['cover_photo']);
+
       imageList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.cover+element['cover_photo']);
 
-      await Future.delayed(Duration(seconds: 1));
-    });
+    }
+
+    );
+    print(path+'/'+ result.first['cover_photo']);
+    print('path+ result.first[');
+    bool isFound= await dirFound(path+'/'+ result.first['cover_photo']);
+    if(isFound ==false){
+      fileDownload(imageList);
+    }
     //fileDownload(result[0]['cover_photo'],dir.path );
-    fileDownload(imageList);
+    await Future.delayed(Duration(seconds: 1));
+
+
+
 
   }
 
@@ -372,7 +385,23 @@ try {
 
   }
 
-  downloadMedia(String storyId )async{
+
+   Future<bool> dirFound(savePath) async {
+     if (await File(savePath).exists()) {
+       print('file is exite');
+
+
+
+       return true;
+     } else {
+       print('file is not exite');
+
+       return false;
+     }
+   }
+
+
+   downloadMedia(String storyId )async{
     var dbClient = await  db;
     List<String> imageList=[];
     List<String> audioList=[];
@@ -382,8 +411,8 @@ print('downloadMedia');
 
 
     List<dynamic> result = await dbClient!.rawQuery('SELECT photo,sound from stories_media where story_id=$storyId');
-    var externalDirectoryPath = await getExternalStorageDirectory();
-    path=  externalDirectoryPath!.path.toString();
+    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;;
+    path=  externalDirectoryPath.toString();
     //await dirFound(downloadsDirectory.path);
 
 
@@ -397,8 +426,13 @@ print('downloadMedia');
 
      });
 
-      fileDownload(imageList);
-      fileDownload(audioList );
+      bool isFound= await dirFound(path+'/'+ result.first['photo']);
+      if(isFound ==false){
+        fileDownload(imageList);
+        fileDownload(audioList );
+
+      }
+
 
       print('object==============================================================');
     }
@@ -561,7 +595,7 @@ print(res);
 
    print('all stars is ');
         print(star.length);
-       percentage=(stars/(star.length)*3).toInt()*100;
+       percentage=(( stars/ (star.length*3) ) *100).toInt();
 print(percentage);
 print('percentage in fun');
        return percentage;
@@ -607,18 +641,19 @@ print('percentage in fun');
 
   addCompletion(CompletionModel data)async{
       dynamic localdata=await foundRecord('story_id',data.story_id,'completion');
-
+print(localdata[0]['id']);
+print('localdata[0]');
       if(await localdata!=null){
         if (int.parse(data.stars.toString()) >
-            int.parse(localdata[0]['stars'].toString())){
+            int.parse(localdata[0]['stars'].toString())||
+
+            int.parse(data.percentage.toString()) >
+            int.parse(localdata[0]['percentage'])){
               update(data:
-              {
-                'id': localdata[0]['id'],
-                'stars':data.stars,
-                'percentage':data.percentage,
-                'story_id':data.story_id,
-                'updated_at':data.updated_at,
-              }
+              CompletionModel(
+                  id: localdata[0]['id'],
+
+                  updated_at:data.updated_at, percentage: data.percentage, story_id: data.story_id, stars: data.stars)
                   ,
                   tableName: 'completion',
                   where: 'id=${localdata[0]['id']}'
@@ -763,18 +798,16 @@ syncApp(String level,)async{
    await checkStoryFound();
    await  checkMediaFound();
    await downloadStoriesCover();
-
-     if(userModel!.id!=null){
-       updateUserDate(userModel!);
-       // if(listCopmletion.isNotEmpty==true){
-       //   syncCompletion(listCopmletion,userModel!.id);
-       //
-       // }
-     }
+     //
+     // if(userModel!.id!=null){
+     //   updateUserDate(userModel!);
+     //   // if(listCopmletion.isNotEmpty==true){
+     //   //   syncCompletion(listCopmletion,userModel!.id);
+     //   //
+     //   // }
+     // }
       //completion list is not empty =>syncCompletion
       //updateUser
-
-
    }
 
 
@@ -866,20 +899,19 @@ syncApp(String level,)async{
 }
 
 updateUserDate(UserModel user)async{
-   RemoteDataProvider(client: sl()).sendData(
+  await RemoteDataProvider(client: sl()).sendData(
       url: DataSourceURL.updateuser, body: {
-    'id': user.id,
-    'email': user.email,
-    'level': user.level,
-    'character': user.character,
-    'password': user.password,
-    'user_name': user.user_name,
-    'update_at': user.update_at,
+    'updated_at': DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now().toUtc()).toString(),
+    'email': user!.email,
+    'id':user!.id,
+    'level': user!.level.toString(),
+    'character': user!.character.toString(),
+    'password': user!.password.toString(),
+    'user_name': user!.user_name.toString(),
   }, retrievedDataType: String,
-     returnType: String
+      returnType: String
 
-   );
-
+  );
 }
 
 

@@ -244,7 +244,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                           CustomPageRoute(  child:   LoginPage()));
 
                                                     },
-                                                    child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 13))),
+                                                    child: Text('تسجيل دخول',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 13,decoration: TextDecoration.underline,decorationThickness: 2))),
 
                                               ],
                                             ),

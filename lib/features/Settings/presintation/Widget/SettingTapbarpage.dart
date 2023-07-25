@@ -202,7 +202,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                                       CustomPageRoute(  child:   ResetPasswordPage()));
 
                                 },
-                                child: Text('اعاده تعيين',style: AppTheme.textTheme.headline4,)),
+                                child: Text('اعاده تعيين',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 13,decoration: TextDecoration.underline,decorationThickness: 2),)),
 
                           ]),
                         ],
@@ -347,11 +347,11 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
 
     CachedDate('UserInformation',UserModel(user_name: nameChiled.text, email: userModel!.email, level: (itemSelectedlevel+1).toString(), character: itemSelected.toString(), update_at: DateTime.now().toString(), password: userModel!.password, id: userModel!.id));
 
-
+    if(userModel!.id!=null && await networkInfo.isConnected){
+      db.updateUserDate(UserModel(user_name: nameChiled.text, email: userModel!.email, level: (itemSelectedlevel+1).toString(), character: itemSelected.toString(), update_at: DateTime.now().toString(), password: userModel!.password, id: userModel!.id));
+    }
     CachedDate('Listen_to_story', chackboxStata);
-     if(userModel!.id!=null&& await networkInfo.isConnected){
-       db.updateUserDate(userModel!);
-     }
+
 
 
 

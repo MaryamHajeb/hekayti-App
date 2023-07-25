@@ -288,7 +288,7 @@ TextEditingController CofemPassword = TextEditingController();
                                                 CustomPageRoute(  child:   SignupPage()));
 
                                           },
-                                          child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 15))),
+                                          child: Text('انشاء حساب',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 15,decoration: TextDecoration.underline,decorationThickness: 2))),
 
                                     ],
                                   ),
