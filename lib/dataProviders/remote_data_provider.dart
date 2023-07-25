@@ -11,18 +11,25 @@ class RemoteDataProvider {
 
   RemoteDataProvider({required this.client});
 
-  Future<dynamic> sendData({required String url,required Map<String, dynamic> body,
-    required retrievedDataType,dynamic returnType,}) async {
-
+  Future<dynamic> sendData({
+    required String url,
+    required Map<String, dynamic> body,
+    required retrievedDataType,
+    dynamic returnType,
+  }) async {
     log('send data lunched ');
 
-    log('body is '+ body.toString());
+    log('body is ' + body.toString());
     log("I am here " + url);
 
     final response = await client.post(
       Uri.parse(DataSourceURL.baseUrl + url),
-      body:  body,
-      headers: {'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Authorization': 'Bearer ${body["api_token"] ?? ""}'},
+      body: body,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${body["api_token"] ?? ""}'
+      },
     );
 
     log(DataSourceURL.baseUrl + url);
@@ -53,7 +60,7 @@ class RemoteDataProvider {
           if (data.isEmpty) {
             log('data exception');
             throw EmptyException();
-          }else{
+          } else {
             print('data is not empty');
           }
         }
@@ -61,9 +68,7 @@ class RemoteDataProvider {
         print('data is $data');
         return retrievedDataType.fromJson(data);
       }
-    }
-
-    else if (response.statusCode == 201) {
+    } else if (response.statusCode == 201) {
       return 1;
     } else if (response.statusCode == 500) {
       throw ServierExeption();
@@ -71,10 +76,8 @@ class RemoteDataProvider {
       throw NotFound();
     } else if (response.statusCode == 319) {
       throw BlockedUser();
-    }else if (response.statusCode == 407) {
+    } else if (response.statusCode == 407) {
       throw NotAvilable();
     }
-
-
   }
 }

@@ -29,18 +29,18 @@ class CustemLevel extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(width: 3,color: AppTheme.primaryColor),
+                  border: Border.all(width: 3, color: AppTheme.primaryColor),
                   borderRadius: BorderRadius.all(Radius.circular(11))),
               height: screenUtil.screenHeight * .3,
               width: screenUtil.screenWidth * .18,
               child: Center(
                   child: Text(
-                    name.toString(),
-                    style: TextStyle(
-                        color: AppTheme.primaryColor,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  )),
+                name.toString(),
+                style: TextStyle(
+                    color: AppTheme.primaryColor,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              )),
             ),
           )
         : GestureDetector(

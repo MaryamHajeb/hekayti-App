@@ -1,12 +1,7 @@
-import 'dart:isolate';
-import 'dart:ui';
-
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
@@ -17,7 +12,6 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
 import '../../../Regestrion/date/model/userMode.dart';
-import '../../../Regestrion/presintation/page/LoginPage.dart';
 import 'onboardingFive.dart';
 import 'onboardingFour.dart';
 import 'onboardingOne.dart';
@@ -28,7 +22,7 @@ import 'onboardingTow.dart';
 class IntroScreen extends StatefulWidget {
   int index;
 
-  IntroScreen({Key? key,required this.index}) : super(key: key);
+  IntroScreen({Key? key, required this.index}) : super(key: key);
   @override
   State<IntroScreen> createState() => _IntroScreenState();
 }
@@ -41,25 +35,19 @@ class _IntroScreenState extends State<IntroScreen> {
     onboardingThree(),
     onboardingFive(),
     onboardingFour(),
-
   ];
   ScreenUtil _screenUtil = ScreenUtil();
-  Carecters carectersobj =Carecters();
+  Carecters carectersobj = Carecters();
 
-
-
-int progress=0;
-  bool  isLoading =false;
+  int progress = 0;
+  bool isLoading = false;
 
   UserModel? userModel;
   final _formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
 
-
   @override
-
   Widget build(BuildContext context) {
-
     _screenUtil.init(context);
     return Scaffold(
       body: Form(
@@ -78,182 +66,211 @@ int progress=0;
             child: PageView.builder(
               controller: pageController,
               allowImplicitScrolling: false,
-            //  physics: NeverScrollableScrollPhysics(),
+              //  physics: NeverScrollableScrollPhysics(),
               itemCount: onboardingList.length,
               itemBuilder: (context, index) {
-                if(widget.index!=0){
-                  pageController.animateToPage(widget.index,duration: Duration(seconds: 1,),curve: Curves.bounceInOut,);
-                    widget.index=0;
+                if (widget.index != 0) {
+                  pageController.animateToPage(
+                    widget.index,
+                    duration: Duration(
+                      seconds: 1,
+                    ),
+                    curve: Curves.bounceInOut,
+                  );
+                  widget.index = 0;
                   print(index);
 
-
                   print('index');
-
                 }
                 print(index);
                 print('index');
                 return Stack(
                   children: [
-                    isLoading   ?Directionality( textDirection: TextDirection.rtl,child: initApp('جاري تحميل القصص  ')):
-
-                    Center(
-                      child: Column(
-                          children: [
-
-
-                            Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Center(
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Container(
-
-                                      height:  _screenUtil.screenHeight * .95,
-                                      width:_screenUtil.screenWidth *.85,
-
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
-                                        ),
-                                        child: Container(
-                                          margin: EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  width: 4, color: AppTheme.primarySwatch.shade500),
-                                              borderRadius: BorderRadius.all(Radius.circular(15))),
-                                          child: Column(children: [
+                    isLoading
+                        ? Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: initApp('جاري تحميل القصص  '))
+                        : Center(
+                            child: Column(children: [
+                              Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Container(
+                                    height: _screenUtil.screenHeight * .95,
+                                    width: _screenUtil.screenWidth * .85,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: Container(
+                                        margin: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                width: 4,
+                                                color: AppTheme
+                                                    .primarySwatch.shade500),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        child: Column(
+                                          children: [
                                             Expanded(
-                                              flex: 10,
+                                                flex: 10,
                                                 child: onboardingList[index]),
-
                                             Directionality(
                                               textDirection: TextDirection.ltr,
                                               child: Expanded(
                                                 flex: 2,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                   children: [
                                                     InkWell(
                                                       onTap: () {
                                                         //
                                                         pageController.previousPage(
-                                                            duration: Duration(milliseconds: 1000),
-                                                            curve: Curves.fastOutSlowIn);
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    1000),
+                                                            curve: Curves
+                                                                .fastOutSlowIn);
                                                       },
                                                       child: Image.asset(
-                                                          color: AppTheme.primarySwatch.shade400,
-                                                        Assets.images.leftArrow.path,
+                                                        color: AppTheme
+                                                            .primarySwatch
+                                                            .shade400,
+                                                        Assets.images.leftArrow
+                                                            .path,
                                                         width: 30,
                                                         height: 30,
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ),
-
                                                     DotsIndicator(
-                                                      dotsCount: onboardingList.length,
-                                                      position: index.toDouble(),
+                                                      dotsCount:
+                                                          onboardingList.length,
+                                                      position:
+                                                          index.toDouble(),
                                                       decorator: DotsDecorator(
-                                                        size: const Size.square(9.0),
-                                                        color: AppTheme.primaryColor,
-                                                        activeColor: AppTheme.primaryColor,
-                                                        activeSize: const Size(30.0, 9.0),
-                                                        activeShape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(5.0)),
+                                                        size: const Size.square(
+                                                            9.0),
+                                                        color: AppTheme
+                                                            .primaryColor,
+                                                        activeColor: AppTheme
+                                                            .primaryColor,
+                                                        activeSize: const Size(
+                                                            30.0, 9.0),
+                                                        activeShape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5.0)),
                                                       ),
                                                     ),
                                                     InkWell(
-                                                      onTap: () async{
-
-
-                                                        if (_formKey.currentState!.validate()){
+                                                      onTap: () async {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
                                                           // If the form is valid, display a snackbar. In the real world,
 
+                                                          print(index);
 
-                                                           print(index);
+                                                          SharedPreferences
+                                                              prefs;
+                                                          index == 5
+                                                              ? {
+                                                                  userModel = getCachedDate(
+                                                                      'UserInformation',
+                                                                      UserModel
+                                                                          .init()),
+                                                                  print(userModel!
+                                                                      .level),
+                                                                  if (await networkInfo
+                                                                      .isConnected)
+                                                                    {
+                                                                      prefs = await SharedPreferences
+                                                                          .getInstance(),
+                                                                      prefs.setBool(
+                                                                          'onbording',
+                                                                          true),
+                                                                      setState(
+                                                                          () {
+                                                                        isLoading =
+                                                                            true;
+                                                                      }),
+                                                                      await db.initApp(
+                                                                          userModel!
+                                                                              .level
+                                                                              .toString(),
+                                                                          '1'),
+                                                                      await Future.delayed(Duration(
+                                                                          seconds:
+                                                                              20)),
+                                                                      setState(
+                                                                          () {
+                                                                        isLoading =
+                                                                            false;
+                                                                      }),
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          CustomPageRoute(
+                                                                              child: HomePage()))
+                                                                    }
+                                                                  else
+                                                                    {
+                                                                      showImagesDialog(
+                                                                          context,
+                                                                          '${carectersobj.showCarecters[userModel!.character]['image']}',
+                                                                          'تاكد من وجود انترنت اول مره من اجل تحميل القصص',
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      })
+                                                                    }
+                                                                }
+                                                              : pageController
+                                                                  .nextPage(
+                                                                      duration:
+                                                                          Duration(
+                                                                        seconds:
+                                                                            1,
+                                                                      ),
+                                                                      curve: Curves
+                                                                          .fastOutSlowIn);
+                                                        }
 
-
-
-
-                                                            SharedPreferences prefs;
-                                                            index==5 ?
-                                                            {
-                                                               userModel = getCachedDate('UserInformation',UserModel.init() ),
-                                                                print(userModel!.level),
-                                                              if(await networkInfo
-                                                                  .isConnected)
-                                                                {
-
-                                                                  prefs =
-                                                                  await SharedPreferences
-                                                                      .getInstance(),
-                                                                  prefs.setBool(
-                                                                      'onbording',
-                                                                      true),
-                                                                  setState(() {
-                                                                    isLoading =
-                                                                    true;
-                                                                  }),
-
-
-                                                                 await  db.initApp(userModel!.level.toString(),'1'),
-
-                                                                  await Future
-                                                                      .delayed(
-                                                                      Duration(seconds: 20)),
-                                                                  setState(() {
-                                                                    isLoading =
-                                                                    false;
-                                                                  }),
-
-                                                                  Navigator
-                                                                      .push(
-                                                                      context,
-                                                                      CustomPageRoute(
-                                                                          child: HomePage()))
-                                                                }else{
-                                                                showImagesDialog(context,'${carectersobj.showCarecters[userModel!.character]['image']}','تاكد من وجود انترنت اول مره من اجل تحميل القصص',(){ Navigator.pop(context);})
-                                                              }
-                                                            }
-
-                                                               :
-                                                            pageController.nextPage(
-                                                                duration: Duration(
-                                                                  seconds: 1,
-                                                                ),
-                                                                curve: Curves.fastOutSlowIn);
-
-                                                          }
-
-                                                          // you'd often call a server or save the information in a database.
-
+                                                        // you'd often call a server or save the information in a database.
                                                       },
                                                       child: Image.asset(
-                                                        color: AppTheme.primarySwatch.shade800,
-
-                                                        Assets.images.rightArrow.path,
+                                                        color: AppTheme
+                                                            .primarySwatch
+                                                            .shade800,
+                                                        Assets.images.rightArrow
+                                                            .path,
                                                         width: 30,
                                                         height: 30,
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ),
-
                                                   ],
                                                 ),
                                               ),
                                             )
-                                          ], ),
-
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  )),
-
-                            ),
-
-                      ]),
-                    ),
+                                  ),
+                                )),
+                              ),
+                            ]),
+                          ),
                   ],
                 );
               },
@@ -268,14 +285,11 @@ int progress=0;
   void initState() {
     // TODO: implement initState
     super.initState();
-
-
   }
 
   @override
   void dispose() {
     pageController.dispose();
     super.dispose();
-
   }
 }

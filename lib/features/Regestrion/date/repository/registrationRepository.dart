@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:hikayati_app/dataProviders/local_data_provider.dart';
 import 'package:hikayati_app/dataProviders/network/Network_info.dart';
 import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
@@ -9,7 +8,6 @@ import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/common.dart';
-import '../../../../core/util/database_helper.dart';
 import '../../../../core/util/Encrypt.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../../main.dart';
@@ -21,26 +19,23 @@ class RegistrationRepository extends Repository {
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
 
-
-
   RegistrationRepository({
     required this.remoteDataProvider,
     required this.localDataProvider,
     required this.networkInfo,
   });
-  late  UserModel userModel;
+  late UserModel userModel;
   SharedPreferences? prefs;
-  bool islogin=false;
+  bool islogin = false;
   late List<CompletionModel> completionModel;
-  late List<accuracyModel>  AccuracyModel;
+  late List<accuracyModel> AccuracyModel;
   Future<Either<Failure, dynamic>> signup(
-      {required String  password, email}) async {
+      {required String password, email}) async {
     userModel = getCachedDate('UserInformation', UserModel.init());
     final prefs = await SharedPreferences.getInstance();
-    islogin=await prefs.getBool('onbording')??false;
+    islogin = await prefs.getBool('onbording') ?? false;
 
     return await sendRequest(
-
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
           final remoteData = await remoteDataProvider.sendData(
@@ -48,20 +43,27 @@ class RegistrationRepository extends Repository {
               retrievedDataType: int,
               returnType: int,
               body: {
-                'password':Encryption.instance.encrypt(password) ,
+                'password': Encryption.instance.encrypt(password),
                 'email': email,
-                'character': userModel!.character.toString(),
+                'character': userModel.character.toString(),
                 'level': userModel.level.toString(),
-                'user_name': userModel.user_name??'M',
-
+                'user_name': userModel.user_name ?? 'M',
               });
           print(remoteData);
 
-          localDataProvider.cacheData(key: 'UserInformation', data: UserModel(user_name:userModel.user_name, email: email, level: userModel.level, character: userModel.character, update_at:  DateTime.now().toString(), password: Encryption.instance.encrypt(password), id: remoteData.toString()));
+          localDataProvider.cacheData(
+              key: 'UserInformation',
+              data: UserModel(
+                  user_name: userModel.user_name,
+                  email: email,
+                  level: userModel.level,
+                  character: userModel.character,
+                  update_at: DateTime.now().toString(),
+                  password: Encryption.instance.encrypt(password),
+                  id: remoteData.toString()));
 
-
-          await  db.uploadAccuracy(remoteData);
-          await    db.uploadCompletion(remoteData);
+          await db.uploadAccuracy(remoteData);
+          await db.uploadCompletion(remoteData);
           await Future.delayed(Duration(seconds: 5));
 
           return remoteData;
@@ -69,9 +71,8 @@ class RegistrationRepository extends Repository {
   }
 
   Future<Either<Failure, dynamic>> login(
-      {required String password,required String email}) async {
-
-    var  prefs = await SharedPreferences.getInstance();
+      {required String password, required String email}) async {
+    var prefs = await SharedPreferences.getInstance();
 
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
@@ -84,36 +85,29 @@ class RegistrationRepository extends Repository {
                 'email': email,
               });
 
-
-
-
           userModel = remoteData;
 
-          await   db.initApp(userModel.level.toString(), '1');
+          await db.initApp(userModel.level.toString(), '1');
 
           localDataProvider.cacheData(key: 'UserInformation', data: userModel);
           db.deleteTable('completion');
           db.deleteTable('accuracy');
-          List<accuracyModel> accuracyModeldata = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllaccuracy,
-              retrievedDataType: accuracyModel.init(),
-              returnType:List,
-              body: {
-                'user_id':userModel.id.toString()
-              });
+          List<accuracyModel> accuracyModeldata = await remoteDataProvider
+              .sendData(
+                  url: DataSourceURL.getAllaccuracy,
+                  retrievedDataType: accuracyModel.init(),
+                  returnType: List,
+                  body: {'user_id': userModel.id.toString()});
 
           db.checkAccuracyFound(accuracyModeldata);
 
-          List<CompletionModel> completionData = await remoteDataProvider.sendData(
-              url: DataSourceURL.getAllcompletion,
-              retrievedDataType: CompletionModel.init(),
-              returnType:List,
-
-              body: {
-                'user_id':userModel.id.toString()
-              });
-         // completionModel=completionData;
-
+          List<CompletionModel> completionData = await remoteDataProvider
+              .sendData(
+                  url: DataSourceURL.getAllcompletion,
+                  retrievedDataType: CompletionModel.init(),
+                  returnType: List,
+                  body: {'user_id': userModel.id.toString()});
+          // completionModel=completionData;
 
           db.checkCompletionFound(completionData);
 
@@ -122,7 +116,7 @@ class RegistrationRepository extends Repository {
 
           return remoteData;
         });
-   // db.checkAccuracyFound(data);
+    // db.checkAccuracyFound(data);
     //
     //
   }

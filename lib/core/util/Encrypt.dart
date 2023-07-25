@@ -29,12 +29,9 @@ class Encryption {
     return _encrypter.decrypt(encrypted, iv: _iv);
   }
 
-  checkIsCorrect(String userpassword,String dbpassword){
-   dbpassword=  decrypt(dbpassword);
+  checkIsCorrect(String userpassword, String dbpassword) {
+    dbpassword = decrypt(dbpassword);
 
-  return dbpassword.compareTo(userpassword);
-
+    return dbpassword.compareTo(userpassword);
   }
-
-
 }

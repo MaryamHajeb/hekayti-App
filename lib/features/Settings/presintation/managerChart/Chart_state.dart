@@ -1,12 +1,5 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:hikayati_app/features/Settings/date/model/ChartModel.dart';
-import 'package:hikayati_app/features/Settings/date/model/ReportModel.dart';
-
-import '../../../Story/date/model/StoryMediaModel.dart';
-import '../../../Home/data/model/StoryMode.dart';
-import '../../date/model/ChartModel.dart';
-import '../../date/model/ChartModel.dart';
 
 abstract class ChartState extends Equatable {
   const ChartState();
@@ -23,7 +16,6 @@ class ChartLoading extends ChartState {
 }
 
 class ChartILoaded extends ChartState {
-
   List<ChartModel> chartModel;
   ChartILoaded({required this.chartModel});
 

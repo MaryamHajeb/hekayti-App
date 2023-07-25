@@ -54,7 +54,13 @@ class _Splach_screenState extends State<Splach_screen>
 
     Timer(Duration(seconds: 4), () {
       setState(() {
-        Navigator.pushReplacement(context, PageTransition( islogin ?    HomePage():IntroScreen(index: 0,)));
+        Navigator.pushReplacement(
+            context,
+            PageTransition(islogin
+                ? HomePage()
+                : IntroScreen(
+                    index: 0,
+                  )));
       });
     });
   }
@@ -78,11 +84,9 @@ class _Splach_screenState extends State<Splach_screen>
             child: Column(
               children: [
                 AnimatedContainer(
-
-                    duration: Duration(milliseconds: 2000),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    height: _height / _fontSize,
-
+                  duration: Duration(milliseconds: 2000),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  height: _height / _fontSize,
                 ),
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 2000),
@@ -101,7 +105,6 @@ class _Splach_screenState extends State<Splach_screen>
           ),
           Center(
             child: AnimatedOpacity(
-
               duration: Duration(milliseconds: 2000),
               curve: Curves.fastLinearToSlowEaseIn,
               opacity: _containerOpacity,
@@ -112,14 +115,13 @@ class _Splach_screenState extends State<Splach_screen>
                 width: 120,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 3,color: Colors.white),
+                  border: Border.all(width: 3, color: Colors.white),
                   color: Colors.white.withOpacity(.7),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 // child: Image.asset('assets/images/file_name.png')
                 child: CircleAvatar(
-                    radius: 50,
-                    child: Image.asset(Assets.images.logo.path)),
+                    radius: 50, child: Image.asset(Assets.images.logo.path)),
               ),
             ),
           ),
@@ -134,21 +136,21 @@ class PageTransition extends PageRouteBuilder {
 
   PageTransition(this.page)
       : super(
-    pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(milliseconds: 2000),
-    transitionsBuilder: (context, animation, anotherAnimation, child) {
-      animation = CurvedAnimation(
-        curve: Curves.fastLinearToSlowEaseIn,
-        parent: animation,
-      );
-      return Align(
-        alignment: Alignment.bottomCenter,
-        child: SizeTransition(
-          sizeFactor: animation,
-          child: page,
-          axisAlignment: 0,
-        ),
-      );
-    },
-  );
+          pageBuilder: (context, animation, anotherAnimation) => page,
+          transitionDuration: Duration(milliseconds: 2000),
+          transitionsBuilder: (context, animation, anotherAnimation, child) {
+            animation = CurvedAnimation(
+              curve: Curves.fastLinearToSlowEaseIn,
+              parent: animation,
+            );
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: SizeTransition(
+                sizeFactor: animation,
+                child: page,
+                axisAlignment: 0,
+              ),
+            );
+          },
+        );
 }

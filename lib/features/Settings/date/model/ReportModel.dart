@@ -1,31 +1,21 @@
 class ReportModel {
-  dynamic id, name,cover_photo,stars,percentage;
+  dynamic id, name, cover_photo, stars, percentage;
 
   ReportModel({
-
-     required  this.id,
-     required this.cover_photo,
-     required  this.percentage,
-     required this.name,
-     required this.stars,
-
-
-    });
+    required this.id,
+    required this.cover_photo,
+    required this.percentage,
+    required this.name,
+    required this.stars,
+  });
 
   factory ReportModel.fromJson(Map<String, dynamic> story) {
     return ReportModel(
-
-
-
         id: story['id'],
         cover_photo: story['cover_photo'],
-
         name: story['name'],
-
         stars: story['stars'],
-        percentage: story['percentage']
-
-    );
+        percentage: story['percentage']);
   }
 
   ReportModel fromJson(Map<String, dynamic> json) {
@@ -39,8 +29,6 @@ class ReportModel {
       cover_photo: '',
       stars: '',
       percentage: '',
-
-
     );
   }
 
@@ -53,12 +41,10 @@ class ReportModel {
   }
 
   Map<String, dynamic> toJson() => {
-
-    'id': id,
-    'cover_photo': cover_photo,
-    'name': name,
-    'stars': stars,
-    'percentage': percentage,
-
-  };
+        'id': id,
+        'cover_photo': cover_photo,
+        'name': name,
+        'stars': stars,
+        'percentage': percentage,
+      };
 }

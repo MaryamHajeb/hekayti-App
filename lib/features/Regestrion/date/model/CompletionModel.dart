@@ -1,29 +1,21 @@
 class CompletionModel {
-  dynamic id, story_id,updated_at,stars,percentage;
+  dynamic id, story_id, updated_at, stars, percentage;
 
   CompletionModel({
-
-       this.id,
-     required this.updated_at,
-     required  this.percentage,
-     required this.story_id,
-     required this.stars,
-
-
-    });
+    this.id,
+    required this.updated_at,
+    required this.percentage,
+    required this.story_id,
+    required this.stars,
+  });
 
   factory CompletionModel.fromJson(Map<String, dynamic> story) {
     return CompletionModel(
-
-
-
         id: story['id'],
         updated_at: story['updated_at'],
         story_id: story['story_id'],
         stars: story['stars'],
-        percentage: story['percentage']
-
-    );
+        percentage: story['percentage']);
   }
 
   CompletionModel fromJson(Map<String, dynamic> json) {
@@ -37,8 +29,6 @@ class CompletionModel {
       updated_at: '',
       stars: '',
       percentage: '',
-
-
     );
   }
 
@@ -51,12 +41,10 @@ class CompletionModel {
   }
 
   Map<String, dynamic> toJson() => {
-
-    'id': id,
-    'updated_at': updated_at,
-    'story_id': story_id,
-    'stars': stars,
-    'percentage': percentage,
-
-  };
+        'id': id,
+        'updated_at': updated_at,
+        'story_id': story_id,
+        'stars': stars,
+        'percentage': percentage,
+      };
 }

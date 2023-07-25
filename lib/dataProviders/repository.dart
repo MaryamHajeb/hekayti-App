@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:meta/meta.dart';
 
 import 'error/exceptions.dart';
 import 'error/failures.dart';
@@ -11,14 +10,11 @@ typedef dynamic GetCacheDataFunction();
 
 class Repository {
   Future<Either<Failure, dynamic>> sendRequest({
-
     GetDataFunction? remoteFunction,
     GetCacheDataFunction? getCacheDataFunction,
     required Future<bool> checkConnection,
-
   }) async {
     log('send request running');
-
 
     if (await checkConnection) {
       log('check connection ');
@@ -28,8 +24,6 @@ class Repository {
         final remoteData = await remoteFunction!();
         log('the data from repositories is $remoteData');
         return Right(remoteData);
-
-
       } on ServierExeption {
         return Left(ServerFailure());
       } on NotFound {
@@ -37,14 +31,13 @@ class Repository {
       } on BlockedUser {
         return Left(BlockedUserFailure());
       }
-    }
-    else {
+    } else {
       if (getCacheDataFunction == null) {
         return Left(ConnectionFailure());
       }
 
       try {
-        final localData =await getCacheDataFunction();
+        final localData = await getCacheDataFunction();
         return Right(localData);
       } on CacheException {
         return Left(CacheFailure());

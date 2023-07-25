@@ -1,10 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io' as io;
-import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
@@ -12,7 +7,6 @@ import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:lottie/lottie.dart';
 import 'package:string_similarity/string_similarity.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_audio_recorder3/flutter_audio_recorder3.dart';
@@ -30,20 +24,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:file/local.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/common.dart';
-import '../../../../core/util/database_helper.dart';
-import 'package:file/file.dart';
 
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
-import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
-import '../../../../main.dart';
-import '../../../Home/data/model/StoryMode.dart';
 import '../../../Home/presintation/page/HomePage.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 import '../manager/Slied_bloc.dart';
@@ -149,7 +138,6 @@ class _StoryPageState extends State<StoryPage> {
                   SliedWidget = Container(
                     height: double.infinity,
                     width: double.infinity,
-
                     child: Column(
                       children: [
                         Center(
@@ -157,8 +145,13 @@ class _StoryPageState extends State<StoryPage> {
                           "assets/json/animation_slied.json",
                           width: 300,
                         )),
-                        Text('جاري تحهيز القصه ',style: TextStyle(color: AppTheme.primaryColor,fontSize: 20,fontFamily: AppTheme.fontFamily),)
-
+                        Text(
+                          'جاري تحهيز القصه ',
+                          style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontSize: 20,
+                              fontFamily: AppTheme.fontFamily),
+                        )
                       ],
                     ),
                   );
@@ -554,7 +547,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                       .toString(),
                                                                   style: AppTheme
                                                                       .textTheme
-                                                                      .headline1,
+                                                                      .displayLarge,
                                                                 ),
                                                                 SizedBox(
                                                                   height: 5,
@@ -640,7 +633,7 @@ class _StoryPageState extends State<StoryPage> {
                                                 Text(
                                                   'جاري عمليه المطابقه ......',
                                                   style: AppTheme
-                                                      .textTheme.headline3,
+                                                      .textTheme.displaySmall,
                                                   overflow: TextOverflow.clip,
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -835,7 +828,8 @@ class _StoryPageState extends State<StoryPage> {
           recognizing = false;
           isProcces = false;
         }));
-    star = await checkText(text_orglin, text, int.parse(userModel!.level.toString()));
+    star = await checkText(
+        text_orglin, text, int.parse(userModel!.level.toString()));
     print(star);
     print('star');
 
@@ -845,7 +839,8 @@ class _StoryPageState extends State<StoryPage> {
               media_id: media_id,
               readed_text: text,
               accuracy_stars: star,
-              updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ').format(DateTime.now()),
+              updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ')
+                  .format(DateTime.now()),
             )),
             print(reuslt),
             print('result'),
@@ -858,7 +853,7 @@ class _StoryPageState extends State<StoryPage> {
                     await Future.delayed(Duration(seconds: 1)),
                     print(pres),
                     print('persintage'),
-                    stars = (pres / 33).toInt(),
+                    stars = pres ~/ 33,
                     print('stars completion '),
                     print(stars),
                     db.addCompletion(CompletionModel(
@@ -942,7 +937,7 @@ class _StoryPageState extends State<StoryPage> {
     // TODO: implement initState
     super.initState();
     lisen = getCachedDate('Listen_to_story', bool) ?? '';
-    
+
     userModel = getCachedDate('UserInformation', UserModel.init());
 
     initpath();

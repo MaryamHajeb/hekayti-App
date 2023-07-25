@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:ui';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
@@ -9,29 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
-import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
 import 'package:hikayati_app/main.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
-import '../../../../core/util/database_helper.dart';
-import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CastemInputForSearch.dart';
-import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
-import '../../../../core/widgets/PlayButton.dart';
-import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
-import '../../../Regestrion/presintation/page/LoginPage.dart';
-import '../../../Story/date/model/StoryMediaModel.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../Widget/StoryCard.dart';
 import '../Widget/StoryCardLock.dart';
@@ -114,12 +103,13 @@ class _HomePageState extends State<HomePage> {
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
-                      collected_stars = getCachedDate('collected_stars', String);
+                      collected_stars =
+                          getCachedDate('collected_stars', String);
                       all_stars = getCachedDate('all_stars', String);
                       if (collected_stars == 0 || all_stars == 0) {
                         star_progrees = 0;
                       } else {
-                        star_progrees = (collected_stars! / all_stars)!;
+                        star_progrees = (collected_stars! / all_stars);
                       }
                       listStory.clear();
                       state.storyModel.forEach((element) {
@@ -188,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                               Text(
                                                 '${getCachedDate('collected_stars', String)}/${getCachedDate('all_stars', String)}',
                                                 style: AppTheme
-                                                    .textTheme.headline3,
+                                                    .textTheme.displaySmall,
                                               ),
                                             ],
                                           )
@@ -255,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                                           print(
                                               listStoryWithSearch[index].stars);
                                           print('sttttt');
-                                          return listStoryWithSearch[index]!
+                                          return listStoryWithSearch[index]
                                                       .required_stars >
                                                   collected_stars
                                               ? InkWell(
@@ -275,20 +265,20 @@ class _HomePageState extends State<HomePage> {
                                                     child: StoryCardLock(
                                                       name: listStoryWithSearch[
                                                               index]
-                                                          ?.name,
+                                                          .name,
                                                       starts: int.parse(
                                                           listStoryWithSearch[
                                                                   index]
-                                                              ?.stars),
+                                                              .stars),
                                                       photo: path +
                                                           '/' +
                                                           listStoryWithSearch[
-                                                                  index]!
+                                                                  index]
                                                               .cover_photo
                                                               .toString(),
                                                     ),
                                                   ))
-                                              : listStoryWithSearch[index]!
+                                              : listStoryWithSearch[index]
                                                           .download ==
                                                       0
                                                   ? InkWell(
@@ -300,7 +290,6 @@ class _HomePageState extends State<HomePage> {
                                                               '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
                                                               'اظغط على زر التنزيل من اجل تحميل هذة القصه',
                                                               () {
-
                                                             Navigator.pop(
                                                                 context);
                                                           });
@@ -354,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                                                           MainAxisAlignment
                                                                               .center,
                                                                       children: [
-                                                                        int.parse(listStoryWithSearch[index]?.stars) ==
+                                                                        int.parse(listStoryWithSearch[index].stars) ==
                                                                                 1
                                                                             ? Row(
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -371,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                                                                                   Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
                                                                                 ],
                                                                               )
-                                                                            : int.parse(listStoryWithSearch[index]?.stars) == 2
+                                                                            : int.parse(listStoryWithSearch[index].stars) == 2
                                                                                 ? Row(
                                                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
@@ -383,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                                                                                       Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
                                                                                     ],
                                                                                   )
-                                                                                : int.parse(listStoryWithSearch[index]?.stars) == 0
+                                                                                : int.parse(listStoryWithSearch[index].stars) == 0
                                                                                     ? Row(
                                                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                                                         children: [
@@ -420,7 +409,6 @@ class _HomePageState extends State<HomePage> {
                                                                               File('${path + '/' + state.storyModel[index]!.cover_photo}'),
                                                                               fit: BoxFit.cover,
                                                                             ),
-
                                                                           ),
                                                                         ),
                                                                         Row(
@@ -433,46 +421,46 @@ class _HomePageState extends State<HomePage> {
                                                                               width: 30,
                                                                             ),
                                                                             IconButton(
-                                                                                    onPressed: () async {
-                                                                                      setState(() => isloading = true);
-                                                                                    showDialog(
-                                                                                      barrierDismissible: false,
-                                                                                      context: context, builder: (context) {
-
-                                                                                    return Container(
-                                                                                      height: screenUtil.screenHeight *.3,
-                                                                                      width: screenUtil.screenWidth *.2,
-                                                                                      child: Column(children: [
-                                                                                        Center(
-                                                                                            child: Lottie.asset(
-                                                                                              "assets/json/animation_download.json",
-                                                                                              width: 300,
-                                                                                            )),
-                                                                                        Text('جاري تحهيز القصه ',style: TextStyle(color: AppTheme.primaryColor,fontSize: 20,fontFamily: AppTheme.fontFamily),)
-
-
-                                                                                      ]),
-                                                                                    );
-
-
-                                                                                    },);
-
-                                                                                      await Future.delayed(Duration(seconds: 10));
-                                                                                      Navigator.pop(context);
-                                                                                      await db.downloadMedia(state.storyModel[index]!.id.toString());
-                                                                                      setState(() => isloading = false);
-
-                                                                                      BlocProvider.of<StoryBloc>(_context).add(GetAllStory(userModel!.level.toString()));
+                                                                                onPressed: () async {
+                                                                                  setState(() => isloading = true);
+                                                                                  showDialog(
+                                                                                    barrierDismissible: false,
+                                                                                    context: context,
+                                                                                    builder: (context) {
+                                                                                      return Container(
+                                                                                        height: screenUtil.screenHeight * .3,
+                                                                                        width: screenUtil.screenWidth * .2,
+                                                                                        child: Column(children: [
+                                                                                          Center(
+                                                                                              child: Lottie.asset(
+                                                                                            "assets/json/animation_download.json",
+                                                                                            width: 300,
+                                                                                          )),
+                                                                                          Text(
+                                                                                            'جاري تحهيز القصه ',
+                                                                                            style: TextStyle(color: AppTheme.primaryColor, fontSize: 20, fontFamily: AppTheme.fontFamily),
+                                                                                          )
+                                                                                        ]),
+                                                                                      );
                                                                                     },
-                                                                                    icon: Icon(
-                                                                                      Icons.download,
-                                                                                      size: 30,
-                                                                                      color: AppTheme.primaryColor,
-                                                                                    )),
+                                                                                  );
+
+                                                                                  await Future.delayed(Duration(seconds: 10));
+                                                                                  Navigator.pop(context);
+                                                                                  await db.downloadMedia(state.storyModel[index]!.id.toString());
+                                                                                  setState(() => isloading = false);
+
+                                                                                  BlocProvider.of<StoryBloc>(_context).add(GetAllStory(userModel!.level.toString()));
+                                                                                },
+                                                                                icon: Icon(
+                                                                                  Icons.download,
+                                                                                  size: 30,
+                                                                                  color: AppTheme.primaryColor,
+                                                                                )),
                                                                             Expanded(
                                                                               child: Text(
                                                                                 state.storyModel[index]!.name,
-                                                                                style: AppTheme.textTheme.headline5,
+                                                                                style: AppTheme.textTheme.headlineSmall,
                                                                                 maxLines: 2,
                                                                                 overflow: TextOverflow.ellipsis,
                                                                               ),
@@ -497,7 +485,7 @@ class _HomePageState extends State<HomePage> {
                                                                     StoryPage(
                                                               id: listStoryWithSearch[
                                                                       index]
-                                                                  ?.id,
+                                                                  .id,
                                                             )));
 
                                                         FlameAudio.bgm.pause();
@@ -510,16 +498,16 @@ class _HomePageState extends State<HomePage> {
                                                         child: StoryCard(
                                                           name:
                                                               listStoryWithSearch[
-                                                                      index]!
+                                                                      index]
                                                                   .name,
                                                           starts: int.parse(
                                                               listStoryWithSearch[
                                                                       index]
-                                                                  ?.stars),
+                                                                  .stars),
                                                           photo: path +
                                                               '/' +
                                                               listStoryWithSearch[
-                                                                      index]!
+                                                                      index]
                                                                   .cover_photo
                                                                   .toString(),
                                                         ),
@@ -529,7 +517,7 @@ class _HomePageState extends State<HomePage> {
                                     : Center(
                                         child: Text(
                                         'القائمه فارغه',
-                                        style: AppTheme.textTheme.headline2,
+                                        style: AppTheme.textTheme.displayMedium,
                                       )),
                               )
                             ]),
@@ -577,11 +565,7 @@ class _HomePageState extends State<HomePage> {
 
     initpath();
     listStoryWithSearch = listStory;
-
-
-
   }
-
 
   initpath() async {
     var externalDirectoryPath = await AndroidPathProvider.downloadsPath;

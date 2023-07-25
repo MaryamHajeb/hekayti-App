@@ -1,23 +1,19 @@
 class UserModel {
-  dynamic id, user_name, email, level,character,update_at,password;
+  dynamic id, user_name, email, level, character, update_at, password;
 
   UserModel(
-      {
-      required this.user_name,
+      {required this.user_name,
       required this.email,
       required this.level,
       required this.character,
       required this.update_at,
       required this.password,
-      required this.id
-
-      });
+      required this.id});
 
   factory UserModel.fromJson(Map<String, dynamic> user) {
     return UserModel(
-
       user_name: user['user_name'],
-      email : user['email'],
+      email: user['email'],
       level: user['level'],
       character: user['character'],
       update_at: user['update_at'],
@@ -32,7 +28,6 @@ class UserModel {
 
   factory UserModel.init() {
     return UserModel(
-
       user_name: '',
       email: '',
       update_at: '',

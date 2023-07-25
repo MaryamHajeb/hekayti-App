@@ -6,45 +6,44 @@ abstract class Failure extends Equatable {
 
 // general failures
 
-class NotFoundFailure extends Failure{
+class NotFoundFailure extends Failure {
   @override
   List<Object?> get props => [];
-  
 }
-class ServerFailure extends Failure{
-  @override
-  List<Object?> get props => [];
-  
-}
-class NotAvailableFailure extends Failure{
-  @override
-  List<Object?> get props => [];
 
-}
-class BlockedUserFailure extends Failure{
+class ServerFailure extends Failure {
   @override
   List<Object?> get props => [];
-
 }
-class ValidationFailure extends Failure{
+
+class NotAvailableFailure extends Failure {
   @override
   List<Object?> get props => [];
-
 }
-class ConnectionFailure extends Failure{
+
+class BlockedUserFailure extends Failure {
   @override
   List<Object?> get props => [];
-
 }
-class CacheFailure extends Failure{
+
+class ValidationFailure extends Failure {
   @override
   List<Object?> get props => [];
-
 }
-class NotFounFailure extends Failure{
+
+class ConnectionFailure extends Failure {
   @override
   List<Object?> get props => [];
+}
 
+class CacheFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
+class NotFounFailure extends Failure {
+  @override
+  List<Object?> get props => [];
 }
 
 String mapFailureToMessage(Failure failure) {
@@ -54,17 +53,17 @@ String mapFailureToMessage(Failure failure) {
     case NotFoundFailure:
       return 'لاتوجد أي بيانات في الوقت الحالي!';
 
-     case BlockedUserFailure:
+    case BlockedUserFailure:
       return 'عذرا ! لقد تم حظر حسابك. يرجى التواصل مع المسؤول لإزالة الحظر';
     case NotAvailableFailure:
       return 'هذا الطلب غير متاح ';
     case ValidationFailure:
       return 'البيانات التي ادخلتها غير صحيحه ';
-      case ConnectionFailure:
+    case ConnectionFailure:
       return 'لا يوجد اتصال بالانترنت ';
-      case NotFounFailure:
+    case NotFounFailure:
       return 'البيانات غير موجودة ';
-      case CacheFailure:
+    case CacheFailure:
       return 'لا يوجد بيانات بالتخزين المؤقت ';
     default:
       return 'عذراً حدث خطأ غير متوقع';

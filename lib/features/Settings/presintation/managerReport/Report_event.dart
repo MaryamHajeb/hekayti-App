@@ -5,9 +5,6 @@ abstract class ReportEvent extends Equatable {
 }
 
 class GetAllReport extends ReportEvent {
-
-
-
   GetAllReport();
 
   @override

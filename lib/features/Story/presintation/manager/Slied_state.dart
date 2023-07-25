@@ -1,8 +1,6 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../../date/model/StoryMediaModel.dart';
-import '../../../Home/data/model/StoryMode.dart';
 
 abstract class SliedState extends Equatable {
   const SliedState();
@@ -19,7 +17,6 @@ class SliedLoading extends SliedState {
 }
 
 class SliedILoaded extends SliedState {
-
   List<StoryMediaModel> SliedModel;
   SliedILoaded({required this.SliedModel});
 

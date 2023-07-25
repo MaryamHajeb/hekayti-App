@@ -1,7 +1,5 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:hikayati_app/features/Settings/date/model/ReportModel.dart';
-
 
 abstract class ReportState extends Equatable {
   const ReportState();
@@ -18,7 +16,6 @@ class ReportLoading extends ReportState {
 }
 
 class ReportILoaded extends ReportState {
-
   List<ReportModel> reportModel;
   ReportILoaded({required this.reportModel});
 

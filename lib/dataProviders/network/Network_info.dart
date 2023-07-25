@@ -5,7 +5,6 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl extends NetworkInfo {
-
   final DataConnectionChecker connectionChecker;
 
   NetworkInfoImpl(this.connectionChecker);

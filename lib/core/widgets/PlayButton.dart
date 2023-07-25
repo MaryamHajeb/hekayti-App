@@ -4,17 +4,17 @@ import 'dart:math' show pi;
 import 'package:hikayati_app/core/app_theme.dart';
 
 class PlayButton extends StatefulWidget {
-   bool initialIsPlaying;
+  bool initialIsPlaying;
   final Icon playIcon;
   final Icon pauseIcon;
   final VoidCallback onPressed;
 
   PlayButton({
     required this.onPressed,
-   required this.initialIsPlaying,
+    required this.initialIsPlaying,
     this.playIcon = const Icon(Icons.play_arrow),
     this.pauseIcon = const Icon(Icons.pause),
-  }) : assert(onPressed != null);
+  });
 
   @override
   _PlayButtonState createState() => _PlayButtonState();
@@ -23,8 +23,6 @@ class PlayButton extends StatefulWidget {
 class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
   static const _kToggleDuration = Duration(milliseconds: 200);
   static const _kRotationDuration = Duration(seconds: 1);
-
-
 
   // rotation and scale animations
   late AnimationController _rotationController;
@@ -43,19 +41,18 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     print('true');
 
     _rotationController =
-    AnimationController(vsync: this, duration: _kRotationDuration)
-      ..addListener(() => setState(_updateRotation))
-      ..repeat();
+        AnimationController(vsync: this, duration: _kRotationDuration)
+          ..addListener(() => setState(_updateRotation))
+          ..repeat();
 
     _scaleController =
-    AnimationController(vsync: this, duration: _kToggleDuration)
-      ..addListener(() => setState(_updateScale));
+        AnimationController(vsync: this, duration: _kToggleDuration)
+          ..addListener(() => setState(_updateScale));
 
     super.initState();
   }
 
   void _onToggle() {
-
     if (_scaleController.isCompleted) {
       _scaleController.reverse();
     } else {
@@ -69,7 +66,6 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
     return SizedBox.expand(
       key: ValueKey<bool>(isPlaying),
       child: IconButton(
-
         icon: isPlaying ? widget.pauseIcon : widget.playIcon,
         onPressed: _onToggle,
       ),
@@ -78,31 +74,40 @@ class _PlayButtonState extends State<PlayButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return ConstrainedBox(
-
-      constraints: BoxConstraints(minWidth: 50, minHeight: 50,),
+      constraints: BoxConstraints(
+        minWidth: 50,
+        minHeight: 50,
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [
           if (_showWaves) ...[
-            Blob(color: Color(0xffffffff), scale: _scale*1.1, rotation: _rotation *1.5 -80),
-            Blob(color: Color(0xfff6e4a0), scale: _scale*1.1, rotation: _rotation * 2 - 80),
-            Blob(color: Color(0xfff8ceb7), scale: _scale*1.1, rotation: _rotation * 3 - 80),
+            Blob(
+                color: Color(0xffffffff),
+                scale: _scale * 1.1,
+                rotation: _rotation * 1.5 - 80),
+            Blob(
+                color: Color(0xfff6e4a0),
+                scale: _scale * 1.1,
+                rotation: _rotation * 2 - 80),
+            Blob(
+                color: Color(0xfff8ceb7),
+                scale: _scale * 1.1,
+                rotation: _rotation * 3 - 80),
           ],
           Container(
-
             constraints: BoxConstraints.expand(),
             child: AnimatedSwitcher(
               child: _buildIcon(true),
               duration: _kToggleDuration,
             ),
             decoration: BoxDecoration(
-              border: Border.all(color: true?Colors.white:AppTheme.primaryColor,width: 2),
-              shape: BoxShape.rectangle
-
-              ,borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: true?AppTheme.primaryColor:Colors.white,
+              border: Border.all(
+                  color: true ? Colors.white : AppTheme.primaryColor, width: 2),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              color: true ? AppTheme.primaryColor : Colors.white,
             ),
           ),
         ],
@@ -132,18 +137,16 @@ class Blob extends StatelessWidget {
       child: Transform.rotate(
         angle: rotation,
         child: Container(
-
           decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40),
-              topRight:  Radius.circular(50),
-              topLeft:  Radius.circular(50),
-          )
-            ),
-          ),
+              color: color,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
+                topRight: Radius.circular(50),
+                topLeft: Radius.circular(50),
+              )),
         ),
-      );
+      ),
+    );
   }
 }

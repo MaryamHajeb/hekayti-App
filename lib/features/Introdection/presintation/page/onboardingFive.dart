@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemLevel.dart';
-import '../../../../core/widgets/CustemIcon.dart';
-import '../../../../gen/assets.gen.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 
 class onboardingFive extends StatefulWidget {
@@ -19,7 +16,7 @@ class onboardingFive extends StatefulWidget {
 }
 
 class _onboardingFiveState extends State<onboardingFive> {
-  Carecters carecters=Carecters();
+  Carecters carecters = Carecters();
   int itemSelected = 0;
   ScreenUtil screenUtil = ScreenUtil();
   @override
@@ -29,11 +26,11 @@ class _onboardingFiveState extends State<onboardingFive> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SizedBox(height: 10,),
-
+        SizedBox(
+          height: 10,
+        ),
         Text('حدد مستوى  القصص التي تريدها لطفلك :',
-            style: AppTheme.textTheme.headline3),
-
+            style: AppTheme.textTheme.displaySmall),
         Container(
           margin: EdgeInsets.only(right: 20),
           height: screenUtil.screenHeight * .5,
@@ -42,33 +39,41 @@ class _onboardingFiveState extends State<onboardingFive> {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount:carecters.Levels.length,
-
+              itemCount: carecters.Levels.length,
               itemBuilder: (context, index) {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     CustemLevel(
-                      name:carecters.Levels[index]['num'],
-                      onTap: () async{
+                      name: carecters.Levels[index]['num'],
+                      onTap: () async {
                         setState(() {
                           itemSelected = index;
                         });
 
-                        int dd=int.parse(carecters.Levels[index]['num'].toString());
-                        UserModel? usermodel =getCachedDate('UserInformation', UserModel.init());
+                        int dd = int.parse(
+                            carecters.Levels[index]['num'].toString());
+                        UserModel? usermodel =
+                            getCachedDate('UserInformation', UserModel.init());
 
-                        CachedDate('UserInformation',UserModel(user_name: usermodel?.user_name, email: usermodel?.email, level: dd, character: usermodel?.character, update_at: DateTime.now().toString(), password: usermodel?.password, id: usermodel?.id));
-
-
-
+                        CachedDate(
+                            'UserInformation',
+                            UserModel(
+                                user_name: usermodel?.user_name,
+                                email: usermodel?.email,
+                                level: dd,
+                                character: usermodel?.character,
+                                update_at: DateTime.now().toString(),
+                                password: usermodel?.password,
+                                id: usermodel?.id));
                       },
                       isSelected: itemSelected == index ? true : false,
                       color: carecters.Levels[index]['color'],
                     ),
-                    SizedBox(width: 70,)
+                    SizedBox(
+                      width: 70,
+                    )
                   ],
                 );
               },

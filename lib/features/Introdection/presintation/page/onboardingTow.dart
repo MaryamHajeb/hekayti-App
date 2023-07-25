@@ -6,11 +6,10 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../gen/assets.gen.dart';
 
 class onboardingTow extends StatelessWidget {
-   onboardingTow({Key? key}) : super(key: key);
+  onboardingTow({Key? key}) : super(key: key);
 
   ScreenUtil screenUtil = ScreenUtil();
 
@@ -31,10 +30,14 @@ class onboardingTow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Text('لطفاً، قم بحل هذه المعادلة للضبط إعدادات التطبيق :',
-            style: AppTheme.textTheme.headline2),
-                   SizedBox(height: 10,),
+            style: AppTheme.textTheme.displayMedium),
+        SizedBox(
+          height: 10,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,8 +45,7 @@ class onboardingTow extends StatelessWidget {
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(
-                    Assets.images.carecters.hana.happy.path)),
+                child: Image.asset(Assets.images.carecters.hana.happy.path)),
             Column(
               children: [
                 Container(
@@ -51,18 +53,17 @@ class onboardingTow extends StatelessWidget {
                     width: screenUtil.screenWidth * .3,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            width: 2,
-                            color: AppTheme.primarySwatch.shade400),
+                            width: 2, color: AppTheme.primarySwatch.shade400),
                         color: AppTheme.primarySwatch.shade50,
                         borderRadius: BorderRadius.circular(10)),
-                    margin: EdgeInsets.only(
-                        bottom: 30, top: 0, left: 0, right: 50),
+                    margin:
+                        EdgeInsets.only(bottom: 30, top: 0, left: 0, right: 50),
                     child: Center(
                         child: Text(
-                          '$num1 + $num2 + $num3   ',
-                          style: AppTheme.textTheme.displayLarge,
-                          textDirection: TextDirection.rtl,
-                        ))),
+                      '$num1 + $num2 + $num3   ',
+                      style: AppTheme.textTheme.displayLarge,
+                      textDirection: TextDirection.rtl,
+                    ))),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +77,7 @@ class onboardingTow extends StatelessWidget {
                         if (value.toString().isEmpty) {
                           return 'يرجئ منك كتابه الحل';
                         }
-                        if(int.parse(value.toString())!= num1+num2+num3){
+                        if (int.parse(value.toString()) != num1 + num2 + num3) {
                           return 'يرجئ منك كتابه الحل بشكل صحيح';
                         }
 
@@ -94,8 +95,7 @@ class onboardingTow extends StatelessWidget {
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(
-                    Assets.images.carecters.mohamed.happy.path)),
+                child: Image.asset(Assets.images.carecters.mohamed.happy.path)),
           ],
         ),
       ],

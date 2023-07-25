@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 abstract class ChartEvent extends Equatable {
@@ -6,8 +5,7 @@ abstract class ChartEvent extends Equatable {
 }
 
 class GetAllChart extends ChartEvent {
-
-String id;
+  String id;
 
   GetAllChart({required this.id});
 

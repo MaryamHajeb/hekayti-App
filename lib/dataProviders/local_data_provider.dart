@@ -8,32 +8,39 @@ class LocalDataProvider {
 
   LocalDataProvider({required this.sharedPreferences});
 
-  Future<void> cacheData({required String key,required dynamic data,}) {
+  Future<void> cacheData({
+    required String key,
+    required dynamic data,
+  }) {
     log("setting sharedPreferences");
     log("key $key");
     log('cached data is $data');
     return sharedPreferences.setString(key, json.encode(data));
   }
 
-  dynamic getCachedData({required String key,required retrievedDataType,dynamic returnType,}) {
+  dynamic getCachedData({
+    required String key,
+    required retrievedDataType,
+    dynamic returnType,
+  }) {
     try {
       if (sharedPreferences.getString(key) != null) {
         if (returnType == List) {
           final List<dynamic> data = json.decode(
-            sharedPreferences.getString(key)?? '',
+            sharedPreferences.getString(key) ?? '',
           );
 
-                  ///SliedModel
+          ///SliedModel
           return retrievedDataType.fromJsonList(data);
         } else if (returnType == String) {
           final dynamic data = json.decode(
-            sharedPreferences.getString(key)?? '',
+            sharedPreferences.getString(key) ?? '',
           );
 
           return data;
         } else {
           final dynamic data = json.decode(
-            sharedPreferences.getString(key)??'',
+            sharedPreferences.getString(key) ?? '',
           );
 
           try {
@@ -42,14 +49,10 @@ class LocalDataProvider {
             return data;
           }
         }
-      }
-      else {
-
+      } else {
         throw CacheException();
-
       }
     } catch (_) {
-
       throw CacheException();
     }
   }
@@ -59,11 +62,4 @@ class LocalDataProvider {
   }) {
     return sharedPreferences.remove(key);
   }
-
-
-
-
 }
-
-
-

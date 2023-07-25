@@ -1,78 +1,47 @@
-import 'dart:developer';
-
 import 'package:hikayati_app/dataProviders/local_data_provider.dart';
 import 'package:hikayati_app/dataProviders/network/Network_info.dart';
-import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hikayati_app/features/Settings/date/model/ReportModel.dart';
-import 'package:hikayati_app/features/Story/date/model/StoryMediaModel.dart';
-
 
 import '../../../../core/util/database_helper.dart';
 import '../../../../dataProviders/error/failures.dart';
-import '../../../../dataProviders/network/data_source_url.dart';
-import '../../../Home/data/model/StoryMode.dart';
 
-
-class ReportRepository extends Repository{
+class ReportRepository extends Repository {
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
   DatabaseHelper db = new DatabaseHelper();
 
-
   ReportRepository({
-
     required this.remoteDataProvider,
     required this.localDataProvider,
     required this.networkInfo,
   });
 
-
   Future<Either<Failure, dynamic>> getAllReport() async {
     return await sendRequest(
-
         checkConnection: networkInfo.isConnected,
-
         remoteFunction: () async {
           List<dynamic> reslet = await db.getReport();
-          List<ReportModel> list=[] ;
+          List<ReportModel> list = [];
           reslet.forEach((element) {
             ReportModel story = ReportModel.fromJson(element);
             list.add(story);
           });
 
-
-          return  list;
+          return list;
         },
-
-        getCacheDataFunction: () async{
+        getCacheDataFunction: () async {
           List<dynamic> reslet = await db.getReport();
-          List<ReportModel> list=[] ;
+          List<ReportModel> list = [];
           reslet.forEach((element) {
             ReportModel story = ReportModel.fromJson(element);
             list.add(story);
           });
 
-
-          return  list;
-        }
-
-
-
-    );
-
-
-
+          return list;
+        });
   }
-
-
-
-
-
-
-
-
 }

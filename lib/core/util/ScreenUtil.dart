@@ -9,15 +9,15 @@ class ScreenUtil {
   int height;
   bool allowFontScaling;
 
-    late MediaQueryData _mediaQueryData;
-    late double _screenWidth;
-    late double _screenHeight;
-    late double _screenHeightNoPadding;
-    late double _pixelRatio;
-    late double _statusBarHeight;
-    late double _bottomBarHeight;
-    late double _textScaleFactor;
-    late Orientation _orientation;
+  late MediaQueryData _mediaQueryData;
+  late double _screenWidth;
+  late double _screenHeight;
+  late double _screenHeightNoPadding;
+  late double _pixelRatio;
+  late double _statusBarHeight;
+  late double _bottomBarHeight;
+  late double _textScaleFactor;
+  late Orientation _orientation;
 
   ScreenUtil({
     this.width = 1080,
@@ -43,27 +43,27 @@ class ScreenUtil {
         mediaQuery.size.height - _statusBarHeight - _bottomBarHeight;
   }
 
-   MediaQueryData get mediaQueryData => _mediaQueryData;
+  MediaQueryData get mediaQueryData => _mediaQueryData;
 
-   double get textScaleFactory => _textScaleFactor;
+  double get textScaleFactory => _textScaleFactor;
 
-   double get pixelRatio => _pixelRatio;
+  double get pixelRatio => _pixelRatio;
 
-   Orientation get orientation => _orientation;
+  Orientation get orientation => _orientation;
 
-   double get screenWidth => _screenWidth;
+  double get screenWidth => _screenWidth;
 
-   double get screenHeight => _screenHeight;
+  double get screenHeight => _screenHeight;
 
-   double get screenWidthPx => _screenWidth * _pixelRatio;
+  double get screenWidthPx => _screenWidth * _pixelRatio;
 
-   double get screenHeightPx => _screenHeight * _pixelRatio;
+  double get screenHeightPx => _screenHeight * _pixelRatio;
 
-   double get screenHeightNoPadding => _screenHeightNoPadding;
+  double get screenHeightNoPadding => _screenHeightNoPadding;
 
-   double get statusBarHeight => _statusBarHeight * _pixelRatio;
+  double get statusBarHeight => _statusBarHeight * _pixelRatio;
 
-   double get bottomBarHeight => _bottomBarHeight * _pixelRatio;
+  double get bottomBarHeight => _bottomBarHeight * _pixelRatio;
 
   get scaleWidth => _screenWidth / instance.width;
 
@@ -76,7 +76,4 @@ class ScreenUtil {
   setSp(int fontSize) => allowFontScaling
       ? setWidth(fontSize)
       : setWidth(fontSize) / _textScaleFactor;
-
-
-
 }

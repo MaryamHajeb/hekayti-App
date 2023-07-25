@@ -1,8 +1,8 @@
 class accuracyModel {
-  dynamic id, accuracy_stars,media_id,readed_text,updated_at;
+  dynamic id, accuracy_stars, media_id, readed_text, updated_at;
 
   accuracyModel({
-     this.id,
+    this.id,
     required this.media_id,
     required this.readed_text,
     required this.accuracy_stars,
@@ -11,11 +11,11 @@ class accuracyModel {
 
   factory accuracyModel.fromJson(Map<String, dynamic> accuracy) {
     return accuracyModel(
-        id: accuracy['id'],
-        media_id: accuracy['media_id'],
-        readed_text: accuracy['readed_text'],
-        accuracy_stars: accuracy['accuracy_stars'],
-        updated_at: accuracy['updated_at'],
+      id: accuracy['id'],
+      media_id: accuracy['media_id'],
+      readed_text: accuracy['readed_text'],
+      accuracy_stars: accuracy['accuracy_stars'],
+      updated_at: accuracy['updated_at'],
     );
   }
 
@@ -42,12 +42,10 @@ class accuracyModel {
   }
 
   Map<String, dynamic> toJson() => {
-
-    'id': id,
-    'updated_at':updated_at,
-    'readed_text': readed_text,
-    'media_id': media_id,
-    'accuracy_stars': accuracy_stars
-
-  };
+        'id': id,
+        'updated_at': updated_at,
+        'readed_text': readed_text,
+        'media_id': media_id,
+        'accuracy_stars': accuracy_stars
+      };
 }

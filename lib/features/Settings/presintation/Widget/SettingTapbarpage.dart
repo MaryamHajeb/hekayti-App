@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
-import 'package:hikayati_app/features/introdection/presintation/page/Splach_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemCarecters.dart';
 import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CastemLevel.dart';
+import '../../../../core/widgetss/CastemLevel.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustemButten2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
@@ -46,19 +44,21 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('  اسم الطفل :', style: AppTheme.textTheme.headline3),
+              Text('  اسم الطفل :', style: AppTheme.textTheme.displaySmall),
               CustemInput(
                 size: 200,
                 valdution: (value) {
                   if (value.toString().isEmpty) {
                     return 'يرجئ منك ادخال اسم الطفل ';
-                  }
-                  else if (!RegExp(r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
+                  } else if (!RegExp(
+                          r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
                       .hasMatch(value)) {
                     return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
                   }
@@ -77,7 +77,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             height: 20,
           ),
           Text('الـشخـصـيـات  :',
-              style: AppTheme.textTheme.headline3,
+              style: AppTheme.textTheme.displaySmall,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right),
           SizedBox(
@@ -109,7 +109,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             height: 20,
           ),
           Text('مـسـتـوى الـقـصـص   :',
-              style: AppTheme.textTheme.headline3,
+              style: AppTheme.textTheme.displaySmall,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right),
           Container(
@@ -134,7 +134,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                           setState(() {
                             itemSelectedlevel = index;
                           });
-
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
                         color: carecterslist.Levels[index]['color'],
@@ -158,7 +157,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('خاصية الاستماع للقصص',
-                  style: AppTheme.textTheme.headline3,
+                  style: AppTheme.textTheme.displaySmall,
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.right),
               Checkbox(
@@ -178,68 +177,85 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           ),
           userModel!.email != null
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      width: screenUtil.screenWidth* .4,
-                      height: screenUtil.screenHeight *.2,
+                      width: screenUtil.screenWidth * .4,
+                      height: screenUtil.screenHeight * .2,
                       child: Column(
                         children: [
                           Row(children: [
-                            Text('البريد الاكتروني :',style: AppTheme.textTheme.headline3),
-                            SizedBox(width: 20,),
-                            Text('${userModel?.email.toString()}',style: TextStyle(color: Colors.grey,fontFamily: AppTheme.fontFamily,fontSize: 14),
+                            Text('البريد الاكتروني :',
+                                style: AppTheme.textTheme.displaySmall),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              '${userModel?.email.toString()}',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontSize: 14),
                             )
                           ]),
-                          SizedBox(height: 20,),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(children: [
-                            Text('كـلـمـه  الــمـررو  :',style: AppTheme.textTheme.headline3),
-                            SizedBox(width: 20,),
+                            Text('كـلـمـه  الــمـررو  :',
+                                style: AppTheme.textTheme.displaySmall),
+                            SizedBox(
+                              width: 20,
+                            ),
                             InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.push(
                                       context,
-                                      CustomPageRoute(  child:   ResetPasswordPage()));
-
+                                      CustomPageRoute(
+                                          child: ResetPasswordPage()));
                                 },
-                                child: Text('اعاده تعيين',style: TextStyle(color: AppTheme.primaryColor,fontFamily: AppTheme.fontFamily,fontSize: 13,decoration: TextDecoration.underline,decorationThickness: 2),)),
-
+                                child: Text(
+                                  'اعاده تعيين',
+                                  style: TextStyle(
+                                      color: AppTheme.primaryColor,
+                                      fontFamily: AppTheme.fontFamily,
+                                      fontSize: 13,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 2),
+                                )),
                           ]),
                         ],
                       ),
                     ),
-
                     ElevatedButton(
-                      onPressed: ()async {
+                      onPressed: () async {
                         showImagesDialogWithCancleButten(
                             context,
                             '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
                             'هل حقا تريد تسجيل الخروج', () {
                           Navigator.pop(context);
                         }, () async {
-
-                          CachedDate('onbording','true');
+                          CachedDate('onbording', 'true');
                           db.deleteTable('stories');
                           db.deleteTable('stories_media');
                           db.deleteTable('completion');
                           db.deleteTable('accuracy');
                           Navigator.pushReplacement(
-                              context,
-                              CustomPageRoute(  child:   MyApp()));
+                              context, CustomPageRoute(child: MyApp()));
                         });
-
                       },
-                      child: Text('تسجيل الخروج',style: AppTheme.textTheme.bodyText1),
-                      style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(AppTheme.primarySwatch.shade500) ),
+                      child: Text('تسجيل الخروج',
+                          style: AppTheme.textTheme.bodyLarge),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.primarySwatch.shade500)),
                     ),
-
-
                   ],
                 )
               : Column(
                   children: [
                     Text('هل تريد حفظ بياناتك معنا     (اختياري)',
-                        style: AppTheme.textTheme.headline3,
+                        style: AppTheme.textTheme.displaySmall,
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right),
                     SizedBox(
@@ -255,7 +271,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                                 context, CustomPageRoute(child: SignupPage()));
                           },
                           child: Text('إنشاء حساب',
-                              style: AppTheme.textTheme.bodyText1),
+                              style: AppTheme.textTheme.bodyLarge),
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   AppTheme.primaryColor)),
@@ -266,7 +282,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                                 context, CustomPageRoute(child: LoginPage()));
                           },
                           child: Text('تسجيل دخول',
-                              style: AppTheme.textTheme.bodyText1),
+                              style: AppTheme.textTheme.bodyLarge),
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   AppTheme.primarySwatch.shade600)),
@@ -292,7 +308,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                     showImagesDialog(
                         context,
                         '${carectersobj.FaceCarecters[itemSelected]['image']}',
-                        'تم حفظ بيناتك بنجاح',(){Navigator.pop(context);});
+                        'تم حفظ بيناتك بنجاح', () {
+                      Navigator.pop(context);
+                    });
                   } catch (e) {}
                 },
               ),
@@ -325,17 +343,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   initCarecters() async {
     userModel = getCachedDate('UserInformation', UserModel.init());
 
-
-
-
     bool lisent = await getCachedDate('Listen_to_story', bool) ?? '';
-
-
 
     setState(() {
       nameChiled.text = userModel!.user_name;
-      itemSelected = int.parse(userModel!.character.toString()) ;
-      itemSelectedlevel = int.parse(userModel!.level.toString())-1;
+      itemSelected = int.parse(userModel!.character.toString());
+      itemSelectedlevel = int.parse(userModel!.level.toString()) - 1;
       print(itemSelectedlevel);
       print('itemSelectedlevel');
 
@@ -343,17 +356,28 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
     });
   }
 
-  saveNewSttings() async{
+  saveNewSttings() async {
+    CachedDate(
+        'UserInformation',
+        UserModel(
+            user_name: nameChiled.text,
+            email: userModel!.email,
+            level: (itemSelectedlevel + 1).toString(),
+            character: itemSelected.toString(),
+            update_at: DateTime.now().toString(),
+            password: userModel!.password,
+            id: userModel!.id));
 
-    CachedDate('UserInformation',UserModel(user_name: nameChiled.text, email: userModel!.email, level: (itemSelectedlevel+1).toString(), character: itemSelected.toString(), update_at: DateTime.now().toString(), password: userModel!.password, id: userModel!.id));
-
-    if(userModel!.id!=null && await networkInfo.isConnected){
-      db.updateUserDate(UserModel(user_name: nameChiled.text, email: userModel!.email, level: (itemSelectedlevel+1).toString(), character: itemSelected.toString(), update_at: DateTime.now().toString(), password: userModel!.password, id: userModel!.id));
+    if (userModel!.id != null && await networkInfo.isConnected) {
+      db.updateUserDate(UserModel(
+          user_name: nameChiled.text,
+          email: userModel!.email,
+          level: (itemSelectedlevel + 1).toString(),
+          character: itemSelected.toString(),
+          update_at: DateTime.now().toString(),
+          password: userModel!.password,
+          id: userModel!.id));
     }
     CachedDate('Listen_to_story', chackboxStata);
-
-
-
-
   }
 }
