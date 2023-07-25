@@ -117,11 +117,12 @@ class _SettingPageState extends State<SettingPage> {
 
                                           if (state is ChartLoading) {
                                             ChartWidget = Center(child:
-                                            Lottie.asset("assets/json/loading.json",width: 250,));
+                                            Lottie.asset("assets/json/animation_report.json",width: 250,));
                                           }
 
                                           if (state is ChartILoaded) {
                                             // //TODO::Show Chart here
+
                                             ChartWidget = Directionality(
                                               textDirection: TextDirection.rtl,
                                               child: Center(
@@ -208,7 +209,7 @@ class _SettingPageState extends State<SettingPage> {
 
                                           if (state is ReportLoading) {
                                             ReportWidget = Center(child:
-                                            Lottie.asset("assets/json/loading.json",width: 250,));
+                                            Lottie.asset("assets/json/animation_report.json",width: 250,));
                                           }
 
                                           if (state is ReportILoaded) {

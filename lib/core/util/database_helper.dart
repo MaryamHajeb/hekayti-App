@@ -641,7 +641,6 @@ print('percentage in fun');
 
   addCompletion(CompletionModel data)async{
       dynamic localdata=await foundRecord('story_id',data.story_id,'completion');
-print(localdata[0]['id']);
 print('localdata[0]');
       if(await localdata!=null){
         if (int.parse(data.stars.toString()) >

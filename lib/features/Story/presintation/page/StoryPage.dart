@@ -149,17 +149,18 @@ class _StoryPageState extends State<StoryPage> {
                   SliedWidget = Container(
                     height: double.infinity,
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/backgraond.png',
-                            ),
-                            fit: BoxFit.fill)),
-                    child: Center(
-                        child: Lottie.asset(
-                      "assets/json/loading.json",
-                      width: 250,
-                    )),
+
+                    child: Column(
+                      children: [
+                        Center(
+                            child: Lottie.asset(
+                          "assets/json/animation_slied.json",
+                          width: 300,
+                        )),
+                        Text('جاري تحهيز القصه ',style: TextStyle(color: AppTheme.primaryColor,fontSize: 20,fontFamily: AppTheme.fontFamily),)
+
+                      ],
+                    ),
                   );
                 }
 

@@ -13,6 +13,7 @@ import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dar
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
 import 'package:hikayati_app/main.dart';
+import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -438,8 +439,21 @@ class _HomePageState extends State<HomePage> {
                                                                                       barrierDismissible: false,
                                                                                       context: context, builder: (context) {
 
-                                                                                    return
-                                                                                      initApp('جاري تحميل القصه');
+                                                                                    return Container(
+                                                                                      height: screenUtil.screenHeight *.3,
+                                                                                      width: screenUtil.screenWidth *.2,
+                                                                                      child: Column(children: [
+                                                                                        Center(
+                                                                                            child: Lottie.asset(
+                                                                                              "assets/json/animation_download.json",
+                                                                                              width: 300,
+                                                                                            )),
+                                                                                        Text('جاري تحهيز القصه ',style: TextStyle(color: AppTheme.primaryColor,fontSize: 20,fontFamily: AppTheme.fontFamily),)
+
+
+                                                                                      ]),
+                                                                                    );
+
 
                                                                                     },);
 
