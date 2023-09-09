@@ -11,6 +11,7 @@ import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
 import 'package:hikayati_app/main.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/util/Carecters.dart';
@@ -48,7 +49,6 @@ class _HomePageState extends State<HomePage> {
   final prefs = SharedPreferences.getInstance();
   int progress = 0;
   var statusProgrress;
-  var path;
   bool isloading = false;
   double star_progrees = 0;
   Widget build(BuildContext context) {
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                                         icon: Icon(Icons.search),
                                         text: 'بحث',
                                         controler: search,
-                                        size: 340,
+                                        size: screenUtil.screenWidth*.4,
                                       )),
                                   bgm == false
                                       ? CustemIcon2(
@@ -427,20 +427,30 @@ class _HomePageState extends State<HomePage> {
                                                                                     barrierDismissible: false,
                                                                                     context: context,
                                                                                     builder: (context) {
-                                                                                      return Container(
-                                                                                        height: screenUtil.screenHeight * .3,
-                                                                                        width: screenUtil.screenWidth * .2,
-                                                                                        child: Column(children: [
-                                                                                          Center(
-                                                                                              child: Lottie.asset(
-                                                                                            "assets/json/animation_download.json",
-                                                                                            width: 300,
-                                                                                          )),
-                                                                                          Text(
-                                                                                            'جاري تحهيز القصه ',
-                                                                                            style: TextStyle(color: AppTheme.primaryColor, fontSize: 20, fontFamily: AppTheme.fontFamily),
-                                                                                          )
-                                                                                        ]),
+                                                                                      return Center(
+                                                                                        child: Dialog(
+                                                                                          shadowColor: AppTheme.primaryColor,
+                                                                                          elevation: 50,
+                                                                                          insetAnimationDuration: Duration(seconds: 30),
+                                                                                          shape: RoundedRectangleBorder(
+                                                                                            borderRadius: BorderRadius.circular(20.0),
+                                                                                          ),
+                                                                                          child: Container(
+                                                                                              height: 120,
+                                                                                              width: 70,
+                                                                                              margin: EdgeInsets.all(5),
+                                                                                              decoration: BoxDecoration(border: Border.all(color: AppTheme.primaryColor, width: 4), borderRadius: BorderRadius.circular(20)),
+                                                                                              child: Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                                                                                Lottie.asset(
+                                                                                                  "assets/json/animation_download.json",
+                                                                                                  width: 100,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  'جاري تحميل القصه ',
+                                                                                                  style: TextStyle(color: AppTheme.primaryColor, fontSize: 15, fontFamily: AppTheme.fontFamily),
+                                                                                                )
+                                                                                              ])),
+                                                                                        ),
                                                                                       );
                                                                                     },
                                                                                   );
@@ -557,20 +567,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
-
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
-
-    initpath();
     listStoryWithSearch = listStory;
   }
 
-  initpath() async {
-    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
-    path = externalDirectoryPath.toString();
-
-    print(path);
-  }
 }

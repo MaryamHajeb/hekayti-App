@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_charts/flutter_charts.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../injection_container.dart';
@@ -33,7 +36,6 @@ class _SettingPageState extends State<SettingPage> {
   TextEditingController nameChiled = TextEditingController();
   int idChart = 0;
   Widget ReportWidget = Center();
-  var path;
   String nameStory = '';
   Widget ChartWidget = Center();
 
@@ -359,17 +361,9 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    initpath();
-  }
 
-  initpath() async {
-    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
-    path = externalDirectoryPath.toString();
-  }
+
+
 
   Widget chartToRun(List<ChartModel> chartModel) {
     List<double> stars = [];

@@ -1,17 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'core/util/database_helper.dart';
 import 'dataProviders/network/Network_info.dart';
 import 'features/introdection/presintation/page/Splach_screen.dart';
 import 'injection_container.dart';
-
+import 'package:flutter_downloader/flutter_downloader.dart';
 DatabaseHelper db = new DatabaseHelper();
 NetworkInfo networkInfo = NetworkInfoImpl(sl());
-
+String path='';
 bool islogin = false;
 int idfrochart = 0;
 void main() async {
@@ -19,6 +22,10 @@ void main() async {
   FlameAudio.bgm.initialize();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
+  );
+  await FlutterDownloader.initialize(
+      debug: true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl: true // option: set to false to disable working with http links (default: false)
   );
 
   final prefs = await SharedPreferences.getInstance();
@@ -29,6 +36,10 @@ void main() async {
     DeviceOrientation.landscapeLeft,
     //  DeviceOrientation.landscapeRight,
   ]);
+  final Directory? dir = await getApplicationDocumentsDirectory();
+  final externalDirectoryPath='${dir!.path}';
+  print(externalDirectoryPath);
+  path = externalDirectoryPath.toString();
 
   runApp(MyApp());
 }

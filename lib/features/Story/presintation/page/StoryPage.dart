@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
+import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
@@ -59,7 +60,6 @@ class _StoryPageState extends State<StoryPage> {
   int star = 0;
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = true;
-  var path;
   final player = AudioPlayer();
 
   int currentIndexPage = 0;
@@ -216,11 +216,12 @@ class _StoryPageState extends State<StoryPage> {
                                                           color: AppTheme
                                                               .primaryColor),
                                                       ontap: () async {
+                                                        final status2 = await Permission.manageExternalStorage.request();
                                                         final status =
                                                             await Permission
                                                                 .storage
                                                                 .request();
-                                                        if (status.isGranted) {
+                                                        if (status.isGranted||status2.isGranted) {
                                                           setState(() {
                                                             isSpack = !isSpack;
                                                             print(path +
@@ -659,16 +660,13 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 
-  initpath() async {
-    var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
-    path = externalDirectoryPath.toString();
-  }
 
   _init() async {
     try {
       bool hasPermission = await FlutterAudioRecorder3.hasPermissions ?? false;
+      final status2 = await Permission.manageExternalStorage.request();
 
-      if (hasPermission) {
+      if (hasPermission||status2.isGranted) {
         String customPath = '/audio';
         io.Directory? appDocDirectory = await getExternalStorageDirectory();
 
@@ -940,7 +938,7 @@ class _StoryPageState extends State<StoryPage> {
 
     userModel = getCachedDate('UserInformation', UserModel.init());
 
-    initpath();
+
   }
 
   @override

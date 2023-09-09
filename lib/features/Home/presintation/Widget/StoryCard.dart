@@ -21,7 +21,7 @@ class StoryCard extends StatefulWidget {
 
 class _StoryCardState extends State<StoryCard> {
   ScreenUtil screenUtil = ScreenUtil();
-  String pathImage = '';
+
 
   @override
   Widget build(BuildContext context) {
