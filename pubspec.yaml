@@ -45,7 +45,6 @@ dependencies:
   http:
   dartz:
   get_it: ^7.2.0
-  data_connection_checker:
   flutter_spinkit:
   sqflite: ^2.2.6
   permission_handler: ^10.2.0
@@ -64,6 +63,7 @@ dependencies:
   lottie: ^2.3.2
   flutter_downloader: ^1.10.4
   path_provider: ^2.1.0
+  internet_connection_checker_plus: ^1.0.1
 
 
 

@@ -226,7 +226,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                                     {
                                                                       showImagesDialog(
                                                                           context,
-                                                                          '${carectersobj.showCarecters[userModel!.character]['image']}',
+                                                                          '${carectersobj.showCarecters[userModel!.character]['image'].toString()}',
                                                                           'تاكد من وجود انترنت اول مره من اجل تحميل القصص',
                                                                           () {
                                                                         Navigator.pop(

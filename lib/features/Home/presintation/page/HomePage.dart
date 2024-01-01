@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                                         icon: Icon(Icons.search),
                                         text: 'بحث',
                                         controler: search,
-                                        size: screenUtil.screenWidth*.4,
+                                        size: screenUtil.screenWidth * .4,
                                       )),
                                   bgm == false
                                       ? CustemIcon2(
@@ -307,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 top: 15.0),
                                                         child: Wrap(
                                                           children: [
@@ -503,7 +503,7 @@ class _HomePageState extends State<HomePage> {
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 top: 15.0),
                                                         child: StoryCard(
                                                           name:
@@ -572,5 +572,4 @@ class _HomePageState extends State<HomePage> {
     userModel = getCachedDate('UserInformation', UserModel.init());
     listStoryWithSearch = listStory;
   }
-
 }
