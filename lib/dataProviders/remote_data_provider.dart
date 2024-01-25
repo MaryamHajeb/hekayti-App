@@ -22,9 +22,10 @@ class RemoteDataProvider {
     log('body is ' + body.toString());
     log("I am here " + url);
 
-    final response = await client.post(
-      Uri.parse(DataSourceURL.baseUrl + url),
-      body: body,
+    final response = await client.get(
+      Uri.parse(DataSourceURL.baseUrl +
+          url +
+          "?api_key=zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"),
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'Accept': 'application/json',
@@ -32,7 +33,9 @@ class RemoteDataProvider {
       },
     );
 
-    log(DataSourceURL.baseUrl + url);
+    log(DataSourceURL.baseUrl +
+        url +
+        "?api_key=zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx");
     log("response.body " + response.body.toString());
     log(response.statusCode.toString());
     // log("returnType "+returnType.toString());
