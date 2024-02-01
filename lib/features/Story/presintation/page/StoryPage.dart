@@ -216,12 +216,16 @@ class _StoryPageState extends State<StoryPage> {
                                                           color: AppTheme
                                                               .primaryColor),
                                                       ontap: () async {
-                                                        final status2 = await Permission.manageExternalStorage.request();
+                                                        final status2 =
+                                                            await Permission
+                                                                .manageExternalStorage
+                                                                .request();
                                                         final status =
                                                             await Permission
                                                                 .storage
                                                                 .request();
-                                                        if (status.isGranted||status2.isGranted) {
+                                                        if (status.isGranted ||
+                                                            status2.isGranted) {
                                                           setState(() {
                                                             isSpack = !isSpack;
                                                             print(path +
@@ -229,7 +233,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                 state
                                                                     .SliedModel[
                                                                         currentIndexPage]
-                                                                    .sound);
+                                                                    .audio);
                                                             //   player.play(
                                                             //     AssetSource('music.mp3'));
                                                           });
@@ -239,7 +243,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                   state
                                                                       .SliedModel[
                                                                           currentIndexPage]
-                                                                      .sound));
+                                                                      .audio));
                                                         } else {}
                                                       })
                                                   : CustemIcon(
@@ -363,7 +367,7 @@ class _StoryPageState extends State<StoryPage> {
                                                               5),
                                                       child: Image.file(
                                                         io.File(
-                                                            '$path/${state.SliedModel[index].photo}'),
+                                                            '$path/${state.SliedModel[index].image}'),
                                                         fit: BoxFit.cover,
                                                         height: screenUtil
                                                                 .screenHeight *
@@ -450,7 +454,7 @@ class _StoryPageState extends State<StoryPage> {
                                                           top: 10),
                                                       child: Image.file(
                                                         io.File(
-                                                            '$path/${state.SliedModel[index].photo}'),
+                                                            '$path/${state.SliedModel[index].image}'),
                                                         fit: BoxFit.cover,
                                                         height: screenUtil
                                                                 .screenHeight *
@@ -660,13 +664,12 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 
-
   _init() async {
     try {
       bool hasPermission = await FlutterAudioRecorder3.hasPermissions ?? false;
       final status2 = await Permission.manageExternalStorage.request();
 
-      if (hasPermission||status2.isGranted) {
+      if (hasPermission || status2.isGranted) {
         String customPath = '/audio';
         io.Directory? appDocDirectory = await getExternalStorageDirectory();
 
@@ -937,8 +940,6 @@ class _StoryPageState extends State<StoryPage> {
     lisen = getCachedDate('Listen_to_story', bool) ?? '';
 
     userModel = getCachedDate('UserInformation', UserModel.init());
-
-
   }
 
   @override

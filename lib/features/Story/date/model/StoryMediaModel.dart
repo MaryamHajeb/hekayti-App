@@ -1,11 +1,11 @@
 class StoryMediaModel {
-  dynamic id, page_no, story_id, photo, sound, text, updated_at, text_no_desc;
+  dynamic id, page_no, story_id, image, audio, text, updated_at, text_no_desc;
 
   StoryMediaModel({
     this.id,
     required this.story_id,
-    required this.photo,
-    required this.sound,
+    required this.image,
+    required this.audio,
     required this.text,
     required this.text_no_desc,
     required this.updated_at,
@@ -17,8 +17,8 @@ class StoryMediaModel {
         id: meadia['id'],
         story_id: meadia['story_id'],
         updated_at: meadia['updated_at'],
-        photo: meadia['photo'],
-        sound: meadia['sound'],
+        image: meadia['image'],
+        audio: meadia['audio'],
         text: meadia['text'],
         text_no_desc: meadia['text_no_desc'],
         page_no: meadia['page_no']);
@@ -34,9 +34,9 @@ class StoryMediaModel {
       page_no: '',
       text: '',
       updated_at: '',
-      sound: '',
+      audio: '',
       text_no_desc: '',
-      photo: '',
+      image: '',
       story_id: '',
     );
   }
@@ -52,8 +52,8 @@ class StoryMediaModel {
   Map<String, dynamic> toJson() => {
         'id': id,
         'text': text,
-        'sound': sound,
-        'photo': photo,
+        'audio': audio,
+        'image': image,
         'updated_at': updated_at,
         'text_no_desc': text_no_desc,
         'story_id': story_id,

@@ -13,6 +13,7 @@ import 'package:hikayati_app/main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
@@ -23,6 +24,7 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
+import '../Widget/ShowTutorialWidget.dart';
 import '../Widget/StoryCard.dart';
 import '../Widget/StoryCardLock.dart';
 
@@ -44,13 +46,19 @@ class _HomePageState extends State<HomePage> {
   int? collected_stars = 0;
   int all_stars = 0;
   int stars = 0;
+  List<TargetFocus> targets = [];
   bool bgm = false;
   UserModel? userModel;
-  final prefs = SharedPreferences.getInstance();
+  SharedPreferences? prefs;
   int progress = 0;
   var statusProgrress;
   bool isloading = false;
   double star_progrees = 0;
+  TutorialCoachMark? tutorialCoachMark;
+  GlobalKey keyone = GlobalKey();
+  GlobalKey keytwo = GlobalKey();
+  GlobalKey keythree = GlobalKey();
+  GlobalKey keyfour = GlobalKey();
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -206,6 +214,7 @@ class _HomePageState extends State<HomePage> {
                                   bgm == false
                                       ? CustemIcon2(
                                           icon: Icon(
+                                            key: keyone,
                                             Icons.volume_up_rounded,
                                             color: AppTheme.primaryColor,
                                           ),
@@ -568,8 +577,30 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
     listStoryWithSearch = listStory;
+    showTutorial();
+  }
+
+  showTutorial() {
+    targets = [
+      TargetFocus(identify: "target1", keyTarget: keythree, contents: [
+        TargetContent(
+            align: ContentAlign.top, child: Text("fjdsojfoidsjfoidsjfo"))
+      ])
+    ];
+
+    tutorialCoachMark = TutorialCoachMark(
+        hideSkip: true,
+        targets: targets,
+        onFinish: () async {
+          // prefs = await SharedPreferences.getInstance();
+          // // prefs!.setBool("tautorial", true);
+          // //
+          // // prefs!.setBool("showDialogBoycott", true);
+        });
+    tutorialCoachMark!.show(context: context);
   }
 }

@@ -59,11 +59,12 @@ dependencies:
   edit_distance: ^0.5.0-nullsafety.0
   confetti: ^0.7.0
   encrypt: ^5.0.1
-  flutter_file_downloader: ^1.1.2
+
   lottie: ^2.3.2
-  flutter_downloader: ^1.10.4
+
   path_provider: ^2.1.0
   internet_connection_checker_plus: ^1.0.1
+  tutorial_coach_mark: ^1.2.11
 
 
 

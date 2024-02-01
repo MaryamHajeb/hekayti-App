@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+
 import 'package:hikayati_app/core/util/common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
@@ -12,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
+import 'package:http/http.dart' as http;
 import '../../dataProviders/network/data_source_url.dart';
 import '../../dataProviders/remote_data_provider.dart';
 import '../../features/Home/data/model/StoryMode.dart';
@@ -77,8 +76,8 @@ CREATE TABLE "stories_media" (
 	"id"	INTEGER,
 	"page_no"	INTEGER,
 	"story_id"	INTEGER,
-	"photo"	TEXT,
-	"sound"	TEXT,
+	"image"	TEXT,
+	"audio"	TEXT,
 	"text"	TEXT,
 	"text_no_desc"	TEXT,
 	"updated_at"	TEXT,
@@ -231,7 +230,7 @@ CREATE TABLE "completion" (
           //
           // WebStoryModel(
           //     id: element.id,
-          //     cover_photo: element.cover_photo,
+          //     cover_image: element.cover_image,
           //     updated_at: element.updated_at,
           //     author: element.author, level: element.level, required_stars: element.required_stars, name: element.name, story_order: '0'),
           //     tableName: 'stories',
@@ -279,8 +278,8 @@ CREATE TABLE "completion" (
           data: StoryMediaModel(
               story_id: element.story_id,
               text_no_desc: element.text_no_desc,
-              photo: element.photo,
-              sound: element.sound,
+              image: element.image,
+              audio: element.audio,
               text: element.text,
               updated_at: element.updated_at,
               page_no: element.page_no),
@@ -360,7 +359,7 @@ CREATE TABLE "completion" (
     final status = await Permission.storage.request();
     final status2 = await Permission.manageExternalStorage.request();
     List<dynamic> result = await dbClient!.rawQuery(
-        'SELECT photo,sound from stories_media where story_id=$storyId');
+        'SELECT image,audio from stories_media where story_id=$storyId');
     final Directory? externalDirectoryPath =
         await getApplicationDocumentsDirectory();
     //     final Directory? dir = await getApplicationDocumentsDirectory();
@@ -377,16 +376,16 @@ CREATE TABLE "completion" (
         fileDownload(
             DataSourceURL.baseDownloadUrl +
                 DataSourceURL.photo +
-                element['photo'],
+                element['image'],
             externalDirectoryPath!.path);
         fileDownload(
             DataSourceURL.baseDownloadUrl +
                 DataSourceURL.sound +
-                element['sound'],
+                element['audio'],
             externalDirectoryPath!.path);
 
         // imageList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.photo + element['photo']);
-        // audioList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.sound + element['sound']);
+        // audioList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.audio + element['audio']);
       });
 
       bool isFound = await dirFound(path + '/' + result.first['photo']);
@@ -402,35 +401,22 @@ CREATE TABLE "completion" (
 
   fileDownload(String urls, String path) async {
     try {
-      var p = await AndroidPathProvider.downloadsPath;
-      final taskId = await FlutterDownloader.enqueue(
-        url: urls,
-        headers: {}, // optional: header send with url (auth token etc)
-        savedDir: path,
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification:
-            true, // click on notification to open downloaded file (for Android)
-      );
-
-      // //You can download a single file
-      // final List<File?> result = await FileDownloader.downloadFiles(
-      //     urls: urls,
-      //     isParallel: true, //if this is set to true, your download list will request to be downloaded all at once
-      //     //if your downloading queue fits them all, they are all will start downloading
-      //     //if it's set to false, it will download every file individually
-      //     //default is true
-      //
-      //     onAllDownloaded: () {
-      //       final File file = File(path);
-      //       print(file);
-      //       //This callback will be fired when all files are done
-      //     },
-      //
-      //
-      //
-      //     );
-      // print('FILES: ${result.map((e) => e?.path).join(',\n')}');
+      // final taskId = await FlutterDownloader.enqueue(
+      //   url: urls,
+      //   headers: {}, // optional: header send with url (auth token etc)
+      //   savedDir: path,
+      //   showNotification:
+      //       true, // show download progress in status bar (for Android)
+      //   openFileFromNotification:
+      //       true, // click on notification to open downloaded file (for Android)
+      // );
+      if (!await File(path + "/" + basename(urls)).exists()) {
+        var response = await http.get(Uri.parse(urls));
+        if (response.statusCode == 200) {
+          File('${path + "/" + basename(urls)}')
+              .writeAsBytesSync(response.bodyBytes);
+        }
+      }
     } catch (e) {
       print(e.toString());
     }

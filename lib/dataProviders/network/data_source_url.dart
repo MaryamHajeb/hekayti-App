@@ -3,14 +3,14 @@ class DataSourceURL {
   static String baseDownloadUrl =
       'https://hekayti.alkarmoshy.com/public/storage/upload/';
   static String getAllStory = 'get-all-stories';
-  static String getAllmedia = 'media';
-  static String getAllaccuracy = 'accuracy';
-  static String uploadAccuracy = 'uploadAccuracy';
-  static String updateAccuracy = 'updateAccuracy';
-  static String updateuser = 'updateUser';
-  static String getAllcompletion = 'completion';
-  static String uploadCompletion = 'uploadCompletion';
-  static String updateCompletion = 'updateCompletion';
+  static String getAllmedia = 'get-all-storiesMedia';
+  static String getAllaccuracy = 'get-accuracy';
+  static String uploadAccuracy = 'upload-accuracy';
+  static String updateAccuracy = 'update-accuracy';
+  static String updateuser = 'update-user';
+  static String getAllcompletion = 'get-completion';
+  static String uploadCompletion = 'upload-completion';
+  static String updateCompletion = 'update-completion';
   static String getAllSlied = 'story_by_id';
   static String signup = 'signup';
   static String login = 'login';

@@ -11,10 +11,10 @@ import 'core/util/database_helper.dart';
 import 'dataProviders/network/Network_info.dart';
 import 'features/introdection/presintation/page/Splach_screen.dart';
 import 'injection_container.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+
 DatabaseHelper db = new DatabaseHelper();
 NetworkInfo networkInfo = NetworkInfoImpl(sl());
-String path='';
+String path = '';
 bool islogin = false;
 int idfrochart = 0;
 void main() async {
@@ -22,10 +22,6 @@ void main() async {
   FlameAudio.bgm.initialize();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
-  );
-  await FlutterDownloader.initialize(
-      debug: true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl: true // option: set to false to disable working with http links (default: false)
   );
 
   final prefs = await SharedPreferences.getInstance();
@@ -37,7 +33,7 @@ void main() async {
     //  DeviceOrientation.landscapeRight,
   ]);
   final Directory? dir = await getApplicationDocumentsDirectory();
-  final externalDirectoryPath='${dir!.path}';
+  final externalDirectoryPath = '${dir!.path}';
   print(externalDirectoryPath);
   path = externalDirectoryPath.toString();
 
