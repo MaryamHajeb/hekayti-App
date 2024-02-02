@@ -293,7 +293,7 @@ CREATE TABLE "completion" (
       var dbClient = await db;
       List<String> imageList = [];
       final status = await Permission.storage.request();
-      final status2 = await Permission.manageExternalStorage.request();
+      final status2 = await Permission.accessMediaLocation.request();
       List<dynamic> result =
           await dbClient!.rawQuery('SELECT cover_photo from stories  ');
       print(result.length);
@@ -357,7 +357,7 @@ CREATE TABLE "completion" (
     List<String> audioList = [];
     print('downloadMedia');
     final status = await Permission.storage.request();
-    final status2 = await Permission.manageExternalStorage.request();
+    final status2 = await Permission.accessMediaLocation.request();
     List<dynamic> result = await dbClient!.rawQuery(
         'SELECT image,audio from stories_media where story_id=$storyId');
     final Directory? externalDirectoryPath =
@@ -711,7 +711,7 @@ CREATE TABLE "completion" (
 
   initApp(String level, String id) async {
     final status = await Permission.storage.request();
-    final status2 = await Permission.manageExternalStorage.request();
+    final status2 = await Permission.accessMediaLocation.request();
     Database? dbClient = await db;
 
     await checkStoryFound();

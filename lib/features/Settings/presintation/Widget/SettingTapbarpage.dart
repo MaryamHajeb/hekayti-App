@@ -12,7 +12,7 @@ import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustemButten2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../main.dart';
-import'package:hikayati_app/core/widgets/CastemLevel.dart';
+import 'package:hikayati_app/core/widgets/CastemLevel.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Regestrion/presintation/page/SignupPage.dart';
 import '../../../Regestrion/presintation/page/ResetPasswordPage.dart';
@@ -57,7 +57,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                 size: 200,
                 valdution: (value) {
                   if (value.toString().isEmpty) {
-                    return 'يرجئ منك ادخال اسم الطفل ';
+                    return 'يرجى منك ادخال اسم الطفل ';
                   } else if (!RegExp(
                           r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
                       .hasMatch(value)) {

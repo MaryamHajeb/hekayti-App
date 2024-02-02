@@ -119,11 +119,11 @@ class _lockPageState extends State<lockPage> {
                                         size: 200,
                                         valdution: (value) {
                                           if (value.toString().isEmpty) {
-                                            return 'يرجئ منك كتابه الحل';
+                                            return 'يرجى منك كتابه الحل';
                                           }
                                           if (int.parse(value.toString()) !=
                                               num1 + num2 + num3) {
-                                            return 'يرجئ منك كتابه الحل بشكل صحيح';
+                                            return 'يرجى منك كتابه الحل بشكل صحيح';
                                           }
 
                                           return null;

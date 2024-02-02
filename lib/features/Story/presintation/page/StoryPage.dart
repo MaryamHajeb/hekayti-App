@@ -218,7 +218,7 @@ class _StoryPageState extends State<StoryPage> {
                                                       ontap: () async {
                                                         final status2 =
                                                             await Permission
-                                                                .manageExternalStorage
+                                                                .accessMediaLocation
                                                                 .request();
                                                         final status =
                                                             await Permission
@@ -667,7 +667,7 @@ class _StoryPageState extends State<StoryPage> {
   _init() async {
     try {
       bool hasPermission = await FlutterAudioRecorder3.hasPermissions ?? false;
-      final status2 = await Permission.manageExternalStorage.request();
+      final status2 = await Permission.accessMediaLocation.request();
 
       if (hasPermission || status2.isGranted) {
         String customPath = '/audio';
@@ -698,7 +698,7 @@ class _StoryPageState extends State<StoryPage> {
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: new Text("يرجئ منك السماح بتحميل الملفات")));
+            SnackBar(content: new Text("يرجى منك السماح بتحميل الملفات")));
       }
     } catch (e) {
       print(e);

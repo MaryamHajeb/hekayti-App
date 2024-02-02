@@ -44,7 +44,7 @@ class _onboardingThreeState extends State<onboardingThree> {
                   onching: (value) {},
                   valdution: (value) {
                     if (value.toString().isEmpty) {
-                      return 'يرجئ منك ادخال اسم الطفل ';
+                      return 'يرجى منك ادخال اسم الطفل ';
                     } else if (!RegExp(
                             r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
                         .hasMatch(value)) {

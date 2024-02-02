@@ -123,7 +123,9 @@ class _HomePageState extends State<HomePage> {
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
                       });
-
+                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        showTutorial();
+                      });
                       StoryWidget = SingleChildScrollView(
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -213,8 +215,8 @@ class _HomePageState extends State<HomePage> {
                                       )),
                                   bgm == false
                                       ? CustemIcon2(
+                                          key: keythree,
                                           icon: Icon(
-                                            key: keyone,
                                             Icons.volume_up_rounded,
                                             color: AppTheme.primaryColor,
                                           ),
@@ -581,15 +583,14 @@ class _HomePageState extends State<HomePage> {
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
     listStoryWithSearch = listStory;
-    showTutorial();
   }
 
   showTutorial() {
     targets = [
-      TargetFocus(identify: "target1", keyTarget: keythree, contents: [
-        TargetContent(
-            align: ContentAlign.top, child: Text("fjdsojfoidsjfoidsjfo"))
-      ])
+      TargetFocus(
+          identify: "target1",
+          keyTarget: keythree,
+          contents: [TargetContent(child: Text("fjdsojfoidsjfoidsjfo"))])
     ];
 
     tutorialCoachMark = TutorialCoachMark(
