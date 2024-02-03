@@ -607,7 +607,9 @@ class _StoryPageState extends State<StoryPage> {
                                 ),
                                 isProcces
                                     ? Dialog(
-                                        elevation: 50,
+                                        surfaceTintColor: Colors.white,
+                                        backgroundColor: Colors.white,
+                                        shadowColor: Colors.white,
                                         insetAnimationDuration:
                                             Duration(seconds: 30),
                                         shape: RoundedRectangleBorder(

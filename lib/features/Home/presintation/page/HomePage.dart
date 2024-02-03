@@ -21,6 +21,7 @@ import '../../../../core/util/common.dart';
 import '../../../../core/widgets/CastemInputForSearch.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../core/widgets/Tutorial_widget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   int? collected_stars = 0;
   int all_stars = 0;
   int stars = 0;
+  bool tautorial = false;
   List<TargetFocus> targets = [];
   bool bgm = false;
   UserModel? userModel;
@@ -58,7 +60,11 @@ class _HomePageState extends State<HomePage> {
   GlobalKey keyone = GlobalKey();
   GlobalKey keytwo = GlobalKey();
   GlobalKey keythree = GlobalKey();
+  GlobalKey keyfive = GlobalKey();
   GlobalKey keyfour = GlobalKey();
+  GlobalKey keyseven = GlobalKey();
+  GlobalKey keysix = GlobalKey();
+
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
@@ -111,6 +117,7 @@ class _HomePageState extends State<HomePage> {
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
+
                       collected_stars =
                           getCachedDate('collected_stars', String);
                       all_stars = getCachedDate('all_stars', String);
@@ -138,6 +145,7 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CustemIcon2(
+                                    key: keyfour,
                                     icon: Image.asset(
                                         '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image'] ?? 0}',
                                         fit: BoxFit.cover),
@@ -147,6 +155,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                   ),
                                   Container(
+                                      key: keythree,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           border: Border.all(
@@ -208,14 +217,14 @@ class _HomePageState extends State<HomePage> {
                                       child: CastemInputForSearch(
                                         onching: (value) => onScearch(value),
                                         valdution: (value) {},
-                                        icon: Icon(Icons.search),
+                                        icon: Icon(key: keytwo, Icons.search),
                                         text: 'بحث',
                                         controler: search,
                                         size: screenUtil.screenWidth * .4,
                                       )),
                                   bgm == false
                                       ? CustemIcon2(
-                                          key: keythree,
+                                          key: keyone,
                                           icon: Icon(
                                             Icons.volume_up_rounded,
                                             color: AppTheme.primaryColor,
@@ -264,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                                                     showImagesDialog(
                                                         context,
                                                         '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
-                                                        'احصل علئ المزيد من النجوم من اجل فتح هذه القصه',
+                                                        'احصل على المزيد من النجوم من اجل فتح هذه القصه',
                                                         () {
                                                       Navigator.pop(context);
                                                     });
@@ -440,6 +449,8 @@ class _HomePageState extends State<HomePage> {
                                                                                     builder: (context) {
                                                                                       return Center(
                                                                                         child: Dialog(
+                                                                                          surfaceTintColor: Colors.white,
+                                                                                          backgroundColor: Colors.white,
                                                                                           shadowColor: AppTheme.primaryColor,
                                                                                           elevation: 50,
                                                                                           insetAnimationDuration: Duration(seconds: 30),
@@ -495,44 +506,86 @@ class _HomePageState extends State<HomePage> {
                                                           ],
                                                         ),
                                                       ))
-                                                  : InkWell(
-                                                      onTap: () {
-                                                        //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                                  : tautorial
+                                                      ? InkWell(
+                                                          onTap: () {
+                                                            //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
 
-                                                        Navigator.push(
-                                                            context,
-                                                            CustomPageRoute(
-                                                                child:
-                                                                    StoryPage(
-                                                              id: listStoryWithSearch[
-                                                                      index]
-                                                                  .id,
-                                                            )));
+                                                            Navigator.push(
+                                                                context,
+                                                                CustomPageRoute(
+                                                                    child:
+                                                                        StoryPage(
+                                                                  id: listStoryWithSearch[
+                                                                          index]
+                                                                      .id,
+                                                                )));
 
-                                                        FlameAudio.bgm.pause();
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 15.0),
-                                                        child: StoryCard(
-                                                          name:
-                                                              listStoryWithSearch[
-                                                                      index]
-                                                                  .name,
-                                                          starts: int.parse(
-                                                              listStoryWithSearch[
-                                                                      index]
-                                                                  .stars),
-                                                          photo: path +
-                                                              '/' +
-                                                              listStoryWithSearch[
-                                                                      index]
-                                                                  .cover_photo
-                                                                  .toString(),
-                                                        ),
-                                                      ));
+                                                            FlameAudio.bgm
+                                                                .pause();
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 15.0),
+                                                            child: StoryCard(
+                                                              name:
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .name,
+                                                              starts: int.parse(
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .stars),
+                                                              photo: path +
+                                                                  '/' +
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .cover_photo
+                                                                      .toString(),
+                                                            ),
+                                                          ))
+                                                      : InkWell(
+                                                          onTap: () {
+                                                            //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                                            Navigator.push(
+                                                                context,
+                                                                CustomPageRoute(
+                                                                    child:
+                                                                        StoryPage(
+                                                                  id: listStoryWithSearch[
+                                                                          index]
+                                                                      .id,
+                                                                )));
+
+                                                            FlameAudio.bgm
+                                                                .pause();
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 15.0),
+                                                            child: StoryCard(
+                                                              key: keyfive,
+                                                              name:
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .name,
+                                                              starts: int.parse(
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .stars),
+                                                              photo: path +
+                                                                  '/' +
+                                                                  listStoryWithSearch[
+                                                                          index]
+                                                                      .cover_photo
+                                                                      .toString(),
+                                                            ),
+                                                          ));
                                         },
                                       )
                                     : Center(
@@ -579,29 +632,106 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    initTutorial();
     // if(networkInfo.isConnected)
     userModel = getCachedDate('UserInformation', UserModel.init());
     listStoryWithSearch = listStory;
   }
 
-  showTutorial() {
-    targets = [
-      TargetFocus(
-          identify: "target1",
-          keyTarget: keythree,
-          contents: [TargetContent(child: Text("fjdsojfoidsjfoidsjfo"))])
-    ];
+  initTutorial() async {
+    prefs = await SharedPreferences.getInstance();
+    tautorial = await prefs?.getBool("tautorial") ?? false;
+  }
 
-    tutorialCoachMark = TutorialCoachMark(
-        hideSkip: true,
-        targets: targets,
-        onFinish: () async {
-          // prefs = await SharedPreferences.getInstance();
-          // // prefs!.setBool("tautorial", true);
-          // //
-          // // prefs!.setBool("showDialogBoycott", true);
-        });
-    tutorialCoachMark!.show(context: context);
+  showTutorial() async {
+    targets = [
+      TargetFocus(identify: "target1", keyTarget: keyone, contents: [
+        TargetContent(
+            align: ContentAlign.right,
+            child: Tutorial_widget(
+              index: 1,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "مرحبا  " +
+                  userModel!.user_name.toString() +
+                  " , " +
+                  "   يمكنك تشغيل وايقاف صوت الموسيقى من هذا الزر ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target2", keyTarget: keytwo, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 2,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "يمكنك البحث عن اي قصة من خلال اسمها من هذا المكان ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target3", keyTarget: keythree, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 3,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "اعرف كم عدد النجوم الذي حصلت عليها ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target4", keyTarget: keyfour, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 4,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text:
+                  "يمكنك الدخول وتغيير الاعداد الخاصة بك من هذا الزر ولكن بحضور احد الوالدين ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target5", keyTarget: keyfive, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 5,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "من هنا يمكنك الضغط على القصة والدخول عليها",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+    ];
+    prefs = await SharedPreferences.getInstance();
+    tautorial = await prefs?.getBool("tautorial") ?? false;
+
+    print("object");
+    print(tautorial);
+    print("object");
+    if (tautorial == false) {
+      tutorialCoachMark = TutorialCoachMark(
+          hideSkip: true,
+          targets: targets,
+          onFinish: () async {
+            prefs = await SharedPreferences.getInstance();
+            prefs!.setBool("tautorial", true);
+          });
+      tutorialCoachMark!.show(context: context);
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    BlocProvider.of<StoryBloc>(context).close();
   }
 }

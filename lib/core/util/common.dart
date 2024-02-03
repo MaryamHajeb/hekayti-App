@@ -35,10 +35,14 @@ void showImagesDialog(BuildContext context, String image, String text, ontap) {
   showDialog(
       barrierColor: AppTheme.primarySwatch.shade400,
       context: context,
+
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0,
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -103,6 +107,10 @@ void showImagesDialogWithStar(
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0,
+
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -229,6 +237,9 @@ showImagesDialogWithCancleButten(
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -305,6 +316,10 @@ showImagesDialogWithDoNotWill(BuildContext context2, String image, String text,
           textDirection: TextDirection.rtl,
           child: Dialog(
             elevation: 50,
+
+            surfaceTintColor: Colors.white,
+            backgroundColor: Colors.white,
+            shadowColor: Colors.white,
             insetAnimationDuration: Duration(seconds: 30),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
@@ -394,7 +409,9 @@ showConfetti(context2, controler, image) {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          elevation: 50,
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -469,6 +486,10 @@ noInternt(context2, String text) {
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
+
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           insetAnimationDuration: Duration(seconds: 30),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -506,8 +527,9 @@ noInternt(context2, String text) {
 initApp(String text) {
   return Center(
     child: Dialog(
-      shadowColor: AppTheme.primaryColor,
-      elevation: 50,
+      shadowColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      backgroundColor: Colors.white,
       insetAnimationDuration: Duration(seconds: 30),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),

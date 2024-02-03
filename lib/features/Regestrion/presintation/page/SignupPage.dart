@@ -166,15 +166,15 @@ class _SignupPageState extends State<SignupPage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Text(
-                                                'كلمة المرور',
+                                                ' كلمة المرور',
                                                 style: AppTheme
                                                     .textTheme.displaySmall,
                                               ),
                                               SizedBox(
-                                                width: 0,
+                                                width: 30,
                                               ),
                                               CustemInput(
                                                 size: 250,
@@ -292,6 +292,9 @@ class _SignupPageState extends State<SignupPage> {
                                                           decoration:
                                                               TextDecoration
                                                                   .underline,
+                                                          decorationColor:
+                                                              AppTheme
+                                                                  .primaryColor,
                                                           decorationThickness:
                                                               2))),
                                             ],

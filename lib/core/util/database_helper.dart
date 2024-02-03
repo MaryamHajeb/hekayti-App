@@ -353,63 +353,46 @@ CREATE TABLE "completion" (
 
   downloadMedia(String storyId) async {
     var dbClient = await db;
-    List<String> imageList = [];
-    List<String> audioList = [];
-    print('downloadMedia');
     final status = await Permission.storage.request();
     final status2 = await Permission.accessMediaLocation.request();
     List<dynamic> result = await dbClient!.rawQuery(
         'SELECT image,audio from stories_media where story_id=$storyId');
     final Directory? externalDirectoryPath =
         await getApplicationDocumentsDirectory();
-    //     final Directory? dir = await getApplicationDocumentsDirectory();
-    //  var externalDirectoryPath = await AndroidPathProvider.downloadsPath;
+
     path = externalDirectoryPath.toString();
 
-    //await dirFound(downloadsDirectory.path);
-
     if (status.isGranted || status2.isGranted) {
-      int update = await dbClient.rawUpdate(
-          'UPDATE stories SET download = ? WHERE id = ?', ['1', storyId]);
-      result.forEach((element) {
-        print(element['cover_photo']);
-        fileDownload(
-            DataSourceURL.baseDownloadUrl +
-                DataSourceURL.photo +
-                element['image'],
-            externalDirectoryPath!.path);
-        fileDownload(
-            DataSourceURL.baseDownloadUrl +
-                DataSourceURL.sound +
-                element['audio'],
-            externalDirectoryPath!.path);
+      try {
+        int update = await dbClient.rawUpdate(
+            'UPDATE stories SET download = ? WHERE id = ?', ['1', storyId]);
+        result.forEach((element) {
+          print(element['cover_photo']);
+          fileDownload(
+              DataSourceURL.baseDownloadUrl +
+                  DataSourceURL.photo +
+                  element['image'],
+              externalDirectoryPath!.path);
+          fileDownload(
+              DataSourceURL.baseDownloadUrl +
+                  DataSourceURL.sound +
+                  element['audio'],
+              externalDirectoryPath!.path);
+        });
 
-        // imageList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.photo + element['photo']);
-        // audioList.add(DataSourceURL.baseDownloadUrl + DataSourceURL.audio + element['audio']);
-      });
-
-      bool isFound = await dirFound(path + '/' + result.first['photo']);
-      if (isFound == false) {
-        // fileDownload(imageList,externalDirectoryPath!.path);
-        // fileDownload(audioList,externalDirectoryPath!.path);
+        bool isFound = await dirFound(path + '/' + result.first['photo']);
+        if (isFound == false) {
+          // fileDownload(imageList,externalDirectoryPath!.path);
+          // fileDownload(audioList,externalDirectoryPath!.path);
+        }
+      } catch (e) {
+        print(e.toString());
       }
-
-      print(
-          'object==============================================================');
     }
   }
 
   fileDownload(String urls, String path) async {
     try {
-      // final taskId = await FlutterDownloader.enqueue(
-      //   url: urls,
-      //   headers: {}, // optional: header send with url (auth token etc)
-      //   savedDir: path,
-      //   showNotification:
-      //       true, // show download progress in status bar (for Android)
-      //   openFileFromNotification:
-      //       true, // click on notification to open downloaded file (for Android)
-      // );
       if (!await File(path + "/" + basename(urls)).exists()) {
         var response = await http.get(Uri.parse(urls));
         if (response.statusCode == 200) {

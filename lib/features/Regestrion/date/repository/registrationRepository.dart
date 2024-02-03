@@ -48,6 +48,7 @@ class RegistrationRepository extends Repository {
                 'character': userModel.character.toString(),
                 'level': userModel.level.toString(),
                 'user_name': userModel.user_name ?? 'M',
+                'api_key': "zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"
               });
           print(remoteData);
 
@@ -83,6 +84,7 @@ class RegistrationRepository extends Repository {
               body: {
                 'password': Encryption.instance.encrypt(password).toString(),
                 'email': email,
+                'api_key': "zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"
               });
 
           userModel = remoteData;

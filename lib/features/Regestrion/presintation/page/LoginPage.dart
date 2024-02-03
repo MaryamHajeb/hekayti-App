@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    'البريد الإلكتروني',
+                                                    'البريد الإلكتروني    ',
                                                     style: AppTheme
                                                         .textTheme.displaySmall,
                                                   ),
@@ -332,6 +332,8 @@ class _LoginPageState extends State<LoginPage> {
                                                       fontFamily:
                                                           AppTheme.fontFamily,
                                                       fontSize: 15,
+                                                      decorationColor:
+                                                          AppTheme.primaryColor,
                                                       decoration: TextDecoration
                                                           .underline,
                                                       decorationThickness: 2))),

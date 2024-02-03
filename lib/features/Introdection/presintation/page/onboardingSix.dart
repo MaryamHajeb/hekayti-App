@@ -54,9 +54,13 @@ class _onboardingSixState extends State<onboardingSix> {
                     Navigator.push(
                         context, CustomPageRoute(child: SignupPage()));
                   },
-                  child:
-                      Text('إنشاء حساب', style: AppTheme.textTheme.bodyLarge),
+                  child: Text('   إنشاء حساب',
+                      style: AppTheme.textTheme.bodyLarge),
                   style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           AppTheme.primaryColor)),
                 ),
@@ -68,6 +72,10 @@ class _onboardingSixState extends State<onboardingSix> {
                   child:
                       Text('تسجيل دخول', style: AppTheme.textTheme.bodyLarge),
                   style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           AppTheme.primarySwatch.shade600)),
                 ),

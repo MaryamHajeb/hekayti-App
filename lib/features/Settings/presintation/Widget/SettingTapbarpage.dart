@@ -49,10 +49,16 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             height: 30,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('  اسم الطفل :', style: AppTheme.textTheme.displaySmall),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: screenUtil.screenHeight * .05,
+                  left: screenUtil.screenWidth * .05,
+                  right: screenUtil.screenWidth * .05,
+                ),
+                child: Text('  اسم الطفل  :',
+                    style: AppTheme.textTheme.displaySmall),
+              ),
               CustemInput(
                 size: 200,
                 valdution: (value) {
@@ -163,6 +169,12 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                   textAlign: TextAlign.right),
               Checkbox(
                   value: chackboxStata,
+                  checkColor: Colors.brown,
+                  activeColor: AppTheme.primarySwatch.shade400,
+                  hoverColor: AppTheme.primaryColor,
+                  focusColor: AppTheme.primaryColor,
+                  overlayColor: MaterialStateProperty.all(
+                      AppTheme.primarySwatch.shade400),
                   onChanged: (value) {
                     setState(() {
                       chackboxStata = value!;
@@ -274,6 +286,11 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                           child: Text('إنشاء حساب',
                               style: AppTheme.textTheme.bodyLarge),
                           style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   AppTheme.primaryColor)),
                         ),
@@ -285,6 +302,11 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                           child: Text('تسجيل دخول',
                               style: AppTheme.textTheme.bodyLarge),
                           style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   AppTheme.primarySwatch.shade600)),
                         ),
@@ -293,7 +315,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                   ],
                 ),
           SizedBox(
-            height: 50,
+            height: screenUtil.screenHeight * .02,
           ),
           Divider(
             color: AppTheme.primaryColor,
@@ -316,7 +338,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                 },
               ),
               SizedBox(
-                width: 20,
+                width: screenUtil.screenHeight * .02,
               ),
               CustemButten2(
                 text: 'رجوع',
@@ -327,7 +349,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
             ],
           ),
           SizedBox(
-            height: 50,
+            height: screenUtil.screenHeight * .02,
           ),
         ],
       ),

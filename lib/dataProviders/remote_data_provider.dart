@@ -22,7 +22,8 @@ class RemoteDataProvider {
     log('body is ' + body.toString());
     log("I am here " + url);
 
-    final response = await client.get(
+    final response = await client.post(
+      body: body,
       Uri.parse(DataSourceURL.baseUrl +
           url +
           "?api_key=zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"),
@@ -37,6 +38,7 @@ class RemoteDataProvider {
         url +
         "?api_key=zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx");
     log("response.body " + response.body.toString());
+
     log(response.statusCode.toString());
     // log("returnType "+returnType.toString());
 
