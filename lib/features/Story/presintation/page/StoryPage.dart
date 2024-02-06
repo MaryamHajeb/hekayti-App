@@ -7,6 +7,7 @@ import 'package:confetti/confetti.dart';
 import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:string_similarity/string_similarity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:file/local.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/util/common.dart';
 
@@ -31,6 +33,7 @@ import '../../../../core/widgets/CustemIcon.dart';
 import '../../../../core/widgets/CustemIcon2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
+import '../../../../core/widgets/Tutorial_widget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
@@ -61,7 +64,16 @@ class _StoryPageState extends State<StoryPage> {
   ScreenUtil screenUtil = ScreenUtil();
   bool isSpack = true;
   final player = AudioPlayer();
-
+  GlobalKey keyone = GlobalKey();
+  GlobalKey keytwo = GlobalKey();
+  GlobalKey keythree = GlobalKey();
+  GlobalKey keyfive = GlobalKey();
+  GlobalKey keyfour = GlobalKey();
+  GlobalKey keyseven = GlobalKey();
+  bool tautorial4 = false;
+  SharedPreferences? prefs;
+  TutorialCoachMark? tutorialCoachMark;
+  List<TargetFocus> targets = [];
   int currentIndexPage = 0;
   String text_orglin = '';
   var pathiamge;
@@ -182,6 +194,7 @@ class _StoryPageState extends State<StoryPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CustemIcon2(
+                                    key: keyone,
                                     icon: Icon(Icons.home,
                                         color: AppTheme.primaryColor),
                                     ontap: () {
@@ -210,6 +223,7 @@ class _StoryPageState extends State<StoryPage> {
                                           lisen
                                               ? isSpack
                                                   ? CustemIcon2(
+                                                      key: keytwo,
                                                       icon: Icon(
                                                           Icons
                                                               .headset_mic_outlined,
@@ -282,6 +296,7 @@ class _StoryPageState extends State<StoryPage> {
                                                             .primaryColor),
                                                   ))
                                               : CustemIcon2(
+                                                  key: keythree,
                                                   icon: Icon(
                                                     Icons.mic,
                                                     color:
@@ -385,37 +400,36 @@ class _StoryPageState extends State<StoryPage> {
                                                       screenUtil.screenWidth *
                                                           .8,
                                                   child: Center(
-                                                    child: InkWell(
-                                                      onTap: () {},
-                                                      child: CustemButten(
-                                                        ontap: () {
-                                                          setState(() {
-                                                            currentIndexPage =
-                                                                index + 1;
-                                                            state
-                                                                .SliedModel[
-                                                                    index]
-                                                                .page_no;
+                                                    child: CustemButten(
+                                                      ontap: () {
+                                                        setState(() {
+                                                          currentIndexPage =
+                                                              index + 1;
+                                                          state
+                                                              .SliedModel[index]
+                                                              .page_no;
 
-                                                            print(
-                                                                currentIndexPage);
-                                                            print(
-                                                                'currentIndexPage');
-                                                            print(state
-                                                                .SliedModel[
-                                                                    index]
-                                                                .page_no);
+                                                          print(
+                                                              currentIndexPage);
+                                                          print(
+                                                              'currentIndexPage');
+                                                          print(state
+                                                              .SliedModel[index]
+                                                              .page_no);
 
-                                                            pageControler.nextPage(
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                                curve: Curves
-                                                                    .fastOutSlowIn);
-                                                          });
-                                                        },
-                                                        text: 'ابدأ',
-                                                      ),
+                                                          pageControler.nextPage(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              curve: Curves
+                                                                  .fastOutSlowIn);
+                                                        });
+                                                        if (currentIndexPage ==
+                                                            1) {
+                                                          showTutorial();
+                                                        }
+                                                      },
+                                                      text: 'ابدأ',
                                                     ),
                                                   ),
                                                 )
@@ -633,7 +647,9 @@ class _StoryPageState extends State<StoryPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                CircularProgressIndicator(),
+                                                CircularProgressIndicator(
+                                                    color:
+                                                        AppTheme.primaryColor),
                                                 SizedBox(
                                                   width: 10,
                                                 ),
@@ -680,9 +696,6 @@ class _StoryPageState extends State<StoryPage> {
         customPath = appDocDirectory!.path + customPath;
 
         await dirFound(customPath + '.wav');
-        // .wav <---> AudioFormat.WAV
-        // .mp4 .m4a .aac <---> AudioFormat.AAC
-        // AudioFormat is optional, if given value, will overwrite path extension when there is conflicts.
 
         _recorder = FlutterAudioRecorder3(
           customPath,
@@ -939,9 +952,18 @@ class _StoryPageState extends State<StoryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    lisen = getCachedDate('Listen_to_story', bool) ?? '';
 
-    userModel = getCachedDate('UserInformation', UserModel.init());
+    lisen = getCachedData(
+            key: 'Listen_to_story',
+            returnType: bool,
+            retrievedDataType: bool) ??
+        '';
+
+    userModel = getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );
   }
 
   @override
@@ -949,5 +971,91 @@ class _StoryPageState extends State<StoryPage> {
     // TODO: implement dispose
     super.dispose();
     player.dispose();
+  }
+
+  showTutorial() async {
+    targets = [
+      TargetFocus(identify: "target1", keyTarget: keyone, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 1,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "يمكنك الرجوع الى القائمة الرئسية من هذا المكان ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target2", keyTarget: keytwo, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: Tutorial_widget(
+              index: 2,
+              hight: screenUtil.screenHeight * .5,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text:
+                  "يمكنك الاستماع الى القصة من هذا الزر يمكنك ايقاف هذه الخاصية من الاعدادات",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target3", keyTarget: keythree, contents: [
+        TargetContent(
+            align: ContentAlign.top,
+            child: Tutorial_widget(
+              index: 3,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              hight: screenUtil.screenHeight * .5,
+              text:
+                  " يمكنك الضغط على هذا الزر من اجل تسجيل صوتك اثناء قراءة القصة ",
+              carecters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      // TargetFocus(identify: "target4", keyTarget: keyfour, contents: [
+      //   TargetContent(
+      //       align: ContentAlign.left,
+      //       child: Tutorial_widget(
+      //         index: 4,
+      //         onTap: () {
+      //           tutorialCoachMark!.next();
+      //         },
+      //         text:
+      //             "يمكنك الدخول وتغيير الاعداد الخاصة بك من هذا الزر ولكن بحضور احد الوالدين ",
+      //         carecters: int.parse(userModel!.character.toString()) ?? 0,
+      //       ))
+      // ]),
+      // TargetFocus(identify: "target5", keyTarget: keyfive, contents: [
+      //   TargetContent(
+      //       align: ContentAlign.left,
+      //       child: Tutorial_widget(
+      //         index: 5,
+      //         onTap: () {
+      //           tutorialCoachMark!.next();
+      //         },
+      //         text: "من هنا يمكنك الضغط على القصة والدخول عليها",
+      //         carecters: int.parse(userModel!.character.toString()) ?? 0,
+      //       ))
+      // ]),
+    ];
+    prefs = await SharedPreferences.getInstance();
+    tautorial4 = await prefs?.getBool("tautorial4") ?? false;
+
+    print("object");
+    print(tautorial4);
+    print("object");
+    if (tautorial4 == false) {
+      tutorialCoachMark = TutorialCoachMark(
+          hideSkip: true,
+          targets: targets,
+          onFinish: () async {
+            prefs = await SharedPreferences.getInstance();
+            prefs!.setBool("tautorial4", true);
+          });
+      tutorialCoachMark!.show(context: context);
+    }
   }
 }

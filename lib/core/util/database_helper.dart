@@ -27,7 +27,7 @@ class DatabaseHelper {
 
   String TableName = 'meadia';
   StoryRepository? dd;
-  UserModel? userModel = getCachedDate('UserInformation', UserModel.init());
+  UserModel? userModel;
 
   Future<Database?> get db async {
     if (_db != null) {
@@ -588,8 +588,7 @@ CREATE TABLE "completion" (
   addCompletion(CompletionModel data) async {
     dynamic localdata =
         await foundRecord('story_id', data.story_id, 'completion');
-    print(localdata[0]['id']);
-    print('localdata[0]');
+
     if (await localdata != null) {
       if (int.parse(data.stars.toString()) >
               int.parse(localdata[0]['stars'].toString()) ||
@@ -692,7 +691,7 @@ CREATE TABLE "completion" (
     }
   }
 
-  initApp(String level, String id) async {
+  LoadingApp(String level, String id) async {
     final status = await Permission.storage.request();
     final status2 = await Permission.accessMediaLocation.request();
     Database? dbClient = await db;

@@ -7,12 +7,12 @@ import 'package:hikayati_app/gen/assets.gen.dart';
 
 import '../../../../main.dart';
 
-class Splach_screen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _Splach_screenState createState() => _Splach_screenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _Splach_screenState extends State<Splach_screen>
+class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   double _fontSize = 2;
   double _containerSize = 1.5;

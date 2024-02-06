@@ -7,7 +7,7 @@ import 'dataProviders/network/Network_info.dart';
 import 'dataProviders/remote_data_provider.dart';
 import 'features/Home/data/repository/StoryRepository.dart';
 import 'features/Home/presintation/manager/Story_bloc.dart';
-import 'features/Regestrion/date/repository/registrationRepository.dart';
+import 'features/Regestrion/date/repository/RegistrationRepository.dart';
 import 'features/Regestrion/presintation/manager/registration_bloc.dart';
 import 'package:get_it/get_it.dart';
 

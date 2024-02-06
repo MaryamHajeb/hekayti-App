@@ -45,7 +45,7 @@ dependencies:
   http:
   dartz:
   get_it: ^7.2.0
-  flutter_spinkit:
+  flutter_spinkit: ^5.2.0
   sqflite: ^2.2.6
   permission_handler: ^10.2.0
   audioplayers: ^4.0.1
@@ -63,6 +63,8 @@ dependencies:
   path_provider: ^2.1.0
   internet_connection_checker_plus: ^1.0.1
   tutorial_coach_mark: ^1.2.11
+  get: ^4.6.6
+  flutter_easyloading: ^3.0.5
 
 
 

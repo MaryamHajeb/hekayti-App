@@ -11,8 +11,10 @@ class Tutorial_widget extends StatelessWidget {
   String text;
   Function onTap;
   int index;
+  final hight;
   Tutorial_widget(
       {super.key,
+      this.hight,
       required this.index,
       required this.text,
       required this.carecters,
@@ -24,7 +26,7 @@ class Tutorial_widget extends StatelessWidget {
     screenUtil.init(context);
     return Container(
         width: screenUtil.screenWidth * 1,
-        height: screenUtil.screenHeight * 1,
+        height: hight ?? screenUtil.screenHeight * 1,
         child: Row(
           children: [
             Image.asset(

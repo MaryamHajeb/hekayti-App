@@ -206,9 +206,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                           setState(() {
                                             visible = true;
                                           });
-                                          CachedDate(
-                                              'UserInformation',
-                                              UserModel(
+                                          cachedData(
+                                              key: 'UserInformation',
+                                              data: UserModel(
                                                   user_name:
                                                       userModel!.user_name,
                                                   email: userModel!.email,
@@ -221,9 +221,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                                           .toUtc()),
                                                   password: newpassword.text,
                                                   id: userModel!.id));
-                                          userModel = getCachedDate(
-                                              'UserInformation',
-                                              UserModel.init());
+                                          userModel = getCachedData(
+                                            key: 'UserInformation',
+                                            retrievedDataType: UserModel.init(),
+                                            returnType: UserModel,
+                                          );
 
                                           if (await networkInfo.isConnected) {
                                             db.updateUserDate(userModel!);
@@ -268,7 +270,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     Visibility(
                       visible: visible,
                       child: Center(
-                        child: initApp(' جاري تعديل كلمه المرور......'),
+                        child: LoadingApp(' جاري تعديل كلمه المرور......'),
                       ),
                     ),
                   ],
@@ -285,7 +287,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    userModel = getCachedDate('UserInformation', UserModel.init());
+    userModel = getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );
     print(userModel!.password);
   }
 }

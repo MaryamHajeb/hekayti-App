@@ -9,14 +9,14 @@ import '../../../../core/util/Carecters.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 
-class onboardingSix extends StatefulWidget {
-  const onboardingSix({Key? key}) : super(key: key);
+class PageTow extends StatefulWidget {
+  const PageTow({Key? key}) : super(key: key);
 
   @override
-  State<onboardingSix> createState() => _onboardingSixState();
+  State<PageTow> createState() => _PageTowState();
 }
 
-class _onboardingSixState extends State<onboardingSix> {
+class _PageTowState extends State<PageTow> {
   ScreenUtil screenUtil = ScreenUtil();
   int Carecters_id = 0;
   Carecters carectersobj = Carecters();

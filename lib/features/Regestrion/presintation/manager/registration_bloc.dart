@@ -6,7 +6,7 @@ import 'package:hikayati_app/dataProviders/error/failures.dart';
 
 import 'package:equatable/equatable.dart';
 
-import '../../date/repository/registrationRepository.dart';
+import '../../date/repository/RegistrationRepository.dart';
 
 part 'registration_event.dart';
 part 'registration_state.dart';

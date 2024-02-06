@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/injection_container.dart' as object;
 import 'package:path_provider/path_provider.dart';
@@ -9,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'core/util/database_helper.dart';
 import 'dataProviders/network/Network_info.dart';
-import 'features/introdection/presintation/page/Splach_screen.dart';
+import 'features/Introdection/presintation/page/SplashScreen.dart';
 import 'injection_container.dart';
 
 DatabaseHelper db = new DatabaseHelper();
@@ -36,7 +38,7 @@ void main() async {
   final externalDirectoryPath = '${dir!.path}';
   print(externalDirectoryPath);
   path = externalDirectoryPath.toString();
-
+  await initEasyLoading();
   runApp(MyApp());
 }
 
@@ -52,23 +54,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           shadowColor: AppTheme.primaryColor,
           backgroundColor: AppTheme.primaryColor,
           colorSchemeSeed: AppTheme.primaryColor,
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
+          useMaterial3: true,
         ),
-        home: Splach_screen());
+        home: SplashScreen());
   }
 
   @override
@@ -83,4 +78,39 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
     FlameAudio.bgm.pause();
   }
+}
+
+initEasyLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.circle
+    ..indicatorWidget = SpinKitWaveSpinner(
+      color: AppTheme.primarySwatch.shade800,
+    )
+    ..loadingStyle = EasyLoadingStyle.light
+    ..indicatorSize = 80.0
+    ..radius = 10.0
+    ..progressColor = AppTheme.primaryColor
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.black.withOpacity(0.5)
+    ..maskType = EasyLoadingMaskType.black
+    ..errorWidget = const Icon(
+      Icons.error,
+      size: 45,
+      color: Colors.red,
+    )
+    ..animationStyle = EasyLoadingAnimationStyle.opacity
+    ..infoWidget = const Icon(
+      Icons.info,
+      size: 45,
+      color: AppTheme.primaryColor,
+    )
+    ..successWidget = const Icon(
+      Icons.check_circle,
+      size: 45,
+      color: AppTheme.primaryColor,
+    )
+    ..dismissOnTap = false;
 }

@@ -8,8 +8,8 @@ import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../gen/assets.gen.dart';
 
-class onboardingTow extends StatelessWidget {
-  onboardingTow({Key? key}) : super(key: key);
+class PageThree extends StatelessWidget {
+  PageThree({Key? key}) : super(key: key);
 
   ScreenUtil screenUtil = ScreenUtil();
 

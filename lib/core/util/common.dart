@@ -14,16 +14,29 @@ import '../widgets/CustemButten2.dart';
 import '../widgets/CustomPageRoute.dart';
 import '../widgets/primaryText.dart';
 
-dynamic getCachedDate(String key, dynamic type) {
-  final data = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
-      .getCachedData(key: key, retrievedDataType: type, returnType: type);
-
-  return data;
+getCachedData(
+    {required key,
+    required retrievedDataType,
+    required dynamic returnType}) async {
+  try {
+    return LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
+        .getCachedData(
+            key: key,
+            retrievedDataType: retrievedDataType,
+            returnType: returnType);
+  } catch (e) {
+    print(e);
+  }
 }
 
-CachedDate(String key, dynamic dataCached) {
-  final data = LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
-      .cacheData(key: key, data: dataCached);
+cachedData({required key, required data}) async {
+  try {
+    final customer =
+        await LocalDataProvider(sharedPreferences: sl<SharedPreferences>())
+            .cacheData(key: key, data: data);
+  } catch (e) {
+    print(e);
+  }
 }
 
 initpathcomm() async {
@@ -35,7 +48,6 @@ void showImagesDialog(BuildContext context, String image, String text, ontap) {
   showDialog(
       barrierColor: AppTheme.primarySwatch.shade400,
       context: context,
-
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
@@ -107,7 +119,6 @@ void showImagesDialogWithStar(
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0,
-
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
@@ -316,7 +327,6 @@ showImagesDialogWithDoNotWill(BuildContext context2, String image, String text,
           textDirection: TextDirection.rtl,
           child: Dialog(
             elevation: 50,
-
             surfaceTintColor: Colors.white,
             backgroundColor: Colors.white,
             shadowColor: Colors.white,
@@ -486,7 +496,6 @@ noInternt(context2, String text) {
       builder: (BuildContext context) {
         return Dialog(
           elevation: 50,
-
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
@@ -524,7 +533,7 @@ noInternt(context2, String text) {
       });
 }
 
-initApp(String text) {
+LoadingApp(String text) {
   return Center(
     child: Dialog(
       shadowColor: Colors.white,

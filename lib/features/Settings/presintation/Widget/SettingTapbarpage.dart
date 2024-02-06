@@ -248,7 +248,7 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
                             'هل حقا تريد تسجيل الخروج', () {
                           Navigator.pop(context);
                         }, () async {
-                          CachedDate('onbording', 'true');
+                          cachedData(data: 'onbording',key:  'true');
                           db.deleteTable('stories');
                           db.deleteTable('stories_media');
                           db.deleteTable('completion');
@@ -364,9 +364,13 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   }
 
   initCarecters() async {
-    userModel = getCachedDate('UserInformation', UserModel.init());
+    userModel = getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );;
 
-    bool lisent = await getCachedDate('Listen_to_story', bool) ?? '';
+    bool lisent = await getCachedData(key: 'Listen_to_story', returnType: bool,retrievedDataType: bool) ?? '';
 
     setState(() {
       nameChiled.text = userModel!.user_name;
@@ -380,9 +384,9 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
   }
 
   saveNewSttings() async {
-    CachedDate(
-        'UserInformation',
-        UserModel(
+    cachedData(
+       data:  'UserInformation',
+      key:   UserModel(
             user_name: nameChiled.text,
             email: userModel!.email,
             level: (itemSelectedlevel + 1).toString(),
@@ -401,6 +405,6 @@ class _SettingTapbarpageState extends State<SettingTapbarpage> {
           password: userModel!.password,
           id: userModel!.id));
     }
-    CachedDate('Listen_to_story', chackboxStata);
+    cachedData(key: 'Listen_to_story', data: chackboxStata);
   }
 }

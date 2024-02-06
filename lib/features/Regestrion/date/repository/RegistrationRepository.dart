@@ -24,14 +24,18 @@ class RegistrationRepository extends Repository {
     required this.localDataProvider,
     required this.networkInfo,
   });
-  late UserModel userModel;
+  UserModel? userModel;
   SharedPreferences? prefs;
   bool islogin = false;
   late List<CompletionModel> completionModel;
   late List<accuracyModel> AccuracyModel;
   Future<Either<Failure, dynamic>> signup(
       {required String password, email}) async {
-    userModel = getCachedDate('UserInformation', UserModel.init());
+    userModel = await getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel.init(),
+    );
     final prefs = await SharedPreferences.getInstance();
     islogin = await prefs.getBool('onbording') ?? false;
 
@@ -45,9 +49,9 @@ class RegistrationRepository extends Repository {
               body: {
                 'password': Encryption.instance.encrypt(password),
                 'email': email,
-                'character': userModel.character.toString(),
-                'level': userModel.level.toString(),
-                'user_name': userModel.user_name ?? 'M',
+                'character': userModel?.character ?? "0",
+                'level': userModel?.level ?? "0",
+                'user_name': userModel?.user_name ?? "M",
                 'api_key': "zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"
               });
           print(remoteData);
@@ -55,10 +59,10 @@ class RegistrationRepository extends Repository {
           localDataProvider.cacheData(
               key: 'UserInformation',
               data: UserModel(
-                  user_name: userModel.user_name,
+                  user_name: userModel?.user_name,
                   email: email,
-                  level: userModel.level,
-                  character: userModel.character,
+                  level: userModel?.level,
+                  character: userModel?.character,
                   update_at: DateTime.now().toString(),
                   password: Encryption.instance.encrypt(password),
                   id: remoteData.toString()));
@@ -89,7 +93,7 @@ class RegistrationRepository extends Repository {
 
           userModel = remoteData;
 
-          await db.initApp(userModel.level.toString(), '1');
+          await db.LoadingApp(userModel!.level.toString(), '1');
 
           localDataProvider.cacheData(key: 'UserInformation', data: userModel);
           db.deleteTable('completion');
@@ -99,7 +103,7 @@ class RegistrationRepository extends Repository {
                   url: DataSourceURL.getAllaccuracy,
                   retrievedDataType: accuracyModel.init(),
                   returnType: List,
-                  body: {'user_id': userModel.id.toString()});
+                  body: {'user_id': userModel!.id.toString()});
 
           db.checkAccuracyFound(accuracyModeldata);
 
@@ -108,13 +112,12 @@ class RegistrationRepository extends Repository {
                   url: DataSourceURL.getAllcompletion,
                   retrievedDataType: CompletionModel.init(),
                   returnType: List,
-                  body: {'user_id': userModel.id.toString()});
+                  body: {'user_id': userModel!.id.toString()});
           // completionModel=completionData;
 
           db.checkCompletionFound(completionData);
 
           prefs.setBool('onbording', true);
-          await Future.delayed(Duration(seconds: 20));
 
           return remoteData;
         });

@@ -105,22 +105,27 @@ class _HomePageState extends State<HomePage> {
                   },
                   builder: (_context, state) {
                     if (state is StoryInitial) {
-                      db.syncApp(userModel!.level.toString());
+                      // db.syncApp(userModel!.level.toString());
                       BlocProvider.of<StoryBloc>(_context)
                           .add(GetAllStory(userModel!.level.toString()));
                     }
 
                     if (state is StoryLoading) {
                       StoryWidget =
-                          Center(child: initApp('جاري تجهيز القصص .....  '));
+                          Center(child: LoadingApp('جاري تجهيز القصص .....  '));
                     }
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
 
-                      collected_stars =
-                          getCachedDate('collected_stars', String);
-                      all_stars = getCachedDate('all_stars', String);
+                      collected_stars = getCachedData(
+                          key: 'collected_stars',
+                          retrievedDataType: String,
+                          returnType: String);
+                      all_stars = getCachedData(
+                          key: 'all_stars',
+                          retrievedDataType: String,
+                          returnType: String);
                       if (collected_stars == 0 || all_stars == 0) {
                         star_progrees = 0;
                       } else {
@@ -195,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 20,
                                               ),
                                               Text(
-                                                '${getCachedDate('collected_stars', String)}/${getCachedDate('all_stars', String)}',
+                                                '${getCachedData(key: 'collected_stars', retrievedDataType: String, returnType: String)}/${getCachedData(key: 'all_stars', retrievedDataType: String, returnType: String)}',
                                                 style: AppTheme
                                                     .textTheme.displaySmall,
                                               ),
@@ -233,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                                             setState(() {
                                               FlameAudio.bgm.stop();
                                               bgm = !bgm;
-                                              CachedDate('bgm', bgm);
+                                              cachedData(key: "bgm", data: bgm);
                                             });
                                           })
                                       : CustemIcon2(
@@ -244,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                               bgm = !bgm;
                                               FlameAudio.bgm
                                                   .play('bgm.mp3', volume: 100);
-                                              CachedDate('bgm', bgm);
+                                              cachedData(key: "bgm", data: bgm);
                                             });
                                           }),
                                 ],
@@ -632,9 +637,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initUser();
     initTutorial();
-    // if(networkInfo.isConnected)
-    userModel = getCachedDate('UserInformation', UserModel.init());
     listStoryWithSearch = listStory;
   }
 
@@ -726,6 +730,17 @@ class _HomePageState extends State<HomePage> {
           });
       tutorialCoachMark!.show(context: context);
     }
+  }
+
+  initUser() async {
+    userModel = await getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );
+
+    print("userModel.level");
+    print(userModel!.level);
   }
 
   @override
