@@ -1,28 +1,21 @@
-import 'dart:io';
-
-import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_charts/flutter_charts.dart';
-import 'package:hikayati_app/core/app_theme.dart';
-import 'package:hikayati_app/features/Settings/presintation/Widget/ChartCard.dart';
-import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
-
+import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
+import '../../../../core/app_theme.dart';
+import '../../../../core/util/Carecters.dart';
 import '../../../../core/util/ScreenUtil.dart';
+import '../../../../core/util/common.dart';
+import '../../../../core/widgets/CastemCarecters.dart';
+import '../../../../core/widgets/CastemInput.dart';
+
+import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/widgets/CustemButten2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
-import '../../../../injection_container.dart';
 import '../../../../main.dart';
-import '../../../Home/presintation/page/HomePage.dart';
-import '../../date/model/ChartModel.dart';
-import '../Widget/ReportCard.dart';
-import '../Widget/SettingTapbarpage.dart';
-import '../managerChart/Chart_bloc.dart';
-import '../managerChart/Chart_event.dart';
-import '../managerChart/Chart_state.dart';
-import '../managerReport/Report_bloc.dart';
-import '../managerReport/Report_event.dart';
-import '../managerReport/Report_state.dart';
+import 'package:hikayati_app/core/widgets/CastemLevel.dart';
+import '../../../Regestrion/presintation/page/LoginPage.dart';
+import '../../../Regestrion/presintation/page/SignupPage.dart';
+import '../../../Regestrion/presintation/page/ResetPasswordPage.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -33,399 +26,399 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   @override
-  ScreenUtil screenUtil = ScreenUtil();
-  bool visible = true;
-  TextEditingController nameChiled = TextEditingController();
-  int idChart = 0;
-  Widget ReportWidget = Center();
-  String nameStory = '';
-  Widget ChartWidget = Center();
+  Carecters carecterslist = Carecters();
 
+  TextEditingController nameChiled = TextEditingController();
+  int itemSelected = 0;
+  int itemSelectedlevel = 0;
+  bool chackboxStata = true;
+  Carecters carectersobj = Carecters();
+
+  UserModel? userModel;
+
+  ScreenUtil screenUtil = ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pushReplacement(context, CustomPageRoute(child: HomePage()));
-        return Future.value(false);
-      },
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          body: Directionality(
-            textDirection: TextDirection.rtl,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: screenUtil.screenHeight * .05,
+                  left: screenUtil.screenWidth * .05,
+                  right: screenUtil.screenWidth * .05,
+                ),
+                child: Text('  اسم الطفل  :',
+                    style: AppTheme.textTheme.displaySmall),
+              ),
+              CustemInput(
+                size: 200,
+                valdution: (value) {
+                  if (value.toString().isEmpty) {
+                    return 'يرجى منك ادخال اسم الطفل ';
+                  } else if (!RegExp(
+                          r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
+                      .hasMatch(value)) {
+                    return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
+                  }
+                  return null;
+                },
+                controler: nameChiled,
+                text: 'اكتب اسم طفلك',
+                type: TextInputType.text,
+              ),
+            ],
+          ),
+          Divider(
+            color: AppTheme.primaryColor,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text('الـشخـصـيـات  :',
+              style: AppTheme.textTheme.displaySmall,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            height: screenUtil.screenHeight * .4,
+            width: double.infinity,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: carecterslist.listcarecters.length,
+              itemBuilder: (context, index) {
+                return CustemCarecters(
+                  image: carecterslist.listcarecters[index]['image'].toString(),
+                  onTap: () async {
+                    setState(() {
+                      itemSelected = index;
+                    });
+                  },
+                  isSelected: itemSelected == index ? true : false,
+                );
+              },
+            ),
+          ),
+          Divider(
+            color: AppTheme.primaryColor,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text('مـسـتـوى الـقـصـص   :',
+              style: AppTheme.textTheme.displaySmall,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right),
+          Container(
+            height: screenUtil.screenHeight * .4,
+            width: double.infinity,
             child: Center(
-                child: SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(),
-                height: screenUtil.screenHeight * 1,
-                width: screenUtil.screenWidth * 1,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                            width: 4, color: AppTheme.primarySwatch.shade500),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        Container(
-                          color: AppTheme.primarySwatch.shade200,
-                          child: TabBar(
-                              labelStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: AppTheme.fontFamily),
-                              automaticIndicatorColorAdjustment: false,
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.orange),
-                              labelColor: Colors.brown,
-                              dividerColor: Colors.brown,
-                              indicatorColor: Colors.brown,
-                              unselectedLabelColor: Colors.brown,
-                              tabs: [
-                                Tab(
-                                  text: 'الإعــدادات',
-                                ),
-                                Tab(
-                                  text: 'تـقـارير  الـتـقـدم',
-                                ),
-                              ]),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: screenUtil.screenHeight * .8,
-                          child: TabBarView(children: [
-                            SettingTapbarpage(),
-                            Column(
-                              children: [
-                                Visibility(
-                                    visible: visible,
-                                    replacement: Expanded(
-                                        child: BlocProvider(
-                                      create: (context) => sl<ChartBloc>(),
-                                      child:
-                                          BlocConsumer<ChartBloc, ChartState>(
-                                        listener: (_context, state) {
-                                          if (state is ChartError) {
-                                            print(state.errorMessage);
-                                          }
-                                        },
-                                        builder: (_context, state) {
-                                          if (state is ChartInitial) {
-                                            print('the id chart is ');
-                                            BlocProvider.of<ChartBloc>(_context)
-                                                .add(GetAllChart(
-                                                    id: idChart.toString()));
-                                          }
-
-                                          if (state is ChartLoading) {
-                                            ChartWidget = Center(
-                                                child: Lottie.asset(
-                                              "assets/json/animation_report.json",
-                                              width: 250,
-                                            ));
-                                          }
-
-                                          if (state is ChartILoaded) {
-                                            // //TODO::Show Chart here
-
-                                            ChartWidget = Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Center(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .stretch,
-                                                        children: [
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Expanded(
-                                                                flex: 1,
-                                                                child: Row(
-                                                                  children: [
-                                                                    IconButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        setState(
-                                                                            () {
-                                                                          visible =
-                                                                              !visible;
-                                                                        });
-                                                                      },
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .arrow_back_outlined,
-                                                                        size:
-                                                                            30,
-                                                                        color: AppTheme
-                                                                            .primaryColor,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                flex: 9,
-                                                                child:
-                                                                    Container(
-                                                                  width: screenUtil
-                                                                          .screenWidth *
-                                                                      .48,
-                                                                  height: screenUtil
-                                                                          .screenHeight *
-                                                                      .7,
-                                                                  child: chartToRun(
-                                                                      state
-                                                                          .chartModel),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: ListView.builder(
-                                                        itemCount: state
-                                                            .chartModel.length,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          return InkWell(
-                                                            child: ChartCard(
-                                                              text: state
-                                                                  .chartModel[
-                                                                      index]
-                                                                  .text,
-                                                              photo: path +
-                                                                  '/' +
-                                                                  state
-                                                                      .chartModel[
-                                                                          index]
-                                                                      .photo
-                                                                      .toString(),
-                                                              accuracy_stars: state
-                                                                  .chartModel[
-                                                                      index]
-                                                                  .accuracy_stars,
-                                                              text_readd: state
-                                                                  .chartModel[
-                                                                      index]
-                                                                  .readed_text,
-                                                              page_no: state
-                                                                  .chartModel[
-                                                                      index]
-                                                                  .page_no
-                                                                  .toString(),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          }
-
-                                          return ChartWidget;
-                                        },
-                                      ),
-                                    )),
-                                    child: BlocProvider(
-                                      create: (context) => sl<ReportBloc>(),
-                                      child:
-                                          BlocConsumer<ReportBloc, ReportState>(
-                                        listener: (_context, state) {
-                                          if (state is ReportError) {
-                                            print(state.errorMessage);
-                                          }
-                                        },
-                                        builder: (_context, state) {
-                                          if (state is ReportInitial) {
-                                            BlocProvider.of<ReportBloc>(
-                                                    _context)
-                                                .add(GetAllReport());
-                                          }
-
-                                          if (state is ReportLoading) {
-                                            ReportWidget = Center(
-                                                child: Lottie.asset(
-                                              "assets/json/animation_report.json",
-                                              width: 250,
-                                            ));
-                                          }
-
-                                          if (state is ReportILoaded) {
-                                            // //TODO::Show Report here
-                                            ReportWidget = state
-                                                        .reportModel.length ==
-                                                    0
-                                                ? SizedBox(
-                                                    height: screenUtil
-                                                            .screenHeight *
-                                                        .8,
-                                                    width: double.infinity,
-                                                    child: Center(
-                                                        child: Text(
-                                                      'لم يتم اكمال اي قصه بعد',
-                                                      style: AppTheme.textTheme
-                                                          .displayMedium,
-                                                    )),
-                                                  )
-                                                : Column(
-                                                    children: [
-                                                      Divider(
-                                                        color: AppTheme
-                                                            .primaryColor,
-                                                      ),
-                                                      Container(
-                                                        height: screenUtil
-                                                                .screenHeight *
-                                                            .7,
-                                                        width: double.infinity,
-                                                        child: ListView.builder(
-                                                          itemCount: state
-                                                              .reportModel
-                                                              .length,
-                                                          itemBuilder:
-                                                              (context, index) {
-                                                            idfrochart = state
-                                                                .reportModel[
-                                                                    index]
-                                                                .id;
-
-                                                            return InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  nameStory = state
-                                                                      .reportModel[
-                                                                          index]
-                                                                      .name;
-                                                                  idChart = state
-                                                                      .reportModel[
-                                                                          index]
-                                                                      .id;
-                                                                  visible =
-                                                                      !visible;
-                                                                });
-                                                              },
-                                                              child: ReportCard(
-                                                                id: state
-                                                                    .reportModel[
-                                                                        index]
-                                                                    .id,
-                                                                cover_photo: path +
-                                                                    '/' +
-                                                                    state
-                                                                        .reportModel[
-                                                                            index]
-                                                                        .cover_photo,
-                                                                name: state
-                                                                    .reportModel[
-                                                                        index]
-                                                                    .name,
-                                                                percentage: state
-                                                                    .reportModel[
-                                                                        index]
-                                                                    .percentage,
-                                                                stars: state
-                                                                    .reportModel[
-                                                                        index]
-                                                                    .stars,
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      )
-                                                    ],
-                                                  );
-                                          }
-                                          return ReportWidget;
-                                        },
-                                      ),
-                                    )),
-                              ],
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: carecterslist.Levels.length,
+                itemBuilder: (context, index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                      ),
+                      CustemLevel(
+                        name: carecterslist.Levels[index]['num'],
+                        onTap: () {
+                          setState(() {
+                            itemSelectedlevel = index;
+                          });
+                        },
+                        isSelected: itemSelectedlevel == index ? true : false,
+                        color: carecterslist.Levels[index]['color'],
+                      ),
+                      SizedBox(
+                        width: 70,
+                      )
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          Divider(
+            color: AppTheme.primaryColor,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('خاصية الاستماع للقصص',
+                  style: AppTheme.textTheme.displaySmall,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right),
+              Checkbox(
+                  value: chackboxStata,
+                  checkColor: Colors.brown,
+                  activeColor: AppTheme.primarySwatch.shade400,
+                  hoverColor: AppTheme.primaryColor,
+                  focusColor: AppTheme.primaryColor,
+                  overlayColor: MaterialStateProperty.all(
+                      AppTheme.primarySwatch.shade400),
+                  onChanged: (value) {
+                    setState(() {
+                      chackboxStata = value!;
+                    });
+                  }),
+            ],
+          ),
+          Divider(
+            color: AppTheme.primaryColor,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          userModel?.email != null
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: screenUtil.screenWidth * .4,
+                      height: screenUtil.screenHeight * .2,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Text('البريد الاكتروني :',
+                                style: AppTheme.textTheme.displaySmall),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              '${userModel?.email.toString()}',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontSize: 14),
                             )
                           ]),
-                        )
-                      ]),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [
+                            Text('كـلـمـه  الــمـررو  :',
+                                style: AppTheme.textTheme.displaySmall),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                          child: ResetPasswordPage()));
+                                },
+                                child: Text(
+                                  'اعاده تعيين',
+                                  style: TextStyle(
+                                      decorationColor: AppTheme.primaryColor,
+                                      color: AppTheme.primaryColor,
+                                      fontFamily: AppTheme.fontFamily,
+                                      fontSize: 13,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 2),
+                                )),
+                          ]),
+                        ],
+                      ),
                     ),
-                  ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        showImagesDialogWithCancleButten(
+                            context,
+                            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
+                            'هل حقا تريد تسجيل الخروج', () {
+                          Navigator.pop(context);
+                        }, () async {
+                          cachedData(data: 'onbording', key: 'true');
+                          db.deleteTable('stories');
+                          db.deleteTable('stories_media');
+                          db.deleteTable('completion');
+                          db.deleteTable('accuracy');
+                          Navigator.pushReplacement(
+                              context, CustomPageRoute(child: MyApp()));
+                        });
+                      },
+                      child: Text('تسجيل الخروج',
+                          style: AppTheme.textTheme.bodyLarge),
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.primarySwatch.shade500)),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Text('هل تريد حفظ بياناتك معنا     (اختياري)',
+                        style: AppTheme.textTheme.displaySmall,
+                        textDirection: TextDirection.rtl,
+                        textAlign: TextAlign.right),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context, CustomPageRoute(child: SignupPage()));
+                          },
+                          child: Text('إنشاء حساب',
+                              style: AppTheme.textTheme.bodyLarge),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppTheme.primaryColor)),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context, CustomPageRoute(child: LoginPage()));
+                          },
+                          child: Text('تسجيل دخول',
+                              style: AppTheme.textTheme.bodyLarge),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppTheme.primarySwatch.shade600)),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            )),
+          SizedBox(
+            height: screenUtil.screenHeight * .02,
           ),
-        ),
+          Divider(
+            color: AppTheme.primaryColor,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustemButten(
+                text: 'حفظ',
+                ontap: () async {
+                  try {
+                    saveNewSttings();
+                    showImagesDialog(
+                        context,
+                        '${carectersobj.FaceCarecters[itemSelected]['image']}',
+                        'تم حفظ بيناتك بنجاح', () {
+                      Navigator.pop(context);
+                    });
+                    await Future.delayed(Duration(seconds: 1));
+                    Navigator.pushReplacement(
+                        context, CustomPageRoute(child: HomePage()));
+                  } catch (e) {}
+                },
+              ),
+              SizedBox(
+                width: screenUtil.screenHeight * .02,
+              ),
+              CustemButten2(
+                text: 'رجوع',
+                ontap: () async {
+                  Navigator.push(context, CustomPageRoute(child: HomePage()));
+                },
+              ),
+            ],
+          ),
+          SizedBox(
+            height: screenUtil.screenHeight * .02,
+          ),
+        ],
       ),
     );
   }
 
-  Widget chartToRun(List<ChartModel> chartModel) {
-    List<double> stars = [];
-    List<String> num = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initCarecters();
+  }
 
-    chartModel.forEach((element) {
-      print(element.accuracy_stars);
+  initCarecters() async {
+    userModel = await getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel.init(),
+    );
 
-      print('element.accuracy_stars');
-      stars.add(double.parse(element.accuracy_stars.toString()));
+    bool lisent = await getCachedData(
+            key: 'Listen_to_story',
+            returnType: bool,
+            retrievedDataType: bool) ??
+        true;
+
+    setState(() {
+      nameChiled.text = userModel!.user_name;
+      itemSelected = int.parse(userModel!.character.toString());
+      itemSelectedlevel = int.parse(userModel!.level.toString()) - 1;
+      print(itemSelectedlevel);
+      print('itemSelectedlevel');
+
+      chackboxStata = lisent;
     });
-    chartModel.forEach((element) {
-      num.add(element.page_no.toString());
-    });
+  }
 
-    LabelLayoutStrategy? xContainerLabelLayoutStrategy;
-    ChartData chartData;
-    ChartOptions chartOptions = const ChartOptions(
-        legendOptions: LegendOptions(
-          legendItemIndicatorToLabelPad: 80,
-        ),
-        dataContainerOptions: DataContainerOptions(
-          gridLinesColor: Colors.transparent,
-        ),
-        xContainerOptions: XContainerOptions(
-          xBottomMinTicksHeight: 15,
-        ));
-    // Example with side effects cannot be simply pasted to your code, as the _ExampleSideEffects is private
-    // This example shows the result with sufficient space to show all labels, not even tilted;
-    // The iterative layout strategy causes more labels to be skipped.
-    chartData = ChartData(
-      dataRows: [
-        stars,
-      ],
-      xUserLabels: num.toList(),
-      dataRowsLegends: [
-        '$nameStory',
-      ],
-      yUserLabels: ['1', '2', '3'],
-      dataRowsColors: [AppTheme.primarySwatch.shade300],
-      chartOptions: chartOptions,
-    );
+  saveNewSttings() async {
+    cachedData(
+        data: 'UserInformation',
+        key: UserModel(
+            user_name: nameChiled.text,
+            email: userModel!.email,
+            level: (itemSelectedlevel + 1).toString(),
+            character: itemSelected.toString(),
+            update_at: DateTime.now().toString(),
+            password: userModel!.password,
+            id: userModel!.id));
 
-    var verticalBarChartContainer = VerticalBarChartTopContainer(
-      chartData: chartData,
-      xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
-    );
-
-    var verticalBarChart = VerticalBarChart(
-      painter: VerticalBarChartPainter(
-        verticalBarChartContainer: verticalBarChartContainer,
-      ),
-    );
-    return verticalBarChart;
+    if (userModel!.id != null && await networkInfo.isConnected) {
+      db.updateUserDate(UserModel(
+          user_name: nameChiled.text,
+          email: userModel!.email,
+          level: (itemSelectedlevel + 1).toString(),
+          character: itemSelected.toString(),
+          update_at: DateTime.now().toString(),
+          password: userModel!.password,
+          id: userModel!.id));
+    }
+    cachedData(key: 'Listen_to_story', data: chackboxStata);
   }
 }

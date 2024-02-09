@@ -65,6 +65,8 @@ dependencies:
   tutorial_coach_mark: ^1.2.11
   get: ^4.6.6
   flutter_easyloading: ^3.0.5
+  avatar_glow: ^3.0.1
+  syncfusion_flutter_charts: ^24.2.4+2
 
 
 

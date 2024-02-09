@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               barrierColor: Colors.black.withOpacity(.5),
               context: context,
               builder: (context) {
-                return LoadingApp('جاري تسجيل الحساب....');
+                return loadingApp('جاري تسجيل الحساب....');
               },
             );
           }

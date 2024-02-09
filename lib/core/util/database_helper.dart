@@ -441,9 +441,7 @@ CREATE TABLE "completion" (
   }
 
   //UPDATE AND INSERT ACCURACY FROM LOCALY
-  addAccuracy(accuracyModel data) async {
-    print(userModel!.id);
-    print('userModel!.id');
+  addAccuracy(accuracyModel data, UserModel? userModel) async {
     int ruslt = 0;
     dynamic localdata =
         await foundRecord('media_id', data.media_id, 'accuracy');
@@ -692,21 +690,23 @@ CREATE TABLE "completion" (
   }
 
   LoadingApp(String level, String id) async {
-    final status = await Permission.storage.request();
-    final status2 = await Permission.accessMediaLocation.request();
     Database? dbClient = await db;
 
-    await checkStoryFound();
-    await checkMediaFound();
-    await downloadStoriesCover();
-    print(level);
-    List<dynamic> storyId = await dbClient!.rawQuery(
-        'SELECT id FROM stories where level = $level  AND story_order = $id ');
-    print(storyId);
-    print(
-        'storyId====================================================================================');
-    await downloadMedia(storyId[0]['id'].toString());
-    await Future.delayed(Duration(seconds: 5));
+    try {
+      await checkStoryFound();
+      await checkMediaFound();
+      await downloadStoriesCover();
+      print(level);
+      List<dynamic> storyId = await dbClient!.rawQuery(
+          'SELECT id FROM stories where level = $level  AND story_order = $id ');
+      print(storyId);
+      print(
+          'storyId====================================================================================');
+      await downloadMedia(storyId[0]['id'].toString());
+      await Future.delayed(Duration(seconds: 5));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   syncApp(

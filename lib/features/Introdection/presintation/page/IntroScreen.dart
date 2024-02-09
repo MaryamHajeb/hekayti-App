@@ -92,7 +92,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         isLoading
                             ? Directionality(
                                 textDirection: TextDirection.rtl,
-                                child: LoadingApp('جاري تحميل القصص  '))
+                                child: loadingApp('جاري تحميل القصص  '))
                             : Center(
                                 child: Column(children: [
                                   Directionality(

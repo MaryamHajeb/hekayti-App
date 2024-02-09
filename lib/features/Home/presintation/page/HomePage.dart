@@ -8,7 +8,7 @@ import 'package:hikayati_app/core/app_theme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
-import 'package:hikayati_app/features/Settings/presintation/page/lockPage.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/LockPage.dart';
 import 'package:hikayati_app/main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
@@ -98,44 +98,33 @@ class _HomePageState extends State<HomePage> {
               child: BlocProvider(
                 create: (context) => sl<StoryBloc>(),
                 child: BlocConsumer<StoryBloc, StoryState>(
-                  listener: (_context, state) {
+                  listener: (_context, state) async {
                     if (state is StoryError) {
                       print(state.errorMessage);
                     }
+                    if (state is StoryInitial) {}
                   },
                   builder: (_context, state) {
                     if (state is StoryInitial) {
-                      // db.syncApp(userModel!.level.toString());
                       BlocProvider.of<StoryBloc>(_context)
                           .add(GetAllStory(userModel!.level.toString()));
-                    }
 
+                      // db.syncApp(userModel!.level.toString());
+                    }
                     if (state is StoryLoading) {
                       StoryWidget =
-                          Center(child: LoadingApp('جاري تجهيز القصص .....  '));
+                          Center(child: loadingApp('جاري تجهيز القصص .....  '));
                     }
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
 
-                      collected_stars = getCachedData(
-                          key: 'collected_stars',
-                          retrievedDataType: String,
-                          returnType: String);
-                      all_stars = getCachedData(
-                          key: 'all_stars',
-                          retrievedDataType: String,
-                          returnType: String);
-                      if (collected_stars == 0 || all_stars == 0) {
-                        star_progrees = 0;
-                      } else {
-                        star_progrees = (collected_stars! / all_stars);
-                      }
                       listStory.clear();
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
                       });
                       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        getStars();
                         showTutorial();
                       });
                       StoryWidget = SingleChildScrollView(
@@ -149,15 +138,38 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  CustemIcon2(
-                                    key: keyfour,
-                                    icon: Image.asset(
-                                        '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image'] ?? 0}',
-                                        fit: BoxFit.cover),
-                                    ontap: () {
-                                      Navigator.push(context,
-                                          CustomPageRoute(child: lockPage()));
-                                    },
+                                  Stack(
+                                    children: [
+                                      CustemIcon2(
+                                        key: keyfour,
+                                        icon: Image.asset(
+                                            '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image'] ?? 0}',
+                                            fit: BoxFit.cover),
+                                        ontap: () async {
+                                          Navigator.push(
+                                              context,
+                                              CustomPageRoute(
+                                                  child: LockPage()));
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: screenUtil.screenWidth * .03,
+                                          top: screenUtil.screenHeight * .072,
+                                        ),
+                                        child: Icon(
+                                          Icons.settings,
+                                          size: 30,
+                                          color: Colors.brown,
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.white,
+                                                blurRadius: 2,
+                                                offset: Offset(1, 1))
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   Container(
                                       key: keythree,
@@ -200,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 20,
                                               ),
                                               Text(
-                                                '${getCachedData(key: 'collected_stars', retrievedDataType: String, returnType: String)}/${getCachedData(key: 'all_stars', retrievedDataType: String, returnType: String)}',
+                                                '$stars / $all_stars',
                                                 style: AppTheme
                                                     .textTheme.displaySmall,
                                               ),
@@ -222,7 +234,10 @@ class _HomePageState extends State<HomePage> {
                                       child: CastemInputForSearch(
                                         onching: (value) => onScearch(value),
                                         valdution: (value) {},
-                                        icon: Icon(key: keytwo, Icons.search),
+                                        icon: Icon(
+                                            key: keytwo,
+                                            Icons.search,
+                                            color: AppTheme.primaryColor),
                                         text: 'بحث',
                                         controler: search,
                                         size: screenUtil.screenWidth * .4,
@@ -640,6 +655,7 @@ class _HomePageState extends State<HomePage> {
     initUser();
     initTutorial();
     listStoryWithSearch = listStory;
+    getStars();
   }
 
   initTutorial() async {
@@ -660,7 +676,7 @@ class _HomePageState extends State<HomePage> {
               text: "مرحبا  " +
                   userModel!.user_name.toString() +
                   " , " +
-                  "   يمكنك تشغيل وايقاف صوت الموسيقى من هذا الزر ",
+                  "   يمكنك  تشغيل  و ايقاف  صوت  الموسيقى  من  هذا  الزر ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -672,7 +688,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 tutorialCoachMark!.next();
               },
-              text: "يمكنك البحث عن اي قصة من خلال اسمها من هذا المكان ",
+              text: "يمكنك  البحث  عن  القصة  من  خلال  كتابة  اسمها  هنا",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -684,7 +700,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 tutorialCoachMark!.next();
               },
-              text: "اعرف كم عدد النجوم الذي حصلت عليها ",
+              text: " يمكنك  معرفة  عدد  النجوم  التي  حصلت  عليها ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -697,7 +713,7 @@ class _HomePageState extends State<HomePage> {
                 tutorialCoachMark!.next();
               },
               text:
-                  "يمكنك الدخول وتغيير الاعداد الخاصة بك من هذا الزر ولكن بحضور احد الوالدين ",
+                  "يمكنك  تغيير  الاعداد  الخاصة  بك  من  هذا  الزر  ولكن  بحضور  احد  الوالدين ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -709,7 +725,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 tutorialCoachMark!.next();
               },
-              text: "من هنا يمكنك الضغط على القصة والدخول عليها",
+              text: "يمكنك  استعراض  القصة  من  هنا ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -738,7 +754,7 @@ class _HomePageState extends State<HomePage> {
       retrievedDataType: UserModel.init(),
       returnType: UserModel,
     );
-
+    setState(() {});
     print("userModel.level");
     print(userModel!.level);
   }
@@ -748,5 +764,20 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement dispose
     super.dispose();
     BlocProvider.of<StoryBloc>(context).close();
+  }
+
+  getStars() async {
+    collected_stars = await getCachedData(
+            key: 'collected_stars', retrievedDataType: int, returnType: int) ??
+        0;
+    all_stars = await getCachedData(
+            key: 'all_stars', retrievedDataType: int, returnType: int) ??
+        0;
+
+    if (collected_stars == 0 || all_stars == 0) {
+      star_progrees = 0;
+    } else {
+      star_progrees = (collected_stars! / all_stars);
+    }
   }
 }

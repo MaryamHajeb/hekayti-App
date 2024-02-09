@@ -34,9 +34,15 @@ class _ReportCardState extends State<ReportCard> {
     screenUtil.init(context);
 
     return Card(
-      margin: EdgeInsets.only(right: 40, left: 40, top: 30),
+      shadowColor: Colors.white,
+      color: Colors.white,
+      surfaceTintColor: Colors.white,
+      margin: EdgeInsets.symmetric(
+        horizontal: screenUtil.screenWidth * .03,
+        vertical: screenUtil.screenHeight * .05,
+      ),
       shape: ContinuousRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25))),
+          borderRadius: BorderRadius.all(Radius.circular(40))),
       elevation: 10,
       child: Container(
           decoration: BoxDecoration(
@@ -56,8 +62,8 @@ class _ReportCardState extends State<ReportCard> {
                               bottomRight: Radius.circular(10)),
                           child: Image.file(
                             File('${widget.cover_photo}'),
-                            fit: BoxFit.fill,
-                            height: 150,
+                            fit: BoxFit.cover,
+                            height: 80,
                             width: 150,
                           )))),
               Expanded(
@@ -67,61 +73,28 @@ class _ReportCardState extends State<ReportCard> {
                           style: AppTheme.textTheme.displaySmall,
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right))),
-              widget.stars == 0
-                  ? Expanded(
-                      flex: 3,
-                      child: Row(
-                        children: [
-                          Image.asset(Assets.images.emptyStar.path,
-                              width: 40, height: 40, fit: BoxFit.fill),
-                          Image.asset(Assets.images.emptyStar.path,
-                              width: 40, height: 40, fit: BoxFit.fill),
-                          Image.asset(Assets.images.emptyStar.path,
-                              width: 40, height: 40, fit: BoxFit.fill),
-                        ],
-                      ),
-                    )
-                  : widget.stars == 1
-                      ? Expanded(
-                          flex: 3,
-                          child: Row(
-                            children: [
-                              Image.asset(Assets.images.start.path,
-                                  width: 40, height: 40, fit: BoxFit.fill),
-                              Image.asset(Assets.images.emptyStar.path,
-                                  width: 40, height: 40, fit: BoxFit.fill),
-                              Image.asset(Assets.images.emptyStar.path,
-                                  width: 40, height: 40, fit: BoxFit.fill),
-                            ],
-                          ),
-                        )
-                      : widget.stars == 2
-                          ? Expanded(
-                              flex: 3,
-                              child: Row(
-                                children: [
-                                  Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                  Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                  Image.asset(Assets.images.emptyStar.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                ],
-                              ),
-                            )
-                          : Expanded(
-                              flex: 3,
-                              child: Row(
-                                children: [
-                                  Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                  Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                  Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40, fit: BoxFit.fill),
-                                ],
-                              ),
-                            ),
+              Expanded(
+                flex: 3,
+                child: Row(
+                  children: List.generate(3, (index) {
+                    if (index < widget.stars) {
+                      return Image.asset(
+                        Assets.images.start.path,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return Image.asset(
+                        Assets.images.emptyStar.path,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      );
+                    }
+                  }),
+                ),
+              ),
               Expanded(
                   flex: 2,
                   child: Center(

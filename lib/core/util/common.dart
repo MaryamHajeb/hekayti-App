@@ -533,7 +533,7 @@ noInternt(context2, String text) {
       });
 }
 
-LoadingApp(String text) {
+loadingApp(String text) {
   return Center(
     child: Dialog(
       shadowColor: Colors.white,

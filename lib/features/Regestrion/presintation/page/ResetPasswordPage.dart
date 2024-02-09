@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
-import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/TabBarPage.dart';
 import 'package:hikayati_app/main.dart';
 
 import '../../../../core/app_theme.dart';
@@ -242,7 +242,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                             Navigator.push(
                                                 context,
                                                 CustomPageRoute(
-                                                    child: SettingPage()));
+                                                    child: TabBarPage()));
                                           });
                                         }
                                       },
@@ -270,7 +270,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     Visibility(
                       visible: visible,
                       child: Center(
-                        child: LoadingApp(' جاري تعديل كلمه المرور......'),
+                        child: loadingApp(' جاري تعديل كلمه المرور......'),
                       ),
                     ),
                   ],

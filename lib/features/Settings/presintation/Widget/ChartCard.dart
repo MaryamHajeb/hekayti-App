@@ -30,6 +30,8 @@ class _ChartCardState extends State<ChartCard> {
   ScreenUtil screenUtil = ScreenUtil();
   Widget build(BuildContext context) {
     screenUtil.init(context);
+    print("page_no" + widget.page_no);
+    print(widget.photo);
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -43,8 +45,8 @@ class _ChartCardState extends State<ChartCard> {
                 height: screenUtil.screenHeight * .08,
               ),
               Container(
-                height: 40,
-                width: 40,
+                height: screenUtil.screenHeight * .1,
+                width: screenUtil.screenWidth * .05,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(10),
@@ -78,6 +80,9 @@ class _ChartCardState extends State<ChartCard> {
             shape: ContinuousRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25))),
             elevation: 10,
+            color: Colors.white,
+            surfaceTintColor: Colors.white,
+            shadowColor: Colors.white,
             child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -87,21 +92,21 @@ class _ChartCardState extends State<ChartCard> {
                 child: Row(
                   children: [
                     Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Center(
                             child: ClipRRect(
                                 borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10),
-                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(8),
+                                  topRight: Radius.circular(8),
                                 ),
                                 child: Image.file(
                                   File('${widget.photo}'),
-                                  fit: BoxFit.fill,
-                                  height: 150,
-                                  width: 150,
+                                  fit: BoxFit.cover,
+                                  height: screenUtil.screenHeight * .25,
+                                  width: screenUtil.screenWidth * .25,
                                 )))),
                     Expanded(
-                      flex: 5,
+                      flex: 10,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,101 +124,30 @@ class _ChartCardState extends State<ChartCard> {
                         ],
                       ),
                     ),
-                    widget.accuracy_stars == 0
-                        ? Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(Assets.images.emptyStar.path,
-                                    width: 20, height: 20, fit: BoxFit.fill),
-                                Image.asset(Assets.images.emptyStar.path,
-                                    width: 20, height: 20, fit: BoxFit.fill),
-                                Image.asset(Assets.images.emptyStar.path,
-                                    width: 20, height: 20, fit: BoxFit.fill),
-                              ],
-                            ),
-                          )
-                        : widget.accuracy_stars == 1
-                            ? Expanded(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Image.asset(Assets.images.start.path,
-                                        width: 20,
-                                        height: 20,
-                                        fit: BoxFit.fill),
-                                    Image.asset(Assets.images.emptyStar.path,
-                                        width: 20,
-                                        height: 20,
-                                        fit: BoxFit.fill),
-                                    Image.asset(Assets.images.emptyStar.path,
-                                        width: 20,
-                                        height: 20,
-                                        fit: BoxFit.fill),
-                                  ],
-                                ),
-                              )
-                            : widget.accuracy_stars == 2
-                                ? Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(Assets.images.start.path,
-                                            width: 20,
-                                            height: 20,
-                                            fit: BoxFit.fill),
-                                        Image.asset(Assets.images.start.path,
-                                            width: 20,
-                                            height: 20,
-                                            fit: BoxFit.fill),
-                                        Image.asset(
-                                            Assets.images.emptyStar.path,
-                                            width: 20,
-                                            height: 20,
-                                            fit: BoxFit.fill),
-                                      ],
-                                    ),
-                                  )
-                                : widget.accuracy_stars == 3
-                                    ? Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Image.asset(
-                                                Assets.images.start.path,
-                                                width: 20,
-                                                height: 20,
-                                                fit: BoxFit.fill),
-                                            Image.asset(
-                                                Assets.images.start.path,
-                                                width: 20,
-                                                height: 20,
-                                                fit: BoxFit.fill),
-                                            Image.asset(
-                                                Assets.images.start.path,
-                                                width: 20,
-                                                height: 20,
-                                                fit: BoxFit.fill),
-                                          ],
-                                        ),
-                                      )
-                                    : Container(
-                                        color: AppTheme.primaryColor,
-                                        child: Text('kkkkk'),
-                                      ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(3, (index) {
+                          if (index < widget.accuracy_stars) {
+                            return Image.asset(
+                              Assets.images.start.path,
+                              width: 20,
+                              height: 20,
+                              fit: BoxFit.fill,
+                            );
+                          } else {
+                            return Image.asset(
+                              Assets.images.emptyStar.path,
+                              width: 20,
+                              height: 20,
+                              fit: BoxFit.fill,
+                            );
+                          }
+                        }),
+                      ),
+                    ),
                   ],
                 )),
           ),

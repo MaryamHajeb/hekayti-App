@@ -68,8 +68,8 @@ class StoryRepository extends Repository {
     print(collected_stars);
     print(all_stars);
     print('all_stars');
-    cachedData(key: 'all_stars',data:  all_stars);
-    cachedData(key: 'collected_stars',data:  collected_stars);
+    await cachedData(key: 'all_stars', data: all_stars);
+    await cachedData(key: 'collected_stars', data: collected_stars);
     return dd;
   }
 }

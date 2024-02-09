@@ -31,7 +31,7 @@ class CustemLevel extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(width: 3, color: AppTheme.primaryColor),
                   borderRadius: BorderRadius.all(Radius.circular(11))),
-              height: screenUtil.screenHeight * .2,
+              height: screenUtil.screenHeight * .3,
               width: screenUtil.screenWidth * .18,
               child: Center(
                   child: Text(

@@ -16,7 +16,7 @@ import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
 import '../../../Introdection/presintation/page/IntroScreen.dart';
-import '../../../Settings/presintation/page/SettingPage.dart';
+import '../../../Settings/presintation/page/TabBarPage.dart';
 import '../manager/registration_bloc.dart';
 import 'LoginPage.dart';
 
@@ -52,7 +52,7 @@ class _SignupPageState extends State<SignupPage> {
                   barrierColor: Colors.black.withOpacity(.5),
                   context: context,
                   builder: (context) {
-                    return LoadingApp('جاري تسجيل الحساب....');
+                    return loadingApp('جاري تسجيل الحساب....');
                   },
                 );
               }
@@ -63,7 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                 islogin
                     ? {
                         Navigator.push(
-                            context, CustomPageRoute(child: SettingPage()))
+                            context, CustomPageRoute(child: TabBarPage()))
                       }
                     : {
                         print(state.successMessage),

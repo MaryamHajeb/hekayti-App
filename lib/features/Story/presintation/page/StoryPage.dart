@@ -3,6 +3,7 @@ import 'dart:io' as io;
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:confetti/confetti.dart';
 import 'package:edit_distance/edit_distance.dart';
 import 'package:intl/intl.dart' as intl;
@@ -273,28 +274,36 @@ class _StoryPageState extends State<StoryPage> {
                                             height: 30,
                                           ),
                                           visiblety == false
-                                              ? SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: PlayButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        _currentStatus !=
-                                                                RecordingStatus
-                                                                    .Unset
-                                                            ? _stop()
-                                                            : null;
+                                              ? AvatarGlow(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  child: SizedBox(
+                                                      height: 50,
+                                                      width: 50,
+                                                      child: PlayButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            _currentStatus !=
+                                                                    RecordingStatus
+                                                                        .Unset
+                                                                ? _stop()
+                                                                : null;
 
-                                                        visiblety = !visiblety;
-                                                      });
-                                                    },
-                                                    initialIsPlaying: true,
-                                                    pauseIcon: Icon(Icons.stop,
-                                                        color: Colors.white),
-                                                    playIcon: Icon(Icons.mic,
-                                                        color: AppTheme
-                                                            .primaryColor),
-                                                  ))
+                                                            visiblety =
+                                                                !visiblety;
+                                                          });
+                                                        },
+                                                        initialIsPlaying: true,
+                                                        pauseIcon: Icon(
+                                                            Icons.stop,
+                                                            color:
+                                                                Colors.white),
+                                                        playIcon: Icon(
+                                                            Icons.mic,
+                                                            color: AppTheme
+                                                                .primaryColor),
+                                                      )),
+                                                )
                                               : CustemIcon2(
                                                   key: keythree,
                                                   icon: Icon(
@@ -851,13 +860,15 @@ class _StoryPageState extends State<StoryPage> {
 
     star != 0
         ? {
-            reuslt = await db.addAccuracy(accuracyModel(
-              media_id: media_id,
-              readed_text: text,
-              accuracy_stars: star,
-              updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ')
-                  .format(DateTime.now()),
-            )),
+            reuslt = await db.addAccuracy(
+                accuracyModel(
+                  media_id: media_id,
+                  readed_text: text,
+                  accuracy_stars: star,
+                  updated_at: intl.DateFormat('yyyy-MM-ddTHH:mm:ss.ssssZ')
+                      .format(DateTime.now()),
+                ),
+                userModel),
             print(reuslt),
             print('result'),
             currentIndexPage + 1 == lengthSrory
@@ -952,18 +963,22 @@ class _StoryPageState extends State<StoryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initData();
+  }
 
-    lisen = getCachedData(
+  initData() async {
+    lisen = await getCachedData(
             key: 'Listen_to_story',
             returnType: bool,
             retrievedDataType: bool) ??
-        '';
+        true;
 
-    userModel = getCachedData(
+    userModel = await getCachedData(
       key: 'UserInformation',
       retrievedDataType: UserModel.init(),
-      returnType: UserModel,
+      returnType: UserModel.init(),
     );
+    setState(() {});
   }
 
   @override
@@ -983,7 +998,7 @@ class _StoryPageState extends State<StoryPage> {
               onTap: () {
                 tutorialCoachMark!.next();
               },
-              text: "يمكنك الرجوع الى القائمة الرئسية من هذا المكان ",
+              text: "يمكنك  الرجوع  الى  القائمة  الرئسية  من  هنا ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -997,7 +1012,7 @@ class _StoryPageState extends State<StoryPage> {
                 tutorialCoachMark!.next();
               },
               text:
-                  "يمكنك الاستماع الى القصة من هذا الزر يمكنك ايقاف هذه الخاصية من الاعدادات",
+                  "اضغط  على  هذا الزر  من  اجل  الاستماع  للقصة  ويمكنك  ايقاف  خاصية  الاستماع  من  الاعدادات",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
@@ -1011,35 +1026,10 @@ class _StoryPageState extends State<StoryPage> {
               },
               hight: screenUtil.screenHeight * .5,
               text:
-                  " يمكنك الضغط على هذا الزر من اجل تسجيل صوتك اثناء قراءة القصة ",
+                  "  اثناء  قراءتك  للقصة  قم  بتسجيل  صوتك  من  اجل  التاكد  من  صحه  القراءة    ",
               carecters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
-      // TargetFocus(identify: "target4", keyTarget: keyfour, contents: [
-      //   TargetContent(
-      //       align: ContentAlign.left,
-      //       child: Tutorial_widget(
-      //         index: 4,
-      //         onTap: () {
-      //           tutorialCoachMark!.next();
-      //         },
-      //         text:
-      //             "يمكنك الدخول وتغيير الاعداد الخاصة بك من هذا الزر ولكن بحضور احد الوالدين ",
-      //         carecters: int.parse(userModel!.character.toString()) ?? 0,
-      //       ))
-      // ]),
-      // TargetFocus(identify: "target5", keyTarget: keyfive, contents: [
-      //   TargetContent(
-      //       align: ContentAlign.left,
-      //       child: Tutorial_widget(
-      //         index: 5,
-      //         onTap: () {
-      //           tutorialCoachMark!.next();
-      //         },
-      //         text: "من هنا يمكنك الضغط على القصة والدخول عليها",
-      //         carecters: int.parse(userModel!.character.toString()) ?? 0,
-      //       ))
-      // ]),
     ];
     prefs = await SharedPreferences.getInstance();
     tautorial4 = await prefs?.getBool("tautorial4") ?? false;

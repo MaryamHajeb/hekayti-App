@@ -7,7 +7,7 @@ import '../../../../core/util/common.dart';
 class IntroScreenController extends GetxController {
   UserModel? userModel;
   int selectedCharacter = 0;
-  int selectedLevel = 0;
+  int selectedLevel = 1;
   TextEditingController name = TextEditingController();
   @override
   void onInit() {
@@ -24,7 +24,7 @@ class IntroScreenController extends GetxController {
     await cachedData(
         key: 'UserInformation',
         data: UserModel(
-            user_name: data.user_name,
+            user_name: data.user_name ?? "",
             email: data.email,
             level: data.level,
             character: data.character,

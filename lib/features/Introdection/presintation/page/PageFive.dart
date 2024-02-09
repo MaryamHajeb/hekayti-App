@@ -18,6 +18,7 @@ class _PageFiveState extends State<PageFive> {
   Carecters carecters = Carecters();
 
   ScreenUtil screenUtil = ScreenUtil();
+  int selected = 0;
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -55,11 +56,11 @@ class _PageFiveState extends State<PageFive> {
                       child: CustemLevel(
                         name: carecters.Levels[index]['num'],
                         onTap: () async {
-                          controller.selectedLevel = index;
+                          selected = index;
+                          controller.selectedLevel = index + 1;
                           controller.update();
                         },
-                        isSelected:
-                            controller.selectedLevel == index ? true : false,
+                        isSelected: selected == index ? true : false,
                         color: carecters.Levels[index]['color'],
                       ),
                     );

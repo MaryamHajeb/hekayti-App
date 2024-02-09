@@ -58,8 +58,7 @@ class Tutorial_widget extends StatelessWidget {
                       ),
                     ),
                     CustemButten2(
-                        text: ""
-                            "موافق",
+                        text: "حسناً",
                         ontap: () {
                           onTap();
                         })

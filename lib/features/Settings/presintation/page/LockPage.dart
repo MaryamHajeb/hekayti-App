@@ -1,21 +1,21 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
-import 'package:hikayati_app/features/Settings/presintation/page/SettingPage.dart';
+import 'package:hikayati_app/features/Settings/presintation/page/TabBarPage.dart';
 import '../../../../core/app_theme.dart';
 import '../../../../core/widgets/CastemInput.dart';
 import '../../../../core/widgets/CustemButten.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 
-class lockPage extends StatefulWidget {
-  const lockPage({Key? key}) : super(key: key);
+class LockPage extends StatefulWidget {
+  const LockPage({Key? key}) : super(key: key);
 
   @override
-  State<lockPage> createState() => _lockPageState();
+  State<LockPage> createState() => _LockPageState();
 }
 
-class _lockPageState extends State<lockPage> {
+class _LockPageState extends State<LockPage> {
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController result = TextEditingController();
 
@@ -149,7 +149,7 @@ class _lockPageState extends State<lockPage> {
                           ontap: () {
                             if (_formKey.currentState!.validate()) {
                               Navigator.push(context,
-                                  CustomPageRoute(child: SettingPage()));
+                                  CustomPageRoute(child: TabBarPage()));
                             }
                           },
                           text: 'تم',
