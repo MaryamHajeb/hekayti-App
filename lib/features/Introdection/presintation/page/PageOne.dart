@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/common.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/Common.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 
@@ -36,11 +36,11 @@ class _PageOneState extends State<PageOne> {
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .3,
-                child: Image.asset(Assets.images.carecters.abdu.left.path)),
+                child: Image.asset(Assets.images.Characters.abdu.left.path)),
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .3,
-                child: Image.asset(Assets.images.carecters.mariam.happy.path)),
+                child: Image.asset(Assets.images.Characters.mariam.happy.path)),
           ],
         ),
         Text('مرحبا بك.', style: AppTheme.textTheme.displaySmall),

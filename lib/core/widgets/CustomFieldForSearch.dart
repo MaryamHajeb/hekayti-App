@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../AppTheme.dart';
 import '../util/ScreenUtil.dart';
 
-class CastemInputForSearch extends StatefulWidget {
+class CustomFieldForSearch extends StatefulWidget {
   final valdution;
   final icon;
   final text;
@@ -12,7 +12,7 @@ class CastemInputForSearch extends StatefulWidget {
   double size;
   final controler;
 
-  CastemInputForSearch(
+  CustomFieldForSearch(
       {Key? key,
       required this.valdution,
       this.icon,
@@ -24,10 +24,10 @@ class CastemInputForSearch extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CastemInputForSearch> createState() => _CastemInputForSearchState();
+  State<CustomFieldForSearch> createState() => _CustomFieldForSearchState();
 }
 
-class _CastemInputForSearchState extends State<CastemInputForSearch> {
+class _CustomFieldForSearchState extends State<CustomFieldForSearch> {
   @override
   ScreenUtil screenUtil = ScreenUtil();
   Widget build(BuildContext context) {

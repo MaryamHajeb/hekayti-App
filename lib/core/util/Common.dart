@@ -1,7 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,10 +9,10 @@ import '../../dataProviders/local_data_provider.dart';
 import '../../features/Regestrion/date/model/userMode.dart';
 import '../../gen/assets.gen.dart';
 import '../../injection_container.dart';
-import '../widgets/CustemButten.dart';
-import '../widgets/CustemButten2.dart';
+import '../widgets/SecondaryCustomButton.dart';
+import '../widgets/CustomButton.dart';
 import '../widgets/CustomPageRoute.dart';
-import '../widgets/primaryText.dart';
+import '../widgets/PrimaryText.dart';
 
 getCachedData(
     {required key,
@@ -97,11 +97,11 @@ void showImagesDialog(BuildContext context, String image, String text, ontap) {
                 SizedBox(
                   height: 15,
                 ),
-                CustemButten(
+                CustomButton(
                   ontap: () {
                     ontap();
                   },
-                  text: 'نعم',
+                  text: 'حسناً',
                 )
               ],
             ),
@@ -227,7 +227,7 @@ void showImagesDialogWithStar(
                                       width: 40, height: 40),
                                 ],
                               ),
-                CustemButten(
+                CustomButton(
                   ontap: () {
                     ontap();
                   },
@@ -296,13 +296,13 @@ showImagesDialogWithCancleButten(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustemButten2(
+                    SecondaryCustomButton(
                       ontap: () {
                         Ok_methoed();
                       },
                       text: 'نعم',
                     ),
-                    CustemButten(
+                    CustomButton(
                       ontap: () {
                         No_methoed();
                       },
@@ -399,7 +399,7 @@ showImagesDialogWithDoNotWill(BuildContext context2, String image, String text,
                   SizedBox(
                     height: 15,
                   ),
-                  CustemButten2(
+                  SecondaryCustomButton(
                     ontap: () {
                       Navigator.pop(context);
                     },
@@ -474,7 +474,7 @@ showConfetti(context2, controler, image) {
                             width: 190, height: 190, fit: BoxFit.contain),
                       ],
                     ),
-                    CustemButten2(
+                    SecondaryCustomButton(
                       ontap: () {
                         Navigator.push(
                             context, CustomPageRoute(child: HomePage()));

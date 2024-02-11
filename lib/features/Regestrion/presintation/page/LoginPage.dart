@@ -8,13 +8,13 @@ import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
+import '../../../../core/util/Common.dart';
 
-import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/widgets/CustomField.dart';
+import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController CofemPassword = TextEditingController();
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
 
   bool? isbording;
   UserModel? userModel;
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: screenUtil.screenHeight * .4,
                             width: screenUtil.screenWidth * .2,
                             child: Image.asset(
-                                Assets.images.carecters.mariam.sing.path)),
+                                Assets.images.Characters.mariam.sing.path)),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          CustemInput(
+                                          CustomField(
                                             size: 250,
                                             valdution: (value) {
                                               if (value!.isEmpty) {
@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          CustemInput(
+                                          CustomField(
                                             size: 250,
                                             valdution: (value) {
                                               if (value.toString().isEmpty) {
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
-                              CustemButten(
+                              CustomButton(
                                   ontap: () async {
                                     if (_loginFormKey.currentState!
                                         .validate()) {
@@ -194,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                                         if (await networkInfo.isConnected) {
                                           showImagesDialogWithCancleButten(
                                               context,
-                                              '${carectersobj.confusedListCarecters[userModel!.character]['image']}',
+                                              '${CharactersListobj.confusedListCharactersList[userModel!.character]['image']}',
                                               'هل انت متاكد ؟'
                                                   'سوف تفقد جميع بياناتك الحاليه',
                                               () {}, () async {
@@ -281,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: screenUtil.screenHeight * .4,
                             width: screenUtil.screenWidth * .2,
                             child: Image.asset(
-                                Assets.images.carecters.abdu.sing.path)),
+                                Assets.images.Characters.abdu.sing.path)),
                       ],
                     ),
                   ),

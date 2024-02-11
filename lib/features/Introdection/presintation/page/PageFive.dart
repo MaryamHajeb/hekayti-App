@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
-import '../../../../core/widgets/CastemLevel.dart';
+import '../../../../core/AppTheme.dart';
+
+import '../../../../core/util/CharactersList.dart';
+import '../../../../core/widgets/CustomLevelWidget.dart';
 import '../../../../gen/assets.gen.dart';
 
 class PageFive extends StatefulWidget {
@@ -15,7 +16,7 @@ class PageFive extends StatefulWidget {
 }
 
 class _PageFiveState extends State<PageFive> {
-  Carecters carecters = Carecters();
+  CharactersList charactersList = CharactersList();
 
   ScreenUtil screenUtil = ScreenUtil();
   int selected = 0;
@@ -48,20 +49,20 @@ class _PageFiveState extends State<PageFive> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: carecters.Levels.length,
+                  itemCount: charactersList.Levels.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: screenUtil.screenWidth * .03),
-                      child: CustemLevel(
-                        name: carecters.Levels[index]['num'],
+                      child: CustomLevelWidget(
+                        name: charactersList.Levels[index]['num'],
                         onTap: () async {
                           selected = index;
                           controller.selectedLevel = index + 1;
                           controller.update();
                         },
                         isSelected: selected == index ? true : false,
-                        color: carecters.Levels[index]['color'],
+                        color: charactersList.Levels[index]['color'],
                       ),
                     );
                   },

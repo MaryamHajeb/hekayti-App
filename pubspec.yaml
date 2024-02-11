@@ -109,12 +109,12 @@ flutter:
       - assets/
       - assets/audio/
       - assets/json/
-      - assets/images/carecters/abdu/
-      - assets/images/carecters/hana/
-      - assets/images/carecters/hasham/
-      - assets/images/carecters/mariam/
-      - assets/images/carecters/mohamed/
-      - assets/images/carecters/wafa/
+      - assets/images/Characters/abdu/
+      - assets/images/Characters/hana/
+      - assets/images/Characters/hasham/
+      - assets/images/Characters/mariam/
+      - assets/images/Characters/mohamed/
+      - assets/images/Characters/wafa/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

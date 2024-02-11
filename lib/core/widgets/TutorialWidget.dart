@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:hikayati_app/core/widgets/SecondaryCustomButton.dart';
+import '../util/CharactersList.dart';
 
-import '../util/Carecters.dart';
-import 'CustemButten.dart';
-import 'CustemButten2.dart';
-
-class Tutorial_widget extends StatelessWidget {
-  int carecters = 0;
+class TutorialWidget extends StatelessWidget {
+  int Characters = 0;
   String text;
   Function onTap;
   int index;
   final hight;
-  Tutorial_widget(
+  TutorialWidget(
       {super.key,
       this.hight,
       required this.index,
       required this.text,
-      required this.carecters,
+      required this.Characters,
       required this.onTap});
   ScreenUtil screenUtil = ScreenUtil();
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -30,7 +28,7 @@ class Tutorial_widget extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              carectersobj.happyListCarecters[carecters]["image"],
+              CharactersListobj.happyListCharactersList[Characters]["image"],
               height: screenUtil.screenHeight * .5,
               width: screenUtil.screenWidth * .2,
             ),
@@ -57,7 +55,7 @@ class Tutorial_widget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CustemButten2(
+                    SecondaryCustomButton(
                         text: "حسناً",
                         ontap: () {
                           onTap();

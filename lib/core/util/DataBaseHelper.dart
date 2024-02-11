@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 
-import 'package:hikayati_app/core/util/common.dart';
+import 'package:hikayati_app/core/util/Common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/CompletionModel.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +21,7 @@ import '../../features/Regestrion/date/model/userMode.dart';
 import '../../injection_container.dart';
 import '../../main.dart';
 
-class DatabaseHelper {
+class DataBaseHelper {
   Database? _db;
   var path;
 

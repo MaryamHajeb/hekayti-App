@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/widgets/CastemInput.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/widgets/CustomField.dart';
 import '../../../../gen/assets.gen.dart';
 
 class PageThree extends StatelessWidget {
@@ -45,7 +45,7 @@ class PageThree extends StatelessWidget {
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.images.carecters.hana.happy.path)),
+                child: Image.asset(Assets.images.Characters.hana.happy.path)),
             Column(
               children: [
                 Container(
@@ -71,7 +71,7 @@ class PageThree extends StatelessWidget {
                     SizedBox(
                       width: 30,
                     ),
-                    CustemInput(
+                    CustomField(
                       size: 200,
                       valdution: (value) {
                         if (value.toString().isEmpty) {
@@ -95,7 +95,8 @@ class PageThree extends StatelessWidget {
             Container(
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
-                child: Image.asset(Assets.images.carecters.mohamed.happy.path)),
+                child:
+                    Image.asset(Assets.images.Characters.mohamed.happy.path)),
           ],
         ),
       ],

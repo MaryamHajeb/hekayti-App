@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../AppTheme.dart';
 
-class CustemButten extends StatelessWidget {
-  CustemButten({Key? key, required this.ontap, required this.text})
+class SecondaryCustomButton extends StatelessWidget {
+  SecondaryCustomButton({Key? key, required this.ontap, required this.text})
       : super(key: key);
   Function ontap;
   final text;
@@ -14,7 +14,7 @@ class CustemButten extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(9))),
             padding: EdgeInsets.all(0),
-            backgroundColor: AppTheme.primaryColor,
+            backgroundColor: Color(0xFFF7BCA3),
             side: BorderSide(
               color: Colors.white,
             )),
@@ -30,10 +30,12 @@ class CustemButten extends StatelessWidget {
                     width: 3, color: AppTheme.primarySwatch.shade200),
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             child: Center(
-                child: Text(text,
-                    style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        color: AppTheme.primaryColor,
-                        fontSize: 14)))));
+                child: Text(
+              text,
+              style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: AppTheme.fontFamily,
+                  color: Color(0xFFF7BCA3)),
+            ))));
   }
 }

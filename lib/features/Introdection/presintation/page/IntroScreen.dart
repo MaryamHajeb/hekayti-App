@@ -6,10 +6,10 @@ import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
+import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../main.dart';
@@ -40,7 +40,7 @@ class _IntroScreenState extends State<IntroScreen> {
     PageSix(),
   ];
   ScreenUtil _screenUtil = ScreenUtil();
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
 
   int progress = 0;
   bool isLoading = false;
@@ -193,7 +193,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                                 } else {
                                                                   showImagesDialog(
                                                                       context,
-                                                                      '${carectersobj.showCarecters[int.parse(controller.selectedCharacter.toString())]['image'].toString()}',
+                                                                      '${CharactersListobj.showCharactersList[int.parse(controller.selectedCharacter.toString())]['image'].toString()}',
                                                                       'تاكد من وجود انترنت اول مره من اجل تحميل القصص',
                                                                       () {
                                                                     Navigator.pop(

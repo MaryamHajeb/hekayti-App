@@ -4,8 +4,8 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/LoginPage.dart';
 import 'package:hikayati_app/features/Regestrion/presintation/page/SignupPage.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 
@@ -18,8 +18,8 @@ class PageTow extends StatefulWidget {
 
 class _PageTowState extends State<PageTow> {
   ScreenUtil screenUtil = ScreenUtil();
-  int Carecters_id = 0;
-  Carecters carectersobj = Carecters();
+  int CharactersList_id = 0;
+  CharactersList CharactersListobj = CharactersList();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _PageTowState extends State<PageTow> {
                 height: screenUtil.screenHeight * .4,
                 width: screenUtil.screenWidth * .2,
                 child: Image.asset(
-                    '${carectersobj.happyListCarecters[Carecters_id]['image']}')),
+                    '${CharactersListobj.happyListCharactersList[CharactersList_id]['image']}')),
           ],
         ),
       ],

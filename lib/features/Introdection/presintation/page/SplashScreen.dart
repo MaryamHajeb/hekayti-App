@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/introdection/presintation/page/IntroScreen.dart';
 import 'package:hikayati_app/gen/assets.gen.dart';

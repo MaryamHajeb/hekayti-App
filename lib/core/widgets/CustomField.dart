@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../AppTheme.dart';
 import '../util/ScreenUtil.dart';
 
-class CustemInput extends StatefulWidget {
+class CustomField extends StatefulWidget {
   final valdution;
   final icon;
   final text;
@@ -12,7 +12,7 @@ class CustemInput extends StatefulWidget {
   double size;
   final controler;
 
-  CustemInput(
+  CustomField(
       {Key? key,
       required this.valdution,
       this.icon,
@@ -24,10 +24,10 @@ class CustemInput extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CustemInput> createState() => _CustemInputState();
+  State<CustomField> createState() => _CustomFieldState();
 }
 
-class _CustemInputState extends State<CustemInput> {
+class _CustomFieldState extends State<CustomField> {
   @override
   ScreenUtil screenUtil = ScreenUtil();
   Widget build(BuildContext context) {

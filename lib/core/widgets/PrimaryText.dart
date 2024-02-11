@@ -1,4 +1,4 @@
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryText extends StatelessWidget {

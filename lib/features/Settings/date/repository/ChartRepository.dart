@@ -5,14 +5,14 @@ import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hikayati_app/features/Settings/date/model/ChartModel.dart';
 
-import '../../../../core/util/database_helper.dart';
+import '../../../../core/util/DataBaseHelper.dart';
 import '../../../../dataProviders/error/failures.dart';
 
 class ChartRepository extends Repository {
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
   final NetworkInfo networkInfo; //check if the device is connected to internet
-  DatabaseHelper db = new DatabaseHelper();
+  DataBaseHelper db = new DataBaseHelper();
 
   ChartRepository({
     required this.remoteDataProvider,

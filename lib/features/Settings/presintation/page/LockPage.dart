@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/TabBarPage.dart';
-import '../../../../core/app_theme.dart';
-import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/widgets/CustomField.dart';
+import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 
@@ -80,7 +80,7 @@ class _LockPageState extends State<LockPage> {
                                 height: screenUtil.screenHeight * .4,
                                 width: screenUtil.screenWidth * .2,
                                 child: Image.asset(
-                                    Assets.images.carecters.hana.happy.path)),
+                                    Assets.images.Characters.hana.happy.path)),
                             SingleChildScrollView(
                               child: Column(
                                 children: [
@@ -115,7 +115,7 @@ class _LockPageState extends State<LockPage> {
                                       SizedBox(
                                         width: 30,
                                       ),
-                                      CustemInput(
+                                      CustomField(
                                         size: 200,
                                         valdution: (value) {
                                           if (value.toString().isEmpty) {
@@ -142,10 +142,10 @@ class _LockPageState extends State<LockPage> {
                                 height: screenUtil.screenHeight * .4,
                                 width: screenUtil.screenWidth * .2,
                                 child: Image.asset(Assets
-                                    .images.carecters.mohamed.happy.path)),
+                                    .images.Characters.mohamed.happy.path)),
                           ],
                         ),
-                        CustemButten(
+                        CustomButton(
                           ontap: () {
                             if (_formKey.currentState!.validate()) {
                               Navigator.push(context,

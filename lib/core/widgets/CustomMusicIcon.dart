@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../AppTheme.dart';
 
-class CustemIcon2 extends StatefulWidget {
-  CustemIcon2({Key? key, required this.icon, required this.ontap})
-      : super(key: key);
-  final icon;
-  final ontap;
+class CustomMusicIcon extends StatelessWidget {
+  Function onTap;
+  bool status;
+  CustomMusicIcon({super.key, required this.onTap, required this.status});
 
-  @override
-  State<CustemIcon2> createState() => _CustemIcon2State();
-}
-
-class _CustemIcon2State extends State<CustemIcon2> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,11 +19,12 @@ class _CustemIcon2State extends State<CustemIcon2> {
       child: Center(
         child: IconButton(
             onPressed: () {
-              setState(() {
-                widget.ontap();
-              });
+              onTap();
             },
-            icon: widget.icon),
+            icon: Icon(
+              status ? Icons.volume_up_rounded : Icons.volume_off_rounded,
+              color: AppTheme.primaryColor,
+            )),
       ),
     );
   }

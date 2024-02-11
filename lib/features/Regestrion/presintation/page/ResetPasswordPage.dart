@@ -6,13 +6,13 @@ import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Settings/presintation/page/TabBarPage.dart';
 import 'package:hikayati_app/main.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/Encrypt.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomField.dart';
+import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../dataProviders/network/data_source_url.dart';
 import '../../../../dataProviders/remote_data_provider.dart';
@@ -31,7 +31,7 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   bool requestPending = false;
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController userpassword = TextEditingController();
   TextEditingController newpassword = TextEditingController();
@@ -89,7 +89,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     height: screenUtil.screenHeight * .4,
                                     width: screenUtil.screenWidth * .2,
                                     child: Image.asset(Assets
-                                        .images.carecters.abdu.sing.path)),
+                                        .images.Characters.abdu.sing.path)),
                               ),
                               Expanded(
                                 flex: 3,
@@ -106,7 +106,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                           style:
                                               AppTheme.textTheme.displaySmall,
                                         ),
-                                        CustemInput(
+                                        CustomField(
                                           size: 250,
                                           valdution: (value) {
                                             if (value!.isEmpty) {
@@ -141,7 +141,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                           style:
                                               AppTheme.textTheme.displaySmall,
                                         ),
-                                        CustemInput(
+                                        CustomField(
                                           size: 250,
                                           valdution: (value) {
                                             if (value.toString().isEmpty) {
@@ -172,7 +172,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                           style:
                                               AppTheme.textTheme.displaySmall,
                                         ),
-                                        CustemInput(
+                                        CustomField(
                                           size: 250,
                                           valdution: (value) {
                                             if (value.toString().isEmpty) {
@@ -196,7 +196,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    CustemButten(
+                                    CustomButton(
                                       ontap: () async {
                                         print(userpassword.text);
                                         print(userModel!.password);
@@ -237,7 +237,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                           });
                                           showImagesDialog(
                                               context,
-                                              '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
+                                              '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image']}',
                                               'تم  تعديل كلمه المرور', () {
                                             Navigator.push(
                                                 context,
@@ -257,7 +257,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     height: screenUtil.screenHeight * .4,
                                     width: screenUtil.screenWidth * .2,
                                     child: Image.asset(Assets
-                                        .images.carecters.mariam.sing.path)),
+                                        .images.Characters.mariam.sing.path)),
                               ),
                             ],
                           ),

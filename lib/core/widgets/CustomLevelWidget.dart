@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../app_theme.dart';
+import '../AppTheme.dart';
 import '../util/ScreenUtil.dart';
 
-class CustemLevel extends StatelessWidget {
+class CustomLevelWidget extends StatelessWidget {
   int name;
   Function onTap;
   bool isSelected;
   Color color;
 
-  CustemLevel({
+  CustomLevelWidget({
     required this.name,
     required this.color,
     required this.onTap,

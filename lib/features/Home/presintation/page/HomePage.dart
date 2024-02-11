@@ -4,7 +4,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/features/Home/presintation/manager/Story_bloc.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/Home/data/model/StoryMode.dart';
@@ -15,17 +15,21 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemInputForSearch.dart';
-import '../../../../core/widgets/CustemIcon2.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomFieldForSearch.dart';
+import '../../../../core/widgets/CustomIconWidget.dart';
+import '../../../../core/widgets/CustomIconWidget2.dart';
+import '../../../../core/widgets/CustomMusicIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
-import '../../../../core/widgets/Tutorial_widget.dart';
+import '../../../../core/widgets/TutorialWidget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
-import '../Widget/ShowTutorialWidget.dart';
+
+import '../Widget/SearchWidget.dart';
+import '../Widget/StarsWidget.dart';
 import '../Widget/StoryCard.dart';
 import '../Widget/StoryCardLock.dart';
 
@@ -43,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController search = TextEditingController();
   List<StoryModel> listStory = [];
   List<StoryModel> listStoryWithSearch = [];
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
   int? collected_stars = 0;
   int all_stars = 0;
   int stars = 0;
@@ -72,8 +76,8 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
-            'هل حقا تريد المغادره', () {
+            '${CharactersListobj.confusedListCharactersList[int.parse(userModel!.character.toString())]['image']}',
+            '  هل حقا تريد المغادره ؟', () {
           Navigator.pop(context);
         }, () {
           SystemNavigator.pop();
@@ -118,13 +122,14 @@ class _HomePageState extends State<HomePage> {
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
-
+                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        getStars();
+                      });
                       listStory.clear();
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
                       });
                       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                        getStars();
                         showTutorial();
                       });
                       StoryWidget = SingleChildScrollView(
@@ -138,135 +143,73 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Stack(
-                                    children: [
-                                      CustemIcon2(
-                                        key: keyfour,
-                                        icon: Image.asset(
-                                            '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image'] ?? 0}',
-                                            fit: BoxFit.cover),
-                                        ontap: () async {
-                                          Navigator.push(
-                                              context,
-                                              CustomPageRoute(
-                                                  child: LockPage()));
-                                        },
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          right: screenUtil.screenWidth * .03,
-                                          top: screenUtil.screenHeight * .072,
-                                        ),
-                                        child: Icon(
-                                          Icons.settings,
-                                          size: 30,
-                                          color: Colors.brown,
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.white,
-                                                blurRadius: 2,
-                                                offset: Offset(1, 1))
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: AppTheme.primaryColor,
+                                            width: 2),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15))),
+                                    child: CustomIconWidget(
+                                      status: true,
+                                      primaryColor: Colors.white,
+                                      secondaryColor: Colors.white,
+                                      primaryIcon: Image.asset(
+                                          '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image'] ?? 0}',
+                                          fit: BoxFit.cover),
+                                      key: keyfour,
+                                      secondaryIcon: Image.asset(
+                                          '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image'] ?? 0}',
+                                          fit: BoxFit.cover),
+                                      onTap: () async {
+                                        Navigator.push(context,
+                                            CustomPageRoute(child: LockPage()));
+                                      },
+                                    ),
+                                  ),
+                                  StarsWidget(
+                                    all_stars: all_stars,
+                                    keythree: keythree,
+                                    star_progrees: star_progrees,
+                                    stars: stars,
+                                  ),
+                                  SearchWidget(
+                                    keyTwo: keytwo,
+                                    controller: search,
+                                    onSearch: (value) {
+                                      onSearch(value);
+                                    },
                                   ),
                                   Container(
-                                      key: keythree,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: AppTheme
-                                                  .primarySwatch.shade600,
-                                              width: 2),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      width: screenUtil.screenWidth * .2,
-                                      height: screenUtil.screenHeight * .1,
-                                      child: Stack(
-                                        alignment: AlignmentDirectional.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 30,
-                                          ),
-                                          LinearProgressIndicator(
-                                            backgroundColor: Colors.transparent,
-                                            color: Colors.transparent,
-                                            valueColor: AlwaysStoppedAnimation(
-                                                AppTheme
-                                                    .primarySwatch.shade600),
-                                            minHeight: 38,
-                                            value: star_progrees,
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Image.asset(
-                                                Assets.images.start.path,
-                                                width: 30,
-                                                height: 30,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                '$stars / $all_stars',
-                                                style: AppTheme
-                                                    .textTheme.displaySmall,
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: AppTheme
-                                                  .primarySwatch.shade600,
-                                              width: 2),
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      width: screenUtil.screenWidth * .4,
-                                      height: screenUtil.screenHeight * .1,
-                                      child: CastemInputForSearch(
-                                        onching: (value) => onScearch(value),
-                                        valdution: (value) {},
-                                        icon: Icon(
-                                            key: keytwo,
-                                            Icons.search,
-                                            color: AppTheme.primaryColor),
-                                        text: 'بحث',
-                                        controler: search,
-                                        size: screenUtil.screenWidth * .4,
-                                      )),
-                                  bgm == false
-                                      ? CustemIcon2(
-                                          key: keyone,
-                                          icon: Icon(
-                                            Icons.volume_up_rounded,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
                                             color: AppTheme.primaryColor,
-                                          ),
-                                          ontap: () async {
-                                            setState(() {
-                                              FlameAudio.bgm.stop();
-                                              bgm = !bgm;
-                                              cachedData(key: "bgm", data: bgm);
-                                            });
-                                          })
-                                      : CustemIcon2(
-                                          icon: Icon(Icons.volume_off,
-                                              color: AppTheme.primaryColor),
-                                          ontap: () async {
-                                            setState(() {
-                                              bgm = !bgm;
-                                              FlameAudio.bgm
-                                                  .play('bgm.mp3', volume: 100);
-                                              cachedData(key: "bgm", data: bgm);
-                                            });
-                                          }),
+                                            width: 2),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18))),
+                                    child: CustomMusicIcon(
+                                      key: keyone,
+                                      onTap: () {
+                                        if (bgm) {
+                                          setState(() {
+                                            FlameAudio.bgm.stop();
+                                            bgm = !bgm;
+                                            cachedData(key: "bgm", data: bgm);
+                                          });
+                                        } else {
+                                          setState(() {
+                                            bgm = !bgm;
+                                            FlameAudio.bgm
+                                                .play('bgm.mp3', volume: 100);
+                                            cachedData(key: "bgm", data: bgm);
+                                          });
+                                        }
+                                      },
+                                      status: bgm,
+                                    ),
+                                  )
                                 ],
                               ),
                               SizedBox(height: 10),
@@ -282,9 +225,6 @@ class _HomePageState extends State<HomePage> {
                                                 crossAxisCount: 3,
                                                 mainAxisSpacing: 20),
                                         itemBuilder: (context, index) {
-                                          print(
-                                              listStoryWithSearch[index].stars);
-                                          print('sttttt');
                                           return listStoryWithSearch[index]
                                                       .required_stars >
                                                   collected_stars
@@ -292,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                                                   onTap: () {
                                                     showImagesDialog(
                                                         context,
-                                                        '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
+                                                        '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image']}',
                                                         'احصل على المزيد من النجوم من اجل فتح هذه القصه',
                                                         () {
                                                       Navigator.pop(context);
@@ -327,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                                             .isConnected) {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.showCarecters[int.parse(userModel!.character.toString())]['image']}',
+                                                              '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image']}',
                                                               'اظغط على زر التنزيل من اجل تحميل هذة القصه',
                                                               () {
                                                             Navigator.pop(
@@ -336,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                                                         } else {
                                                           showImagesDialog(
                                                               context,
-                                                              '${carectersobj.FaceCarecters[int.parse(userModel!.character.toString())]['image']}',
+                                                              '${CharactersListobj.FaceCharactersList[int.parse(userModel!.character.toString())]['image']}',
                                                               'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',
                                                               () {
                                                             Navigator.pop(
@@ -529,7 +469,7 @@ class _HomePageState extends State<HomePage> {
                                                   : tautorial
                                                       ? InkWell(
                                                           onTap: () {
-                                                            //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                                            //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
 
                                                             Navigator.push(
                                                                 context,
@@ -568,7 +508,7 @@ class _HomePageState extends State<HomePage> {
                                                           ))
                                                       : InkWell(
                                                           onTap: () {
-                                                            //  showImagesDialog(context,'${carectersobj.FaceCarecters[Carecters_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                                            //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
 
                                                             Navigator.push(
                                                                 context,
@@ -627,7 +567,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  onScearch(String searchWord) {
+  onSearch(String searchWord) {
     setState(() {
       listStory.forEach((element) {
         print(element.name);
@@ -668,7 +608,7 @@ class _HomePageState extends State<HomePage> {
       TargetFocus(identify: "target1", keyTarget: keyone, contents: [
         TargetContent(
             align: ContentAlign.right,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 1,
               onTap: () {
                 tutorialCoachMark!.next();
@@ -677,56 +617,56 @@ class _HomePageState extends State<HomePage> {
                   userModel!.user_name.toString() +
                   " , " +
                   "   يمكنك  تشغيل  و ايقاف  صوت  الموسيقى  من  هذا  الزر ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target2", keyTarget: keytwo, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 2,
               onTap: () {
                 tutorialCoachMark!.next();
               },
               text: "يمكنك  البحث  عن  القصة  من  خلال  كتابة  اسمها  هنا",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target3", keyTarget: keythree, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 3,
               onTap: () {
                 tutorialCoachMark!.next();
               },
               text: " يمكنك  معرفة  عدد  النجوم  التي  حصلت  عليها ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target4", keyTarget: keyfour, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 4,
               onTap: () {
                 tutorialCoachMark!.next();
               },
               text:
                   "يمكنك  تغيير  الاعداد  الخاصة  بك  من  هذا  الزر  ولكن  بحضور  احد  الوالدين ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target5", keyTarget: keyfive, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 5,
               onTap: () {
                 tutorialCoachMark!.next();
               },
               text: "يمكنك  استعراض  القصة  من  هنا ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
     ];

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hikayati_app/core/app_theme.dart';
+import 'package:hikayati_app/core/AppTheme.dart';
 
 import '../../../../core/util/ScreenUtil.dart';
 import '../../../../gen/assets.gen.dart';
@@ -21,7 +21,6 @@ class StoryCard extends StatefulWidget {
 
 class _StoryCardState extends State<StoryCard> {
   ScreenUtil screenUtil = ScreenUtil();
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,74 +43,23 @@ class _StoryCardState extends State<StoryCard> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.starts == 1
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              Assets.images.start.path,
-                              width: 40,
-                              height: 40,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: Image.asset(Assets.images.emptyStar.path,
-                                  width: 40, height: 40),
-                            ),
-                            Image.asset(Assets.images.emptyStar.path,
-                                width: 40, height: 40),
-                          ],
-                        )
-                      : widget.starts == 2
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(Assets.images.start.path,
-                                    width: 40, height: 40),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 20.0),
-                                  child: Image.asset(Assets.images.start.path,
-                                      width: 40, height: 40),
-                                ),
-                                Image.asset(Assets.images.emptyStar.path,
-                                    width: 40, height: 40),
-                              ],
-                            )
-                          : widget.starts == 0
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(Assets.images.emptyStar.path,
-                                        width: 40, height: 40),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20.0),
-                                      child: Image.asset(
-                                          Assets.images.emptyStar.path,
-                                          width: 40,
-                                          height: 40),
-                                    ),
-                                    Image.asset(Assets.images.emptyStar.path,
-                                        width: 40, height: 40),
-                                  ],
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(Assets.images.start.path,
-                                        width: 40, height: 40),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20.0),
-                                      child: Image.asset(
-                                          Assets.images.start.path,
-                                          width: 40,
-                                          height: 40),
-                                    ),
-                                    Image.asset(Assets.images.start.path,
-                                        width: 40, height: 40),
-                                  ],
-                                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(3, (index) {
+                      bool isStar = index < widget.starts;
+                      return Padding(
+                        padding:
+                            EdgeInsets.only(bottom: index == 1 ? 30.0 : 0.0),
+                        child: Image.asset(
+                          isStar
+                              ? Assets.images.start.path
+                              : Assets.images.emptyStar.path,
+                          width: 40,
+                          height: 40,
+                        ),
+                      );
+                    }),
+                  ),
                   Container(
                     height: screenUtil.screenHeight * .3,
                     width: screenUtil.screenWidth * .14,

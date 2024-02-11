@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemInput.dart';
-import '../../../../core/widgets/CustemButten.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomField.dart';
+import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
@@ -30,7 +30,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   @override
   bool requestPending = false;
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
   ScreenUtil screenUtil = ScreenUtil();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -136,7 +136,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 screenUtil.screenHeight * .4,
                                             width: screenUtil.screenWidth * .2,
                                             child: Image.asset(Assets.images
-                                                .carecters.abdu.sing.path)),
+                                                .Characters.abdu.sing.path)),
                                       ),
                                       Expanded(
                                         flex: 2,
@@ -153,7 +153,7 @@ class _SignupPageState extends State<SignupPage> {
                                                   style: AppTheme
                                                       .textTheme.displaySmall,
                                                 ),
-                                                CustemInput(
+                                                CustomField(
                                                   size: 250,
                                                   valdution: (value) {
                                                     if (value!.isEmpty) {
@@ -186,7 +186,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 SizedBox(
                                                   width: 30,
                                                 ),
-                                                CustemInput(
+                                                CustomField(
                                                   size: 250,
                                                   valdution: (value) {
                                                     if (value
@@ -216,7 +216,7 @@ class _SignupPageState extends State<SignupPage> {
                                                   style: AppTheme
                                                       .textTheme.displaySmall,
                                                 ),
-                                                CustemInput(
+                                                CustomField(
                                                   size: 250,
                                                   valdution: (value) {
                                                     if (value
@@ -239,7 +239,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 ),
                                               ],
                                             ),
-                                            CustemButten(
+                                            CustomButton(
                                               ontap: () async {
                                                 if (_signupFormKey.currentState!
                                                     .validate()) {
@@ -313,7 +313,7 @@ class _SignupPageState extends State<SignupPage> {
                                                 screenUtil.screenHeight * .4,
                                             width: screenUtil.screenWidth * .2,
                                             child: Image.asset(Assets.images
-                                                .carecters.mariam.sing.path)),
+                                                .Characters.mariam.sing.path)),
                                       ),
                                     ],
                                   ),

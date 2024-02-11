@@ -4,7 +4,7 @@ import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/util/common.dart';
+import '../../../../core/util/Common.dart';
 import '../../../../dataProviders/error/failures.dart';
 import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';

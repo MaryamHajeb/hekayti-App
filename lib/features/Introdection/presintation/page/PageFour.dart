@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemInput.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomField.dart';
 import '../../../../gen/assets.gen.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 
@@ -42,7 +42,8 @@ class _PageFourState extends State<PageFour> {
                 Container(
                   height: screenUtil.screenHeight * .4,
                   width: screenUtil.screenWidth * .2,
-                  child: Image.asset(Assets.images.carecters.hasham.happy.path),
+                  child:
+                      Image.asset(Assets.images.Characters.hasham.happy.path),
                 ),
                 Column(
                   children: [
@@ -51,7 +52,7 @@ class _PageFourState extends State<PageFour> {
                     SizedBox(
                       height: screenUtil.screenHeight * .05,
                     ),
-                    CustemInput(
+                    CustomField(
                       size: 200,
                       onching: (value) {
                         controller.userModel!.user_name = value.toString();
@@ -77,7 +78,7 @@ class _PageFourState extends State<PageFour> {
                 Container(
                   height: screenUtil.screenHeight * .4,
                   width: screenUtil.screenWidth * .2,
-                  child: Image.asset(Assets.images.carecters.hana.happy.path),
+                  child: Image.asset(Assets.images.Characters.hana.happy.path),
                 ),
               ],
             ),

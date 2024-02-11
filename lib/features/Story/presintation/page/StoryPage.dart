@@ -19,22 +19,23 @@ import 'package:google_speech/config/recognition_config.dart';
 import 'package:google_speech/config/recognition_config_v1.dart';
 import 'package:google_speech/speech_client_authenticator.dart';
 import 'package:google_speech/speech_to_text.dart';
-import 'package:hikayati_app/core/util/Carecters.dart';
+import 'package:hikayati_app/core/util/CharactersList.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:file/local.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/common.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/Common.dart';
 
-import '../../../../core/widgets/CustemButten.dart';
-import '../../../../core/widgets/CustemIcon.dart';
-import '../../../../core/widgets/CustemIcon2.dart';
+import '../../../../core/widgets/CustomButton.dart';
+import '../../../../core/widgets/CustomIconWidget.dart';
+
+import '../../../../core/widgets/CustomIconWidget2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
-import '../../../../core/widgets/Tutorial_widget.dart';
+import '../../../../core/widgets/TutorialWidget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
@@ -84,7 +85,7 @@ class _StoryPageState extends State<StoryPage> {
   int stars = 0;
   String pathaudio = '';
   double valueslider = 0;
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
   String? filePath;
   FlutterAudioRecorder3? _recorder;
   Recording? _current;
@@ -110,8 +111,8 @@ class _StoryPageState extends State<StoryPage> {
       onWillPop: () async {
         final value = await showImagesDialogWithCancleButten(
             context,
-            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
-            'هل حقا تريد المغادره', () {
+            '${CharactersListobj.confusedListCharactersList[int.parse(userModel!.character.toString())]['image']}',
+            'هل حقا تريد المغادره ؟', () {
           Navigator.pop(context);
         }, () async {
           CompletionModel? copm = await db.CompletionExits(story_id);
@@ -194,15 +195,15 @@ class _StoryPageState extends State<StoryPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                CustemIcon2(
+                                CustomIconWidget2(
                                     key: keyone,
                                     icon: Icon(Icons.home,
                                         color: AppTheme.primaryColor),
                                     ontap: () {
                                       showImagesDialogWithCancleButten(
                                           context,
-                                          '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
-                                          'هل حقا تريد المغادره', () {
+                                          '${CharactersListobj.confusedListCharactersList[int.parse(userModel!.character.toString())]['image']}',
+                                          'هل حقا تريد المغادره ؟', () {
                                         Navigator.pop(context);
                                       }, () async {
                                         CompletionModel? copm =
@@ -221,55 +222,28 @@ class _StoryPageState extends State<StoryPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          lisen
-                                              ? isSpack
-                                                  ? CustemIcon2(
-                                                      key: keytwo,
-                                                      icon: Icon(
-                                                          Icons
-                                                              .headset_mic_outlined,
-                                                          color: AppTheme
-                                                              .primaryColor),
-                                                      ontap: () async {
-                                                        final status2 =
-                                                            await Permission
-                                                                .accessMediaLocation
-                                                                .request();
-                                                        final status =
-                                                            await Permission
-                                                                .storage
-                                                                .request();
-                                                        if (status.isGranted ||
-                                                            status2.isGranted) {
-                                                          setState(() {
-                                                            isSpack = !isSpack;
-                                                            print(path +
-                                                                '/' +
-                                                                state
-                                                                    .SliedModel[
-                                                                        currentIndexPage]
-                                                                    .audio);
-                                                            //   player.play(
-                                                            //     AssetSource('music.mp3'));
-                                                          });
-                                                          await player.play(
-                                                              DeviceFileSource(path +
-                                                                  '/' +
-                                                                  state
-                                                                      .SliedModel[
-                                                                          currentIndexPage]
-                                                                      .audio));
-                                                        } else {}
-                                                      })
-                                                  : CustemIcon(
-                                                      icon: Icon(
-                                                        Icons
-                                                            .headset_mic_outlined,
-                                                      ),
-                                                      ontap: () async {
-                                                        setState(() {});
-                                                      })
-                                              : Container(),
+                                          CustomIconWidget(
+                                            key: keytwo,
+                                            onTap: () async {
+                                              startAudio(
+                                                  pathAudio: state
+                                                      .SliedModel[
+                                                          currentIndexPage]
+                                                      .audio);
+                                            },
+                                            primaryColor: Colors.white,
+                                            primaryIcon: Icon(
+                                              Icons.volume_up,
+                                              color: AppTheme.primaryColor,
+                                            ),
+                                            secondaryIcon: Icon(
+                                              Icons.volume_up,
+                                              color: Colors.white,
+                                            ),
+                                            secondaryColor:
+                                                AppTheme.primaryColor,
+                                            status: isSpack,
+                                          ),
                                           SizedBox(
                                             height: 30,
                                           ),
@@ -304,7 +278,7 @@ class _StoryPageState extends State<StoryPage> {
                                                                 .primaryColor),
                                                       )),
                                                 )
-                                              : CustemIcon2(
+                                              : CustomIconWidget2(
                                                   key: keythree,
                                                   icon: Icon(
                                                     Icons.mic,
@@ -409,7 +383,7 @@ class _StoryPageState extends State<StoryPage> {
                                                       screenUtil.screenWidth *
                                                           .8,
                                                   child: Center(
-                                                    child: CustemButten(
+                                                    child: CustomButton(
                                                       ontap: () {
                                                         setState(() {
                                                           currentIndexPage =
@@ -418,20 +392,17 @@ class _StoryPageState extends State<StoryPage> {
                                                               .SliedModel[index]
                                                               .page_no;
 
-                                                          print(
-                                                              currentIndexPage);
-                                                          print(
-                                                              'currentIndexPage');
-                                                          print(state
-                                                              .SliedModel[index]
-                                                              .page_no);
-
                                                           pageControler.nextPage(
                                                               duration: Duration(
                                                                   milliseconds:
                                                                       500),
                                                               curve: Curves
                                                                   .fastOutSlowIn);
+                                                          startAudio(
+                                                              pathAudio: state
+                                                                  .SliedModel[
+                                                                      currentIndexPage]
+                                                                  .audio);
                                                         });
                                                         if (currentIndexPage ==
                                                             1) {
@@ -521,23 +492,20 @@ class _StoryPageState extends State<StoryPage> {
                                                                           .SliedModel[
                                                                               index]
                                                                           .id);
-                                                                      print(
-                                                                          isfound);
-                                                                      print(
-                                                                          'isfound');
-
                                                                       isfound ==
                                                                               0
                                                                           ? star == 0
-                                                                              ? showImagesDialog(
-                                                                                  context,
-                                                                                  '${carectersobj.sadListCarecters[int.parse(userModel!.character.toString())]['image']}',
-                                                                                  '! يرجى تسجيل الصوت أولاً'
-                                                                                      '', () {
+                                                                              ? showImagesDialog(context, '${CharactersListobj.sadListCharactersList[int.parse(userModel!.character.toString())]['image']}', '! يرجى تسجيل الصوت أولاً', () {
                                                                                   Navigator.pop(context);
                                                                                 })
-                                                                              : pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn)
-                                                                          : pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+                                                                              : {
+                                                                                  await pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn),
+                                                                                  startAudio(pathAudio: state.SliedModel[currentIndexPage].audio),
+                                                                                }
+                                                                          : {
+                                                                              await pageControler.nextPage(duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn),
+                                                                              startAudio(pathAudio: state.SliedModel[currentIndexPage].audio),
+                                                                            };
                                                                       star = 0;
                                                                     },
                                                                     child: Image
@@ -875,7 +843,7 @@ class _StoryPageState extends State<StoryPage> {
                 ? {
                     controller.play(),
                     showConfetti(context, controller,
-                        '${carectersobj.singListCarecters[int.parse(userModel!.character.toString())]['image']}'),
+                        '${CharactersListobj.singListCharactersList[int.parse(userModel!.character.toString())]['image']}'),
                     pres = await db.getPercentage(widget.id.toString()),
                     await Future.delayed(Duration(seconds: 1)),
                     print(pres),
@@ -892,14 +860,14 @@ class _StoryPageState extends State<StoryPage> {
                   }
                 : showImagesDialogWithStar(
                     context,
-                    '${carectersobj.singListCarecters[int.parse(userModel!.character.toString())]['image']}',
+                    '${CharactersListobj.singListCharactersList[int.parse(userModel!.character.toString())]['image']}',
                     'احسنت', () {
                     Navigator.pop(context);
                   }, star),
           }
         : showImagesDialogWithDoNotWill(
             context,
-            '${carectersobj.sadListCarecters[int.parse(userModel!.character.toString())]['image']}',
+            '${CharactersListobj.sadListCharactersList[int.parse(userModel!.character.toString())]['image']}',
             'حاول مرة اخرى',
             text.length > 25
                 ? text.replaceRange(25, text.length, '....')
@@ -993,19 +961,19 @@ class _StoryPageState extends State<StoryPage> {
       TargetFocus(identify: "target1", keyTarget: keyone, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 1,
               onTap: () {
                 tutorialCoachMark!.next();
               },
               text: "يمكنك  الرجوع  الى  القائمة  الرئسية  من  هنا ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target2", keyTarget: keytwo, contents: [
         TargetContent(
             align: ContentAlign.left,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 2,
               hight: screenUtil.screenHeight * .5,
               onTap: () {
@@ -1013,13 +981,13 @@ class _StoryPageState extends State<StoryPage> {
               },
               text:
                   "اضغط  على  هذا الزر  من  اجل  الاستماع  للقصة  ويمكنك  ايقاف  خاصية  الاستماع  من  الاعدادات",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
       TargetFocus(identify: "target3", keyTarget: keythree, contents: [
         TargetContent(
             align: ContentAlign.top,
-            child: Tutorial_widget(
+            child: TutorialWidget(
               index: 3,
               onTap: () {
                 tutorialCoachMark!.next();
@@ -1027,7 +995,7 @@ class _StoryPageState extends State<StoryPage> {
               hight: screenUtil.screenHeight * .5,
               text:
                   "  اثناء  قراءتك  للقصة  قم  بتسجيل  صوتك  من  اجل  التاكد  من  صحه  القراءة    ",
-              carecters: int.parse(userModel!.character.toString()) ?? 0,
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
     ];
@@ -1046,6 +1014,17 @@ class _StoryPageState extends State<StoryPage> {
             prefs!.setBool("tautorial4", true);
           });
       tutorialCoachMark!.show(context: context);
+    }
+  }
+
+  startAudio({required String pathAudio}) async {
+    final status2 = await Permission.accessMediaLocation.request();
+    final status = await Permission.storage.request();
+    if (status.isGranted || status2.isGranted) {
+      await player.play(DeviceFileSource(path + '/' + pathAudio));
+      setState(() {
+        isSpack = !isSpack;
+      });
     }
   }
 }

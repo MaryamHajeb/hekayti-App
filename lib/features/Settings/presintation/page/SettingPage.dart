@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/ScreenUtil.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemCarecters.dart';
-import '../../../../core/widgets/CastemInput.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomCharacters.dart';
+import '../../../../core/widgets/CustomField.dart';
 
-import '../../../../core/widgets/CustemButten.dart';
-import '../../../../core/widgets/CustemButten2.dart';
+import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
+import '../../../../core/widgets/SecondaryCustomButton.dart';
 import '../../../../main.dart';
-import 'package:hikayati_app/core/widgets/CastemLevel.dart';
+import 'package:hikayati_app/core/widgets/CustomLevelWidget.dart';
 import '../../../Regestrion/presintation/page/LoginPage.dart';
 import '../../../Regestrion/presintation/page/SignupPage.dart';
 import '../../../Regestrion/presintation/page/ResetPasswordPage.dart';
@@ -26,13 +26,13 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   @override
-  Carecters carecterslist = Carecters();
+  CharactersList CharactersListlist = CharactersList();
 
   TextEditingController nameChiled = TextEditingController();
   int itemSelected = 0;
   int itemSelectedlevel = 0;
   bool chackboxStata = true;
-  Carecters carectersobj = Carecters();
+  CharactersList CharactersListobj = CharactersList();
 
   UserModel? userModel;
 
@@ -59,7 +59,7 @@ class _SettingPageState extends State<SettingPage> {
                 child: Text('  اسم الطفل  :',
                     style: AppTheme.textTheme.displaySmall),
               ),
-              CustemInput(
+              CustomField(
                 size: 200,
                 valdution: (value) {
                   if (value.toString().isEmpty) {
@@ -95,10 +95,11 @@ class _SettingPageState extends State<SettingPage> {
             width: double.infinity,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: carecterslist.listcarecters.length,
+              itemCount: CharactersListlist.listCharactersList.length,
               itemBuilder: (context, index) {
-                return CustemCarecters(
-                  image: carecterslist.listcarecters[index]['image'].toString(),
+                return CustomCharacters(
+                  image: CharactersListlist.listCharactersList[index]['image']
+                      .toString(),
                   onTap: () async {
                     setState(() {
                       itemSelected = index;
@@ -126,7 +127,7 @@ class _SettingPageState extends State<SettingPage> {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: carecterslist.Levels.length,
+                itemCount: CharactersListlist.Levels.length,
                 itemBuilder: (context, index) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -135,15 +136,15 @@ class _SettingPageState extends State<SettingPage> {
                       SizedBox(
                         width: 50,
                       ),
-                      CustemLevel(
-                        name: carecterslist.Levels[index]['num'],
+                      CustomLevelWidget(
+                        name: CharactersListlist.Levels[index]['num'],
                         onTap: () {
                           setState(() {
                             itemSelectedlevel = index;
                           });
                         },
                         isSelected: itemSelectedlevel == index ? true : false,
-                        color: carecterslist.Levels[index]['color'],
+                        color: CharactersListlist.Levels[index]['color'],
                       ),
                       SizedBox(
                         width: 70,
@@ -245,8 +246,8 @@ class _SettingPageState extends State<SettingPage> {
                       onPressed: () async {
                         showImagesDialogWithCancleButten(
                             context,
-                            '${carectersobj.confusedListCarecters[int.parse(userModel!.character.toString())]['image']}',
-                            'هل حقا تريد تسجيل الخروج', () {
+                            '${CharactersListobj.confusedListCharactersList[int.parse(userModel!.character.toString())]['image']}',
+                            ' هل حقا تريد تسجيل الخروج ؟', () {
                           Navigator.pop(context);
                         }, () async {
                           cachedData(data: 'onbording', key: 'true');
@@ -330,14 +331,14 @@ class _SettingPageState extends State<SettingPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustemButten(
+              CustomButton(
                 text: 'حفظ',
                 ontap: () async {
                   try {
                     saveNewSttings();
                     showImagesDialog(
                         context,
-                        '${carectersobj.FaceCarecters[itemSelected]['image']}',
+                        '${CharactersListobj.FaceCharactersList[itemSelected]['image']}',
                         'تم حفظ بيناتك بنجاح', () {
                       Navigator.pop(context);
                     });
@@ -350,7 +351,7 @@ class _SettingPageState extends State<SettingPage> {
               SizedBox(
                 width: screenUtil.screenHeight * .02,
               ),
-              CustemButten2(
+              SecondaryCustomButton(
                 text: 'رجوع',
                 ontap: () async {
                   Navigator.push(context, CustomPageRoute(child: HomePage()));
@@ -370,10 +371,10 @@ class _SettingPageState extends State<SettingPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    initCarecters();
+    initCharactersList();
   }
 
-  initCarecters() async {
+  initCharactersList() async {
     userModel = await getCachedData(
       key: 'UserInformation',
       retrievedDataType: UserModel.init(),

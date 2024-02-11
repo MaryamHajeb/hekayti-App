@@ -48,7 +48,7 @@ class $AssetsImagesGen {
   AssetGenImage get backgraond =>
       const AssetGenImage('assets/images/backgraond.png');
 
-  $AssetsImagesCarectersGen get carecters => const $AssetsImagesCarectersGen();
+  $AssetsImagesCharactersGen get Characters => const $AssetsImagesCharactersGen();
 
   /// File path: assets/images/emptyStar.png
   AssetGenImage get emptyStar =>
@@ -102,209 +102,209 @@ class $AssetsImagesGen {
       ];
 }
 
-class $AssetsImagesCarectersGen {
-  const $AssetsImagesCarectersGen();
+class $AssetsImagesCharactersGen {
+  const $AssetsImagesCharactersGen();
 
-  $AssetsImagesCarectersAbduGen get abdu =>
-      const $AssetsImagesCarectersAbduGen();
-  $AssetsImagesCarectersHanaGen get hana =>
-      const $AssetsImagesCarectersHanaGen();
-  $AssetsImagesCarectersHashamGen get hasham =>
-      const $AssetsImagesCarectersHashamGen();
-  $AssetsImagesCarectersMariamGen get mariam =>
-      const $AssetsImagesCarectersMariamGen();
-  $AssetsImagesCarectersMohamedGen get mohamed =>
-      const $AssetsImagesCarectersMohamedGen();
-  $AssetsImagesCarectersWafaGen get wafa =>
-      const $AssetsImagesCarectersWafaGen();
+  $AssetsImagesCharactersAbduGen get abdu =>
+      const $AssetsImagesCharactersAbduGen();
+  $AssetsImagesCharactersHanaGen get hana =>
+      const $AssetsImagesCharactersHanaGen();
+  $AssetsImagesCharactersHashamGen get hasham =>
+      const $AssetsImagesCharactersHashamGen();
+  $AssetsImagesCharactersMariamGen get mariam =>
+      const $AssetsImagesCharactersMariamGen();
+  $AssetsImagesCharactersMohamedGen get mohamed =>
+      const $AssetsImagesCharactersMohamedGen();
+  $AssetsImagesCharactersWafaGen get wafa =>
+      const $AssetsImagesCharactersWafaGen();
 }
 
-class $AssetsImagesCarectersAbduGen {
-  const $AssetsImagesCarectersAbduGen();
+class $AssetsImagesCharactersAbduGen {
+  const $AssetsImagesCharactersAbduGen();
 
-  /// File path: assets/images/carecters/abdu/confused.png
+  /// File path: assets/images/Characters/abdu/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/abdu/confused.png');
+      const AssetGenImage('assets/images/Characters/abdu/confused.png');
 
-  /// File path: assets/images/carecters/abdu/face.png
+  /// File path: assets/images/Characters/abdu/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/abdu/face.png');
+      const AssetGenImage('assets/images/Characters/abdu/face.png');
 
-  /// File path: assets/images/carecters/abdu/happy.png
+  /// File path: assets/images/Characters/abdu/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/abdu/happy.png');
+      const AssetGenImage('assets/images/Characters/abdu/happy.png');
 
-  /// File path: assets/images/carecters/abdu/left.png
+  /// File path: assets/images/Characters/abdu/left.png
   AssetGenImage get left =>
-      const AssetGenImage('assets/images/carecters/abdu/left.png');
+      const AssetGenImage('assets/images/Characters/abdu/left.png');
 
-  /// File path: assets/images/carecters/abdu/sad.png
+  /// File path: assets/images/Characters/abdu/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/abdu/sad.png');
+      const AssetGenImage('assets/images/Characters/abdu/sad.png');
 
-  /// File path: assets/images/carecters/abdu/show.png
+  /// File path: assets/images/Characters/abdu/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/abdu/show.png');
+      const AssetGenImage('assets/images/Characters/abdu/show.png');
 
-  /// File path: assets/images/carecters/abdu/sing.png
+  /// File path: assets/images/Characters/abdu/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/abdu/sing.png');
+      const AssetGenImage('assets/images/Characters/abdu/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values =>
       [confused, face, happy, left, sad, show, sing];
 }
 
-class $AssetsImagesCarectersHanaGen {
-  const $AssetsImagesCarectersHanaGen();
+class $AssetsImagesCharactersHanaGen {
+  const $AssetsImagesCharactersHanaGen();
 
-  /// File path: assets/images/carecters/hana/confused.png
+  /// File path: assets/images/Characters/hana/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/hana/confused.png');
+      const AssetGenImage('assets/images/Characters/hana/confused.png');
 
-  /// File path: assets/images/carecters/hana/face.png
+  /// File path: assets/images/Characters/hana/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/hana/face.png');
+      const AssetGenImage('assets/images/Characters/hana/face.png');
 
-  /// File path: assets/images/carecters/hana/happy.png
+  /// File path: assets/images/Characters/hana/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/hana/happy.png');
+      const AssetGenImage('assets/images/Characters/hana/happy.png');
 
-  /// File path: assets/images/carecters/hana/sad.png
+  /// File path: assets/images/Characters/hana/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/hana/sad.png');
+      const AssetGenImage('assets/images/Characters/hana/sad.png');
 
-  /// File path: assets/images/carecters/hana/show.png
+  /// File path: assets/images/Characters/hana/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/hana/show.png');
+      const AssetGenImage('assets/images/Characters/hana/show.png');
 
-  /// File path: assets/images/carecters/hana/sing.png
+  /// File path: assets/images/Characters/hana/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/hana/sing.png');
+      const AssetGenImage('assets/images/Characters/hana/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
-class $AssetsImagesCarectersHashamGen {
-  const $AssetsImagesCarectersHashamGen();
+class $AssetsImagesCharactersHashamGen {
+  const $AssetsImagesCharactersHashamGen();
 
-  /// File path: assets/images/carecters/hasham/confused.png
+  /// File path: assets/images/Characters/hasham/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/hasham/confused.png');
+      const AssetGenImage('assets/images/Characters/hasham/confused.png');
 
-  /// File path: assets/images/carecters/hasham/face.png
+  /// File path: assets/images/Characters/hasham/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/hasham/face.png');
+      const AssetGenImage('assets/images/Characters/hasham/face.png');
 
-  /// File path: assets/images/carecters/hasham/happy.png
+  /// File path: assets/images/Characters/hasham/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/hasham/happy.png');
+      const AssetGenImage('assets/images/Characters/hasham/happy.png');
 
-  /// File path: assets/images/carecters/hasham/sad.png
+  /// File path: assets/images/Characters/hasham/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/hasham/sad.png');
+      const AssetGenImage('assets/images/Characters/hasham/sad.png');
 
-  /// File path: assets/images/carecters/hasham/show.png
+  /// File path: assets/images/Characters/hasham/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/hasham/show.png');
+      const AssetGenImage('assets/images/Characters/hasham/show.png');
 
-  /// File path: assets/images/carecters/hasham/sing.png
+  /// File path: assets/images/Characters/hasham/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/hasham/sing.png');
+      const AssetGenImage('assets/images/Characters/hasham/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
-class $AssetsImagesCarectersMariamGen {
-  const $AssetsImagesCarectersMariamGen();
+class $AssetsImagesCharactersMariamGen {
+  const $AssetsImagesCharactersMariamGen();
 
-  /// File path: assets/images/carecters/mariam/confused.png
+  /// File path: assets/images/Characters/mariam/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/mariam/confused.png');
+      const AssetGenImage('assets/images/Characters/mariam/confused.png');
 
-  /// File path: assets/images/carecters/mariam/face.png
+  /// File path: assets/images/Characters/mariam/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/mariam/face.png');
+      const AssetGenImage('assets/images/Characters/mariam/face.png');
 
-  /// File path: assets/images/carecters/mariam/happy.png
+  /// File path: assets/images/Characters/mariam/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/mariam/happy.png');
+      const AssetGenImage('assets/images/Characters/mariam/happy.png');
 
-  /// File path: assets/images/carecters/mariam/sad.png
+  /// File path: assets/images/Characters/mariam/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/mariam/sad.png');
+      const AssetGenImage('assets/images/Characters/mariam/sad.png');
 
-  /// File path: assets/images/carecters/mariam/show.png
+  /// File path: assets/images/Characters/mariam/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/mariam/show.png');
+      const AssetGenImage('assets/images/Characters/mariam/show.png');
 
-  /// File path: assets/images/carecters/mariam/sing.png
+  /// File path: assets/images/Characters/mariam/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/mariam/sing.png');
+      const AssetGenImage('assets/images/Characters/mariam/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
-class $AssetsImagesCarectersMohamedGen {
-  const $AssetsImagesCarectersMohamedGen();
+class $AssetsImagesCharactersMohamedGen {
+  const $AssetsImagesCharactersMohamedGen();
 
-  /// File path: assets/images/carecters/mohamed/confused.png
+  /// File path: assets/images/Characters/mohamed/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/mohamed/confused.png');
+      const AssetGenImage('assets/images/Characters/mohamed/confused.png');
 
-  /// File path: assets/images/carecters/mohamed/face.png
+  /// File path: assets/images/Characters/mohamed/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/mohamed/face.png');
+      const AssetGenImage('assets/images/Characters/mohamed/face.png');
 
-  /// File path: assets/images/carecters/mohamed/happy.png
+  /// File path: assets/images/Characters/mohamed/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/mohamed/happy.png');
+      const AssetGenImage('assets/images/Characters/mohamed/happy.png');
 
-  /// File path: assets/images/carecters/mohamed/sad.png
+  /// File path: assets/images/Characters/mohamed/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/mohamed/sad.png');
+      const AssetGenImage('assets/images/Characters/mohamed/sad.png');
 
-  /// File path: assets/images/carecters/mohamed/show.png
+  /// File path: assets/images/Characters/mohamed/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/mohamed/show.png');
+      const AssetGenImage('assets/images/Characters/mohamed/show.png');
 
-  /// File path: assets/images/carecters/mohamed/sing.png
+  /// File path: assets/images/Characters/mohamed/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/mohamed/sing.png');
+      const AssetGenImage('assets/images/Characters/mohamed/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];
 }
 
-class $AssetsImagesCarectersWafaGen {
-  const $AssetsImagesCarectersWafaGen();
+class $AssetsImagesCharactersWafaGen {
+  const $AssetsImagesCharactersWafaGen();
 
-  /// File path: assets/images/carecters/wafa/confused.png
+  /// File path: assets/images/Characters/wafa/confused.png
   AssetGenImage get confused =>
-      const AssetGenImage('assets/images/carecters/wafa/confused.png');
+      const AssetGenImage('assets/images/Characters/wafa/confused.png');
 
-  /// File path: assets/images/carecters/wafa/face.png
+  /// File path: assets/images/Characters/wafa/face.png
   AssetGenImage get face =>
-      const AssetGenImage('assets/images/carecters/wafa/face.png');
+      const AssetGenImage('assets/images/Characters/wafa/face.png');
 
-  /// File path: assets/images/carecters/wafa/happy.png
+  /// File path: assets/images/Characters/wafa/happy.png
   AssetGenImage get happy =>
-      const AssetGenImage('assets/images/carecters/wafa/happy.png');
+      const AssetGenImage('assets/images/Characters/wafa/happy.png');
 
-  /// File path: assets/images/carecters/wafa/sad.png
+  /// File path: assets/images/Characters/wafa/sad.png
   AssetGenImage get sad =>
-      const AssetGenImage('assets/images/carecters/wafa/sad.png');
+      const AssetGenImage('assets/images/Characters/wafa/sad.png');
 
-  /// File path: assets/images/carecters/wafa/show.png
+  /// File path: assets/images/Characters/wafa/show.png
   AssetGenImage get show =>
-      const AssetGenImage('assets/images/carecters/wafa/show.png');
+      const AssetGenImage('assets/images/Characters/wafa/show.png');
 
-  /// File path: assets/images/carecters/wafa/sing.png
+  /// File path: assets/images/Characters/wafa/sing.png
   AssetGenImage get sing =>
-      const AssetGenImage('assets/images/carecters/wafa/sing.png');
+      const AssetGenImage('assets/images/Characters/wafa/sing.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [confused, face, happy, sad, show, sing];

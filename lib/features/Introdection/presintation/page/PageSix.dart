@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
-import '../../../../core/app_theme.dart';
-import '../../../../core/util/Carecters.dart';
-import '../../../../core/util/common.dart';
-import '../../../../core/widgets/CastemCarecters.dart';
+import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
+import '../../../../core/util/Common.dart';
+import '../../../../core/widgets/CustomCharacters.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 
 class PageSix extends StatefulWidget {
@@ -23,7 +23,7 @@ class PageSix extends StatefulWidget {
 class _PageSixState extends State<PageSix> {
   ScreenUtil screenUtil = ScreenUtil();
   @override
-  Carecters carecterslist = Carecters();
+  CharactersList CharactersListlist = CharactersList();
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -40,11 +40,11 @@ class _PageSixState extends State<PageSix> {
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: carecterslist.listcarecters.length,
+                itemCount: CharactersListlist.listCharactersList.length,
                 itemBuilder: (context, index) {
-                  return CustemCarecters(
+                  return CustomCharacters(
                     image:
-                        carecterslist.listcarecters[index]['image'].toString(),
+                        CharactersListlist.listCharactersList[index]['image'].toString(),
                     onTap: () async {
                       controller.selectedCharacter = index;
                       controller.update();

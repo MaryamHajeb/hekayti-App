@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
-class CustemCarecters extends StatelessWidget {
+class CustomCharacters extends StatelessWidget {
   String image;
   Function onTap;
   bool isSelected;
 
-  CustemCarecters({
+  CustomCharacters({
     required this.image,
     required this.onTap,
     required this.isSelected,
