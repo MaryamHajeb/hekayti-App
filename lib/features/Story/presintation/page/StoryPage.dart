@@ -32,7 +32,6 @@ import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomButton.dart';
 import '../../../../core/widgets/CustomIconWidget.dart';
 
-import '../../../../core/widgets/CustomIconWidget2.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/PlayButton.dart';
 import '../../../../core/widgets/TutorialWidget.dart';
@@ -101,6 +100,7 @@ class _StoryPageState extends State<StoryPage> {
   String story_id = '';
   int pres = 0;
   int reuslt = 0;
+  bool microphone = false;
   final controller = ConfettiController();
 
   @override
@@ -195,11 +195,16 @@ class _StoryPageState extends State<StoryPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                CustomIconWidget2(
+                                CustomIconWidget(
+                                    status: true,
                                     key: keyone,
-                                    icon: Icon(Icons.home,
+                                    secondaryColor: AppTheme.primaryColor,
+                                    primaryColor: Colors.white,
+                                    primaryIcon: Icon(Icons.home,
                                         color: AppTheme.primaryColor),
-                                    ontap: () {
+                                    secondaryIcon: Icon(Icons.home,
+                                        color: AppTheme.primaryColor),
+                                    onTap: () {
                                       showImagesDialogWithCancleButten(
                                           context,
                                           '${CharactersListobj.confusedListCharactersList[int.parse(userModel!.character.toString())]['image']}',
@@ -245,63 +250,37 @@ class _StoryPageState extends State<StoryPage> {
                                             status: isSpack,
                                           ),
                                           SizedBox(
-                                            height: 30,
+                                            height:
+                                                screenUtil.screenHeight * .1,
                                           ),
-                                          visiblety == false
-                                              ? AvatarGlow(
-                                                  duration:
-                                                      Duration(seconds: 1),
-                                                  child: SizedBox(
-                                                      height: 50,
-                                                      width: 50,
-                                                      child: PlayButton(
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _currentStatus !=
-                                                                    RecordingStatus
-                                                                        .Unset
-                                                                ? _stop()
-                                                                : null;
-
-                                                            visiblety =
-                                                                !visiblety;
-                                                          });
-                                                        },
-                                                        initialIsPlaying: true,
-                                                        pauseIcon: Icon(
-                                                            Icons.stop,
-                                                            color:
-                                                                Colors.white),
-                                                        playIcon: Icon(
-                                                            Icons.mic,
-                                                            color: AppTheme
-                                                                .primaryColor),
-                                                      )),
-                                                )
-                                              : CustomIconWidget2(
-                                                  key: keythree,
-                                                  icon: Icon(
-                                                    Icons.mic,
-                                                    color:
-                                                        AppTheme.primaryColor,
-                                                  ),
-                                                  ontap: () async {
-                                                    {
-                                                      if (await networkInfo
-                                                          .isConnected) {
-                                                        setState(() {
-                                                          visiblety
-                                                              ? _start()
-                                                              : null;
-                                                          visiblety =
-                                                              !visiblety;
-                                                        });
-                                                      } else {
-                                                        noInternt(context,
-                                                            'تاكد من وجود انترنت');
-                                                      }
-                                                    }
-                                                  }),
+                                          CustomIconWidget(
+                                            key: keythree,
+                                            onTap: () async {
+                                              if (microphone) {
+                                                _stop();
+                                              } else {
+                                                if (await networkInfo
+                                                    .isConnected) {
+                                                  _start();
+                                                } else {
+                                                  noInternt(context,
+                                                      'تاكد من وجود انترنت');
+                                                }
+                                              }
+                                            },
+                                            primaryColor: Colors.white,
+                                            primaryIcon: Icon(
+                                              Icons.mic,
+                                              color: AppTheme.primaryColor,
+                                            ),
+                                            secondaryIcon: Icon(
+                                              Icons.mic,
+                                              color: Colors.white,
+                                            ),
+                                            secondaryColor:
+                                                AppTheme.primaryColor,
+                                            status: !microphone,
+                                          ),
                                         ],
                                       )
                               ],
@@ -712,17 +691,17 @@ class _StoryPageState extends State<StoryPage> {
   }
 
   _stop() async {
-    var result = await _recorder!.stop();
-
     setState(() {
-      filePath = result!.path;
-      _current = result;
-      print('LLLLLLLLLLLL');
-      _currentStatus = RecordingStatus.Unset;
-      print(_currentStatus);
-      isProcces = true;
-      recognize();
+      microphone = false;
     });
+    var result = await _recorder!.stop();
+    filePath = result!.path;
+    _current = result;
+    print('LLLLLLLLLLLL');
+    _currentStatus = RecordingStatus.Unset;
+    print(_currentStatus);
+    isProcces = true;
+    recognize();
 
     // String customPath = '/audio';
     // io.Directory? appDocDirectory = await getExternalStorageDirectory();
@@ -737,6 +716,7 @@ class _StoryPageState extends State<StoryPage> {
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
       setState(() {
+        microphone = true;
         _current = recording;
       });
 

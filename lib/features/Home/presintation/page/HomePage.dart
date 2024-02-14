@@ -20,7 +20,6 @@ import '../../../../core/util/ScreenUtil.dart';
 import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomFieldForSearch.dart';
 import '../../../../core/widgets/CustomIconWidget.dart';
-import '../../../../core/widgets/CustomIconWidget2.dart';
 import '../../../../core/widgets/CustomMusicIcon.dart';
 import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/TutorialWidget.dart';

@@ -34,14 +34,16 @@ class _CustomIconWidgetState extends State<CustomIconWidget> {
         width: 50,
         decoration: BoxDecoration(
             color: widget.status ? widget.primaryColor : widget.secondaryColor,
-            border: Border.all(color: Colors.white, width: 2),
+            border: Border.all(
+                color: widget.status == false
+                    ? widget.primaryColor
+                    : widget.secondaryColor,
+                width: 2),
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Center(
           child: IconButton(
               onPressed: () {
-                setState(() {
-                  widget.onTap();
-                });
+                widget.onTap();
               },
               icon: widget.status ? widget.primaryIcon : widget.secondaryIcon),
         ),
