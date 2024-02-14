@@ -26,68 +26,55 @@ class _StoryCardState extends State<StoryCard> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    return Wrap(
-      children: [
-        Center(
-          child: Container(
-            width: screenUtil.screenWidth * .25,
-            height: screenUtil.screenHeight * .6,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage(
-                Assets.images.storyBG.path,
-              ),
-              fit: BoxFit.contain,
-            )),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(3, (index) {
-                      bool isStar = index < widget.starts;
-                      return Padding(
-                        padding:
-                            EdgeInsets.only(bottom: index == 1 ? 30.0 : 0.0),
-                        child: Image.asset(
-                          isStar
-                              ? Assets.images.start.path
-                              : Assets.images.emptyStar.path,
-                          width: 40,
-                          height: 40,
-                        ),
-                      );
-                    }),
-                  ),
-                  Container(
-                    height: screenUtil.screenHeight * .3,
-                    width: screenUtil.screenWidth * .14,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.file(
-                        File('${widget.photo}'),
-                        fit: BoxFit.cover,
-                      ),
-                      // child: Image.memory(
-                      //
-                      //   converToBase64(widget.photo.toString()
-                      //   ),
-                      //   fit: BoxFit.cover,
-                      //   ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    widget.name,
-                    style: AppTheme.textTheme.headlineSmall,
-                  )
-                ]),
-          ),
+    return Container(
+      width: screenUtil.screenWidth * .25,
+      height: screenUtil.screenHeight * .6,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage(
+          Assets.images.storyBG.path,
         ),
-      ],
+        fit: BoxFit.contain,
+      )),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(3, (index) {
+                bool isStar = index < widget.starts;
+                return Padding(
+                  padding: EdgeInsets.only(bottom: index == 1 ? 30.0 : 0.0),
+                  child: Image.asset(
+                    isStar
+                        ? Assets.images.start.path
+                        : Assets.images.emptyStar.path,
+                    width: 40,
+                    height: 40,
+                  ),
+                );
+              }),
+            ),
+            Container(
+              height: screenUtil.screenHeight * .3,
+              width: screenUtil.screenWidth * .14,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.file(
+                  File('${widget.photo}'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              widget.name,
+              style: AppTheme.textTheme.headlineSmall,
+            )
+          ]),
     );
   }
 

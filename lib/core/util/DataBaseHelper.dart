@@ -360,31 +360,25 @@ CREATE TABLE "completion" (
     final Directory? externalDirectoryPath =
         await getApplicationDocumentsDirectory();
 
-    path = externalDirectoryPath.toString();
+    path = await externalDirectoryPath.toString();
 
     if (status.isGranted || status2.isGranted) {
       try {
         int update = await dbClient.rawUpdate(
             'UPDATE stories SET download = ? WHERE id = ?', ['1', storyId]);
-        result.forEach((element) {
+        result.forEach((element) async {
           print(element['cover_photo']);
-          fileDownload(
+          await fileDownload(
               DataSourceURL.baseDownloadUrl +
                   DataSourceURL.photo +
                   element['image'],
               externalDirectoryPath!.path);
-          fileDownload(
+          await fileDownload(
               DataSourceURL.baseDownloadUrl +
                   DataSourceURL.sound +
                   element['audio'],
               externalDirectoryPath!.path);
         });
-
-        bool isFound = await dirFound(path + '/' + result.first['photo']);
-        if (isFound == false) {
-          // fileDownload(imageList,externalDirectoryPath!.path);
-          // fileDownload(audioList,externalDirectoryPath!.path);
-        }
       } catch (e) {
         print(e.toString());
       }

@@ -50,7 +50,8 @@ class StoryRepository extends Repository {
       print(start);
       print('start++++++++++++++++++++++++++++++++++++');
       collected_stars += int.parse(start);
-
+      cachedData(key: 'all_stars', data: all_stars);
+      cachedData(key: 'collected_stars', data: collected_stars);
       dd.add(StoryModel(
           download: element['download'],
           cover_photo: element['cover_photo'],
@@ -64,12 +65,12 @@ class StoryRepository extends Repository {
           updated_at: element['updated_at']));
 //      start='';
     });
-    await Future.delayed(Duration(seconds: 1));
+
     print(collected_stars);
     print(all_stars);
     print('all_stars');
-    await cachedData(key: 'all_stars', data: all_stars);
-    await cachedData(key: 'collected_stars', data: collected_stars);
+
+    await Future.delayed(Duration(seconds: 2));
     return dd;
   }
 }

@@ -28,6 +28,7 @@ import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 
+import '../Widget/DownloadWidget.dart';
 import '../Widget/SearchWidget.dart';
 import '../Widget/StarsWidget.dart';
 import '../Widget/StoryCard.dart';
@@ -116,28 +117,28 @@ class _HomePageState extends State<HomePage> {
                       // db.syncApp(userModel!.level.toString());
                     }
                     if (state is StoryLoading) {
-                      StoryWidget =
-                          Center(child: loadingApp('جاري تجهيز القصص .....  '));
+                      return Center(
+                          child: loadingApp('جاري تجهيز القصص .....  '));
                     }
 
                     if (state is StoryILoaded) {
                       //TODO::Show Story here
-                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                        getStars();
-                      });
+
                       listStory.clear();
                       state.storyModel.forEach((element) {
                         listStory.add(element!);
                       });
+
                       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        getStars();
                         showTutorial();
                       });
-                      StoryWidget = SingleChildScrollView(
+                      return SingleChildScrollView(
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
-                                height: 10,
+                                height: screenUtil.screenHeight * .03,
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -212,18 +213,30 @@ class _HomePageState extends State<HomePage> {
                                   )
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(
+                                height: screenUtil.screenHeight * .03,
+                              ),
                               Container(
                                 height: screenUtil.screenHeight * .8,
-                                width: double.infinity,
                                 child: listStoryWithSearch.length > 0
                                     ? GridView.builder(
                                         shrinkWrap: true,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                screenUtil.screenWidth * .01,
+                                            vertical:
+                                                screenUtil.screenHeight * .05),
                                         itemCount: listStoryWithSearch.length,
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount: 3,
-                                                mainAxisSpacing: 20),
+                                                childAspectRatio: 15 / 14,
+                                                crossAxisSpacing:
+                                                    screenUtil.screenWidth *
+                                                        .015,
+                                                mainAxisSpacing:
+                                                    screenUtil.screenHeight *
+                                                        .15),
                                         itemBuilder: (context, index) {
                                           return listStoryWithSearch[index]
                                                       .required_stars >
@@ -238,314 +251,159 @@ class _HomePageState extends State<HomePage> {
                                                       Navigator.pop(context);
                                                     });
                                                   },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 15.0),
-                                                    child: StoryCardLock(
-                                                      name: listStoryWithSearch[
-                                                              index]
-                                                          .name,
-                                                      starts: int.parse(
-                                                          listStoryWithSearch[
-                                                                  index]
-                                                              .stars),
-                                                      photo: path +
-                                                          '/' +
-                                                          listStoryWithSearch[
-                                                                  index]
-                                                              .cover_photo
-                                                              .toString(),
-                                                    ),
+                                                  child: StoryCardLock(
+                                                    name: listStoryWithSearch[
+                                                            index]
+                                                        .name,
+                                                    starts: int.parse(
+                                                        listStoryWithSearch[
+                                                                index]
+                                                            .stars),
+                                                    photo: path +
+                                                        '/' +
+                                                        listStoryWithSearch[
+                                                                index]
+                                                            .cover_photo
+                                                            .toString(),
                                                   ))
                                               : listStoryWithSearch[index]
                                                           .download ==
                                                       0
-                                                  ? InkWell(
+                                                  ? DownloadWidget(
+                                                      userModel: userModel,
                                                       onTap: () async {
-                                                        if (await networkInfo
-                                                            .isConnected) {
-                                                          showImagesDialog(
-                                                              context,
-                                                              '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image']}',
-                                                              'اظغط على زر التنزيل من اجل تحميل هذة القصه',
-                                                              () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        } else {
-                                                          showImagesDialog(
-                                                              context,
-                                                              '${CharactersListobj.FaceCharactersList[int.parse(userModel!.character.toString())]['image']}',
-                                                              'تاكد من وجود انترنت من اجل تنزيل هذه القصه ',
-                                                              () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        }
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 15.0),
-                                                        child: Wrap(
-                                                          children: [
-                                                            Center(
-                                                              child: Container(
-                                                                width: screenUtil
-                                                                        .screenWidth *
-                                                                    .25,
-                                                                height: screenUtil
-                                                                        .screenHeight *
-                                                                    .6,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        image:
-                                                                            DecorationImage(
-                                                                  image:
-                                                                      AssetImage(
-                                                                    Assets
-                                                                        .images
-                                                                        .storyBG
-                                                                        .path,
-                                                                  ),
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )),
-                                                                child: Opacity(
-                                                                  opacity: .6,
-                                                                  child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        int.parse(listStoryWithSearch[index].stars) ==
-                                                                                1
-                                                                            ? Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Image.asset(
-                                                                                    Assets.images.start.path,
-                                                                                    width: 40,
-                                                                                    height: 40,
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: const EdgeInsets.only(bottom: 20.0),
-                                                                                    child: Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                  ),
-                                                                                  Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                ],
-                                                                              )
-                                                                            : int.parse(listStoryWithSearch[index].stars) == 2
-                                                                                ? Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Image.asset(Assets.images.start.path, width: 40, height: 40),
-                                                                                      Padding(
-                                                                                        padding: const EdgeInsets.only(bottom: 20.0),
-                                                                                        child: Image.asset(Assets.images.start.path, width: 40, height: 40),
-                                                                                      ),
-                                                                                      Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                    ],
-                                                                                  )
-                                                                                : int.parse(listStoryWithSearch[index].stars) == 0
-                                                                                    ? Row(
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                          Padding(
-                                                                                            padding: const EdgeInsets.only(bottom: 20.0),
-                                                                                            child: Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                          ),
-                                                                                          Image.asset(Assets.images.emptyStar.path, width: 40, height: 40),
-                                                                                        ],
-                                                                                      )
-                                                                                    : Row(
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Image.asset(Assets.images.start.path, width: 40, height: 40),
-                                                                                          Padding(
-                                                                                            padding: const EdgeInsets.only(bottom: 20.0),
-                                                                                            child: Image.asset(Assets.images.start.path, width: 40, height: 40),
-                                                                                          ),
-                                                                                          Image.asset(Assets.images.start.path, width: 40, height: 40),
-                                                                                        ],
-                                                                                      ),
-                                                                        Container(
-                                                                          height:
-                                                                              screenUtil.screenHeight * .3,
-                                                                          width:
-                                                                              screenUtil.screenWidth * .14,
-                                                                          child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10),
-                                                                            child:
-                                                                                Image.file(
-                                                                              File('${path + '/' + state.storyModel[index]!.cover_photo}'),
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            SizedBox(
-                                                                              width: 30,
-                                                                            ),
-                                                                            IconButton(
-                                                                                onPressed: () async {
-                                                                                  setState(() => isloading = true);
-                                                                                  showDialog(
-                                                                                    barrierDismissible: false,
-                                                                                    context: context,
-                                                                                    builder: (context) {
-                                                                                      return Center(
-                                                                                        child: Dialog(
-                                                                                          surfaceTintColor: Colors.white,
-                                                                                          backgroundColor: Colors.white,
-                                                                                          shadowColor: AppTheme.primaryColor,
-                                                                                          elevation: 50,
-                                                                                          insetAnimationDuration: Duration(seconds: 30),
-                                                                                          shape: RoundedRectangleBorder(
-                                                                                            borderRadius: BorderRadius.circular(20.0),
-                                                                                          ),
-                                                                                          child: Container(
-                                                                                              height: 120,
-                                                                                              width: 70,
-                                                                                              margin: EdgeInsets.all(5),
-                                                                                              decoration: BoxDecoration(border: Border.all(color: AppTheme.primaryColor, width: 4), borderRadius: BorderRadius.circular(20)),
-                                                                                              child: Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                                                                                Lottie.asset(
-                                                                                                  "assets/json/animation_download.json",
-                                                                                                  width: 100,
-                                                                                                ),
-                                                                                                Text(
-                                                                                                  'جاري تحميل القصه ',
-                                                                                                  style: TextStyle(color: AppTheme.primaryColor, fontSize: 15, fontFamily: AppTheme.fontFamily),
-                                                                                                )
-                                                                                              ])),
-                                                                                        ),
-                                                                                      );
-                                                                                    },
-                                                                                  );
-
-                                                                                  await Future.delayed(Duration(seconds: 10));
-                                                                                  Navigator.pop(context);
-                                                                                  await db.downloadMedia(state.storyModel[index]!.id.toString());
-                                                                                  setState(() => isloading = false);
-
-                                                                                  BlocProvider.of<StoryBloc>(_context).add(GetAllStory(userModel!.level.toString()));
-                                                                                },
-                                                                                icon: Icon(
-                                                                                  Icons.download,
-                                                                                  size: 30,
-                                                                                  color: AppTheme.primaryColor,
-                                                                                )),
-                                                                            Expanded(
-                                                                              child: Text(
-                                                                                state.storyModel[index]!.name,
-                                                                                style: AppTheme.textTheme.headlineSmall,
-                                                                                maxLines: 2,
-                                                                                overflow: TextOverflow.ellipsis,
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        )
-                                                                      ]),
+                                                        setState(() =>
+                                                            isloading = true);
+                                                        showDialog(
+                                                          barrierDismissible:
+                                                              false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Center(
+                                                              child: Dialog(
+                                                                surfaceTintColor:
+                                                                    Colors
+                                                                        .white,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                shadowColor:
+                                                                    AppTheme
+                                                                        .primaryColor,
+                                                                elevation: 50,
+                                                                insetAnimationDuration:
+                                                                    Duration(
+                                                                        seconds:
+                                                                            30),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20.0),
                                                                 ),
+                                                                child:
+                                                                    Container(
+                                                                        height:
+                                                                            120,
+                                                                        width:
+                                                                            70,
+                                                                        margin:
+                                                                            EdgeInsets.all(
+                                                                                5),
+                                                                        decoration: BoxDecoration(
+                                                                            border: Border.all(
+                                                                                color: AppTheme
+                                                                                    .primaryColor,
+                                                                                width:
+                                                                                    4),
+                                                                            borderRadius: BorderRadius.circular(
+                                                                                20)),
+                                                                        child: Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                            children: [
+                                                                              Lottie.asset(
+                                                                                "assets/json/animation_download.json",
+                                                                                width: 100,
+                                                                              ),
+                                                                              Text(
+                                                                                'جاري تحميل القصه ',
+                                                                                style: TextStyle(color: AppTheme.primaryColor, fontSize: 15, fontFamily: AppTheme.fontFamily),
+                                                                              )
+                                                                            ])),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ))
-                                                  : tautorial
-                                                      ? InkWell(
-                                                          onTap: () {
-                                                            //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
-
-                                                            Navigator.push(
-                                                                context,
-                                                                CustomPageRoute(
-                                                                    child:
-                                                                        StoryPage(
-                                                                  id: listStoryWithSearch[
-                                                                          index]
-                                                                      .id,
-                                                                )));
-
-                                                            FlameAudio.bgm
-                                                                .pause();
+                                                            );
                                                           },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    top: 15.0),
-                                                            child: StoryCard(
-                                                              name:
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .name,
-                                                              starts: int.parse(
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .stars),
-                                                              photo: path +
-                                                                  '/' +
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .cover_photo
-                                                                      .toString(),
-                                                            ),
-                                                          ))
-                                                      : InkWell(
-                                                          onTap: () {
-                                                            //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+                                                        );
+                                                        Navigator.pop(context);
+                                                        await db.downloadMedia(
+                                                            state
+                                                                .storyModel[
+                                                                    index]!
+                                                                .id
+                                                                .toString());
 
-                                                            Navigator.push(
-                                                                context,
-                                                                CustomPageRoute(
-                                                                    child:
-                                                                        StoryPage(
-                                                                  id: listStoryWithSearch[
-                                                                          index]
-                                                                      .id,
-                                                                )));
+                                                        setState(() =>
+                                                            isloading = false);
 
-                                                            FlameAudio.bgm
-                                                                .pause();
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    top: 15.0),
-                                                            child: StoryCard(
-                                                              key: keyfive,
-                                                              name:
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .name,
-                                                              starts: int.parse(
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .stars),
-                                                              photo: path +
-                                                                  '/' +
-                                                                  listStoryWithSearch[
-                                                                          index]
-                                                                      .cover_photo
-                                                                      .toString(),
-                                                            ),
-                                                          ));
+                                                        BlocProvider.of<
+                                                                    StoryBloc>(
+                                                                _context)
+                                                            .add(GetAllStory(
+                                                                userModel!.level
+                                                                    .toString()));
+                                                      },
+                                                      imagePath:
+                                                          listStoryWithSearch[
+                                                                  index]
+                                                              .cover_photo
+                                                              .toString(),
+                                                      name: listStoryWithSearch[
+                                                              index]
+                                                          .name
+                                                          .toString(),
+                                                      stars: int.parse(
+                                                          listStoryWithSearch[
+                                                                  index]
+                                                              .stars),
+                                                    )
+                                                  : InkWell(
+                                                      onTap: () {
+                                                        //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
+
+                                                        Navigator.push(
+                                                            context,
+                                                            CustomPageRoute(
+                                                                child:
+                                                                    StoryPage(
+                                                              id: listStoryWithSearch[
+                                                                      index]
+                                                                  .id,
+                                                            )));
+
+                                                        FlameAudio.bgm.pause();
+                                                      },
+                                                      child: StoryCard(
+                                                        key: tautorial
+                                                            ? null
+                                                            : keyfive,
+                                                        name:
+                                                            listStoryWithSearch[
+                                                                    index]
+                                                                .name,
+                                                        starts: int.parse(
+                                                            listStoryWithSearch[
+                                                                    index]
+                                                                .stars),
+                                                        photo: path +
+                                                            '/' +
+                                                            listStoryWithSearch[
+                                                                    index]
+                                                                .cover_photo
+                                                                .toString(),
+                                                      ));
                                         },
                                       )
                                     : Center(
@@ -558,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    return StoryWidget;
+                    return Container();
                   },
                 ),
               )),
@@ -568,24 +426,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   onSearch(String searchWord) {
-    setState(() {
-      listStory.forEach((element) {
-        print(element.name);
-      });
+    listStoryWithSearch = listStory
+        .where((element) =>
+            element.name.toLowerCase().contains(searchWord.toLowerCase()))
+        .toList();
 
-      listStoryWithSearch.forEach((element) {
-        print(element.name);
-      });
-
-      listStoryWithSearch = listStory
-          .where((element) =>
-              element.name.toLowerCase().contains(searchWord.toLowerCase()))
-          .toList();
-
-      listStoryWithSearch.forEach((element) {
-        print(element.name);
-      });
-    });
+    setState(() {});
   }
 
   @override
@@ -683,6 +529,8 @@ class _HomePageState extends State<HomePage> {
           onFinish: () async {
             prefs = await SharedPreferences.getInstance();
             prefs!.setBool("tautorial", true);
+            getStars();
+            setState(() {});
           });
       tutorialCoachMark!.show(context: context);
     }
