@@ -18,23 +18,9 @@ Some other features are as following:
 
 
 
-## Some Screenshots
+##  Screenshots
 
-|             Splash Screen            |             Application Home              |           Product Detail            |
-| :----------------------------------: | :---------------------------------------: | :----------------------------------:|
-| ![photo_2024-02-18_22-49-30](https://github.com/MaryamHajeb/Graduation-Project/assets/82823586/e22240fc-b571-4967-87e9-8165fa87203d) ![photo_2024-02-18_22-49-56](https://github.com/MaryamHajeb/Graduation-Project/assets/82823586/537aa73a-32e6-4b24-aa4e-fd549b9ebdaa)
-
-|                 Signup              |                Login              |        OTP Verification         |
-| :---------------------------------: | :-------------------------------: | :------------------------------:|
-| ![](snapshots/shopping-sign-up.png) | ![](snapshots/shopping-login.png) | ![](snapshots/shopping-otp.png) |
-
-|           Shopping Cart          |             Address Selection              |             Payment Method             |               Order Success               |
-| :------------------------------: | :----------------------------------------: | :-------------------------------------:| :---------------------------------------: |
-| ![](snapshots/shopping-cart.png) | ![](snapshots/shopping-select-address.png) | ![](snapshots/shopping-choose-pay.png) | ![](snapshots/shopping-order-success.png) |
-
-|               Add Product               |             All Orders             |                Order Detail              |               Sign Out               |
-| :-------------------------------------: | :--------------------------------: | :---------------------------------------:| :----------------------------------: |
-| ![](snapshots/shopping-add-product.png) | ![](snapshots/shopping-orders.png) | ![](snapshots/shopping-order-detail.png) | ![](snapshots/shopping-sign-out.png) |
+   https://github.com/MaryamHajeb/Graduation-Project/blob/main/ScreenShots/
 
 ## Project Setup
 
