@@ -20,7 +20,7 @@ Some other features are as following:
 
 ##  Screenshots
 
-   https://github.com/MaryamHajeb/Graduation-Project/blob/main/ScreenShots/
+   [https://github.com/MaryamHajeb/Graduation-Project/blob/main/ScreenShots/](https://github.com/MaryamHajeb/Graduation-Project/blob/main/ScreenShots/)
 
 ## Project Setup
 
