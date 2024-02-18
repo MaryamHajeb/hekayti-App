@@ -78,6 +78,7 @@ class _StoryPageState extends State<StoryPage> {
   int currentIndexPage = 0;
   String text_orglin = '';
   var pathiamge;
+  Timer timer = Timer(Duration(seconds: 0), () {});
   PageController pageControler = PageController();
   TextEditingController result = TextEditingController();
   int rendom = 0;
@@ -720,8 +721,7 @@ class _StoryPageState extends State<StoryPage> {
         _current = recording;
       });
 
-      const tick = const Duration(seconds: 25);
-      new Timer.periodic(tick, (Timer t) async {
+      timer = Timer.periodic(Duration(seconds: 25), (Timer t) async {
         if (_currentStatus != RecordingStatus.Unset) {
           t.cancel();
           setState(() {
