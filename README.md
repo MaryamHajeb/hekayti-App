@@ -22,7 +22,7 @@ Some other features are as following:
 
 |             Splash Screen            |             Application Home              |           Product Detail            |
 | :----------------------------------: | :---------------------------------------: | :----------------------------------:|
-| ![](snapshots/shopping-launcher.png) | ![](snapshots/shopping-home-customer.png) | ![](snapshots/shopping-product.png) |
+| [![](snapshots/shopping-launcher.png)](https://github.com/MaryamHajeb/Graduation-Project/blob/main/ScreenShots/NameChiled.jpg) | ![](snapshots/shopping-home-customer.png) | ![](snapshots/shopping-product.png) |
 
 |                 Signup              |                Login              |        OTP Verification         |
 | :---------------------------------: | :-------------------------------: | :------------------------------:|
