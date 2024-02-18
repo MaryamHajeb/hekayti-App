@@ -3,7 +3,7 @@ Application of children's stories to teach children to read
 
 
 ## Overview
-The application contains list of products such as shoes, slippers on which user can click to view its details and then, add them to cart. User can like and dislike the product as well. Also, User can sell products, if he/she signed up as a Seller.
+The application contains the feature of listening to the story, as well as verifying the accuracy of the reading to the child. It also contains reports on the extent of progress.
 Some other features are as following:
 - Login / Signup .
 - The child can review the story.
