@@ -10,6 +10,8 @@ class StoryModel {
       updated_at,
       download;
 
+
+
   StoryModel({
     required this.id,
     required this.cover_photo,

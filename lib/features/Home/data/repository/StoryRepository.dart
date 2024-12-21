@@ -9,6 +9,9 @@ import '../../../../dataProviders/error/failures.dart';
 import '../../../../main.dart';
 import '../../../Home/data/model/StoryMode.dart';
 
+
+
+
 class StoryRepository extends Repository {
   final RemoteDataProvider remoteDataProvider; //get the data from the internet
   final LocalDataProvider localDataProvider; //get the data from the local cache
