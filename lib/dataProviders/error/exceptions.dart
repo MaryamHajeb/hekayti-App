@@ -6,6 +6,8 @@ class BlockedUserException implements Exception {}
 
 class NotAvilable implements Exception {}
 
+
+
 class ValidationException implements Exception {}
 
 class ServierExeption implements Exception {}
