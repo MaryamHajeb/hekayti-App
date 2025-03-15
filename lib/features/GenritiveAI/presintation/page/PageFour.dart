@@ -37,7 +37,7 @@ class _PageFourState extends State<PageFour> {
             ),
             Text('حكايتي', style: AppTheme.textTheme.displaySmall),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
                   height: screenUtil.screenHeight * .4,
@@ -47,7 +47,7 @@ class _PageFourState extends State<PageFour> {
                 ),
                 Column(
                   children: [
-                    Text('قم بإدخال اسم طفلك',
+                    Text('قم إدخال اسم بطل قصتك:',
                         style: AppTheme.textTheme.displaySmall),
                     SizedBox(
                       height: screenUtil.screenHeight * .05,
@@ -72,14 +72,39 @@ class _PageFourState extends State<PageFour> {
                           controller.name, // Use a TextEditingController here
                       text: 'مثال  :  محمد',
                       type: TextInputType.text,
-                    )
+                    ),
+
+
+
+                    Text('قم برفع صورة  بطل قصتك:',
+                        style: AppTheme.textTheme.displaySmall),
+                    SizedBox(
+                      height: screenUtil.screenHeight * .05,
+                    ),
+                    CustomField(
+                      size: 200,
+                      onching: (value) {
+                        controller.userModel!.user_name = value.toString();
+                        controller.update();
+                      },
+                      valdution: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'يرجى منك ادخال اسم الطفل ';
+                        } else if (!RegExp(
+                            r"^([\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)$")
+                            .hasMatch(value)) {
+                          return "لا يمكن ان يحتوي اسم الطفل على ارقام او رموز";
+                        }
+                        return null;
+                      },
+                      controler:
+                      controller.name, // Use a TextEditingController here
+                      text: 'مثال  :  محمد',
+                      type: TextInputType.text,
+                    ),
                   ],
                 ),
-                Container(
-                  height: screenUtil.screenHeight * .4,
-                  width: screenUtil.screenWidth * .2,
-                  child: Image.asset(Assets.images.Characters.hana.happy.path),
-                ),
+
               ],
             ),
           ],
