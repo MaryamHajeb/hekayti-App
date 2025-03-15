@@ -13,6 +13,8 @@ import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomCharacters.dart';
 import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 
+import '../Widget/StoryThemeWidget.dart';
+
 class PageSix extends StatefulWidget {
   const PageSix({Key? key}) : super(key: key);
 
@@ -25,6 +27,7 @@ class _PageSixState extends State<PageSix> {
   @override
   CharactersList CharactersListlist = CharactersList();
 
+
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return GetBuilder<IntroScreenController>(
@@ -34,23 +37,27 @@ class _PageSixState extends State<PageSix> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('اختر  شخصيك المفضلة', style: AppTheme.textTheme.displaySmall),
+            Text('حدد نوع الرسم  لقصتك:', style: AppTheme.textTheme.displaySmall),
             Container(
               height: screenUtil.screenHeight * .4,
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: CharactersListlist.listCharactersList.length,
+                itemCount: CharactersListlist.StoryThemeList.length,
                 itemBuilder: (context, index) {
-                  return CustomCharacters(
-                    image:
-                        CharactersListlist.listCharactersList[index]['image'].toString(),
-                    onTap: () async {
-                      controller.selectedCharacter = index;
-                      controller.update();
-                    },
-                    isSelected:
-                        controller.selectedCharacter == index ? true : false,
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: StoryThemeWidget(
+                      name:CharactersListlist.StoryThemeList[index]['name'].toString() ,
+                      image:
+                          CharactersListlist.StoryThemeList[index]['image'].toString(),
+                      onTap: () async {
+                        controller.selectedCharacter = index;
+                        controller.update();
+                      },
+                      isSelected:
+                          controller.selectedCharacter == index ? true : false,
+                    ),
                   );
                 },
               ),

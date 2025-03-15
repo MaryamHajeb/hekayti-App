@@ -186,7 +186,30 @@ class CharactersList {
       'image': Assets.images.Characters.wafa.show.path,
     },
   ];
+  List StoryThemeList = [
+    {
+      'id': '0',
+      'image': "assets/images/story_theme1.png",
+      "name": "عالم البحار"
+    },
 
+    {
+      'id': '1',
+      'image': "assets/images/story_theme2.png",
+      "name": "عالم الغابات السحرية"
+    },
+    {
+      'id': '2',
+      'image': "assets/images/story_theme3.png",
+      "name": "عالم الجبال والكهوف"
+    },
+    {
+      'id': '3',
+      'image': "assets/images/story_theme4.png",
+      "name": "عالم الفضاء الخارجي"
+    },
+
+  ];
   List Levels = [
     {'id': 0, 'num': 1, 'color': AppTheme.primarySwatch.shade800},
     {'id': 1, 'num': 2, 'color': AppTheme.primarySwatch.shade600},

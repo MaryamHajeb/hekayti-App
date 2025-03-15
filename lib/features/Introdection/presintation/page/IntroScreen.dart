@@ -145,7 +145,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                                 curve: Curves
                                                                     .fastOutSlowIn);
                                                           },
-                                                          child: Image.asset(
+                                                          child:index!=0? Image.asset(
                                                             color: AppTheme
                                                                 .primarySwatch
                                                                 .shade400,
@@ -154,7 +154,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                                             width: 30,
                                                             height: 30,
                                                             fit: BoxFit.fill,
-                                                          ),
+                                                          ):SizedBox.shrink(),
                                                         ),
                                                         DotsIndicator(
                                                           dotsCount:

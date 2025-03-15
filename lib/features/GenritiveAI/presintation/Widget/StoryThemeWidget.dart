@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 
-class CustomCharacters extends StatelessWidget {
+import '../../../../core/AppTheme.dart';
+
+class StoryThemeWidget extends StatelessWidget {
   String image;
   Function onTap;
   bool isSelected;
-
-  CustomCharacters({
+ String name;
+  StoryThemeWidget({
     required this.image,
     required this.onTap,
     required this.isSelected,
+    required this.name
   });
   ScreenUtil screenUtil = ScreenUtil();
   @override
@@ -20,11 +23,16 @@ class CustomCharacters extends StatelessWidget {
             onTap: () {
               onTap();
             },
-            child: Image.asset(
-              width: 200,
-              height: 200,
-              image,
-              fit: BoxFit.contain,
+            child: Column(
+              children: [
+                Image.asset(
+                  width: 170,
+                  height: 170,
+                  image,
+                  fit: BoxFit.contain,
+                ),
+                Text(name, style: AppTheme.textTheme.displaySmall)
+              ]
             ),
           )
         : GestureDetector(

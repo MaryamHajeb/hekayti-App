@@ -33,11 +33,8 @@ class StoryGenSettings extends StatefulWidget {
 class _StoryGenSettingsState extends State<StoryGenSettings> {
   List<Widget> onboardingList = [
     PageOne(),
-    PageTow(),
-    PageThree(),
-    PageFour(),
-    PageFive(),
     PageSix(),
+    PageFour(),
   ];
   ScreenUtil _screenUtil = ScreenUtil();
   CharactersList CharactersListobj = CharactersList();
@@ -145,7 +142,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                 curve: Curves
                                                                     .fastOutSlowIn);
                                                           },
-                                                          child: Image.asset(
+                                                          child: index!=0? Image.asset(
                                                             color: AppTheme
                                                                 .primarySwatch
                                                                 .shade400,
@@ -154,7 +151,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                             width: 30,
                                                             height: 30,
                                                             fit: BoxFit.fill,
-                                                          ),
+                                                          ):SizedBox.shrink(),
                                                         ),
                                                         DotsIndicator(
                                                           dotsCount:

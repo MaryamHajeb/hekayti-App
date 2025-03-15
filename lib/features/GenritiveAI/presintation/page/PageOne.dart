@@ -28,23 +28,28 @@ class _PageOneState extends State<PageOne> {
           backgroundColor: Colors.white,
           child: Image.asset(Assets.images.logo.path),
         ),
-        Text('حكايتي', style: AppTheme.textTheme.displaySmall),
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
                 height: screenUtil.screenHeight * .4,
-                width: screenUtil.screenWidth * .3,
+                width: screenUtil.screenWidth * .2,
                 child: Image.asset(Assets.images.Characters.abdu.left.path)),
-            Container(
-                height: screenUtil.screenHeight * .4,
-                width: screenUtil.screenWidth * .3,
-                child: Image.asset(Assets.images.Characters.mariam.happy.path)),
+           Column(
+             children: [
+               Text('انشى قصتك الخاصة', style: AppTheme.textTheme.displayMedium!.copyWith(fontSize: 20)),
+              SizedBox(
+                height: 10,),
+               Text('سنساعدك في تحقيق خيالك ', style: AppTheme.textTheme.displaySmall),
+               SizedBox(
+                 height: 5,),
+               Text('و جعلها واقعاً .', style: AppTheme.textTheme.displaySmall),
+           ])
           ],
         ),
-        Text('مرحبا بك.', style: AppTheme.textTheme.displaySmall),
-        Text('في تطبيق حكايتي', style: AppTheme.textTheme.displaySmall),
+
       ],
     );
   }
