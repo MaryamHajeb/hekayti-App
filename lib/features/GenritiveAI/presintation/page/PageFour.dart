@@ -7,6 +7,7 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
 import '../../../../core/AppTheme.dart';
+import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomField.dart';
 import '../../../../gen/assets.gen.dart';
@@ -22,6 +23,8 @@ class PageFour extends StatefulWidget {
 class _PageFourState extends State<PageFour> {
   ScreenUtil screenUtil = ScreenUtil();
   String? selectedImagePath;
+  CharactersList CharactersListobj = CharactersList();
+  UserModel? userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +43,18 @@ class _PageFourState extends State<PageFour> {
             // ),
             // Text('حكايتي', style: AppTheme.textTheme.displaySmall),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   height: screenUtil.screenHeight * .4,
                   width: screenUtil.screenWidth * .2,
                   child:
-                      Image.asset(Assets.images.Characters.hasham.happy.path),
+                      Image.asset(CharactersListobj.happyListCharactersList[int.parse(userModel!.character.toString())]["image"]),
                 ),
                 Column(
                   children: [
+                    SizedBox(
+                      height: 50,),
                     Text('قم إدخال اسم بطل قصتك:',
                         style: AppTheme.textTheme.displaySmall),
                     SizedBox(
@@ -168,5 +173,16 @@ class _PageFourState extends State<PageFour> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initUser();
+  }
+  initUser() async {
+    userModel = await getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );
+    setState(() {});
+    print("userModel.level");
+    print(userModel!.level);
   }
 }
