@@ -1,31 +1,31 @@
-part of 'registration_bloc.dart';
+part of 'GenritiveAI_bloc.dart';
 
-abstract class RegistrationState extends Equatable {
-  const RegistrationState();
+abstract class GenritiveAIState extends Equatable {
+  const GenritiveAIState();
 }
 
-class RegistrationInitial extends RegistrationState {
+class GenritiveAIInitial extends GenritiveAIState {
   @override
   List<Object> get props => [];
 }
 
-class RegistrationLoading extends RegistrationState {
+class GenritiveAILoading extends GenritiveAIState {
   @override
   List<Object> get props => [];
 }
 
-class RegisterLoaded extends RegistrationState {
+class GenritiveAILoaded extends GenritiveAIState {
   String successMessage;
-  RegisterLoaded({required this.successMessage});
+  GenritiveAILoaded({required this.successMessage});
 
   @override
   List<Object> get props => [successMessage];
 }
 
-class RegisterError extends RegistrationState {
+class GenritiveAIError extends GenritiveAIState {
   String errorMessage;
 
-  RegisterError({required this.errorMessage});
+  GenritiveAIError({required this.errorMessage});
 
   @override
   List<Object> get props => [];

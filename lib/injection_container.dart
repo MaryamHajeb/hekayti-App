@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dataProviders/local_data_provider.dart';
 import 'dataProviders/network/Network_info.dart';
 import 'dataProviders/remote_data_provider.dart';
+import 'features/GenritiveAI/date/repository/GenritiveAIRepository.dart';
+import 'features/GenritiveAI/presintation/manager/GenritiveAI_bloc.dart';
 import 'features/Home/data/repository/StoryRepository.dart';
 import 'features/Home/presintation/manager/Story_bloc.dart';
 import 'features/Regestrion/date/repository/RegistrationRepository.dart';
@@ -31,6 +33,7 @@ Future<void> init() async {
   _initStoryFeature();
   _initReportFeature();
   _initChartFeature();
+  _initGenritiveAIFeature();
 
   ///service provider
 
@@ -113,6 +116,19 @@ void _initReportFeature() {
   //repositories
   sl.registerLazySingleton<ReportRepository>(
     () => ReportRepository(
+      remoteDataProvider: sl(),
+      localDataProvider: sl(),
+      networkInfo: sl(),
+    ),
+  );
+}
+void _initGenritiveAIFeature() {
+//bloc
+  sl.registerFactory(() => GenritiveAIBloc(repository: sl()));
+
+  //repositories
+  sl.registerLazySingleton<GenritiveAIRepository>(
+        () => GenritiveAIRepository(
       remoteDataProvider: sl(),
       localDataProvider: sl(),
       networkInfo: sl(),

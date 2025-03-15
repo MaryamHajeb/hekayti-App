@@ -1,7 +1,7 @@
-class CompletionModel {
+class GenritiveAIMode {
   dynamic id, story_id, updated_at, stars, percentage;
 
-  CompletionModel({
+  GenritiveAIMode({
     this.id,
     required this.updated_at,
     required this.percentage,
@@ -9,8 +9,8 @@ class CompletionModel {
     required this.stars,
   });
 
-  factory CompletionModel.fromJson(Map<String, dynamic> story) {
-    return CompletionModel(
+  factory GenritiveAIMode.fromJson(Map<String, dynamic> story) {
+    return GenritiveAIMode(
         id: story['id'],
         updated_at: story['updated_at'],
         story_id: story['story_id'],
@@ -18,12 +18,12 @@ class CompletionModel {
         percentage: story['percentage']);
   }
 
-  CompletionModel fromJson(Map<String, dynamic> json) {
-    return CompletionModel.fromJson(json);
+  GenritiveAIMode fromJson(Map<String, dynamic> json) {
+    return GenritiveAIMode.fromJson(json);
   }
 
-  factory CompletionModel.init() {
-    return CompletionModel(
+  factory GenritiveAIMode.init() {
+    return GenritiveAIMode(
       id: '',
       story_id: '',
       updated_at: '',
@@ -33,9 +33,9 @@ class CompletionModel {
   }
 
   fromJsonList(List<dynamic> jsonList) {
-    List<CompletionModel> data = [];
+    List<GenritiveAIMode> data = [];
     jsonList.forEach((post) {
-      data.add(CompletionModel.fromJson(post));
+      data.add(GenritiveAIMode.fromJson(post));
     });
     return data;
   }

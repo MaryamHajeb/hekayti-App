@@ -6,48 +6,48 @@ import 'package:hikayati_app/dataProviders/error/failures.dart';
 
 import 'package:equatable/equatable.dart';
 
-import '../../date/repository/RegistrationRepository.dart';
+import '../../date/repository/GenritiveAIRepository.dart';
 
-part 'registration_event.dart';
-part 'registration_state.dart';
+part 'GenritiveAI_event.dart';
+part 'GenritiveAI_state.dart';
 
-class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  final RegistrationRepository repository;
-  RegistrationBloc({required this.repository}) : super(RegistrationInitial());
+class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
+  final GenritiveAIRepository repository;
+  GenritiveAIBloc({required this.repository}) : super(GenritiveAIInitial());
   @override
-  Stream<RegistrationState> mapEventToState(RegistrationEvent event) async* {
-    if (event is Login) {
-      yield RegistrationLoading();
+  Stream<GenritiveAIState> mapEventToState(GenritiveAIEvent event) async* {
+    if (event is GenritiveAI) {
+      yield GenritiveAILoading();
       final failureOrData =
-          await repository.login(password: event.password, email: event.email);
+          await repository.GenritiveAI(password: event.password, email: event.email);
       yield* failureOrData.fold(
         (failure) async* {
           log('yield is error');
-          yield RegisterError(errorMessage: mapFailureToMessage(failure));
+          yield GenritiveAIError(errorMessage: mapFailureToMessage(failure));
         },
         (data) async* {
           log('yield is loaded');
-          yield RegisterLoaded(
+          yield GenritiveAILoaded(
             successMessage: 'تم تسجيل الدخول بنجاح',
           );
         },
       );
     }
 
-    if (event is Signup) {
-      yield RegistrationLoading();
-      final failureOrData =
-          await repository.signup(password: event.password, email: event.email);
-      yield* failureOrData.fold(
-        (failure) async* {
-          log('yield is error');
-          yield RegisterError(errorMessage: mapFailureToMessage(failure));
-        },
-        (data) async* {
-          log('yield is loaded');
-          yield RegisterLoaded(successMessage: data);
-        },
-      );
-    }
+    // if (event is Signup) {
+    //   yield GenritiveAILoading();
+    //   final failureOrData =
+    //       await repository.signup(password: event.password, email: event.email);
+    //   yield* failureOrData.fold(
+    //     (failure) async* {
+    //       log('yield is error');
+    //       yield RegisterError(errorMessage: mapFailureToMessage(failure));
+    //     },
+    //     (data) async* {
+    //       log('yield is loaded');
+    //       yield RegisterLoaded(successMessage: data);
+    //     },
+    //   );
+    // }
   }
 }
