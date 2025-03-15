@@ -23,7 +23,7 @@ class GenritiveAIWidget extends StatelessWidget {
             border: Border.all(color: AppTheme.primaryColor, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Center(
-          child: Image.asset("assets/images/GenritiveAI.png", height: 30, width: 30,),
+          child: Image.asset("assets/images/gpt.png", height: 30, width: 30,),
         ),
       ),
     );

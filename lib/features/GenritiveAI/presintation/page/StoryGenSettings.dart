@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
-import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
+import 'package:hikayati_app/features/GenritiveAI/presintation/manager/StoryGenSettingsController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/AppTheme.dart';
@@ -22,15 +22,15 @@ import 'PageTow.dart';
 import 'PageFour.dart';
 import 'PageThree.dart';
 
-class IntroScreen extends StatefulWidget {
+class StoryGenSettings extends StatefulWidget {
   int index;
 
-  IntroScreen({Key? key, required this.index}) : super(key: key);
+  StoryGenSettings({Key? key, required this.index}) : super(key: key);
   @override
-  State<IntroScreen> createState() => _IntroScreenState();
+  State<StoryGenSettings> createState() => _StoryGenSettingsState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
+class _StoryGenSettingsState extends State<StoryGenSettings> {
   List<Widget> onboardingList = [
     PageOne(),
     PageTow(),
@@ -52,8 +52,8 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     _screenUtil.init(context);
     return Scaffold(
-      body: GetBuilder<IntroScreenController>(
-        init: IntroScreenController(),
+      body: GetBuilder<StoryGenSettingsController>(
+        init: StoryGenSettingsController(),
         builder: (controller) {
           ifRegistration(controller);
           return Form(
@@ -253,14 +253,14 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  ifRegistration(IntroScreenController controller) async {
+  ifRegistration(StoryGenSettingsController controller) async {
     controller.userModel = await getCachedData(
         key: "UserInformation",
         retrievedDataType: UserModel.init(),
         returnType: UserModel.init());
   }
 
-  initOnBoardingAndApp(IntroScreenController controller) async {
+  initOnBoardingAndApp(StoryGenSettingsController controller) async {
     controller.saveUserInformation(UserModel(
         user_name: controller.name.text,
         email: controller.userModel?.email ?? "",

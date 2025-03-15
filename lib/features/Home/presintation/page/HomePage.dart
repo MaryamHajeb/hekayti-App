@@ -25,9 +25,12 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../core/widgets/TutorialWidget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
+import '../../../GenritiveAI/presintation/page/StoryGenSettings.dart';
+import '../../../GenritiveAI/presintation/page/SplashScreen.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 
 import '../Widget/DownloadWidget.dart';
+import '../Widget/GenritiveAIWidget.dart';
 import '../Widget/SearchWidget.dart';
 import '../Widget/StarsWidget.dart';
 import '../Widget/StoryCard.dart';
@@ -180,6 +183,27 @@ class _HomePageState extends State<HomePage> {
                                     onSearch: (value) {
                                       onSearch(value);
                                     },
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: AppTheme.primaryColor,
+                                            width: 2),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(18))),
+                                    child: GenritiveAIWidget(
+                                      key: keysix,
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                StoryGenSettings(
+                                              index: 0,
+                                            )));
+                                      },
+                                      status: bgm,
+                                    ),
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
@@ -511,6 +535,18 @@ class _HomePageState extends State<HomePage> {
                 tutorialCoachMark!.next();
               },
               text: "يمكنك  استعراض  القصة  من  هنا ",
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target6", keyTarget: keysix, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: TutorialWidget(
+              index: 6,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: " طفلك يمكنه إنشاء قصته الخاصة بالذكاء الاصطناعي",
               Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
