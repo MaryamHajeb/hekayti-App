@@ -210,9 +210,8 @@ CREATE TABLE "completion" (
   }
 
   checkStoryFound() async {
-    List<StoryModel> data = await RemoteDataProvider(client: sl()).sendData(
+    List<StoryModel> data = await RemoteDataProvider(client: sl()).getData(
         url: DataSourceURL.getAllStory,
-        body: {},
         retrievedDataType: StoryModel.init(),
         returnType: List);
 
@@ -257,9 +256,8 @@ CREATE TABLE "completion" (
 
   checkMediaFound() async {
     List<StoryMediaModel> data = await RemoteDataProvider(client: sl())
-        .sendData(
+        .getData(
             url: DataSourceURL.getAllmedia,
-            body: {},
             retrievedDataType: StoryMediaModel.init(),
             returnType: List);
 

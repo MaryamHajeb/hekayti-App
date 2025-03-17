@@ -9,7 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
-
+assets/test_service_account.json
 
 
 # IntelliJ related
