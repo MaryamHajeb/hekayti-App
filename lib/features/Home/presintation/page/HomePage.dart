@@ -28,6 +28,7 @@ import '../../../../injection_container.dart';
 import '../../../GenritiveAI/presintation/page/StoryGenSettings.dart';
 import '../../../GenritiveAI/presintation/page/SplashScreen.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
+import '../../../GenritiveAI/presintation/page/GenritiveAIPage.dart';
 
 import '../Widget/DownloadWidget.dart';
 import '../Widget/GenritiveAIWidget.dart';
@@ -43,7 +44,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget StoryWidget = Center();
   ScreenUtil screenUtil = ScreenUtil();
@@ -71,6 +72,9 @@ class _HomePageState extends State<HomePage> {
   GlobalKey keyfour = GlobalKey();
   GlobalKey keyseven = GlobalKey();
   GlobalKey keysix = GlobalKey();
+  
+  // Tab controller for managing tabs
+  late TabController _tabController;
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -102,58 +106,38 @@ class _HomePageState extends State<HomePage> {
                   image: DecorationImage(
                       image: AssetImage('assets/images/backgraond.png'),
                       fit: BoxFit.fill)),
-              child: BlocProvider(
-                create: (context) => sl<StoryBloc>(),
-                child: BlocConsumer<StoryBloc, StoryState>(
-                  listener: (_context, state) async {
-                    if (state is StoryError) {
-                      print(state.errorMessage);
-                    }
-                    if (state is StoryInitial) {}
-                  },
-                  builder: (_context, state) {
-                    if (state is StoryInitial) {
-                      BlocProvider.of<StoryBloc>(_context)
-                          .add(GetAllStory(userModel!.level.toString()));
+              child: Column(
+                children: [
+                  SizedBox(height: screenUtil.screenHeight * .03),
+                  _buildTopRow(),
+                  SizedBox(height: screenUtil.screenHeight * .02),
+                  _buildTabBar(),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildHomeTabContent(),
+                        const GenritiveAIPage(),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+        ),
+      ),
+    );
+  }
 
-                      // db.syncApp(userModel!.level.toString());
-                    }
-                    if (state is StoryLoading) {
-                      return Center(
-                          child: loadingApp('جاري تجهيز القصص .....  '));
-                    }
-
-                    if (state is StoryILoaded) {
-                      //TODO::Show Story here
-
-                      listStory.clear();
-                      state.storyModel.forEach((element) {
-                        listStory.add(element!);
-                      });
-
-                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                        getStars();
-                        showTutorial();
-                      });
-                      return SingleChildScrollView(
-                        child: Column(
+  // Top row with icons and search
+  Widget _buildTopRow() {
+    return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                height: screenUtil.screenHeight * .03,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(
-                                            color: AppTheme.primaryColor,
-                                            width: 2),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
+              border: Border.all(color: AppTheme.primaryColor, width: 2),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
                                     child: CustomIconWidget(
                                       status: true,
                                       primaryColor: Colors.white,
@@ -166,8 +150,7 @@ class _HomePageState extends State<HomePage> {
                                           '${CharactersListobj.showCharactersList[int.parse(userModel!.character.toString())]['image'] ?? 0}',
                                           fit: BoxFit.cover),
                                       onTap: () async {
-                                        Navigator.push(context,
-                                            CustomPageRoute(child: LockPage()));
+              Navigator.push(context, CustomPageRoute(child: LockPage()));
                                       },
                                     ),
                                   ),
@@ -187,32 +170,8 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(
-                                            color: AppTheme.primaryColor,
-                                            width: 2),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(18))),
-                                    child: GenritiveAIWidget(
-                                      key: keysix,
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                StoryGenSettings(
-                                              index: 0,
-                                            )));
-                                      },
-                                      status: bgm,
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: AppTheme.primaryColor,
-                                            width: 2),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(18))),
+              border: Border.all(color: AppTheme.primaryColor, width: 2),
+              borderRadius: BorderRadius.all(Radius.circular(18))),
                                     child: CustomMusicIcon(
                                       key: keyone,
                                       onTap: () {
@@ -225,8 +184,7 @@ class _HomePageState extends State<HomePage> {
                                         } else {
                                           setState(() {
                                             bgm = !bgm;
-                                            FlameAudio.bgm
-                                                .play('bgm.mp3', volume: 100);
+                  FlameAudio.bgm.play('bgm.mp3', volume: 100);
                                             cachedData(key: "bgm", data: bgm);
                                           });
                                         }
@@ -235,34 +193,111 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                 ],
-                              ),
-                              SizedBox(
-                                height: screenUtil.screenHeight * .03,
-                              ),
-                              Container(
+    );
+  }
+
+  // Custom tab bar
+  Widget _buildTabBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: screenUtil.screenWidth * 0.05),
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: AppTheme.primaryColor, width: 2),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicator: BoxDecoration(
+          color: AppTheme.primaryColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        splashBorderRadius: BorderRadius.circular(15),
+        labelColor: Colors.white,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: Colors.transparent,
+        indicatorPadding: EdgeInsets.all(2),
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        unselectedLabelColor: AppTheme.primaryColor,
+        labelStyle: TextStyle(
+          fontFamily: AppTheme.fontFamily,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          height: 1.0,
+          letterSpacing: 0.5,
+          shadows: [],
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: AppTheme.fontFamily,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          height: 1.0,
+          letterSpacing: 0.5,
+          shadows: [],
+        ),
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        labelPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+        tabs: [
+          Tab(
+            height: 25,
+            text: 'القصص',
+          ),
+          Tab(
+            height: 25,
+            text: 'إنشاء قصة',
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Home tab content
+  Widget _buildHomeTabContent() {
+    return BlocProvider(
+      create: (context) => sl<StoryBloc>(),
+      child: BlocConsumer<StoryBloc, StoryState>(
+        listener: (_context, state) async {
+          if (state is StoryError) {
+            print(state.errorMessage);
+          }
+          if (state is StoryInitial) {}
+        },
+        builder: (_context, state) {
+          if (state is StoryInitial) {
+            BlocProvider.of<StoryBloc>(_context)
+                .add(GetAllStory(userModel!.level.toString()));
+          }
+          if (state is StoryLoading) {
+            return Center(child: loadingApp('جاري تجهيز القصص .....  '));
+          }
+
+          if (state is StoryILoaded) {
+            listStory.clear();
+            state.storyModel.forEach((element) {
+              listStory.add(element!);
+            });
+
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              getStars();
+              showTutorial();
+            });
+            
+            return Container(
                                 height: screenUtil.screenHeight * .8,
                                 child: listStoryWithSearch.length > 0
                                     ? GridView.builder(
                                         shrinkWrap: true,
                                         padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                screenUtil.screenWidth * .01,
-                                            vertical:
-                                                screenUtil.screenHeight * .05),
+                          horizontal: screenUtil.screenWidth * .01,
+                          vertical: screenUtil.screenHeight * .05),
                                         itemCount: listStoryWithSearch.length,
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount: 3,
                                                 childAspectRatio: 15 / 14,
-                                                crossAxisSpacing:
-                                                    screenUtil.screenWidth *
-                                                        .015,
-                                                mainAxisSpacing:
-                                                    screenUtil.screenHeight *
-                                                        .15),
+                          crossAxisSpacing: screenUtil.screenWidth * .015,
+                          mainAxisSpacing: screenUtil.screenHeight * .15),
                                         itemBuilder: (context, index) {
-                                          return listStoryWithSearch[index]
-                                                      .required_stars >
+                        return listStoryWithSearch[index].required_stars >
                                                   collected_stars
                                               ? InkWell(
                                                   onTap: () {
@@ -275,77 +310,52 @@ class _HomePageState extends State<HomePage> {
                                                     });
                                                   },
                                                   child: StoryCardLock(
-                                                    name: listStoryWithSearch[
-                                                            index]
-                                                        .name,
-                                                    starts: int.parse(
-                                                        listStoryWithSearch[
-                                                                index]
-                                                            .stars),
+                                  name: listStoryWithSearch[index].name,
+                                  starts:
+                                      int.parse(listStoryWithSearch[index].stars),
                                                     photo: path +
                                                         '/' +
-                                                        listStoryWithSearch[
-                                                                index]
+                                      listStoryWithSearch[index]
                                                             .cover_photo
                                                             .toString(),
                                                   ))
-                                              : listStoryWithSearch[index]
-                                                          .download ==
-                                                      0
+                            : listStoryWithSearch[index].download == 0
                                                   ? DownloadWidget(
                                                       userModel: userModel,
                                                       onTap: () async {
-                                                        setState(() =>
-                                                            isloading = true);
+                                      setState(() => isloading = true);
                                                         showDialog(
-                                                          barrierDismissible:
-                                                              false,
+                                        barrierDismissible: false,
                                                           context: context,
                                                           builder: (context) {
                                                             return Center(
                                                               child: Dialog(
-                                                                surfaceTintColor:
-                                                                    Colors
-                                                                        .white,
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .white,
-                                                                shadowColor:
-                                                                    AppTheme
-                                                                        .primaryColor,
+                                              surfaceTintColor: Colors.white,
+                                              backgroundColor: Colors.white,
+                                              shadowColor: AppTheme.primaryColor,
                                                                 elevation: 50,
                                                                 insetAnimationDuration:
-                                                                    Duration(
-                                                                        seconds:
-                                                                            30),
-                                                                shape:
-                                                                    RoundedRectangleBorder(
+                                                  Duration(seconds: 30),
+                                              shape: RoundedRectangleBorder(
                                                                   borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20.0),
-                                                                ),
-                                                                child:
-                                                                    Container(
-                                                                        height:
-                                                                            120,
-                                                                        width:
-                                                                            70,
-                                                                        margin:
-                                                                            EdgeInsets.all(
-                                                                                5),
+                                                    BorderRadius.circular(20.0),
+                                              ),
+                                              child: Container(
+                                                  height: 120,
+                                                  width: 70,
+                                                  margin: EdgeInsets.all(5),
                                                                         decoration: BoxDecoration(
                                                                             border: Border.all(
-                                                                                color: AppTheme
-                                                                                    .primaryColor,
-                                                                                width:
-                                                                                    4),
-                                                                            borderRadius: BorderRadius.circular(
-                                                                                20)),
+                                                          color:
+                                                              AppTheme.primaryColor,
+                                                          width: 4),
+                                                      borderRadius:
+                                                          BorderRadius.circular(20)),
                                                                         child: Row(
                                                                             mainAxisAlignment:
                                                                                 MainAxisAlignment.center,
-                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.center,
                                                                             children: [
                                                                               Lottie.asset(
                                                                                 "assets/json/animation_download.json",
@@ -353,7 +363,12 @@ class _HomePageState extends State<HomePage> {
                                                                               ),
                                                                               Text(
                                                                                 'جاري تحميل القصه ',
-                                                                                style: TextStyle(color: AppTheme.primaryColor, fontSize: 15, fontFamily: AppTheme.fontFamily),
+                                                          style: TextStyle(
+                                                              color: AppTheme
+                                                                  .primaryColor,
+                                                              fontSize: 15,
+                                                              fontFamily: AppTheme
+                                                                  .fontFamily),
                                                                               )
                                                                             ])),
                                                               ),
@@ -362,68 +377,42 @@ class _HomePageState extends State<HomePage> {
                                                         );
                                                         Navigator.pop(context);
                                                         await db.downloadMedia(
-                                                            state
-                                                                .storyModel[
-                                                                    index]!
-                                                                .id
-                                                                .toString());
+                                          state.storyModel[index]!.id.toString());
 
-                                                        setState(() =>
-                                                            isloading = false);
+                                      setState(() => isloading = false);
 
-                                                        BlocProvider.of<
-                                                                    StoryBloc>(
-                                                                _context)
-                                                            .add(GetAllStory(
-                                                                userModel!.level
-                                                                    .toString()));
-                                                      },
-                                                      imagePath:
-                                                          listStoryWithSearch[
-                                                                  index]
+                                      BlocProvider.of<StoryBloc>(_context).add(
+                                          GetAllStory(
+                                              userModel!.level.toString()));
+                                    },
+                                    imagePath: listStoryWithSearch[index]
                                                               .cover_photo
                                                               .toString(),
-                                                      name: listStoryWithSearch[
-                                                              index]
+                                    name: listStoryWithSearch[index]
                                                           .name
                                                           .toString(),
                                                       stars: int.parse(
-                                                          listStoryWithSearch[
-                                                                  index]
-                                                              .stars),
+                                        listStoryWithSearch[index].stars),
                                                     )
                                                   : InkWell(
                                                       onTap: () {
-                                                        //  showImagesDialog(context,'${CharactersListobj.FaceCharactersList[CharactersList_id]['image']}' , 'تاكد من وجود انترنت من اجل تنزيل هذه القصه ');
-
                                                         Navigator.push(
                                                             context,
                                                             CustomPageRoute(
-                                                                child:
-                                                                    StoryPage(
-                                                              id: listStoryWithSearch[
-                                                                      index]
-                                                                  .id,
+                                              child: StoryPage(
+                                            id: listStoryWithSearch[index].id,
                                                             )));
 
                                                         FlameAudio.bgm.pause();
                                                       },
                                                       child: StoryCard(
-                                                        key: tautorial
-                                                            ? null
-                                                            : keyfive,
-                                                        name:
-                                                            listStoryWithSearch[
-                                                                    index]
-                                                                .name,
+                                      key: tautorial ? null : keyfive,
+                                      name: listStoryWithSearch[index].name,
                                                         starts: int.parse(
-                                                            listStoryWithSearch[
-                                                                    index]
-                                                                .stars),
+                                          listStoryWithSearch[index].stars),
                                                         photo: path +
                                                             '/' +
-                                                            listStoryWithSearch[
-                                                                    index]
+                                          listStoryWithSearch[index]
                                                                 .cover_photo
                                                                 .toString(),
                                                       ));
@@ -434,16 +423,11 @@ class _HomePageState extends State<HomePage> {
                                         'القائمه فارغه',
                                         style: AppTheme.textTheme.displayMedium,
                                       )),
-                              )
-                            ]),
                       );
                     }
 
                     return Container();
                   },
-                ),
-              )),
-        ),
       ),
     );
   }
@@ -459,8 +443,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // Initialize tab controller
+    _tabController = TabController(length: 2, vsync: this);
+    
     initUser();
     initTutorial();
     listStoryWithSearch = listStory;
@@ -584,7 +570,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _tabController.dispose();
     super.dispose();
     BlocProvider.of<StoryBloc>(context).close();
   }
